@@ -1,148 +1,156 @@
+
 <!DOCTYPE html>
 <html lang="tr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>E-Kütüphanem | Kesintisiz Erişim</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script src="https://unpkg.com/alpinejs" defer></script>
+    <title>Berber Samed Ağca | Malatya - Profesyonel Randevu Sistemi</title>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;700&family=Playfair+Display:ital,wght@0,700;1,700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;900&family=Merriweather:ital,wght@0,700;1,400&display=swap');
-        body { font-family: 'Inter', sans-serif; background-color: #D1D5DB; }
-        .serif-text { font-family: 'Merriweather', serif; }
-        .sidebar-shadow { border-bottom: 4px solid rgba(0,0,0,0.3); }
+        /* Kritik inline stiller */
+        .pendant-logo {
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 1000;
+            width: 180px;
+        }
+        .pendant-logo img {
+            width: 100%;
+            filter: drop-shadow(0px 5px 15px rgba(0,0,0,0.5));
+        }
     </style>
 </head>
-<body x-data="{ page: 'home', login: false }">
+<body>
 
-    <nav class="bg-black text-white h-14 flex items-center justify-between px-4 sticky top-0 z-50">
-        <div class="flex items-center gap-6">
-            <span @click="page = 'home'" class="font-black text-xl tracking-tighter cursor-pointer">E-Kütüphanem</span>
-            <div class="relative flex items-center">
-                <input type="text" class="rounded-full py-1 px-4 text-black text-sm w-64 outline-none" placeholder="Kitap ara...">
-                <button class="absolute right-0 bg-[#7B1FA2] p-1.5 rounded-r-full hover:bg-purple-800 transition-colors">🔍</button>
+    <!-- Üst Flama Logo (Schorem Style) -->
+    <div class="pendant-logo">
+        <!-- Buraya oluşturduğumuz logoyu logo.png adıyla eklemelisin -->
+        <img src="assets/logo.png" alt="Berber Samed Ağca Logo">
+    </div>
+
+    <!-- Video Banner (Figaro's Style) -->
+    <header class="hero">
+        <div class="video-overlay"></div>
+        <video autoplay muted loop playsinline class="hero-video">
+            <!-- Buraya kendi videonu assets/banner-video.mp4 adıyla eklemelisin -->
+            <source src="assets/banner-video.mp4" type="video/mp4">
+        </video>
+        
+        <div class="hero-content">
+            <h1 class="main-title">MALATYA BERBER <br> <span>SAMED AĞCA</span></h1>
+            <p class="sub-title">Ustalıkla Şekillenen Modern Tarz</p>
+            <div class="hero-btns">
+                <a href="#iletisim" class="btn btn-primary">HEMEN RANDEVU AL</a>
+                <a href="#hizmetler" class="btn btn-outline">HİZMETLERİMİZ</a>
             </div>
         </div>
-        <div class="flex items-center gap-6">
-            <div class="flex items-center gap-1 cursor-pointer font-bold text-xs uppercase">
-                <span>🌐 Türkçe</span> <span class="text-gray-500">TR</span>
-            </div>
-            <button @click="login = !login" class="bg-[#FFC107] text-black text-xs font-black px-4 py-1.5 rounded-sm hover:bg-yellow-500">Oturum Aç</button>
-            <div class="flex gap-4 text-xl">
-                <span class="text-red-600 cursor-pointer">▶️</span>
-                <span class="text-blue-600 cursor-pointer font-bold">f</span>
-                <span class="text-red-500 cursor-pointer">📌</span>
-                <span class="text-yellow-400 cursor-pointer">👻</span>
-            </div>
-        </div>
+    </header>
+
+    <!-- Navigasyon -->
+    <nav class="main-nav">
+        <ul>
+            <li><a href="#iletisim">İLETİŞİM</a></li>
+            <li><a href="#hizmetler">HİZMETLER</a></li>
+            <li><a href="#galeri">GALERİ</a></li>
+            <li><a href="#hakkimizda">HAKKIMIZDA</a></li>
+        </ul>
     </nav>
 
-    <div class="flex">
-        <aside class="w-60 bg-[#C0C0C0] min-h-screen p-3 flex flex-col gap-1.5 border-r border-gray-400">
-            <button @click="page = 'romantic'" class="sidebar-shadow bg-[#E91E63] text-white text-left px-3 py-2.5 text-[11px] font-black rounded-sm flex items-center gap-2"><span>📖</span> Romantik Kitap</button>
-            <button @click="page = 'home'" class="sidebar-shadow bg-[#1976D2] text-white text-left px-3 py-2.5 text-[11px] font-black rounded-sm flex items-center gap-2"><span>🎓</span> Akademik Kitap</button>
-            <button @click="page = 'home'" class="sidebar-shadow bg-[#00BCD4] text-white text-left px-3 py-2.5 text-[11px] font-black rounded-sm flex items-center gap-2"><span>💡</span> Kişisel Gelişim</button>
-            <button @click="page = 'children'" class="sidebar-shadow bg-[#FF9800] text-white text-left px-3 py-2.5 text-[11px] font-black rounded-sm flex items-center gap-2"><span>🧸</span> Çocuk Kitapları</button>
-            <button @click="page = 'classic'" class="sidebar-shadow bg-[#F44336] text-white text-left px-3 py-2.5 text-[11px] font-black rounded-sm flex items-center gap-2"><span>📚</span> Edebiyat Kitabı</button>
-            <button @click="page = 'psychology'" class="sidebar-shadow bg-[#3F51B5] text-white text-left px-3 py-2.5 text-[11px] font-black rounded-sm flex items-center gap-2"><span>🧠</span> Psikoloji Kitabı</button>
-            <button @click="page = 'home'" class="sidebar-shadow bg-black text-white text-left px-3 py-2.5 text-[11px] font-black rounded-sm flex items-center gap-2 mt-4"><span>🏠</span> E-Kütüphanem</button>
-        </aside>
-
-        <main class="flex-1 p-12 relative">
-            
-            <div x-show="login" class="absolute top-10 right-10 bg-[#2D2D2D] text-white p-6 shadow-2xl z-40 border border-gray-600 rounded">
-                <p class="text-[10px] text-gray-400 mb-4">Google ile Oturum Aç</p>
-                <input type="email" placeholder="E-posta" class="w-full mb-2 p-2 text-black text-xs rounded">
-                <input type="password" placeholder="Şifre" class="w-full mb-4 p-2 text-black text-xs rounded">
-                <button class="w-full bg-[#1A73E8] py-2 text-xs font-bold rounded">Oturum Aç</button>
-                <button class="w-full mt-2 border border-gray-500 py-2 text-xs font-bold rounded">Kayıt Ol</button>
-            </div>
-
-            <template x-if="page === 'home'">
-                <div class="flex flex-col items-center">
-                    <h1 class="text-4xl font-black mb-12 serif-text tracking-tight">En Çok Okunan Kitaplar</h1>
-                    <div class="flex items-center gap-12 mb-16">
-                        <span class="text-6xl cursor-pointer hover:scale-110">⬅️</span>
-                        <div class="flex gap-6">
-                            <div @click="page = 'twilight'" class="w-44 h-64 bg-gray-800 shadow-2xl border-4 border-white cursor-pointer hover:rotate-2 transition-transform"></div>
-                            <div @click="page = 'psychology'" class="w-44 h-64 bg-gray-700 shadow-2xl border-4 border-white cursor-pointer"></div>
-                            <div class="w-44 h-64 bg-gray-900 shadow-2xl border-4 border-white cursor-pointer"></div>
-                        </div>
-                        <span class="text-6xl cursor-pointer hover:scale-110">➡️</span>
-                    </div>
+    <!-- İLETİŞİM (Öncelikli Bölüm) -->
+    <section id="iletisim" class="section contact-section">
+        <div class="container">
+            <h2 class="section-title">İletişim & Konum</h2>
+            <div class="contact-grid">
+                <div class="contact-item">
+                    <h3>Telefon</h3>
+                    <p><a href="tel:+905XXXXXXXXX">05XX XXX XX XX</a></p>
                 </div>
-            </template>
-
-            <template x-if="page === 'children'">
-                <div class="flex flex-col items-center">
-                    <h1 class="text-4xl font-black mb-12 serif-text">Children's Books</h1>
-                    <div class="flex items-center gap-12">
-                        <span class="text-6xl cursor-pointer">⬅️</span>
-                        <div class="flex gap-6">
-                            <div class="w-40 h-56 bg-orange-200 border-4 border-white shadow-xl"></div>
-                            <div class="w-40 h-56 bg-purple-200 border-4 border-white shadow-xl"></div>
-                            <div class="w-40 h-56 bg-green-200 border-4 border-white shadow-xl"></div>
-                        </div>
-                        <span class="text-6xl cursor-pointer">➡️</span>
-                    </div>
-                    <p class="mt-20 text-center font-bold italic max-w-md">Our e-library is a digital world designed for everyone who loves to read.</p>
+                <div class="contact-item">
+                    <h3>Adres</h3>
+                    <p>Malatya Merkez, [Mahalle/Sokak Detayı]</p>
+                    <a href="#" target="_blank" class="map-link">Haritada Gör & Yol Tarifi Al</a>
                 </div>
-            </template>
-
-            <template x-if="page === 'psychology'">
-                <div class="max-w-5xl mx-auto flex gap-12">
-                    <div class="w-80">
-                        <div class="h-[400px] bg-indigo-900 border-4 border-white shadow-2xl p-6 flex items-end">
-                            <span class="text-white font-black text-2xl">PSYCHOLOGY</span>
-                        </div>
-                        <div class="flex justify-between mt-6 text-2xl opacity-70">
-                            <span>🛒</span><span>🖨️</span><span>📶</span><span>🔗</span>
-                        </div>
-                        <button class="w-full mt-6 bg-black text-white py-4 text-[10px] font-black uppercase tracking-widest">➕ Add to My E-Library</button>
-                    </div>
-                    <div class="flex-1">
-                        <h1 class="text-7xl font-black serif-text mb-2 tracking-tighter">Psychology</h1>
-                        <p class="text-gray-500 font-bold mb-6 italic">By Stephenie Meyer (Contextual)</p>
-                        <div class="flex items-center gap-2 mb-8"><span class="text-[#FFC107] text-2xl">★★★★☆</span><span class="font-bold text-sm">4.5/5</span></div>
-                        <div class="text-sm text-gray-800 leading-relaxed text-justify italic border-l-4 border-black/10 pl-6">
-                            Emma is one of Jane Austen's best-loved novels... The novel provides an insight into the distinctions in the rigid class structure of England.
-                        </div>
-                    </div>
-                </div>
-            </template>
-
-            <template x-if="page === 'twilight'">
-                <div class="max-w-5xl mx-auto flex gap-12">
-                    <div class="w-80">
-                        <div class="h-[400px] bg-black border-4 border-white shadow-2xl relative">
-                            <img src="https://m.media-amazon.com/images/I/615ZI6mPqlL._AC_UF1000,1000_QL80_.jpg" class="w-full h-full object-cover">
-                        </div>
-                        <button class="w-full mt-6 bg-black text-white py-4 text-[10px] font-black uppercase">➕ Add to My E-Library</button>
-                    </div>
-                    <div class="flex-1">
-                        <h1 class="text-7xl font-black serif-text mb-2 tracking-tighter">Alacakaranlık</h1>
-                        <p class="text-gray-500 font-bold mb-6 italic">By Stephanie Meyer</p>
-                        <div class="flex items-center gap-2 mb-8 text-[#FFC107] text-2xl">★★★★★</div>
-                        <div class="text-sm text-gray-800 leading-relaxed space-y-4 font-medium italic">
-                            <p>"Üç şeyden kesinlikle emindim. Birincisi Edward bir vampirdi. İkincisi, onun ne kadar baskın olduğunu bilmediğim bir yanı kana susamıştı..."</p>
-                            <p>Porselen teni, altın gözleri ve büyüleyici sesiyle Edward hem karşı konulmazdı hem de gizemliydi.</p>
-                        </div>
-                    </div>
-                </div>
-            </template>
-
-            <div class="mt-20 w-full flex flex-col items-center gap-6">
-                <div class="flex gap-4">
-                    <div class="w-3 h-3 rounded-full bg-gray-400"></div>
-                    <div class="w-3 h-3 rounded-full bg-[#7B1FA2] animate-pulse"></div>
-                    <div class="w-3 h-3 rounded-full bg-gray-400"></div>
-                </div>
-                <div class="border-x-8 border-black px-12 py-3">
-                    <p class="font-black italic text-2xl uppercase tracking-tighter leading-none">"Binlerce Kitap Tek Tıkla Yanında"</p>
-                    <p class="text-[10px] font-bold text-gray-500 uppercase mt-1 text-center">Roman, kişisel gelişim, akademik ve daha fazlası...</p>
+                <div class="contact-item">
+                    <h3>Çalışma Saatleri</h3>
+                    <p>Pazartesi - Cumartesi: 09:00 - 21:00 <br> Pazar: Kapalı</p>
                 </div>
             </div>
-        </main>
-    </div>
+        </div>
+    </section>
+
+    <!-- HİZMETLER -->
+    <section id="hizmetler" class="section services-section">
+        <div class="container">
+            <h2 class="section-title">Hizmetlerimiz</h2>
+            <div class="services-grid">
+                <div class="service-card">
+                    <div class="service-info">
+                        <h3>VİP Saç Kesimi</h3>
+                        <span>45 Dakika</span>
+                    </div>
+                    <p>Kişiye özel stil danışmanlığı ile modern kesim.</p>
+                </div>
+                <div class="service-card">
+                    <div class="service-info">
+                        <h3>Sakal Tasarımı</h3>
+                        <span>30 Dakika</span>
+                    </div>
+                    <p>Ustura ve sıcak havlu eşliğinde sakal şekillendirme.</p>
+                </div>
+                <div class="service-card">
+                    <div class="service-info">
+                        <h3>Cilt Bakımı</h3>
+                        <span>20 Dakika</span>
+                    </div>
+                    <p>Buhar terapisi ve siyah nokta temizliği.</p>
+                </div>
+                <div class="service-card">
+                    <div class="service-info">
+                        <h3>Saç Bakım & Yıkama</h3>
+                        <span>15 Dakika</span>
+                    </div>
+                    <p>Profesyonel ürünlerle canlandırıcı bakım.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- GALERİ -->
+    <section id="galeri" class="section gallery-section">
+        <div class="container">
+            <h2 class="section-title">Portfolyo</h2>
+            <div class="gallery-grid">
+                <!-- Fotoğraflar geldikçe buraya eklenecek -->
+                <div class="gallery-item placeholder">Tıraş Görseli 1</div>
+                <div class="gallery-item placeholder">Tıraş Görseli 2</div>
+                <div class="gallery-item placeholder">Tıraş Görseli 3</div>
+                <div class="gallery-item placeholder">Tıraş Görseli 4</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- HAKKIMIZDA -->
+    <section id="hakkimizda" class="section about-section">
+        <div class="container">
+            <div class="about-content">
+                <h2 class="section-title">Ustalık Hikayemiz</h2>
+                <p>Malatya'da berberlik sanatını modern dokunuşlarla birleştiriyoruz. Samed Ağca olarak amacımız, her müşterimizin dükkanımızdan sadece iyi bir tıraşla değil, yenilenmiş bir özgüvenle ayrılmasını sağlamaktır.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Floating WhatsApp Button -->
+    <a href="https://wa.me/905XXXXXXXXX" class="floating-btn whatsapp" target="_blank">
+        <span>WhatsApp Randevu</span>
+    </a>
+
+    <footer>
+        <p>&copy; 2024 Berber Samed Ağca. Tüm Hakları Saklıdır.</p>
+    </footer>
+
 </body>
 </html>
