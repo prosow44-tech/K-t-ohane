@@ -1,0 +1,156 @@
+
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Berber Samed Ağca | Malatya - Profesyonel Randevu Sistemi</title>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;700&family=Playfair+Display:ital,wght@0,700;1,700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <style>
+        /* Kritik inline stiller */
+        .pendant-logo {
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 1000;
+            width: 180px;
+        }
+        .pendant-logo img {
+            width: 100%;
+            filter: drop-shadow(0px 5px 15px rgba(0,0,0,0.5));
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Üst Flama Logo (Schorem Style) -->
+    <div class="pendant-logo">
+        <!-- Buraya oluşturduğumuz logoyu logo.png adıyla eklemelisin -->
+        <img src="assets/logo.png" alt="Berber Samed Ağca Logo">
+    </div>
+
+    <!-- Video Banner (Figaro's Style) -->
+    <header class="hero">
+        <div class="video-overlay"></div>
+        <video autoplay muted loop playsinline class="hero-video">
+            <!-- Buraya kendi videonu assets/banner-video.mp4 adıyla eklemelisin -->
+            <source src="assets/banner-video.mp4" type="video/mp4">
+        </video>
+        
+        <div class="hero-content">
+            <h1 class="main-title">MALATYA BERBER <br> <span>SAMED AĞCA</span></h1>
+            <p class="sub-title">Ustalıkla Şekillenen Modern Tarz</p>
+            <div class="hero-btns">
+                <a href="#iletisim" class="btn btn-primary">HEMEN RANDEVU AL</a>
+                <a href="#hizmetler" class="btn btn-outline">HİZMETLERİMİZ</a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Navigasyon -->
+    <nav class="main-nav">
+        <ul>
+            <li><a href="#iletisim">İLETİŞİM</a></li>
+            <li><a href="#hizmetler">HİZMETLER</a></li>
+            <li><a href="#galeri">GALERİ</a></li>
+            <li><a href="#hakkimizda">HAKKIMIZDA</a></li>
+        </ul>
+    </nav>
+
+    <!-- İLETİŞİM (Öncelikli Bölüm) -->
+    <section id="iletisim" class="section contact-section">
+        <div class="container">
+            <h2 class="section-title">İletişim & Konum</h2>
+            <div class="contact-grid">
+                <div class="contact-item">
+                    <h3>Telefon</h3>
+                    <p><a href="tel:+905XXXXXXXXX">05XX XXX XX XX</a></p>
+                </div>
+                <div class="contact-item">
+                    <h3>Adres</h3>
+                    <p>Malatya Merkez, [Mahalle/Sokak Detayı]</p>
+                    <a href="#" target="_blank" class="map-link">Haritada Gör & Yol Tarifi Al</a>
+                </div>
+                <div class="contact-item">
+                    <h3>Çalışma Saatleri</h3>
+                    <p>Pazartesi - Cumartesi: 09:00 - 21:00 <br> Pazar: Kapalı</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- HİZMETLER -->
+    <section id="hizmetler" class="section services-section">
+        <div class="container">
+            <h2 class="section-title">Hizmetlerimiz</h2>
+            <div class="services-grid">
+                <div class="service-card">
+                    <div class="service-info">
+                        <h3>VİP Saç Kesimi</h3>
+                        <span>45 Dakika</span>
+                    </div>
+                    <p>Kişiye özel stil danışmanlığı ile modern kesim.</p>
+                </div>
+                <div class="service-card">
+                    <div class="service-info">
+                        <h3>Sakal Tasarımı</h3>
+                        <span>30 Dakika</span>
+                    </div>
+                    <p>Ustura ve sıcak havlu eşliğinde sakal şekillendirme.</p>
+                </div>
+                <div class="service-card">
+                    <div class="service-info">
+                        <h3>Cilt Bakımı</h3>
+                        <span>20 Dakika</span>
+                    </div>
+                    <p>Buhar terapisi ve siyah nokta temizliği.</p>
+                </div>
+                <div class="service-card">
+                    <div class="service-info">
+                        <h3>Saç Bakım & Yıkama</h3>
+                        <span>15 Dakika</span>
+                    </div>
+                    <p>Profesyonel ürünlerle canlandırıcı bakım.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- GALERİ -->
+    <section id="galeri" class="section gallery-section">
+        <div class="container">
+            <h2 class="section-title">Portfolyo</h2>
+            <div class="gallery-grid">
+                <!-- Fotoğraflar geldikçe buraya eklenecek -->
+                <div class="gallery-item placeholder">Tıraş Görseli 1</div>
+                <div class="gallery-item placeholder">Tıraş Görseli 2</div>
+                <div class="gallery-item placeholder">Tıraş Görseli 3</div>
+                <div class="gallery-item placeholder">Tıraş Görseli 4</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- HAKKIMIZDA -->
+    <section id="hakkimizda" class="section about-section">
+        <div class="container">
+            <div class="about-content">
+                <h2 class="section-title">Ustalık Hikayemiz</h2>
+                <p>Malatya'da berberlik sanatını modern dokunuşlarla birleştiriyoruz. Samed Ağca olarak amacımız, her müşterimizin dükkanımızdan sadece iyi bir tıraşla değil, yenilenmiş bir özgüvenle ayrılmasını sağlamaktır.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Floating WhatsApp Button -->
+    <a href="https://wa.me/905XXXXXXXXX" class="floating-btn whatsapp" target="_blank">
+        <span>WhatsApp Randevu</span>
+    </a>
+
+    <footer>
+        <p>&copy; 2024 Berber Samed Ağca. Tüm Hakları Saklıdır.</p>
+    </footer>
+
+</body>
+</html>
