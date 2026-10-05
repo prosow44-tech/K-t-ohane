@@ -1,156 +1,619 @@
-
 <!DOCTYPE html>
 <html lang="tr">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Berber Samed Ağca | Malatya - Profesyonel Randevu Sistemi</title>
-    <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;700&family=Playfair+Display:ital,wght@0,700;1,700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="style.css">
-    <style>
-        /* Kritik inline stiller */
-        .pendant-logo {
-            position: absolute;
-            top: 0;
-            left: 50%;
-            transform: translateX(-50%);
-            z-index: 1000;
-            width: 180px;
-        }
-        .pendant-logo img {
-            width: 100%;
-            filter: drop-shadow(0px 5px 15px rgba(0,0,0,0.5));
-        }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<title>Reklam Yönetim Paneli</title>
+<meta name="description" content="Reklam performansınızı canlı takip edin.">
+
+<!-- PWA -->
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#0B1220">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<link rel="apple-touch-icon" href="assets/icon-192.png">
+<link rel="icon" href="assets/icon-192.png">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.4/dist/chart.umd.min.js"></script>
+
+<style>
+  :root{
+    --bg:#0B1220;
+    --panel:#121B2E;
+    --panel-2:#0E1728;
+    --line:#213052;
+    --text:#EAF0FC;
+    --muted:#8B9BBE;
+    --accent:#2E6FF2;
+    --accent-soft:#193261;
+    --deep:#123A8F;
+    --pale:#9FC1F7;
+    --good:#1FAA6D;
+    --good-soft:#0F3D2C;
+    --bad:#E5484D;
+    --bad-soft:#3B1518;
+    --radius-lg:22px;
+    --radius-md:14px;
+    --radius-sm:9px;
+  }
+
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  body{
+    background:
+      radial-gradient(1100px 620px at 12% -8%, rgba(46,111,242,.16), transparent 60%),
+      radial-gradient(900px 700px at 105% 8%, rgba(31,170,109,.06), transparent 55%),
+      var(--bg);
+    color:var(--text);
+    font-family:'IBM Plex Sans', system-ui, sans-serif;
+    -webkit-font-smoothing:antialiased;
+    min-height:100vh;
+    line-height:1.5;
+    /* Metin seçimi engelleme (Kopya koruması eklentisi) */
+    user-select:none;
+    -webkit-user-select:none;
+  }
+  h1,h2,h3,.num,.metric-value{font-family:'Space Grotesk', 'IBM Plex Sans', sans-serif;}
+  .num{font-variant-numeric:tabular-nums;}
+  a{color:inherit;}
+  ::selection{background:var(--accent-soft);}
+
+  button{font-family:inherit;}
+
+  .wrap{
+    max-width:1180px;
+    margin:0 auto;
+    padding:20px 20px 0;
+  }
+
+  /* ---------- HEADER ---------- */
+  header{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:16px;
+    padding:6px 2px 22px;
+  }
+  .brand{display:flex;align-items:center;gap:12px;min-width:0;}
+  .brand-badge{
+    width:44px;height:44px;border-radius:12px;flex:none;
+    background:linear-gradient(155deg, var(--accent), var(--deep));
+    display:flex;align-items:center;justify-content:center;
+    font-weight:700;font-size:17px;letter-spacing:.2px;
+    box-shadow:0 6px 18px rgba(46,111,242,.35);
+  }
+  .brand-name{font-size:16px;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+  .brand-sub{font-size:12.5px;color:var(--muted);margin-top:1px;}
+  .trust-badge{
+    display:flex;align-items:center;gap:7px;
+    padding:8px 13px;border-radius:999px;
+    background:var(--panel);border:1px solid var(--line);
+    font-size:12.5px;color:var(--pale);flex:none;
+    white-space:nowrap;
+  }
+  .trust-badge svg{width:14px;height:14px;flex:none;}
+
+  /* ---------- LAYOUT GRID ---------- */
+  .board{
+    display:grid;
+    grid-template-columns: 1fr;
+    gap:16px;
+    padding-bottom:26px;
+  }
+  @media (min-width: 860px){
+    .board{grid-template-columns: 380px 1fr;align-items:start;}
+  }
+
+  .col-left{display:flex;flex-direction:column;gap:16px;}
+  .col-right{display:flex;flex-direction:column;gap:16px;}
+
+  /* order for mobile */
+  .card-metrics{order:1;}
+  .card-map{order:2;}
+  .card-chart{order:3;}
+  .card-cta{order:4;}
+  @media (min-width: 860px){
+    .card-metrics,.card-map,.card-chart,.card-cta{order:initial;}
+  }
+
+  .panel{
+    background:linear-gradient(180deg, var(--panel), var(--panel-2));
+    border:1px solid var(--line);
+    border-radius:var(--radius-lg);
+    padding:22px;
+  }
+
+  /* ---------- METRICS ---------- */
+  .card-metrics .metric + .metric{margin-top:22px;padding-top:22px;border-top:1px solid var(--line);}
+  .metric-label{font-size:13px;color:var(--muted);font-weight:500;}
+  .metric-value{
+    font-size:clamp(38px, 6.4vw, 52px);
+    font-weight:700;
+    letter-spacing:-.01em;
+    margin-top:6px;
+    display:flex;align-items:baseline;gap:10px;
+  }
+  .metric-trend{
+    font-size:13.5px;font-weight:600;color:var(--good);
+    display:inline-flex;align-items:center;gap:3px;
+  }
+  .metric-trend svg{width:11px;height:11px;}
+  .metric-foot{font-size:12.5px;color:var(--muted);margin-top:4px;}
+
+  /* ---------- CTA BUTTON ---------- */
+  .cta-btn{
+    width:100%;
+    border:none;
+    border-radius:var(--radius-md);
+    padding:20px 22px;
+    font-size:17px;
+    font-weight:600;
+    color:#fff;
+    cursor:pointer;
+    display:flex;align-items:center;justify-content:center;gap:12px;
+    transition:transform .12s ease, box-shadow .2s ease, background .25s ease;
+    background:linear-gradient(155deg, var(--good), #157e51);
+    box-shadow:0 10px 26px rgba(31,170,109,.28);
+  }
+  .cta-btn:active{transform:scale(.985);}
+  .cta-btn.is-off{
+    background:linear-gradient(155deg, var(--bad), #b8393d);
+    box-shadow:0 10px 26px rgba(229,72,77,.28);
+  }
+  .cta-btn:disabled{cursor:not-allowed;opacity:.85;transform:none;}
+  .cta-btn .spinner{
+    width:18px;height:18px;border-radius:50%;
+    border:2.5px solid rgba(255,255,255,.4);
+    border-top-color:#fff;
+    animation:spin .7s linear infinite;
+    display:none;
+  }
+  .cta-btn.is-loading .spinner{display:inline-block;}
+  .cta-btn.is-loading .cta-label{opacity:.85;}
+  @keyframes spin{to{transform:rotate(360deg);}}
+  .cta-hint{font-size:12px;color:var(--muted);text-align:center;margin-top:10px;}
+
+  /* ---------- MAP ---------- */
+  .card-map h2, .card-chart h2{
+    font-size:15px;font-weight:600;margin:0 0 3px;
+    display:flex;align-items:center;gap:8px;
+  }
+  .card-map p.sub, .card-chart p.sub{font-size:12.5px;color:var(--muted);margin:0 0 16px;}
+
+  .map-svg-wrap{width:100%; position: relative; overflow: hidden; border-radius: 8px;}
+  .map-svg-wrap svg{width:100%;height:auto;display:block;}
+  .district path{
+    stroke:rgba(255,255,255,.15);
+    stroke-width:1.5;
+    stroke-linejoin:round;
+    transition:transform .2s ease, fill .2s ease;
+    transform-origin:center;
+  }
+  .district:hover path{
+    stroke:#fff;
+    stroke-width:2;
+    transform:scale(1.01);
+  }
+  .district text.name{fill:#EAF0FC;font-family:'IBM Plex Sans',sans-serif;font-size:12.5px;font-weight:600; text-anchor: middle;}
+  .district text.count{fill:rgba(255,255,255,.8);font-family:'Space Grotesk',sans-serif;font-size:11px;font-weight:500; text-anchor: middle;}
+
+  .legend{display:flex;align-items:center;gap:10px;margin-top:16px;font-size:11.5px;color:var(--muted);}
+  .legend-bar{
+    flex:1;height:7px;border-radius:99px;
+    background:linear-gradient(90deg, var(--pale), var(--deep));
+  }
+
+  /* ---------- CHART ---------- */
+  .chart-holder{position:relative;height:190px;}
+
+  /* ---------- MEDIA / GIF SHOWCASE ---------- */
+  .media-showcase{
+    order:5;
+    margin-top:4px;
+    padding:26px 22px 30px;
+    text-align:center;
+  }
+  @media (min-width: 860px){ .media-showcase{grid-column:1 / -1;} }
+  .media-showcase h3{font-size:14px;margin:0 0 4px;color:var(--pale);font-weight:600;}
+  .media-showcase p.sub{font-size:12.5px;color:var(--muted);margin:0 0 18px;}
+  .media-frame{
+    max-width:340px;margin:0 auto;
+    background:transparent;
+    display:flex;align-items:center;justify-content:center;
+  }
+  .media-frame img{
+    max-width:100%;height:auto;display:block;
+    background:transparent;
+    filter:drop-shadow(0 12px 30px rgba(0,0,0,.35));
+  }
+
+  footer{
+    text-align:center;font-size:11.5px;color:var(--muted);
+    padding:22px 20px 34px;
+  }
+
+  /* ---------- OVERLAYS (payment lock + offline) ---------- */
+  .board-shell.is-locked .board,
+  .board-shell.is-locked header{
+    filter:blur(10px) saturate(70%);
+    pointer-events:none;
+    user-select:none;
+  }
+  .overlay{
+    position:fixed;inset:0;
+    display:none;
+    align-items:center;justify-content:center;
+    padding:24px;
+    z-index:50;
+    background:rgba(6,10,20,.65);
+    backdrop-filter: blur(4px);
+  }
+  .overlay.is-visible{display:flex;}
+  .overlay-box{
+    max-width:380px;width:100%;
+    background:var(--panel-2);
+    border:1px solid rgba(229,72,77,.4);
+    border-radius:var(--radius-lg);
+    padding:30px 26px;
+    text-align:center;
+    box-shadow:0 24px 60px rgba(0,0,0,.7);
+  }
+  .overlay-box .icon{
+    width:54px;height:54px;border-radius:16px;margin:0 auto 16px;
+    background:var(--bad-soft);
+    display:flex;align-items:center;justify-content:center;
+  }
+  .overlay-box .icon svg{width:26px;height:26px;}
+  .overlay-box h2{font-size:17px;margin:0 0 8px;}
+  .overlay-box p{font-size:13.5px;color:var(--muted);margin:0;}
+
+  .overlay.offline .overlay-box{border-color:var(--line);}
+  .overlay.offline .overlay-box .icon{background:var(--accent-soft);}
+
+  @media (prefers-reduced-motion: reduce){
+    *{animation-duration:.001ms !important;transition-duration:.001ms !important;}
+  }
+</style>
 </head>
 <body>
 
-    <!-- Üst Flama Logo (Schorem Style) -->
-    <div class="pendant-logo">
-        <!-- Buraya oluşturduğumuz logoyu logo.png adıyla eklemelisin -->
-        <img src="assets/logo.png" alt="Berber Samed Ağca Logo">
-    </div>
-
-    <!-- Video Banner (Figaro's Style) -->
-    <header class="hero">
-        <div class="video-overlay"></div>
-        <video autoplay muted loop playsinline class="hero-video">
-            <!-- Buraya kendi videonu assets/banner-video.mp4 adıyla eklemelisin -->
-            <source src="assets/banner-video.mp4" type="video/mp4">
-        </video>
-        
-        <div class="hero-content">
-            <h1 class="main-title">MALATYA BERBER <br> <span>SAMED AĞCA</span></h1>
-            <p class="sub-title">Ustalıkla Şekillenen Modern Tarz</p>
-            <div class="hero-btns">
-                <a href="#iletisim" class="btn btn-primary">HEMEN RANDEVU AL</a>
-                <a href="#hizmetler" class="btn btn-outline">HİZMETLERİMİZ</a>
-            </div>
+<div class="board-shell" id="boardShell">
+  <div class="wrap">
+    <header>
+      <div class="brand">
+        <div class="brand-badge" id="brandInitial">MT</div>
+        <div>
+          <div class="brand-name" id="brandName">Merkez Taksi</div>
+          <div class="brand-sub">Reklam Yönetim Paneli</div>
         </div>
+      </div>
+      <div class="trust-badge">
+        <svg viewBox="0 0 24 24" fill="none"><path d="M12 2l7 3v6c0 5-3.4 8.4-7 10-3.6-1.6-7-5-7-10V5l7-3z" stroke="#9FC1F7" stroke-width="1.6" stroke-linejoin="round"/><path d="M9 12l2 2 4-4" stroke="#9FC1F7" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        Güvenli Bağlantı
+      </div>
     </header>
 
-    <!-- Navigasyon -->
-    <nav class="main-nav">
-        <ul>
-            <li><a href="#iletisim">İLETİŞİM</a></li>
-            <li><a href="#hizmetler">HİZMETLER</a></li>
-            <li><a href="#galeri">GALERİ</a></li>
-            <li><a href="#hakkimizda">HAKKIMIZDA</a></li>
-        </ul>
-    </nav>
+    <div class="board">
+      <div class="col-left">
+        <section class="panel card-metrics">
+          <div class="metric">
+            <div class="metric-label">Görüntülenme</div>
+            <div class="metric-value"><span class="num" id="metricGosterim">0</span></div>
+            <div class="metric-foot"><span class="metric-trend"><svg viewBox="0 0 24 24" fill="none"><path d="M4 15l6-6 4 4 6-8" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg> Bu hafta artışta</span></div>
+          </div>
+          <div class="metric">
+            <div class="metric-label">Tıklanma</div>
+            <div class="metric-value"><span class="num" id="metricTiklanma">0</span></div>
+            <div class="metric-foot">Reklamınız insanların ilgisini çekiyor</div>
+          </div>
+        </section>
 
-    <!-- İLETİŞİM (Öncelikli Bölüm) -->
-    <section id="iletisim" class="section contact-section">
-        <div class="container">
-            <h2 class="section-title">İletişim & Konum</h2>
-            <div class="contact-grid">
-                <div class="contact-item">
-                    <h3>Telefon</h3>
-                    <p><a href="tel:+905XXXXXXXXX">05XX XXX XX XX</a></p>
-                </div>
-                <div class="contact-item">
-                    <h3>Adres</h3>
-                    <p>Malatya Merkez, [Mahalle/Sokak Detayı]</p>
-                    <a href="#" target="_blank" class="map-link">Haritada Gör & Yol Tarifi Al</a>
-                </div>
-                <div class="contact-item">
-                    <h3>Çalışma Saatleri</h3>
-                    <p>Pazartesi - Cumartesi: 09:00 - 21:00 <br> Pazar: Kapalı</p>
-                </div>
-            </div>
+        <section class="panel card-cta">
+          <button class="cta-btn is-on" id="ctaBtn">
+            <span class="spinner"></span>
+            <span class="cta-label" id="ctaLabel">Reklamı Durdur</span>
+          </button>
+          <div class="cta-hint" id="ctaHint">Şu anda yayında — istediğiniz an durdurabilirsiniz.</div>
+        </section>
+      </div>
+
+      <div class="col-right">
+        <section class="panel card-map">
+          <h2>Malatya'da Reklam Yoğunluğu</h2>
+          <p class="sub">İlçelere göre coğrafi tıklanma dağılımı</p>
+          <div class="map-svg-wrap">
+            <svg id="malatyaMap" viewBox="0 0 500 360" xmlns="http://www.w3.org/2000/svg"></svg>
+          </div>
+          <div class="legend">
+            <span>Düşük</span>
+            <span class="legend-bar"></span>
+            <span>Yoğun</span>
+          </div>
+        </section>
+
+        <section class="panel card-chart">
+          <h2>Son 7 Gün Tıklanma</h2>
+          <p class="sub">Günlük tıklama ivmesi</p>
+          <div class="chart-holder">
+            <canvas id="trendChart"></canvas>
+          </div>
+        </section>
+      </div>
+
+      <section class="panel media-showcase">
+        <h3>Tanıtım</h3>
+        <p class="sub">Döngülü tanıtım animasyonu</p>
+        <div class="media-frame">
+          <img src="assets/tanitim.gif" alt="Tanıtım animasyonu" id="tanitimGif"
+               onerror="this.closest('.media-frame').innerHTML='<p style=\'color:var(--muted);font-size:13px;\'>assets/tanitim.gif eklenmedi. Zemin transparan tasarlanmıştır.</p>'">
         </div>
-    </section>
+      </section>
+    </div>
 
-    <!-- HİZMETLER -->
-    <section id="hizmetler" class="section services-section">
-        <div class="container">
-            <h2 class="section-title">Hizmetlerimiz</h2>
-            <div class="services-grid">
-                <div class="service-card">
-                    <div class="service-info">
-                        <h3>VİP Saç Kesimi</h3>
-                        <span>45 Dakika</span>
-                    </div>
-                    <p>Kişiye özel stil danışmanlığı ile modern kesim.</p>
-                </div>
-                <div class="service-card">
-                    <div class="service-info">
-                        <h3>Sakal Tasarımı</h3>
-                        <span>30 Dakika</span>
-                    </div>
-                    <p>Ustura ve sıcak havlu eşliğinde sakal şekillendirme.</p>
-                </div>
-                <div class="service-card">
-                    <div class="service-info">
-                        <h3>Cilt Bakımı</h3>
-                        <span>20 Dakika</span>
-                    </div>
-                    <p>Buhar terapisi ve siyah nokta temizliği.</p>
-                </div>
-                <div class="service-card">
-                    <div class="service-info">
-                        <h3>Saç Bakım & Yıkama</h3>
-                        <span>15 Dakika</span>
-                    </div>
-                    <p>Profesyonel ürünlerle canlandırıcı bakım.</p>
-                </div>
-            </div>
-        </div>
-    </section>
+    <footer>© <span id="yil"></span> Reklam Yönetim Paneli · Verileriniz güvenle saklanır</footer>
+  </div>
+</div>
 
-    <!-- GALERİ -->
-    <section id="galeri" class="section gallery-section">
-        <div class="container">
-            <h2 class="section-title">Portfolyo</h2>
-            <div class="gallery-grid">
-                <!-- Fotoğraflar geldikçe buraya eklenecek -->
-                <div class="gallery-item placeholder">Tıraş Görseli 1</div>
-                <div class="gallery-item placeholder">Tıraş Görseli 2</div>
-                <div class="gallery-item placeholder">Tıraş Görseli 3</div>
-                <div class="gallery-item placeholder">Tıraş Görseli 4</div>
-            </div>
-        </div>
-    </section>
+<!-- ÖDEME KALKANI -->
+<div class="overlay" id="paymentOverlay">
+  <div class="overlay-box">
+    <div class="icon">
+      <svg viewBox="0 0 24 24" fill="none"><path d="M12 9v4M12 17h.01M10.3 3.9L2.7 17a2 2 0 001.7 3h15.2a2 2 0 001.7-3L13.7 3.9a2 2 0 00-3.4 0z" stroke="#E5484D" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </div>
+    <h2>Ödemeniz Alınamamıştır</h2>
+    <p>Sistem geçici olarak durdurulmuştur. Devam etmek için lütfen ödeme sürecinizi tamamlayın.</p>
+  </div>
+</div>
 
-    <!-- HAKKIMIZDA -->
-    <section id="hakkimizda" class="section about-section">
-        <div class="container">
-            <div class="about-content">
-                <h2 class="section-title">Ustalık Hikayemiz</h2>
-                <p>Malatya'da berberlik sanatını modern dokunuşlarla birleştiriyoruz. Samed Ağca olarak amacımız, her müşterimizin dükkanımızdan sadece iyi bir tıraşla değil, yenilenmiş bir özgüvenle ayrılmasını sağlamaktır.</p>
-            </div>
-        </div>
-    </section>
+<!-- BAĞLANTI YOK -->
+<div class="overlay offline" id="offlineOverlay">
+  <div class="overlay-box">
+    <div class="icon">
+      <svg viewBox="0 0 24 24" fill="none"><path d="M3 3l18 18M8.5 8.5a10 10 0 0111.9 3M5.6 11.6a10 10 0 011.5-1.7M12 19h.01" stroke="#9FC1F7" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </div>
+    <h2>Bağlantı Yok</h2>
+    <p>İnternet bağlantınızı kontrol edip tekrar deneyin.</p>
+  </div>
+</div>
 
-    <!-- Floating WhatsApp Button -->
-    <a href="https://wa.me/905XXXXXXXXX" class="floating-btn whatsapp" target="_blank">
-        <span>WhatsApp Randevu</span>
-    </a>
+<script>
+(function(){
+  "use strict";
 
-    <footer>
-        <p>&copy; 2024 Berber Samed Ağca. Tüm Hakları Saklıdır.</p>
-    </footer>
+  document.getElementById('yil').textContent = new Date().getFullYear();
 
+  /* =====================================================
+     DEMO VERİLERİ - API'den gelecek veriler
+  ===================================================== */
+  const DEMO = {
+    gosterim: 11384,
+    tiklanma: 931,
+    haftalikTiklama: [10, 25, 15, 35, 30, 45, 50],
+    gunEtiketleri: ['Pzt','Sal','Çar','Per','Cum','Cmt','Paz'],
+    odemeAktifDemo: true, 
+  };
+
+  /* =====================================================
+     METRİK SAYAÇLARI
+  ===================================================== */
+  function sayarakYukselt(elId, hedef, sure){
+    const el = document.getElementById(elId);
+    const baslangic = performance.now();
+    function adim(simdi){
+      const oran = Math.min(1, (simdi - baslangic) / sure);
+      const kolay = 1 - Math.pow(1 - oran, 3);
+      const deger = Math.round(hedef * kolay);
+      el.textContent = deger.toLocaleString('tr-TR');
+      if (oran < 1) requestAnimationFrame(adim);
+    }
+    requestAnimationFrame(adim);
+  }
+  sayarakYukselt('metricGosterim', DEMO.gosterim, 1100);
+  sayarakYukselt('metricTiklanma', DEMO.tiklanma, 1300);
+
+  /* =====================================================
+     ÇİZGİ GRAFİK (Chart.js)
+  ===================================================== */
+  const ctx = document.getElementById('trendChart').getContext('2d');
+  const gradient = ctx.createLinearGradient(0,0,0,190);
+  gradient.addColorStop(0, 'rgba(46,111,242,.35)');
+  gradient.addColorStop(1, 'rgba(46,111,242,0)');
+
+  new Chart(ctx, {
+    type: 'line',
+    data: {
+      labels: DEMO.gunEtiketleri,
+      datasets: [{
+        data: DEMO.haftalikTiklama,
+        borderColor: '#2E6FF2',
+        borderWidth: 2.5,
+        pointRadius: 0,
+        pointHoverRadius: 5,
+        pointHoverBackgroundColor: '#2E6FF2',
+        pointHoverBorderColor: '#EAF0FC',
+        tension: 0.4,
+        fill: true,
+        backgroundColor: gradient,
+      }]
+    },
+    options: {
+      responsive:true, maintainAspectRatio:false,
+      plugins:{ legend:{display:false},
+        tooltip:{
+          backgroundColor:'#121B2E', borderColor:'#213052', borderWidth:1,
+          titleColor:'#8B9BBE', bodyColor:'#EAF0FC', padding:10, displayColors:false,
+          callbacks:{ label:(c)=> c.parsed.y.toLocaleString('tr-TR') + ' tıklama' }
+        }
+      },
+      scales:{
+        x:{ grid:{display:false}, ticks:{color:'#8B9BBE', font:{family:'IBM Plex Sans', size:11.5}} },
+        y:{ display:false, beginAtZero:true }
+      },
+      interaction:{ intersect:false, mode:'index' }
+    }
+  });
+
+  /* =====================================================
+     COĞRAFİ ISI HARİTASI (Poligon Tabanlı, GeoJSONsuz)
+     Malatya'nın stilize edilmiş görünümü
+  ===================================================== */
+  const mapData = [
+    { ad: 'Darende', tiklama: 18, path: 'M40,160 L110,120 L150,190 L60,230 Z', cx: 90, cy: 175 },
+    { ad: 'Akçadağ', tiklama: 76, path: 'M150,190 L110,120 L180,90 L250,160 L210,240 L120,230 Z', cx: 175, cy: 165 },
+    { ad: 'Hekimhan', tiklama: 39, path: 'M110,120 L170,40 L260,70 L180,90 Z', cx: 180, cy: 80 },
+    { ad: 'Arapgir', tiklama: 22, path: 'M260,70 L340,30 L400,80 L350,120 L280,100 Z', cx: 330, cy: 75 },
+    { ad: 'Yazıhan', tiklama: 42, path: 'M180,90 L280,100 L300,150 L250,160 Z', cx: 250, cy: 125 },
+    { ad: 'Yeşilyurt', tiklama: 198, path: 'M250,160 L300,150 L350,210 L270,260 L210,240 Z', cx: 275, cy: 205 },
+    { ad: 'Battalgazi', tiklama: 214, path: 'M300,150 L350,120 L420,160 L380,230 L350,210 Z', cx: 360, cy: 175 },
+    { ad: 'Doğanşehir', tiklama: 54, path: 'M210,240 L270,260 L310,330 L220,350 L140,290 Z', cx: 230, cy: 295 },
+    { ad: 'Pütürge', tiklama: 31, path: 'M350,210 L380,230 L450,260 L420,330 L330,340 L310,330 L270,260 Z', cx: 365, cy: 280 }
+  ];
+
+  function renkSkalasi(oran){
+    // #9FC1F7 (Açık) -> #123A8F (Koyu)
+    const a = [159,193,247], b = [18,58,143];
+    const k = a.map((v,i)=> Math.round(v + (b[i]-v)*oran));
+    return `rgb(${k[0]},${k[1]},${k[2]})`;
+  }
+
+  (function haritayiCiz(){
+    const svg = document.getElementById('malatyaMap');
+    const maks = Math.max(...mapData.map(v=>v.tiklama));
+    const min = Math.min(...mapData.map(v=>v.tiklama));
+    const nsSVG = 'http://www.w3.org/2000/svg';
+
+    mapData.forEach((ilce)=>{
+      const oran = (ilce.tiklama - min) / (maks - min || 1);
+
+      const g = document.createElementNS(nsSVG, 'g');
+      g.setAttribute('class','district');
+
+      const p = document.createElementNS(nsSVG, 'path');
+      p.setAttribute('d', ilce.path);
+      p.setAttribute('fill', renkSkalasi(oran));
+      g.appendChild(p);
+
+      const isim = document.createElementNS(nsSVG,'text');
+      isim.setAttribute('class','name');
+      isim.setAttribute('x', ilce.cx); 
+      isim.setAttribute('y', ilce.cy - 2);
+      isim.textContent = ilce.ad;
+      g.appendChild(isim);
+
+      const sayi = document.createElementNS(nsSVG,'text');
+      sayi.setAttribute('class','count');
+      sayi.setAttribute('x', ilce.cx); 
+      sayi.setAttribute('y', ilce.cy + 12);
+      sayi.textContent = ilce.tiklama.toLocaleString('tr-TR');
+      g.appendChild(sayi);
+
+      svg.appendChild(g);
+    });
+  })();
+
+  /* =====================================================
+     AKSIYON BUTONU (Spam tıklama koruması)
+  ===================================================== */
+  let reklamAktif = true;
+  const ctaBtn = document.getElementById('ctaBtn');
+  const ctaLabel = document.getElementById('ctaLabel');
+  const ctaHint = document.getElementById('ctaHint');
+
+  function ctaGorunumunuGuncelle(){
+    ctaBtn.classList.toggle('is-off', !reklamAktif);
+    ctaLabel.textContent = reklamAktif ? 'Reklamı Durdur' : 'Reklamı Başlat';
+    ctaHint.textContent = reklamAktif
+      ? 'Şu anda yayında — istediğiniz an durdurabilirsiniz.'
+      : 'Şu anda durdurulmuş — tekrar başlatmak için dokunun.';
+  }
+
+  async function reklamiDegistir(){
+    if (ctaBtn.disabled) return;
+    ctaBtn.disabled = true;
+    ctaBtn.classList.add('is-loading');
+    const baslangic = performance.now();
+
+    try {
+      const yanit = await fetch('/api/toggle', {
+        method: 'POST',
+        headers: {'Content-Type':'application/json'},
+        body: JSON.stringify({aktif: !reklamAktif}),
+        signal: AbortSignal.timeout(4000),
+      });
+      if (!yanit.ok) throw new Error('Sunucu hatası');
+      const veri = await yanit.json();
+      reklamAktif = !!veri.aktif;
+    } catch (hata) {
+      // Demo modu ters çevirimi
+      await new Promise(r => setTimeout(r, 900));
+      reklamAktif = !reklamAktif;
+    }
+
+    ctaGorunumunuGuncelle();
+    ctaBtn.classList.remove('is-loading');
+
+    // 3 Saniye Bekleme Süresi Koruması
+    const gecen = performance.now() - baslangic;
+    const kalan = Math.max(0, 3000 - gecen);
+    setTimeout(()=> { ctaBtn.disabled = false; }, kalan);
+  }
+  ctaBtn.addEventListener('click', reklamiDegistir);
+
+  /* =====================================================
+     ÖDEME KALKANI
+  ===================================================== */
+  async function odemeDurumunuKontrolEt(){
+    let aktif = DEMO.odemeAktifDemo;
+    try {
+      const yanit = await fetch('/api/durum', { signal: AbortSignal.timeout(3000) });
+      if (yanit.ok) {
+        const veri = await yanit.json();
+        aktif = !!veri.odeme_durumu;
+      }
+    } catch (hata) {}
+    
+    if (!aktif) {
+      document.getElementById('boardShell').classList.add('is-locked');
+      document.getElementById('paymentOverlay').classList.add('is-visible');
+    }
+  }
+  odemeDurumunuKontrolEt();
+
+  /* =====================================================
+     BAĞLANTI YOK KATMANI (Offline mode)
+  ===================================================== */
+  const offlineOverlay = document.getElementById('offlineOverlay');
+  function baglantiDurumunuGuncelle(){
+    offlineOverlay.classList.toggle('is-visible', !navigator.onLine);
+  }
+  window.addEventListener('offline', baglantiDurumunuGuncelle);
+  window.addEventListener('online', baglantiDurumunuGuncelle);
+  baglantiDurumunuGuncelle();
+
+  /* =====================================================
+     GÜVENLİK VE CAYDIRICILAR (F12, Sağ Tık, Kısayollar)
+  ===================================================== */
+  document.addEventListener('contextmenu', e => e.preventDefault());
+  document.addEventListener('keydown', e => {
+    const engelli =
+      e.key === 'F12' ||
+      (e.ctrlKey && e.shiftKey && ['I','J','C'].includes(e.key.toUpperCase())) ||
+      (e.ctrlKey && e.key.toUpperCase() === 'U');
+    if (engelli) e.preventDefault();
+  });
+
+  /* =====================================================
+     SERVICE WORKER
+  ===================================================== */
+  if ('serviceWorker' in navigator) {
+    window.addEventListener('load', () => {
+      navigator.serviceWorker.register('sw.js').catch(()=>{});
+    });
+  }
+})();
+</script>
 </body>
 </html>
