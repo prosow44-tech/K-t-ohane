@@ -6,7 +6,6 @@
 <title>Reklam Yönetim Paneli</title>
 <meta name="description" content="Reklam performansınızı canlı takip edin.">
 
-<!-- PWA Yönlendirmeleri -->
 <link rel="manifest" href="manifest.json">
 <meta name="theme-color" content="#0B1220">
 <meta name="apple-mobile-web-app-capable" content="yes">
@@ -14,13 +13,11 @@
 <link rel="apple-touch-icon" href="assets/icon-192.png">
 <link rel="icon" href="assets/icon-192.png">
 
-<!-- Fontlar ve Grafikler -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.4/dist/chart.umd.min.js"></script>
 
-<!-- CSS STİLLERİ -->
 <style>
   :root {
     --bg: #050914;
@@ -60,7 +57,6 @@
   button { font-family: inherit; cursor: pointer; }
   .is-hidden { display: none !important; }
 
-  /* KİLİT EKRANI */
   #loginScreen {
     position: fixed; inset: 0; background: var(--bg); z-index: 100;
     display: flex; flex-direction: column; align-items: center; justify-content: center;
@@ -93,7 +89,6 @@
   .login-btn:active { opacity: 0.8; }
   #loginError { color: var(--bad); font-size: 13px; text-align: center; margin-top: 15px; display: none; }
 
-  /* ANA UYGULAMA PANELİ */
   .app-container {
     display: flex; flex-direction: column; min-height: 100vh;
     width: 100%; max-width: 500px; margin: 0 auto;
@@ -111,7 +106,7 @@
     background: linear-gradient(135deg, var(--accent), var(--deep));
     display: flex; align-items: center; justify-content: center;
     font-size: 16px; font-weight: 700; box-shadow: 0 4px 15px rgba(46,111,242,0.3);
-    overflow: hidden; /* Logonun dışarı taşmasını engeller */
+    overflow: hidden;
   }
   .brand-info h1 { font-size: 16px; margin: 0 0 2px 0; }
   .brand-info p { font-size: 12px; color: var(--muted); margin: 0; }
@@ -122,7 +117,6 @@
     color: var(--good); padding: 4px 8px; border-radius: 20px; font-size: 11px; font-weight: 500;
   }
 
-  /* GİZLİ ÇIKIŞ İKONU */
   .status-lens-mini {
     position: relative; width: 22px; height: 22px; border-radius: 50%;
     border: none; outline: none; cursor: pointer; padding: 0;
@@ -145,7 +139,6 @@
   }
   .status-lens-mini:active { transform: scale(0.85); }
 
-  /* SWITCH BUTONU */
   .control-panel { background: var(--panel); border: 1px solid var(--panel-border); border-radius: var(--radius-md); padding: 16px; }
   .switch-container { display: flex; align-items: center; justify-content: space-between; }
   .switch-label { font-size: 14px; font-weight: 500; }
@@ -165,15 +158,16 @@
 
   .main-content { padding: 20px; display: flex; flex-direction: column; gap: 20px; }
 
-  /* METRİKLER */
   .dashboard-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
   .card { background: var(--panel); border: 1px solid var(--panel-border); border-radius: var(--radius-lg); padding: 20px; backdrop-filter: blur(10px); }
-  .metric-box { display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; padding: 16px; cursor: pointer; transition: transform 0.2s;}
+  
+  .metric-box { display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; padding: 16px; cursor: pointer; transition: transform 0.2s; position: relative;}
   .metric-box:active { transform: scale(0.95); }
-  .metric-title { font-size: 12px; color: var(--muted); display: flex; flex-direction: column; align-items: center; gap: 4px; }
-  .metric-val { font-size: 32px; font-weight: 700; margin: 8px 0; color: #fff; }
+  .metric-title { font-size: 13px; font-weight: 600; color: var(--pale); display: flex; flex-direction: column; align-items: center; gap: 6px; }
+  .metric-icon { font-size: 24px; margin-bottom: 4px; }
+  .metric-val { font-size: 34px; font-weight: 700; margin: 8px 0 0 0; color: #fff; }
+  .metric-hint { font-size: 10px; color: var(--good); margin-top: 8px; opacity: 0.8; font-weight: 500;}
 
-  /* GOOGLE ARAMA MOCKUP - GÜNCELLENDİ */
   .preview-section h3 { font-size: 15px; margin: 0 0 15px 0; text-align: center; color: var(--pale); }
   .phone-mockup {
     background: #ffffff; border-radius: 36px; border: 4px solid #d1d5db;
@@ -207,7 +201,6 @@
   .ph-ad-img { width: 80px; height: 80px; border-radius: 8px; background: #e8eaed; flex-shrink: 0; object-fit: cover; border: 1px solid #ebebeb; display: none; }
   .ph-ad-body.has-img .ph-ad-img { display: block; }
   
-  /* Gerçekçi Google CSS'leri */
   .ph-ad-title { font-size: 20px; font-weight: 400; margin-bottom: 4px; line-height: 1.3; color: #1a0dab; text-decoration: none; }
   .ph-ad-domain strong { display: block; font-weight: 400; color: #202124; font-size: 14px; }
   .ph-ad-domain span { font-size: 12px; color: #4d5156; }
@@ -229,7 +222,6 @@
   }
   .rank-btn:active { transform: scale(0.96); }
 
-  /* GRAFİK VE HARİTA */
   .chart-container { height: 180px; position: relative; }
   .map-container { position: relative; height: 200px; display: flex; align-items: center; justify-content: center; }
   .map-container svg { max-height: 100%; width: auto; }
@@ -242,7 +234,6 @@
     padding: 24px; text-align: center; margin-top: 10px;
   }
 
-  /* MODAL / OVERLAY EKRANLARI */
   .overlay {
     position: fixed; inset: 0; background: rgba(5, 9, 20, 0.95); backdrop-filter: blur(8px);
     z-index: 50; display: none; align-items: center; justify-content: center; padding: 20px;
@@ -250,20 +241,17 @@
   .overlay.is-visible { display: flex; }
   .overlay-box { background: #0a1120; border: 1px solid var(--bad); padding: 30px; border-radius: var(--radius-lg); text-align: center; width: 100%; }
   
-  /* YENİ DETAY EKRANI (MODAL) */
   #detayEkrani {
-    display: none; position: fixed; inset: 0; background: var(--bg); z-index: 999; padding: 20px; flex-direction: column;
+    display: none; position: fixed; inset: 0; background: var(--bg); z-index: 999; padding: 20px; flex-direction: column; justify-content: center; align-items: center; text-align: center;
   }
-  .modal-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; }
-  .close-btn { background: var(--bad); border: none; padding: 10px 16px; border-radius: 8px; color: #fff; font-weight: bold; }
+  .modal-header { position: absolute; top: 20px; right: 20px; }
+  .close-btn { background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); padding: 12px 24px; border-radius: 30px; color: #fff; font-weight: bold; cursor: pointer;}
 </style>
 </head>
 <body>
 
-<!-- ARKA PLAN ANİMASYONU -->
 <canvas id="bgCanvas"></canvas>
 
-<!-- KİLİT EKRANI -->
 <div id="loginScreen">
   <div class="login-card">
     <div style="margin-bottom: 30px; text-align: center;">
@@ -297,7 +285,6 @@
   </div>
 </div>
 
-<!-- ANA PANEL -->
 <div class="app-container is-hidden" id="appContainer">
   
   <header class="header-area">
@@ -330,18 +317,19 @@
     
     <div class="dashboard-grid">
       <div class="card metric-box">
-        <div class="metric-title">Görüntülenme</div>
+        <div class="metric-title"><span class="metric-icon">👁️</span> Reklamı Görenler</div>
         <div class="metric-val num" id="metricGosterim">0</div>
+        <div class="metric-hint" style="color:var(--muted);">İnternette karşına çıkanlar</div>
       </div>
-      <!-- Tıklayınca Modal Açan Kart -->
-      <div class="card metric-box" onclick="document.getElementById('detayEkrani').style.display='flex'">
-        <div class="metric-title">Tıklanma (Detay)</div>
+      <div class="card metric-box" style="border-color: var(--good);" onclick="document.getElementById('detayEkrani').style.display='flex'">
+        <div class="metric-title"><span class="metric-icon">👆</span> Tıklayanlar</div>
         <div class="metric-val num" id="metricTiklanma">0</div>
+        <div class="metric-hint">Detaylı Rapor İçin Dokun</div>
       </div>
     </div>
 
     <div class="preview-section">
-      <h3>Canlı Reklam Önizlemesi</h3>
+      <h3>Google'da Nasıl Görünüyorsunuz?</h3>
       
       <div class="phone-mockup">
         <div class="phone-header">
@@ -395,18 +383,18 @@
         </div>
       </div>
 
-      <button class="rank-btn" id="searchRankBtn">Kaçıncı Sırada Olduğunuzu Öğrenin</button>
+      <button class="rank-btn" id="searchRankBtn">Sıranızı Şimdi Kontrol Edin</button>
     </div>
 
     <div class="card">
-      <h3 style="margin: 0 0 15px 0; font-size: 15px; text-align: center;">Bölgesel İlgi Haritası</h3>
+      <h3 style="margin: 0 0 15px 0; font-size: 15px; text-align: center;">Müşteriler Hangi İlçeden Geliyor?</h3>
       <div class="map-container">
         <svg id="malatyaMap" viewBox="0 0 450 320" xmlns="http://www.w3.org/2000/svg"></svg>
       </div>
     </div>
 
     <div class="card">
-      <h3 style="margin: 0 0 15px 0; font-size: 15px; text-align: center;">Haftalık İvme</h3>
+      <h3 style="margin: 0 0 15px 0; font-size: 15px; text-align: center;">Haftalık Büyüme Hızınız</h3>
       <div class="chart-container">
         <canvas id="trendChart"></canvas>
       </div>
@@ -415,16 +403,27 @@
   </main>
 </div>
 
-<!-- DETAY EKRANI (MODAL) -->
 <div id="detayEkrani">
   <div class="modal-header">
-    <h2 style="margin:0;">Detaylı Analiz</h2>
-    <button class="close-btn" onclick="document.getElementById('detayEkrani').style.display='none'">Kapat</button>
+    <button class="close-btn" onclick="document.getElementById('detayEkrani').style.display='none'">Kapat ✕</button>
   </div>
-  <p style="color:var(--muted); font-size:14px;">Bu alanda, ileride tıklanma maliyetleri, anahtar kelime analizleri gibi ekstra veriler sergilenebilir.</p>
+  
+  <div style="background: rgba(15, 23, 42, 0.8); border: 1px solid var(--good); border-radius: 20px; padding: 40px 20px; width: 100%; max-width: 360px; box-shadow: 0 10px 40px rgba(31, 170, 109, 0.2);">
+    <div style="font-size: 60px; margin-bottom: 20px;">🎉</div>
+    <h2 style="margin: 0 0 15px 0; color: var(--text); font-size: 22px;">Tebrikler!</h2>
+    <p style="color: var(--muted); font-size: 16px; line-height: 1.6; margin: 0 0 20px 0;">
+      Bu hafta reklamlarınızı tam <strong id="modalGosterim" style="color: #fff; font-size: 20px;">0</strong> kişi gördü.
+    </p>
+    <div style="background: rgba(31, 170, 109, 0.15); border-radius: 12px; padding: 15px; margin-bottom: 20px;">
+      <p style="color: var(--good); font-size: 15px; margin: 0; font-weight: 500;">
+        Arayan veya inceleyen potansiyel müşteri sayısı: <br>
+        <strong id="modalTiklanma" style="font-size: 32px; display: block; margin-top: 8px;">0</strong>
+      </p>
+    </div>
+    <p style="color: var(--pale); font-size: 14px; margin: 0;">Rakipleriniz aramalarda geride kalırken, siz ilk sıradaki yerinizi koruyorsunuz.</p>
+  </div>
 </div>
 
-<!-- ÖDEME KİLİDİ (PAYMENT LOCKOUT) -->
 <div class="overlay" id="paymentOverlay">
   <div class="overlay-box">
     <h2 style="color:var(--bad); margin-top:0;">Erişim Durduruldu</h2>
@@ -432,19 +431,19 @@
   </div>
 </div>
 
-<!-- JAVASCRIPT BLOKLARI -->
 <script>
 (function(){
   "use strict";
 
   const AUTH_KEY = 'ajans_yetki_kodu';
-  const MASTER_PIN = '56413744'; // Yeni Ajans Şifresi
-  const API_URL = 'https://script.google.com/macros/s/AKfycbxJIbDigrHA_YKrEZJQ65_yNTe12GGdO1VA5fo2XBxOJzBRW29Cu9OU7tmvv2ovWJhq9A/exec';
+  const MASTER_PIN = '56413744'; 
+  
+  // YENİ API LİNKİ BURAYA EKLENDİ
+  const API_URL = 'https://script.google.com/macros/s/AKfycbzVSDgTsIoKYDXu8doM4qAoL5HUvkOa7xs7Gdxo6ZlkTBxq0G4IPYuJILiXrxJccZUicw/exec';
   
   const urlParams = new URLSearchParams(window.location.search);
   const MUSTERI_ID = (urlParams.get('id') || 'merkez_taksi').toLowerCase();
   
-  // DİNAMİK RAKİP VE SEKTÖR ATAMALARI
   let sektor = "İşletme", searchQ = "hizmet";
   let rakipAd = "Referans İşletme", rakipUrl = "www.referansisletme.com.tr", rakipSektor = "İşletme";
 
@@ -468,7 +467,6 @@
   const SEARCH_QUERY = `${searchQ} malatya`;
 
   document.getElementById('searchKeywordPreview').textContent = SEARCH_QUERY;
-  // LOGO YÜKLEME (GitHub assets klasöründen ID'ye göre çeker)
   document.getElementById('uiLogo').innerHTML = `<img src="assets/${MUSTERI_ID}.png" style="width:100%; height:100%; object-fit:cover;" onerror="this.style.display='none'; this.parentElement.innerText=MUSTERI_ID.charAt(0).toUpperCase();">`;
   document.getElementById('uiName').textContent = MUSTERI_ID.split('_').map(w => w.charAt(0).toUpperCase() + w.slice(1)).join(' ');
   
@@ -476,7 +474,6 @@
   document.getElementById('competitorUrl').textContent = rakipUrl;
   document.getElementById('competitorTitle').textContent = `Malatya'nın En İyi ${rakipSektor} Hizmeti`;
 
-  // ARKA PLAN ANİMASYONU
   const canvas = document.getElementById('bgCanvas');
   const ctx = canvas.getContext('2d');
   let width, height, particles = [];
@@ -508,7 +505,6 @@
   }
   window.addEventListener('resize', initBackground); initBackground(); drawBackground();
 
-  // ŞİFRE EKRANI YÖNETİMİ
   const loginScreen = document.getElementById('loginScreen');
   const appContainer = document.getElementById('appContainer');
   const pinInput = document.getElementById('pinInput');
@@ -545,7 +541,6 @@
 
   pinInput.addEventListener('keypress', (e) => { if(e.key === 'Enter') loginBtn.click(); });
 
-  // REKLAM DURDUR/BAŞLAT VE GİZLİ ÇIKIŞ
   const toggleSwitch = document.getElementById('toggleSwitch');
   const statusLensBtn = document.getElementById('statusLensBtn');
   const statusText = document.getElementById('statusText');
@@ -589,7 +584,6 @@
 
   let chartInstance = null;
 
-  // VERİLERİ ÇEKME
   async function verileriGetir() {
     try {
       const response = await fetch(`${API_URL}?id=${MUSTERI_ID}`);
@@ -598,7 +592,12 @@
       if (data.hata) return;
       if (data.durum === false) document.getElementById('paymentOverlay').classList.add('is-visible');
 
-      sayarakYukselt('metricGosterim', data.gosterim, 800); sayarakYukselt('metricTiklanma', data.tiklanma, 800);
+      sayarakYukselt('metricGosterim', data.gosterim, 800); 
+      sayarakYukselt('metricTiklanma', data.tiklanma, 800);
+      
+      // Basitleştirilmiş Modal Rakamları
+      document.getElementById('modalGosterim').textContent = data.gosterim.toLocaleString('tr-TR');
+      document.getElementById('modalTiklanma').textContent = data.tiklanma.toLocaleString('tr-TR');
 
       let ilceler = data.ilceler;
       if (Object.values(ilceler).reduce((a,b)=>a+b,0) === 0 && data.tiklanma > 0) {
