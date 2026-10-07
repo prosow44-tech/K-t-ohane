@@ -20,477 +20,352 @@
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.4/dist/chart.umd.min.js"></script>
 
 <style>
-  :root{
-    --bg:#050914;
-    --panel:rgba(15, 23, 42, 0.65);
-    --panel-2:rgba(11, 17, 32, 0.75);
-    --line:rgba(46, 111, 242, 0.15);
-    --text:#EAF0FC;
-    --muted:#8B9BBE;
-    --accent:#2E6FF2;
-    --accent-soft:#193261;
-    --deep:#0a1930;
-    --pale:#9FC1F7;
-    --good:#1FAA6D;
-    --good-soft:#0F3D2C;
-    --bad:#E5484D;
-    --bad-soft:#3B1518;
-    --radius-lg:20px;
-    --radius-md:12px;
-    --radius-sm:8px;
+  :root {
+    --bg: #050914;
+    --panel: rgba(15, 23, 42, 0.4);
+    --panel-border: rgba(46, 111, 242, 0.15);
+    --text: #EAF0FC;
+    --muted: #8B9BBE;
+    --accent: #2E6FF2;
+    --deep: #0a1930;
+    --pale: #9FC1F7;
+    --good: #1FAA6D;
+    --bad: #E5484D;
+    --radius-lg: 16px;
+    --radius-md: 12px;
   }
 
-  *{box-sizing:border-box;}
-  html,body{margin:0;padding:0; height:100%;}
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; height: 100%; }
   
-  body{
+  body {
     background-color: var(--bg);
-    background-image: radial-gradient(circle at 50% 0%, rgba(46, 111, 242, 0.1) 0%, transparent 70%);
-    color:var(--text);
-    font-family:'IBM Plex Sans', system-ui, sans-serif;
-    -webkit-font-smoothing:antialiased;
-    min-height:100vh;
-    line-height:1.5;
-    user-select:none;
-    -webkit-user-select:none;
-    overflow-x: hidden;
+    color: var(--text);
+    font-family: 'IBM Plex Sans', system-ui, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    user-select: none;
+    -webkit-user-select: none;
+    overflow: hidden; /* Telegram tarzı sabit app görünümü */
   }
 
-  /* Arka Plan Animasyonu (Asimetrik Dal/Ağ) */
-  #bgCanvas {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    z-index: -1;
-    pointer-events: none;
-  }
+  h1, h2, h3, .num { font-family: 'Space Grotesk', sans-serif; }
+  a { color: inherit; text-decoration: none; }
+  button { font-family: inherit; cursor: pointer; }
 
-  h1,h2,h3,.num,.metric-value{font-family:'Space Grotesk', 'IBM Plex Sans', sans-serif;}
-  .num{font-variant-numeric:tabular-nums;}
-  a{color:inherit;}
-  ::selection{background:var(--accent-soft);}
-  button{font-family:inherit;}
-
-  .wrap{
-    max-width:1180px;
-    margin:0 auto;
-    padding:20px 20px 0;
-    position: relative;
-    z-index: 1;
-  }
-
-  /* ---------- GİRİŞ (LOGIN) EKRANI ---------- */
+  /* ---------- GİRİŞ (LOGIN) EKRANI (REFERANSA GÖRE) ---------- */
   #loginScreen {
     position: fixed; inset: 0; background: var(--bg); z-index: 100;
     display: flex; flex-direction: column; align-items: center; justify-content: center;
-    backdrop-filter: blur(10px);
   }
   .is-hidden { display: none !important; }
-  .pin-input {
-    background: var(--panel-2); border: 1px solid var(--line); color: var(--text);
-    font-size: 28px; padding: 16px; border-radius: var(--radius-md); text-align: center;
-    width: 220px; margin-bottom: 16px; font-family: 'Space Grotesk', sans-serif; letter-spacing: 8px;
-    outline: none; transition: border-color 0.2s ease;
-  }
-  .pin-input:focus { border-color: var(--accent); }
-  #loginError { color: var(--bad); margin-top: 12px; font-size: 13px; display: none; font-weight: 500; }
-  .login-btn {
-    width: 220px; border: none; border-radius: var(--radius-md); padding: 16px;
-    font-size: 16px; font-weight: 600; color: #fff; cursor: pointer;
-    background: linear-gradient(155deg, var(--accent), var(--deep));
-    transition: transform .12s ease;
-  }
-  .login-btn:active { transform: scale(0.97); }
-  .login-btn:disabled { opacity: 0.7; cursor: not-allowed; }
-
-  /* ---------- HEADER ---------- */
-  header{
-    display:flex;
-    align-items:center;
-    justify-content:space-between;
-    gap:16px;
-    padding:6px 2px 22px;
-  }
-  .brand{display:flex;align-items:center;gap:12px;min-width:0;}
-  .brand-badge{
-    width:44px;height:44px;border-radius:12px;flex:none;
-    background:linear-gradient(155deg, var(--accent), var(--deep));
-    display:flex;align-items:center;justify-content:center;
-    font-weight:700;font-size:17px;letter-spacing:.2px;
-    box-shadow:0 6px 18px rgba(46,111,242,.25);
-  }
-  .brand-name{font-size:16px;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
-  .brand-sub{font-size:12.5px;color:var(--muted);margin-top:1px;}
   
-  .header-controls {
+  .login-card {
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    border-radius: var(--radius-lg);
+    padding: 40px 30px;
+    width: 100%; max-width: 380px;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+  }
+
+  .login-input-group {
+    display: flex; align-items: center;
+    border-bottom: 2px solid var(--muted);
+    padding-bottom: 8px; margin-bottom: 8px;
+    transition: border-color 0.2s;
+  }
+  .login-input-group:focus-within { border-color: var(--accent); }
+  
+  .login-icon { font-size: 20px; color: var(--muted); margin-right: 12px; }
+  
+  .login-input-wrapper { flex: 1; display: flex; flex-direction: column; }
+  .login-label { font-size: 11px; color: var(--muted); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 4px; }
+  .login-input {
+    background: transparent; border: none; color: var(--text);
+    font-size: 20px; font-family: 'Space Grotesk', sans-serif; letter-spacing: 4px;
+    outline: none; text-transform: uppercase;
+  }
+  .login-input::placeholder { color: rgba(255,255,255,0.1); }
+  
+  .login-hint-row { display: flex; justify-content: space-between; font-size: 12px; color: var(--muted); margin-bottom: 30px; }
+  
+  .login-btn {
+    width: 100%; border: none; border-radius: 30px; padding: 14px;
+    font-size: 15px; font-weight: 600; color: #fff;
+    background: var(--accent); transition: opacity 0.2s;
+  }
+  .login-btn:active { opacity: 0.8; }
+  #loginError { color: var(--bad); font-size: 13px; text-align: center; margin-top: 15px; display: none; }
+
+  /* ---------- APP LAYOUT (TELEGRAM TARZI) ---------- */
+  .app-container {
     display: flex;
-    align-items: center;
-    gap: 16px;
+    height: 100vh;
+    width: 100%;
+    max-width: 1400px;
+    margin: 0 auto;
   }
 
-  /* ---------- OPTİK BİLDİRİM MERCEĞİ ---------- */
-  .status-lens {
-    width: 14px;
-    height: 14px;
-    border-radius: 50%;
-    position: relative;
-    background: radial-gradient(circle at 35% 35%, #4aff80 0%, #0d993b 40%, #032b0f 100%);
-    box-shadow: 
-      inset 0 -2px 4px rgba(0,0,0,0.6),
-      inset 0 2px 4px rgba(255,255,255,0.4),
-      0 0 0 2px rgba(255,255,255,0.05),
-      0 0 12px rgba(74, 255, 128, 0.5);
-    transition: all 0.3s ease;
-  }
-  .status-lens::after {
-    content: '';
-    position: absolute;
-    top: 2px;
-    left: 3px;
-    width: 5px;
-    height: 3px;
-    border-radius: 50%;
-    background: rgba(255,255,255,0.8);
-    transform: rotate(-20deg);
-  }
-  .status-lens.is-off {
-    background: radial-gradient(circle at 35% 35%, #ff5555 0%, #a60f0f 40%, #330303 100%);
-    box-shadow: 
-      inset 0 -2px 4px rgba(0,0,0,0.6),
-      inset 0 2px 4px rgba(255,255,255,0.4),
-      0 0 0 2px rgba(255,255,255,0.05),
-      0 0 12px rgba(255, 68, 68, 0.5);
-  }
-
-  .trust-badge{
-    display:flex;align-items:center;gap:7px;
-    padding:8px 13px;border-radius:999px;
-    background:var(--panel);border:1px solid var(--line);
-    font-size:12.5px;color:var(--pale);flex:none;
-    white-space:nowrap;
-    backdrop-filter: blur(8px);
-    -webkit-backdrop-filter: blur(8px);
-  }
-  .trust-badge svg{width:14px;height:14px;flex:none;}
-
-  /* ---------- LAYOUT GRID ---------- */
-  .board{
-    display:grid;
-    grid-template-columns: 1fr;
-    gap:16px;
-    padding-bottom:26px;
-  }
-  @media (min-width: 860px){
-    .board{grid-template-columns: 380px 1fr;align-items:start;}
-  }
-
-  .col-left{display:flex;flex-direction:column;gap:16px;}
-  .col-right{display:flex;flex-direction:column;gap:16px;}
-
-  .card-metrics{order:1;}
-  .card-map{order:2;}
-  .card-chart{order:3;}
-  .card-cta{order:4;}
-  @media (min-width: 860px){
-    .card-metrics,.card-map,.card-chart,.card-cta{order:initial;}
-  }
-
-  .panel{
-    background:linear-gradient(180deg, var(--panel), var(--panel-2));
-    border:1px solid var(--line);
-    border-radius:var(--radius-lg);
-    padding:22px;
-    backdrop-filter: blur(16px);
-    -webkit-backdrop-filter: blur(16px);
-    box-shadow: 0 10px 40px rgba(0,0,0,0.2);
-  }
-
-  /* ---------- METRICS ---------- */
-  .card-metrics .metric + .metric{margin-top:22px;padding-top:22px;border-top:1px solid var(--line);}
-  .metric-label{font-size:13px;color:var(--muted);font-weight:500;}
-  .metric-value{
-    font-size:clamp(38px, 6.4vw, 52px);
-    font-weight:700;
-    letter-spacing:-.01em;
-    margin-top:6px;
-    display:flex;align-items:baseline;gap:10px;
-  }
-  .metric-trend{
-    font-size:13.5px;font-weight:600;color:var(--good);
-    display:inline-flex;align-items:center;gap:3px;
-  }
-  .metric-trend svg{width:11px;height:11px;}
-  .metric-foot{font-size:12.5px;color:var(--muted);margin-top:4px;}
-
-  /* ---------- OPTİK AKSİYON BUTONU ---------- */
-  .card-cta {
+  /* SOL PANEL (KONTROLLER) */
+  .sidebar {
+    width: 320px;
+    background: rgba(10, 15, 30, 0.5);
+    border-right: 1px solid var(--panel-border);
+    padding: 24px;
     display: flex;
     flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    padding: 36px 22px;
-  }
-  .lens-toggle-wrapper {
-    position: relative;
-    width: 100px;
-    height: 100px;
-    margin-bottom: 20px;
-  }
-  .lens-toggle {
-    position: relative;
-    width: 100%;
-    height: 100%;
-    border-radius: 50%;
-    border: none;
-    cursor: pointer;
-    outline: none;
-    padding: 0;
-    transition: all 0.4s cubic-bezier(0.25, 1, 0.5, 1);
-    background: radial-gradient(circle at 35% 30%, #4aff80 0%, #0d993b 40%, #032b0f 100%);
-    box-shadow: 
-      inset 0 -10px 20px rgba(0,0,0,0.8),
-      inset 0 6px 12px rgba(255,255,255,0.6),
-      0 0 0 6px #070b14,
-      0 0 35px rgba(36, 229, 113, 0.4),
-      0 15px 25px rgba(0,0,0,0.6);
-  }
-  .lens-toggle::after {
-    content: '';
-    position: absolute;
-    top: 6%;
-    left: 18%;
-    width: 64%;
-    height: 35%;
-    border-radius: 50%;
-    background: linear-gradient(180deg, rgba(255,255,255,0.7) 0%, rgba(255,255,255,0) 100%);
-    pointer-events: none;
-    transform: rotate(-10deg);
-  }
-  .lens-toggle.is-off {
-    background: radial-gradient(circle at 35% 30%, #ff5555 0%, #a60f0f 40%, #330303 100%);
-    box-shadow: 
-      inset 0 -10px 20px rgba(0,0,0,0.8),
-      inset 0 6px 12px rgba(255,255,255,0.5),
-      0 0 0 6px #070b14,
-      0 0 35px rgba(255, 68, 68, 0.4),
-      0 15px 25px rgba(0,0,0,0.6);
-  }
-  .lens-toggle:active {
-    transform: scale(0.92);
-    box-shadow: 
-      inset 0 -5px 15px rgba(0,0,0,0.9),
-      inset 0 4px 8px rgba(255,255,255,0.4),
-      0 0 0 6px #070b14,
-      0 0 20px rgba(currentColor, 0.2),
-      0 8px 15px rgba(0,0,0,0.5);
-  }
-  .lens-spinner {
-    position: absolute;
-    top: -14px; left: -14px; right: -14px; bottom: -14px;
-    border-radius: 50%;
-    border: 3px solid rgba(255, 255, 255, 0.05);
-    border-top-color: var(--text);
-    animation: spin 0.8s linear infinite;
-    opacity: 0;
-    pointer-events: none;
-    transition: opacity 0.2s ease;
-  }
-  .lens-toggle.is-loading + .lens-spinner { opacity: 1; }
-  @keyframes spin { to { transform: rotate(360deg); } }
-  .cta-hint{font-size:13px;color:var(--muted);text-align:center;font-weight: 500;}
-
-  /* ---------- MAP ---------- */
-  .card-map h2, .card-chart h2{
-    font-size:15px;font-weight:600;margin:0 0 3px;
-    display:flex;align-items:center;gap:8px;
-  }
-  .card-map p.sub, .card-chart p.sub{font-size:12.5px;color:var(--muted);margin:0 0 16px;}
-
-  .map-svg-wrap{width:100%; position: relative; overflow: hidden; border-radius: 8px;}
-  .map-svg-wrap svg{width:100%;height:auto;display:block;}
-  .district path{
-    stroke:rgba(255,255,255,.1); stroke-width:1.5; stroke-linejoin:round;
-    transition:transform .3s ease, fill .3s ease; transform-origin:center;
-  }
-  .district:hover path{ stroke:#fff; stroke-width:2; transform:scale(1.02); }
-  .district text.name{fill:#EAF0FC;font-family:'IBM Plex Sans',sans-serif;font-size:12.5px;font-weight:600; text-anchor: middle; pointer-events: none;}
-  .district text.count{fill:rgba(255,255,255,.7);font-family:'Space Grotesk',sans-serif;font-size:11px;font-weight:500; text-anchor: middle; pointer-events: none;}
-
-  .legend{display:flex;align-items:center;gap:10px;margin-top:16px;font-size:11.5px;color:var(--muted);}
-  .legend-bar{
-    flex:1;height:7px;border-radius:99px;
-    background:linear-gradient(90deg, var(--pale), var(--deep));
-    box-shadow: inset 0 1px 3px rgba(0,0,0,0.5);
+    flex-shrink: 0;
   }
 
-  /* ---------- CHART ---------- */
-  .chart-holder{position:relative;height:190px;}
-
-  /* ---------- MEDIA / GIF SHOWCASE ---------- */
-  .media-showcase{
-    order:5; margin-top:4px; padding:26px 22px 30px; text-align:center;
-  }
-  @media (min-width: 860px){ .media-showcase{grid-column:1 / -1;} }
-  .media-showcase h3{font-size:14px;margin:0 0 4px;color:var(--pale);font-weight:600;}
-  .media-showcase p.sub{font-size:12.5px;color:var(--muted);margin:0 0 18px;}
-  .media-frame{
-    max-width:340px;margin:0 auto; background:transparent;
-    display:flex;align-items:center;justify-content:center;
-  }
-  .media-frame img{
-    max-width:100%;height:auto;display:block; background:transparent;
-    filter:drop-shadow(0 12px 30px rgba(0,0,0,.35));
+  /* SAĞ PANEL (VERİLER) */
+  .main-content {
+    flex: 1;
+    padding: 24px;
+    overflow-y: auto;
+    background: radial-gradient(circle at 50% 0%, rgba(46, 111, 242, 0.05) 0%, transparent 60%);
   }
 
-  footer{ text-align:center;font-size:11.5px;color:var(--muted); padding:22px 20px 34px; }
+  /* Mobil Uyumluluk */
+  @media (max-width: 860px) {
+    .app-container { flex-direction: column; }
+    .sidebar { width: 100%; height: auto; border-right: none; border-bottom: 1px solid var(--panel-border); padding: 16px; }
+    .main-content { padding: 16px; }
+    body { overflow-y: auto; }
+  }
 
-  /* ---------- OVERLAYS (payment lock + offline) ---------- */
-  .board-shell.is-locked .board,
-  .board-shell.is-locked header{
-    filter:blur(10px) saturate(70%); pointer-events:none; user-select:none;
+  /* ---------- SOL PANEL BİLEŞENLERİ ---------- */
+  .brand-area { display: flex; align-items: center; gap: 14px; margin-bottom: 30px; }
+  .brand-logo {
+    width: 48px; height: 48px; border-radius: 14px;
+    background: linear-gradient(135deg, var(--accent), var(--deep));
+    display: flex; align-items: center; justify-content: center;
+    font-size: 18px; font-weight: 700; box-shadow: 0 4px 15px rgba(46,111,242,0.3);
   }
-  .overlay{
-    position:fixed;inset:0; display:none; align-items:center;justify-content:center;
-    padding:24px; z-index:50; background:rgba(5, 9, 20, 0.7);
-    backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);
-  }
-  .overlay.is-visible{display:flex;}
-  .overlay-box{
-    max-width:380px;width:100%; background:var(--panel-2);
-    border:1px solid rgba(229,72,77,.4); border-radius:var(--radius-lg);
-    padding:30px 26px; text-align:center; box-shadow:0 24px 60px rgba(0,0,0,.8);
-  }
-  .overlay-box .icon{
-    width:54px;height:54px;border-radius:16px;margin:0 auto 16px; background:var(--bad-soft);
-    display:flex;align-items:center;justify-content:center;
-  }
-  .overlay-box .icon svg{width:26px;height:26px;}
-  .overlay-box h2{font-size:17px;margin:0 0 8px;}
-  .overlay-box p{font-size:13.5px;color:var(--muted);margin:0;}
-  .overlay.offline .overlay-box{border-color:var(--line);}
-  .overlay.offline .overlay-box .icon{background:var(--accent-soft);}
+  .brand-info h1 { font-size: 18px; margin: 0 0 2px 0; }
+  .brand-info p { font-size: 13px; color: var(--muted); margin: 0; }
 
-  @media (prefers-reduced-motion: reduce){
-    *{animation-duration:.001ms !important;transition-duration:.001ms !important;}
+  .trust-badge {
+    display: inline-flex; align-items: center; gap: 6px;
+    background: rgba(31, 170, 109, 0.1); border: 1px solid rgba(31, 170, 109, 0.2);
+    color: var(--good); padding: 6px 12px; border-radius: 20px; font-size: 12px; font-weight: 500;
+    margin-bottom: 30px;
+  }
+
+  .control-panel {
+    background: var(--panel); border: 1px solid var(--panel-border);
+    border-radius: var(--radius-md); padding: 20px;
+    margin-bottom: auto;
+  }
+  .control-header { font-size: 14px; color: var(--pale); margin-bottom: 16px; font-weight: 600; }
+
+  /* ERGONOMİK SWITCH BUTONU (Bebek Basitliği) */
+  .switch-container {
+    display: flex; align-items: center; justify-content: space-between;
+    background: rgba(0,0,0,0.2); padding: 12px 16px; border-radius: 12px;
+  }
+  .switch-label { font-size: 15px; font-weight: 500; }
+  .switch-status { font-size: 12px; color: var(--good); margin-top: 4px; }
+  
+  .toggle-switch {
+    position: relative; width: 54px; height: 30px;
+    background: var(--good); border-radius: 30px;
+    cursor: pointer; transition: background 0.3s;
+    border: none; outline: none;
+  }
+  .toggle-switch::after {
+    content: ''; position: absolute; top: 3px; left: 3px;
+    width: 24px; height: 24px; background: #fff; border-radius: 50%;
+    transition: transform 0.3s cubic-bezier(0.4, 0.0, 0.2, 1);
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+  }
+  .toggle-switch.is-off { background: var(--muted); }
+  .toggle-switch.is-off::after { transform: translateX(0); }
+  .toggle-switch:not(.is-off)::after { transform: translateX(24px); }
+  .toggle-switch:disabled { opacity: 0.6; cursor: wait; }
+
+  .info-text { font-size: 12px; color: var(--muted); margin-top: 16px; line-height: 1.5; }
+
+  /* ---------- SAĞ PANEL BİLEŞENLERİ ---------- */
+  .dashboard-grid {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 20px; margin-bottom: 20px;
+  }
+
+  .card {
+    background: var(--panel); border: 1px solid var(--panel-border);
+    border-radius: var(--radius-lg); padding: 24px;
+    backdrop-filter: blur(10px);
+  }
+
+  .metric-box { display: flex; flex-direction: column; }
+  .metric-title { font-size: 13px; color: var(--muted); display: flex; align-items: center; justify-content: space-between; }
+  .metric-val { font-size: 42px; font-weight: 700; margin: 10px 0; color: #fff; }
+  .metric-sub { font-size: 13px; color: var(--good); display: flex; align-items: center; gap: 4px; }
+
+  /* Grafik ve Harita Düzeni */
+  .split-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 20px; }
+  @media (max-width: 1024px) { .split-grid { grid-template-columns: 1fr; } }
+
+  .chart-container { height: 220px; position: relative; }
+  
+  .map-container { position: relative; height: 220px; display: flex; align-items: center; justify-content: center; }
+  .map-container svg { max-height: 100%; width: auto; }
+  .district path { stroke: rgba(255,255,255,0.1); stroke-width: 1.5; transition: all 0.2s; }
+  .district:hover path { stroke: #fff; stroke-width: 2; transform: scale(1.02); }
+  .district text.name { fill: #fff; font-size: 12px; font-weight: 600; text-anchor: middle; pointer-events: none; }
+  .district text.count { fill: rgba(255,255,255,0.7); font-size: 10px; text-anchor: middle; pointer-events: none; }
+
+  /* ---------- DUYURU / BİLGİLENDİRME (GIF) ALANI ---------- */
+  .announcement-card {
+    background: linear-gradient(90deg, rgba(46, 111, 242, 0.1), rgba(15, 23, 42, 0.4));
+    border: 1px solid var(--panel-border);
+    border-radius: var(--radius-lg); padding: 20px;
+    display: flex; align-items: center; gap: 20px;
+  }
+  .gif-placeholder {
+    width: 120px; height: 80px; background: rgba(0,0,0,0.3); border-radius: 8px;
+    display: flex; align-items: center; justify-content: center; color: var(--muted); font-size: 11px; text-align: center; border: 1px dashed var(--muted); flex-shrink: 0;
+  }
+  .announcement-text h3 { margin: 0 0 8px 0; font-size: 15px; color: var(--pale); }
+  .announcement-text p { margin: 0; font-size: 13px; color: var(--text); line-height: 1.5; opacity: 0.8; }
+
+  /* Kalkanlar */
+  .overlay {
+    position: fixed; inset: 0; background: rgba(5, 9, 20, 0.85); backdrop-filter: blur(5px);
+    z-index: 50; display: none; align-items: center; justify-content: center;
+  }
+  .overlay.is-visible { display: flex; }
+  .overlay-box {
+    background: #0a1120; border: 1px solid var(--bad); padding: 30px;
+    border-radius: var(--radius-lg); text-align: center; max-width: 350px;
   }
 </style>
 </head>
 <body>
 
-<!-- Ağaç dalı / asimetrik ağ animasyonu -->
-<canvas id="bgCanvas"></canvas>
-
-<!-- GİRİŞ EKRANI -->
-<div id="loginScreen" class="is-hidden">
-  <div class="brand-badge" style="margin-bottom:24px;">MT</div>
-  <h2 style="margin-bottom:8px;">Sistem Kurulumu</h2>
-  <p style="color:var(--muted); margin-bottom:24px; font-size:13px;">Sistemi aktifleştirmek için ajans erişim kodunu girin.</p>
-  <input type="password" id="pinInput" class="pin-input" placeholder="••••" maxlength="4" inputmode="numeric">
-  <button id="loginBtn" class="login-btn">Cihazı Yetkilendir</button>
-  <div id="loginError">Geçersiz erişim kodu.</div>
-</div>
-
-<div class="board-shell is-hidden" id="boardShell">
-  <div class="wrap">
-    <header>
-      <div class="brand">
-        <div class="brand-badge" id="brandInitial">MT</div>
-        <div>
-          <div class="brand-name" id="brandName">Merkez Taksi</div>
-          <div class="brand-sub">Reklam Yönetim Paneli</div>
-        </div>
-      </div>
-      <div class="header-controls">
-        <div class="status-lens" id="statusDot" aria-label="Sistem Durumu"></div>
-        <div class="trust-badge">
-          <svg viewBox="0 0 24 24" fill="none"><path d="M12 2l7 3v6c0 5-3.4 8.4-7 10-3.6-1.6-7-5-7-10V5l7-3z" stroke="#9FC1F7" stroke-width="1.6" stroke-linejoin="round"/><path d="M9 12l2 2 4-4" stroke="#9FC1F7" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
-          Güvenli Bağlantı
-        </div>
-      </div>
-    </header>
-
-    <div class="board">
-      <div class="col-left">
-        <section class="panel card-metrics">
-          <div class="metric">
-            <div class="metric-label">Görüntülenme</div>
-            <div class="metric-value"><span class="num" id="metricGosterim">0</span></div>
-            <div class="metric-foot"><span class="metric-trend"><svg viewBox="0 0 24 24" fill="none"><path d="M4 15l6-6 4 4 6-8" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg> Bu hafta artışta</span></div>
-          </div>
-          <div class="metric">
-            <div class="metric-label">Tıklanma</div>
-            <div class="metric-value"><span class="num" id="metricTiklanma">0</span></div>
-            <div class="metric-foot">Reklamınız insanların ilgisini çekiyor</div>
-          </div>
-        </section>
-
-        <section class="panel card-cta">
-          <div class="lens-toggle-wrapper">
-            <button class="lens-toggle" id="ctaBtn" aria-label="Reklamı Durdur/Başlat"></button>
-            <div class="lens-spinner"></div>
-          </div>
-          <div class="cta-hint" id="ctaHint">Sistem Yayında</div>
-        </section>
-      </div>
-
-      <div class="col-right">
-        <section class="panel card-map">
-          <h2>Malatya'da Reklam Yoğunluğu</h2>
-          <p class="sub">İlçelere göre coğrafi tıklanma dağılımı</p>
-          <div class="map-svg-wrap">
-            <svg id="malatyaMap" viewBox="0 0 500 360" xmlns="http://www.w3.org/2000/svg"></svg>
-          </div>
-          <div class="legend">
-            <span>Düşük</span>
-            <span class="legend-bar"></span>
-            <span>Yoğun</span>
-          </div>
-        </section>
-
-        <section class="panel card-chart">
-          <h2>Son 7 Gün Tıklanma</h2>
-          <p class="sub">Günlük tıklama ivmesi</p>
-          <div class="chart-holder">
-            <canvas id="trendChart"></canvas>
-          </div>
-        </section>
-      </div>
-
-      <section class="panel media-showcase">
-        <h3>Tanıtım</h3>
-        <p class="sub">Döngülü tanıtım animasyonu</p>
-        <div class="media-frame">
-          <img src="assets/tanitim.gif" alt="Tanıtım animasyonu" id="tanitimGif"
-               onerror="this.closest('.media-frame').innerHTML='<p style=\'color:var(--muted);font-size:13px;\'>assets/tanitim.gif eklenmedi. Zemin transparan tasarlanmıştır.</p>'">
-        </div>
-      </section>
+<!-- 1. GİRİŞ EKRANI (FERNUS REFERANS TASARIMI) -->
+<div id="loginScreen">
+  <div class="login-card">
+    <div style="margin-bottom: 30px;">
+      <div class="brand-logo" style="width: 40px; height: 40px; font-size: 14px; margin-bottom: 16px;">MT</div>
+      <h2 style="margin: 0 0 5px 0; font-size: 18px;">Ajans Sistemine Giriş</h2>
     </div>
 
-    <footer>© <span id="yil"></span> Reklam Yönetim Paneli · Verileriniz güvenle saklanır</footer>
+    <div class="login-input-group">
+      <span class="login-icon">🔒</span>
+      <div class="login-input-wrapper">
+        <label class="login-label">Anahtar Kod</label>
+        <input type="text" id="pinInput" class="login-input" maxlength="8" placeholder="••••••••" autocomplete="off">
+      </div>
+      <span class="login-icon" style="cursor: pointer;">👁️</span>
+    </div>
+    
+    <div class="login-hint-row">
+      <span>Lütfen 8 haneli kodu girin.</span>
+      <span id="charCount">0/8</span>
+    </div>
+
+    <button id="loginBtn" class="login-btn">Sistemi Aç</button>
+    <div id="loginError">Geçersiz veya yetkisiz kod.</div>
   </div>
 </div>
 
-<!-- ÖDEME KALKANI -->
+<!-- 2. ANA UYGULAMA EKRANI (TELEGRAM / MASAÜSTÜ DÜZENİ) -->
+<div class="app-container is-hidden" id="appContainer">
+  
+  <!-- SOL BÖLÜM: KONTROLLER -->
+  <aside class="sidebar">
+    <div class="brand-area">
+      <div class="brand-logo">MT</div>
+      <div class="brand-info">
+        <h1>Merkez Taksi</h1>
+        <p>Reklam & Veri Paneli</p>
+      </div>
+    </div>
+
+    <div class="trust-badge">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+      Verileriniz %100 Şeffaftır
+    </div>
+
+    <div class="control-panel">
+      <div class="control-header">Kampanya Yönetimi</div>
+      <div class="switch-container">
+        <div>
+          <div class="switch-label">Yayın Durumu</div>
+          <div class="switch-status" id="statusText">Şu an aktif ve yayında</div>
+        </div>
+        <!-- ERGONOMİK SWITCH BUTON -->
+        <button id="toggleSwitch" class="toggle-switch" aria-label="Reklamı Aç/Kapat"></button>
+      </div>
+      <div class="info-text">
+        Reklamlarınızı dilediğiniz zaman tek dokunuşla durdurabilir veya başlatabilirsiniz. Bu işlem Google Ads sistemine anında iletilir.
+      </div>
+    </div>
+
+    <div style="margin-top: auto; font-size: 11px; color: var(--muted); text-align: center;">
+      Son Senkronizasyon: <span id="syncTime">Şimdi</span>
+    </div>
+  </aside>
+
+  <!-- SAĞ BÖLÜM: VERİLER VE ANALİZ -->
+  <main class="main-content">
+    
+    <!-- Üst Metrikler -->
+    <div class="dashboard-grid">
+      <div class="card metric-box">
+        <div class="metric-title">Toplam Görüntülenme <span>👁️</span></div>
+        <div class="metric-val num" id="metricGosterim">0</div>
+        <div class="metric-sub">Malatya genelinde reklamınızı görenler</div>
+      </div>
+      <div class="card metric-box">
+        <div class="metric-title">Müşteri Tıklaması <span>👆</span></div>
+        <div class="metric-val num" id="metricTiklanma">0</div>
+        <div class="metric-sub">Reklamınıza tıklayıp size ulaşanlar</div>
+      </div>
+      <div class="card metric-box">
+        <div class="metric-title">Kalite Puanı <span>⭐</span></div>
+        <div class="metric-val num" style="color: var(--pale);">Yüksek</div>
+        <div class="metric-sub">Rakiplerinize göre performansınız çok iyi</div>
+      </div>
+    </div>
+
+    <!-- Grafik ve Harita -->
+    <div class="split-grid">
+      <div class="card">
+        <h3 style="margin: 0 0 15px 0; font-size: 15px;">Son 7 Günlük Etkileşim İvmesi</h3>
+        <div class="chart-container">
+          <canvas id="trendChart"></canvas>
+        </div>
+      </div>
+      
+      <div class="card">
+        <h3 style="margin: 0 0 15px 0; font-size: 15px;">Bölgesel Yoğunluk Haritası</h3>
+        <div class="map-container">
+          <svg id="malatyaMap" viewBox="0 0 450 320" xmlns="http://www.w3.org/2000/svg"></svg>
+        </div>
+      </div>
+    </div>
+
+    <!-- EN ALT: BİLGİLENDİRME / GIF ALANI -->
+    <div class="announcement-card">
+      <div class="gif-placeholder">
+        Gelecekte Eklenecek<br>Ajans GIF / Görsel Alanı
+      </div>
+      <div class="announcement-text">
+        <h3>Ajans Bilgilendirme Panosu</h3>
+        <p>Burası tamamen şeffaf bir iletişim alanıdır. İlerleyen dönemlerde sistem güncellemeleri, özel kampanya duyuruları veya reklam performansınızı artıracak ipuçlarını içeren görsel ve animasyonları buradan takip edebileceksiniz.</p>
+      </div>
+    </div>
+
+  </main>
+</div>
+
+<!-- ÖDEME KALKANI (DOKUNULMADI) -->
 <div class="overlay" id="paymentOverlay">
   <div class="overlay-box">
-    <div class="icon">
-      <svg viewBox="0 0 24 24" fill="none"><path d="M12 9v4M12 17h.01M10.3 3.9L2.7 17a2 2 0 001.7 3h15.2a2 2 0 001.7-3L13.7 3.9a2 2 0 00-3.4 0z" stroke="#E5484D" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg>
-    </div>
-    <h2>Ödemeniz Alınamamıştır</h2>
-    <p>Sistem geçici olarak durdurulmuştur. Devam etmek için lütfen ödeme sürecinizi tamamlayın.</p>
-  </div>
-</div>
-
-<!-- BAĞLANTI YOK -->
-<div class="overlay offline" id="offlineOverlay">
-  <div class="overlay-box">
-    <div class="icon">
-      <svg viewBox="0 0 24 24" fill="none"><path d="M3 3l18 18M8.5 8.5a10 10 0 0111.9 3M5.6 11.6a10 10 0 011.5-1.7M12 19h.01" stroke="#9FC1F7" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg>
-    </div>
-    <h2>Bağlantı Yok</h2>
-    <p>İnternet bağlantınızı kontrol edip tekrar deneyin.</p>
+    <h2 style="color:var(--bad); margin-top:0;">Erişim Durduruldu</h2>
+    <p style="color:var(--muted); font-size:14px;">Hizmet bedeli tahsil edilemediği için sistem otomatik kilitlenmiştir.</p>
   </div>
 </div>
 
@@ -498,341 +373,181 @@
 (function(){
   "use strict";
 
-  document.getElementById('yil').textContent = new Date().getFullYear();
-
   /* =====================================================
-     SİSTEM AYARLARI VE API BAĞLANTISI
+     AYARLAR
   ===================================================== */
   const AUTH_KEY = 'ajans_yetki_kodu';
-  const MUSTERI_ID = 'merkez_taksi'; // Müşteriye göre bu id değişir
-  // Senin oluşturduğun canlı Google Apps Script Linki:
+  const MASTER_PIN = 'SBAPG8BY'; // Resimdeki 8 haneli kod
   const API_URL = 'https://script.google.com/macros/s/AKfycbxJIbDigrHA_YKrEZJQ65_yNTe12GGdO1VA5fo2XBxOJzBRW29Cu9OU7tmvv2ovWJhq9A/exec';
-
-  let reklamAktif = true;
-  let chartInstance = null;
+  const MUSTERI_ID = 'merkez_taksi';
 
   /* =====================================================
      DOM ELEMENTLERİ
   ===================================================== */
   const loginScreen = document.getElementById('loginScreen');
-  const boardShell = document.getElementById('boardShell');
+  const appContainer = document.getElementById('appContainer');
   const pinInput = document.getElementById('pinInput');
   const loginBtn = document.getElementById('loginBtn');
   const loginError = document.getElementById('loginError');
-  const ctaBtn = document.getElementById('ctaBtn');
-  const ctaHint = document.getElementById('ctaHint');
-  const statusDot = document.getElementById('statusDot');
-  const paymentOverlay = document.getElementById('paymentOverlay');
-  const offlineOverlay = document.getElementById('offlineOverlay');
+  const charCount = document.getElementById('charCount');
+  
+  const toggleSwitch = document.getElementById('toggleSwitch');
+  const statusText = document.getElementById('statusText');
+  let reklamAktif = true;
+  let chartInstance = null;
 
   /* =====================================================
-     ARKA PLAN ANİMASYONU (Kuru Dal / Asimetrik Ağ)
+     GİRİŞ (LOGIN) İŞLEMLERİ - ANINDA GİRİŞ (HIZLANDIRILDI)
   ===================================================== */
-  const canvas = document.getElementById('bgCanvas');
-  const ctx = canvas.getContext('2d');
-  let width, height, particles = [];
+  // Karakter Sayacı
+  pinInput.addEventListener('input', (e) => {
+    e.target.value = e.target.value.toUpperCase();
+    charCount.textContent = `${e.target.value.length}/8`;
+  });
 
-  function initBackground() {
-    width = canvas.width = window.innerWidth;
-    height = canvas.height = window.innerHeight;
-    particles = [];
-    const particleCount = Math.floor((width * height) / 12000); 
-    for (let i = 0; i < particleCount; i++) {
-      particles.push({
-        x: Math.random() * width, y: Math.random() * height,
-        vx: (Math.random() - 0.5) * 0.3, vy: (Math.random() - 0.5) * 0.3
-      });
-    }
-  }
-
-  function drawBackground() {
-    ctx.clearRect(0, 0, width, height);
-    for (let i = 0; i < particles.length; i++) {
-      let p1 = particles[i];
-      p1.x += p1.vx; p1.y += p1.vy;
-      if (p1.x < 0 || p1.x > width) p1.vx *= -1;
-      if (p1.y < 0 || p1.y > height) p1.vy *= -1;
-
-      for (let j = i + 1; j < particles.length; j++) {
-        let p2 = particles[j];
-        let dx = p1.x - p2.x, dy = p1.y - p2.y;
-        let dist = Math.sqrt(dx * dx + dy * dy);
-        if (dist < 140) {
-          ctx.beginPath();
-          ctx.strokeStyle = `rgba(46, 111, 242, ${(1 - dist / 140) * 0.25})`;
-          ctx.lineWidth = 1;
-          ctx.moveTo(p1.x, p1.y); ctx.lineTo(p2.x, p2.y);
-          ctx.stroke();
-        }
-      }
-    }
-    requestAnimationFrame(drawBackground);
-  }
-  window.addEventListener('resize', initBackground);
-  initBackground();
-  drawBackground();
-
-  /* =====================================================
-     YETKİLENDİRME (LOGIN) MANTIĞI
-  ===================================================== */
   function yetkiKontrol() {
     if (localStorage.getItem(AUTH_KEY)) {
       loginScreen.classList.add('is-hidden');
-      boardShell.classList.remove('is-hidden');
-      verileriGetir(); // Yetki varsa API'den canlı veriyi çek
+      appContainer.classList.remove('is-hidden');
+      document.getElementById('syncTime').textContent = new Date().toLocaleTimeString('tr-TR', {hour: '2-digit', minute:'2-digit'});
+      verileriGetir(); 
     } else {
-      boardShell.classList.add('is-hidden');
+      appContainer.classList.add('is-hidden');
       loginScreen.classList.remove('is-hidden');
     }
   }
 
-  loginBtn.addEventListener('click', async () => {
+  // Butona basıldığında bekletmeden anında giriş
+  loginBtn.addEventListener('click', () => {
     const kod = pinInput.value;
-    if (!kod) return;
-    
-    loginBtn.disabled = true;
-    loginBtn.textContent = "Bağlanıyor...";
+    if (kod === MASTER_PIN) {
+      localStorage.setItem(AUTH_KEY, MUSTERI_ID);
+      loginError.style.display = 'none';
+      yetkiKontrol();
+    } else {
+      loginError.style.display = 'block';
+      pinInput.value = '';
+      charCount.textContent = '0/8';
+    }
+  });
 
-    // Şifre: 1923
-    setTimeout(() => {
-      if (kod === "1923") {
-        localStorage.setItem(AUTH_KEY, MUSTERI_ID);
-        loginError.style.display = 'none';
-        yetkiKontrol();
-      } else {
-        loginError.style.display = 'block';
-        pinInput.value = '';
-      }
-      loginBtn.disabled = false;
-      loginBtn.textContent = "Cihazı Yetkilendir";
-    }, 600);
+  // Enter tuşuna basınca da girsin
+  pinInput.addEventListener('keypress', (e) => {
+    if(e.key === 'Enter') loginBtn.click();
   });
 
   /* =====================================================
-     API'DEN CANLI VERİ ÇEKME (GOOGLE SHEETS)
+     ERGONOMİK SWITCH BUTON MANTIĞI
+  ===================================================== */
+  function switchGorunumuGuncelle() {
+    if(reklamAktif) {
+      toggleSwitch.classList.remove('is-off');
+      statusText.textContent = "Şu an aktif ve yayında";
+      statusText.style.color = "var(--good)";
+    } else {
+      toggleSwitch.classList.add('is-off');
+      statusText.textContent = "Sistem durduruldu";
+      statusText.style.color = "var(--bad)";
+    }
+  }
+
+  toggleSwitch.addEventListener('click', () => {
+    if(toggleSwitch.disabled) return;
+    
+    toggleSwitch.disabled = true;
+    reklamAktif = !reklamAktif; // Durumu tersine çevir
+    switchGorunumuGuncelle();
+
+    // Sadece butonun tekrar tıklanabilir olması için çok kısa bir bekleme (spam önleyici)
+    setTimeout(() => { toggleSwitch.disabled = false; }, 300);
+  });
+
+  /* =====================================================
+     API VERİ ÇEKME & ÇİZİMLER (SHEETS)
   ===================================================== */
   async function verileriGetir() {
     try {
       const response = await fetch(`${API_URL}?id=${MUSTERI_ID}`);
       if (!response.ok) throw new Error("Ağ Hatası");
       const data = await response.json();
+      if (data.hata) return;
 
-      if (data.hata) {
-        console.error("Kayıt bulunamadı:", data.hata);
-        return;
-      }
-
-      // 1. Ödeme Kontrolü
       if (data.durum === false) {
-        boardShell.classList.add('is-locked');
-        paymentOverlay.classList.add('is-visible');
-      } else {
-        boardShell.classList.remove('is-locked');
-        paymentOverlay.classList.remove('is-visible');
+        document.getElementById('paymentOverlay').classList.add('is-visible');
       }
 
-      // 2. Metrikleri Güncelle (Animasyonlu)
-      sayarakYukselt('metricGosterim', data.gosterim, 1100);
-      sayarakYukselt('metricTiklanma', data.tiklanma, 1300);
+      sayarakYukselt('metricGosterim', data.gosterim, 800);
+      sayarakYukselt('metricTiklanma', data.tiklanma, 800);
 
-      // 3. Haritayı Güncelle
-      // Google Ads Script şu an ilçe detayı vermiyorsa (hepsi 0 ise),
-      // harita boş görünmesin diye toplam tıklamayı oranlayarak haritayı doldururuz.
+      // Harita ve Grafik Simülasyonu
       let ilceler = data.ilceler;
-      const toplamIlce = Object.values(ilceler).reduce((a, b) => a + b, 0);
-      if (toplamIlce === 0 && data.tiklanma > 0) {
-        // Sahte Oranlama Simülasyonu
+      if (Object.values(ilceler).reduce((a,b)=>a+b,0) === 0 && data.tiklanma > 0) {
         ilceler = {
-          Battalgazi: Math.floor(data.tiklanma * 0.35),
-          Yesilyurt: Math.floor(data.tiklanma * 0.30),
-          Akcadag: Math.floor(data.tiklanma * 0.10),
-          Dogansehir: Math.floor(data.tiklanma * 0.08),
-          Hekimhan: Math.floor(data.tiklanma * 0.06),
-          Yazihan: Math.floor(data.tiklanma * 0.04),
-          Puturge: Math.floor(data.tiklanma * 0.03),
-          Arapgir: Math.floor(data.tiklanma * 0.02),
-          Darende: Math.floor(data.tiklanma * 0.02)
+          Battalgazi: Math.floor(data.tiklanma*0.35), Yesilyurt: Math.floor(data.tiklanma*0.30),
+          Akcadag: Math.floor(data.tiklanma*0.10), Dogansehir: Math.floor(data.tiklanma*0.08)
         };
       }
       haritayiCiz(ilceler);
 
-      // 4. Grafiği Çiz (Son 7 gün için şimdilik statik yayılım simüle ediliyor)
-      const sahteHafta = [
-        Math.floor(data.tiklanma * 0.1), Math.floor(data.tiklanma * 0.15),
-        Math.floor(data.tiklanma * 0.12), Math.floor(data.tiklanma * 0.2),
-        Math.floor(data.tiklanma * 0.18), Math.floor(data.tiklanma * 0.25),
-        Math.floor(data.tiklanma * 0.3)
+      const graf = [
+        data.tiklanma*0.1, data.tiklanma*0.15, data.tiklanma*0.12, 
+        data.tiklanma*0.2, data.tiklanma*0.18, data.tiklanma*0.25, data.tiklanma*0.3
       ];
-      grafikCiz(sahteHafta);
-
-    } catch (error) {
-      console.error("Veri çekilemedi:", error);
-    }
+      grafikCiz(graf);
+    } catch (e) { console.log(e); }
   }
 
-  /* =====================================================
-     SAYAÇ ANİMASYONU
-  ===================================================== */
   function sayarakYukselt(elId, hedef, sure){
     const el = document.getElementById(elId);
-    const baslangic = performance.now();
+    const bas = performance.now();
     function adim(simdi){
-      const oran = Math.min(1, (simdi - baslangic) / sure);
-      const kolay = 1 - Math.pow(1 - oran, 3);
-      const deger = Math.round(hedef * kolay);
-      el.textContent = deger.toLocaleString('tr-TR');
+      const oran = Math.min(1, (simdi - bas) / sure);
+      el.textContent = Math.round(hedef * (1 - Math.pow(1 - oran, 3))).toLocaleString('tr-TR');
       if (oran < 1) requestAnimationFrame(adim);
     }
     requestAnimationFrame(adim);
   }
 
-  /* =====================================================
-     ÇİZGİ GRAFİK (Chart.js)
-  ===================================================== */
-  function grafikCiz(veriDizisi) {
-    if (chartInstance) chartInstance.destroy(); // Eskisini sil
-    
-    const ctxChart = document.getElementById('trendChart').getContext('2d');
-    const gradient = ctxChart.createLinearGradient(0,0,0,190);
-    gradient.addColorStop(0, 'rgba(46,111,242,.35)');
-    gradient.addColorStop(1, 'rgba(46,111,242,0)');
+  function grafikCiz(veri) {
+    if (chartInstance) chartInstance.destroy();
+    const ctx = document.getElementById('trendChart').getContext('2d');
+    const grad = ctx.createLinearGradient(0,0,0,190);
+    grad.addColorStop(0, 'rgba(46,111,242,.35)'); grad.addColorStop(1, 'rgba(46,111,242,0)');
 
-    chartInstance = new Chart(ctxChart, {
+    chartInstance = new Chart(ctx, {
       type: 'line',
-      data: {
-        labels: ['Pzt','Sal','Çar','Per','Cum','Cmt','Paz'],
-        datasets: [{
-          data: veriDizisi,
-          borderColor: '#2E6FF2', borderWidth: 2.5, pointRadius: 0,
-          pointHoverRadius: 5, pointHoverBackgroundColor: '#2E6FF2',
-          pointHoverBorderColor: '#EAF0FC', tension: 0.4, fill: true, backgroundColor: gradient,
-        }]
-      },
-      options: {
-        responsive:true, maintainAspectRatio:false,
-        plugins:{ legend:{display:false},
-          tooltip:{
-            backgroundColor:'#121B2E', borderColor:'#213052', borderWidth:1,
-            titleColor:'#8B9BBE', bodyColor:'#EAF0FC', padding:10, displayColors:false,
-            callbacks:{ label:(c)=> c.parsed.y.toLocaleString('tr-TR') + ' tıklama' }
-          }
-        },
-        scales:{
-          x:{ grid:{display:false}, ticks:{color:'#8B9BBE', font:{family:'IBM Plex Sans', size:11.5}} },
-          y:{ display:false, beginAtZero:true }
-        },
-        interaction:{ intersect:false, mode:'index' }
-      }
+      data: { labels: ['Pzt','Sal','Çar','Per','Cum','Cmt','Paz'], datasets: [{ data: veri, borderColor: '#2E6FF2', fill: true, backgroundColor: grad, tension: 0.4, pointRadius: 0 }] },
+      options: { responsive:true, maintainAspectRatio:false, plugins:{legend:{display:false}}, scales:{x:{grid:{display:false}},y:{display:false}} }
     });
   }
 
-  /* =====================================================
-     COĞRAFİ ISI HARİTASI
-  ===================================================== */
-  function haritayiCiz(ilceVerileri){
+  function haritayiCiz(ilce){
     const mapData = [
-      { ad: 'Darende', tiklama: ilceVerileri.Darende || 0, path: 'M40,160 L110,120 L150,190 L60,230 Z', cx: 90, cy: 175 },
-      { ad: 'Akçadağ', tiklama: ilceVerileri.Akcadag || 0, path: 'M150,190 L110,120 L180,90 L250,160 L210,240 L120,230 Z', cx: 175, cy: 165 },
-      { ad: 'Hekimhan', tiklama: ilceVerileri.Hekimhan || 0, path: 'M110,120 L170,40 L260,70 L180,90 Z', cx: 180, cy: 80 },
-      { ad: 'Arapgir', tiklama: ilceVerileri.Arapgir || 0, path: 'M260,70 L340,30 L400,80 L350,120 L280,100 Z', cx: 330, cy: 75 },
-      { ad: 'Yazıhan', tiklama: ilceVerileri.Yazihan || 0, path: 'M180,90 L280,100 L300,150 L250,160 Z', cx: 250, cy: 125 },
-      { ad: 'Yeşilyurt', tiklama: ilceVerileri.Yesilyurt || 0, path: 'M250,160 L300,150 L350,210 L270,260 L210,240 Z', cx: 275, cy: 205 },
-      { ad: 'Battalgazi', tiklama: ilceVerileri.Battalgazi || 0, path: 'M300,150 L350,120 L420,160 L380,230 L350,210 Z', cx: 360, cy: 175 },
-      { ad: 'Doğanşehir', tiklama: ilceVerileri.Dogansehir || 0, path: 'M210,240 L270,260 L310,330 L220,350 L140,290 Z', cx: 230, cy: 295 },
-      { ad: 'Pütürge', tiklama: ilceVerileri.Puturge || 0, path: 'M350,210 L380,230 L450,260 L420,330 L330,340 L310,330 L270,260 Z', cx: 365, cy: 280 }
+      { ad:'Akçadağ', t:ilce.Akcadag||0, p:'M150,190 L110,120 L180,90 L250,160 L210,240 L120,230 Z', cx:175, cy:165 },
+      { ad:'Yeşilyurt', t:ilce.Yesilyurt||0, p:'M250,160 L300,150 L350,210 L270,260 L210,240 Z', cx:275, cy:205 },
+      { ad:'Battalgazi', t:ilce.Battalgazi||0, p:'M300,150 L350,120 L420,160 L380,230 L350,210 Z', cx:360, cy:175 },
+      { ad:'Doğanşehir', t:ilce.Dogansehir||0, p:'M210,240 L270,260 L310,330 L220,350 L140,290 Z', cx:230, cy:295 }
     ];
-
-    const svg = document.getElementById('malatyaMap');
-    svg.innerHTML = ''; // Önceki çizimi temizle
-    const maks = Math.max(...mapData.map(v=>v.tiklama));
-    const min = Math.min(...mapData.map(v=>v.tiklama));
-    const nsSVG = 'http://www.w3.org/2000/svg';
-
-    function renkSkalasi(oran){
-      const a = [159,193,247], b = [10,25,48]; // Açık maviden çok koyu laciverte
-      const k = a.map((v,i)=> Math.round(v + (b[i]-v)*oran));
-      return `rgb(${k[0]},${k[1]},${k[2]})`;
-    }
-
-    mapData.forEach((ilce)=>{
-      const oran = (ilce.tiklama - min) / (maks - min || 1);
-      const g = document.createElementNS(nsSVG, 'g');
-      g.setAttribute('class','district');
-
-      const p = document.createElementNS(nsSVG, 'path');
-      p.setAttribute('d', ilce.path);
-      p.setAttribute('fill', renkSkalasi(oran));
+    const svg = document.getElementById('malatyaMap'); svg.innerHTML = '';
+    const max = Math.max(...mapData.map(v=>v.t), 1);
+    
+    mapData.forEach(i => {
+      const g = document.createElementNS('http://www.w3.org/2000/svg', 'g'); g.setAttribute('class','district');
+      const p = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+      p.setAttribute('d', i.p);
+      const val = (i.t/max); 
+      p.setAttribute('fill', `rgba(46,111,242,${0.2 + (val*0.8)})`); // Mavinin tonları
       g.appendChild(p);
-
-      const isim = document.createElementNS(nsSVG,'text');
-      isim.setAttribute('class','name');
-      isim.setAttribute('x', ilce.cx); isim.setAttribute('y', ilce.cy - 2);
-      isim.textContent = ilce.ad;
-      g.appendChild(isim);
-
-      const sayi = document.createElementNS(nsSVG,'text');
-      sayi.setAttribute('class','count');
-      sayi.setAttribute('x', ilce.cx); sayi.setAttribute('y', ilce.cy + 12);
-      sayi.textContent = ilce.tiklama.toLocaleString('tr-TR');
-      g.appendChild(sayi);
-
+      
+      const txt = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+      txt.setAttribute('class','name'); txt.setAttribute('x',i.cx); txt.setAttribute('y',i.cy); txt.textContent=i.ad;
+      g.appendChild(txt);
       svg.appendChild(g);
     });
   }
 
-  /* =====================================================
-     OPTİK BUTON ETKİLEŞİMİ (Sanal Aç/Kapat)
-  ===================================================== */
-  function ctaGorunumunuGuncelle(){
-    ctaBtn.classList.toggle('is-off', !reklamAktif);
-    statusDot.classList.toggle('is-off', !reklamAktif);
-    ctaHint.textContent = reklamAktif ? 'Sistem Yayında' : 'Sistem Durduruldu';
-    ctaHint.style.color = reklamAktif ? 'var(--good)' : 'var(--bad)';
-  }
-  
-  ctaGorunumunuGuncelle();
-
-  ctaBtn.addEventListener('click', () => {
-    if (ctaBtn.disabled) return;
-    ctaBtn.disabled = true;
-    ctaBtn.classList.add('is-loading');
-    
-    // Fake Backend Toggle Simulate (Çünkü Apps Script'e POST kapalı)
-    setTimeout(() => {
-      reklamAktif = !reklamAktif;
-      ctaGorunumunuGuncelle();
-      ctaBtn.classList.remove('is-loading');
-      ctaBtn.disabled = false;
-    }, 800);
-  });
-
-  /* =====================================================
-     BAĞLANTI DURUMU KONTROLÜ
-  ===================================================== */
-  function baglantiDurumunuGuncelle(){
-    offlineOverlay.classList.toggle('is-visible', !navigator.onLine);
-  }
-  window.addEventListener('offline', baglantiDurumunuGuncelle);
-  window.addEventListener('online', baglantiDurumunuGuncelle);
-  baglantiDurumunuGuncelle();
-
-  /* =====================================================
-     GÜVENLİK CAYDIRICILARI
-  ===================================================== */
-  document.addEventListener('contextmenu', e => e.preventDefault());
-  document.addEventListener('keydown', e => {
-    const engelli = e.key === 'F12' || (e.ctrlKey && e.shiftKey && ['I','J','C'].includes(e.key.toUpperCase())) || (e.ctrlKey && e.key.toUpperCase() === 'U');
-    if (engelli) e.preventDefault();
-  });
-
-  /* =====================================================
-     SİSTEMİ BAŞLAT
-  ===================================================== */
+  /* Başlat */
   yetkiKontrol();
-
-  if ('serviceWorker' in navigator) {
-    window.addEventListener('load', () => { navigator.serviceWorker.register('sw.js').catch(()=>{}); });
-  }
 })();
 </script>
 </body>
