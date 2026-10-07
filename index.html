@@ -21,37 +21,31 @@
 
 <style>
   :root{
-    --bg:#0B1220;
-    --panel:rgba(18, 27, 46, 0.85);
-    --panel-2:rgba(14, 23, 40, 0.9);
-    --line:rgba(33, 48, 82, 0.7);
+    --bg:#050914;
+    --panel:rgba(15, 23, 42, 0.65);
+    --panel-2:rgba(11, 17, 32, 0.75);
+    --line:rgba(46, 111, 242, 0.15);
     --text:#EAF0FC;
     --muted:#8B9BBE;
     --accent:#2E6FF2;
     --accent-soft:#193261;
-    --deep:#123A8F;
+    --deep:#0a1930;
     --pale:#9FC1F7;
     --good:#1FAA6D;
     --good-soft:#0F3D2C;
     --bad:#E5484D;
     --bad-soft:#3B1518;
-    --radius-lg:22px;
-    --radius-md:14px;
-    --radius-sm:9px;
+    --radius-lg:20px;
+    --radius-md:12px;
+    --radius-sm:8px;
   }
 
   *{box-sizing:border-box;}
-  html,body{margin:0;padding:0; height: 100%;}
+  html,body{margin:0;padding:0; height:100%;}
   
   body{
     background-color: var(--bg);
-    /* İç mimari yaklaşımla pürüzlü, lüks halı/kumaş dokusu efekti ve derinlik veren gradyanlar */
-    background-image: 
-      url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.18'/%3E%3C/svg%3E"),
-      radial-gradient(circle at 15% 0%, rgba(46, 111, 242, 0.12) 0%, transparent 50%),
-      radial-gradient(circle at 85% 100%, rgba(31, 170, 109, 0.08) 0%, transparent 50%),
-      linear-gradient(160deg, #080d17 0%, #0f182b 100%);
-    background-attachment: fixed;
+    background-image: radial-gradient(circle at 50% 0%, rgba(46, 111, 242, 0.1) 0%, transparent 70%);
     color:var(--text);
     font-family:'IBM Plex Sans', system-ui, sans-serif;
     -webkit-font-smoothing:antialiased;
@@ -59,19 +53,32 @@
     line-height:1.5;
     user-select:none;
     -webkit-user-select:none;
+    overflow-x: hidden;
+  }
+
+  /* Arka Plan Animasyonu İçin Canvas */
+  #bgCanvas {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    pointer-events: none;
   }
 
   h1,h2,h3,.num,.metric-value{font-family:'Space Grotesk', 'IBM Plex Sans', sans-serif;}
   .num{font-variant-numeric:tabular-nums;}
   a{color:inherit;}
   ::selection{background:var(--accent-soft);}
-
   button{font-family:inherit;}
 
   .wrap{
     max-width:1180px;
     margin:0 auto;
     padding:20px 20px 0;
+    position: relative;
+    z-index: 1;
   }
 
   /* ---------- HEADER ---------- */
@@ -88,10 +95,51 @@
     background:linear-gradient(155deg, var(--accent), var(--deep));
     display:flex;align-items:center;justify-content:center;
     font-weight:700;font-size:17px;letter-spacing:.2px;
-    box-shadow:0 6px 18px rgba(46,111,242,.35);
+    box-shadow:0 6px 18px rgba(46,111,242,.25);
   }
   .brand-name{font-size:16px;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
   .brand-sub{font-size:12.5px;color:var(--muted);margin-top:1px;}
+  
+  .header-controls {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+
+  /* ---------- OPTİK BİLDİRİM MERCEĞİ (Durum Göstergesi) ---------- */
+  .status-lens {
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    position: relative;
+    background: radial-gradient(circle at 35% 35%, #4aff80 0%, #0d993b 40%, #032b0f 100%);
+    box-shadow: 
+      inset 0 -2px 4px rgba(0,0,0,0.6),
+      inset 0 2px 4px rgba(255,255,255,0.4),
+      0 0 0 2px rgba(255,255,255,0.05),
+      0 0 12px rgba(74, 255, 128, 0.5);
+    transition: all 0.3s ease;
+  }
+  .status-lens::after {
+    content: '';
+    position: absolute;
+    top: 2px;
+    left: 3px;
+    width: 5px;
+    height: 3px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.8);
+    transform: rotate(-20deg);
+  }
+  .status-lens.is-off {
+    background: radial-gradient(circle at 35% 35%, #ff5555 0%, #a60f0f 40%, #330303 100%);
+    box-shadow: 
+      inset 0 -2px 4px rgba(0,0,0,0.6),
+      inset 0 2px 4px rgba(255,255,255,0.4),
+      0 0 0 2px rgba(255,255,255,0.05),
+      0 0 12px rgba(255, 68, 68, 0.5);
+  }
+
   .trust-badge{
     display:flex;align-items:center;gap:7px;
     padding:8px 13px;border-radius:999px;
@@ -130,9 +178,9 @@
     border:1px solid var(--line);
     border-radius:var(--radius-lg);
     padding:22px;
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
-    box-shadow: 0 10px 30px rgba(0,0,0,0.25);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    box-shadow: 0 10px 40px rgba(0,0,0,0.2);
   }
 
   /* ---------- METRICS ---------- */
@@ -144,7 +192,6 @@
     letter-spacing:-.01em;
     margin-top:6px;
     display:flex;align-items:baseline;gap:10px;
-    text-shadow: 0 4px 12px rgba(0,0,0,0.3);
   }
   .metric-trend{
     font-size:13.5px;font-weight:600;color:var(--good);
@@ -153,107 +200,38 @@
   .metric-trend svg{width:11px;height:11px;}
   .metric-foot{font-size:12.5px;color:var(--muted);margin-top:4px;}
 
-  /* ---------- OPTICAL LENS TOGGLE ---------- */
-  .card-cta {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    padding: 36px 22px;
+  /* ---------- ANA AKSİYON BUTONU ---------- */
+  .cta-btn{
+    width:100%;
+    border:none;
+    border-radius:var(--radius-md);
+    padding:20px 22px;
+    font-size:17px;
+    font-weight:600;
+    color:#fff;
+    cursor:pointer;
+    display:flex;align-items:center;justify-content:center;gap:12px;
+    transition:transform .12s ease, box-shadow .2s ease, background .25s ease;
+    background:linear-gradient(155deg, var(--good), #157e51);
+    box-shadow:0 10px 26px rgba(31,170,109,.25);
   }
-  
-  .lens-toggle-wrapper {
-    position: relative;
-    width: 100px;
-    height: 100px;
-    margin-bottom: 20px;
+  .cta-btn:active{transform:scale(.985);}
+  .cta-btn.is-off{
+    background:linear-gradient(155deg, var(--bad), #b8393d);
+    box-shadow:0 10px 26px rgba(229,72,77,.25);
   }
-
-  .lens-toggle {
-    position: relative;
-    width: 100%;
-    height: 100%;
-    border-radius: 50%;
-    border: none;
-    cursor: pointer;
-    outline: none;
-    padding: 0;
-    transition: all 0.4s cubic-bezier(0.25, 1, 0.5, 1);
-    
-    /* Standart (Açık - Yeşil) Optik Lens Görünümü */
-    background: radial-gradient(circle at 35% 30%, #4aff80 0%, #0d993b 40%, #032b0f 100%);
-    box-shadow: 
-      inset 0 -10px 20px rgba(0,0,0,0.8),
-      inset 0 6px 12px rgba(255,255,255,0.6),
-      0 0 0 6px #070b14,
-      0 0 35px rgba(36, 229, 113, 0.4),
-      0 15px 25px rgba(0,0,0,0.6);
+  .cta-btn:disabled{cursor:not-allowed;opacity:.85;transform:none;}
+  .cta-btn .spinner{
+    width:18px;height:18px;border-radius:50%;
+    border:2.5px solid rgba(255,255,255,.4);
+    border-top-color:#fff;
+    animation:spin .7s linear infinite;
+    display:none;
   }
-
-  /* Parlak Mercek Yansıması */
-  .lens-toggle::after {
-    content: '';
-    position: absolute;
-    top: 6%;
-    left: 18%;
-    width: 64%;
-    height: 35%;
-    border-radius: 50%;
-    background: linear-gradient(180deg, rgba(255,255,255,0.7) 0%, rgba(255,255,255,0) 100%);
-    pointer-events: none;
-    transform: rotate(-10deg);
-  }
-
-  /* Kapalı (Kırmızı) Durum */
-  .lens-toggle.is-off {
-    background: radial-gradient(circle at 35% 30%, #ff5555 0%, #a60f0f 40%, #330303 100%);
-    box-shadow: 
-      inset 0 -10px 20px rgba(0,0,0,0.8),
-      inset 0 6px 12px rgba(255,255,255,0.5),
-      0 0 0 6px #070b14,
-      0 0 35px rgba(255, 68, 68, 0.4),
-      0 15px 25px rgba(0,0,0,0.6);
-  }
-
-  .lens-toggle:active {
-    transform: scale(0.92);
-    box-shadow: 
-      inset 0 -5px 15px rgba(0,0,0,0.9),
-      inset 0 4px 8px rgba(255,255,255,0.4),
-      0 0 0 6px #070b14,
-      0 0 20px rgba(currentColor, 0.2),
-      0 8px 15px rgba(0,0,0,0.5);
-  }
-
-  .lens-toggle:disabled {
-    cursor: not-allowed;
-  }
-
-  /* Spinner (Halka şeklinde etrafında döner) */
-  .lens-spinner {
-    position: absolute;
-    top: -14px;
-    left: -14px;
-    right: -14px;
-    bottom: -14px;
-    border-radius: 50%;
-    border: 3px solid rgba(255, 255, 255, 0.05);
-    border-top-color: var(--text);
-    animation: spin 0.8s linear infinite;
-    opacity: 0;
-    pointer-events: none;
-    transition: opacity 0.2s ease;
-  }
-
-  .lens-toggle.is-loading + .lens-spinner {
-    opacity: 1;
-  }
-
-  @keyframes spin {
-    to { transform: rotate(360deg); }
-  }
-
-  .cta-hint{font-size:13px;color:var(--muted);text-align:center;font-weight: 500;}
+  .cta-btn.is-loading .spinner{display:inline-block;}
+  .cta-btn.is-loading .cta-label{opacity:.85;}
+  @keyframes spin{to{transform:rotate(360deg);}}
+  .cta-hint{font-size:13px;color:var(--muted);text-align:center;margin-top:12px;}
 
   /* ---------- MAP ---------- */
   .card-map h2, .card-chart h2{
@@ -265,26 +243,25 @@
   .map-svg-wrap{width:100%; position: relative; overflow: hidden; border-radius: 8px;}
   .map-svg-wrap svg{width:100%;height:auto;display:block;}
   .district path{
-    stroke:rgba(255,255,255,.15);
+    stroke:rgba(255,255,255,.1);
     stroke-width:1.5;
     stroke-linejoin:round;
-    transition:transform .3s cubic-bezier(0.25, 1, 0.5, 1), fill .3s ease;
+    transition:transform .3s ease, fill .3s ease;
     transform-origin:center;
   }
   .district:hover path{
     stroke:#fff;
-    stroke-width:2.5;
+    stroke-width:2;
     transform:scale(1.02);
-    filter: drop-shadow(0 0 8px rgba(255,255,255,0.3));
   }
   .district text.name{fill:#EAF0FC;font-family:'IBM Plex Sans',sans-serif;font-size:12.5px;font-weight:600; text-anchor: middle; pointer-events: none;}
-  .district text.count{fill:rgba(255,255,255,.8);font-family:'Space Grotesk',sans-serif;font-size:11px;font-weight:500; text-anchor: middle; pointer-events: none;}
+  .district text.count{fill:rgba(255,255,255,.7);font-family:'Space Grotesk',sans-serif;font-size:11px;font-weight:500; text-anchor: middle; pointer-events: none;}
 
   .legend{display:flex;align-items:center;gap:10px;margin-top:16px;font-size:11.5px;color:var(--muted);}
   .legend-bar{
     flex:1;height:7px;border-radius:99px;
     background:linear-gradient(90deg, var(--pale), var(--deep));
-    box-shadow: inset 0 1px 3px rgba(0,0,0,0.3);
+    box-shadow: inset 0 1px 3px rgba(0,0,0,0.5);
   }
 
   /* ---------- CHART ---------- */
@@ -329,9 +306,9 @@
     align-items:center;justify-content:center;
     padding:24px;
     z-index:50;
-    background:rgba(6,10,20,.65);
-    backdrop-filter: blur(6px);
-    -webkit-backdrop-filter: blur(6px);
+    background:rgba(5, 9, 20, 0.7);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
   }
   .overlay.is-visible{display:flex;}
   .overlay-box{
@@ -341,7 +318,7 @@
     border-radius:var(--radius-lg);
     padding:30px 26px;
     text-align:center;
-    box-shadow:0 24px 60px rgba(0,0,0,.7);
+    box-shadow:0 24px 60px rgba(0,0,0,.8);
   }
   .overlay-box .icon{
     width:54px;height:54px;border-radius:16px;margin:0 auto 16px;
@@ -362,6 +339,9 @@
 </head>
 <body>
 
+<!-- Ağaç dalı / asimetrik ağ animasyonu -->
+<canvas id="bgCanvas"></canvas>
+
 <div class="board-shell" id="boardShell">
   <div class="wrap">
     <header>
@@ -372,9 +352,12 @@
           <div class="brand-sub">Reklam Yönetim Paneli</div>
         </div>
       </div>
-      <div class="trust-badge">
-        <svg viewBox="0 0 24 24" fill="none"><path d="M12 2l7 3v6c0 5-3.4 8.4-7 10-3.6-1.6-7-5-7-10V5l7-3z" stroke="#9FC1F7" stroke-width="1.6" stroke-linejoin="round"/><path d="M9 12l2 2 4-4" stroke="#9FC1F7" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
-        Güvenli Bağlantı
+      <div class="header-controls">
+        <div class="status-lens" id="statusDot" aria-label="Sistem Durumu"></div>
+        <div class="trust-badge">
+          <svg viewBox="0 0 24 24" fill="none"><path d="M12 2l7 3v6c0 5-3.4 8.4-7 10-3.6-1.6-7-5-7-10V5l7-3z" stroke="#9FC1F7" stroke-width="1.6" stroke-linejoin="round"/><path d="M9 12l2 2 4-4" stroke="#9FC1F7" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          Güvenli Bağlantı
+        </div>
       </div>
     </header>
 
@@ -394,11 +377,11 @@
         </section>
 
         <section class="panel card-cta">
-          <div class="lens-toggle-wrapper">
-            <button class="lens-toggle" id="ctaBtn" aria-label="Reklamı Durdur/Başlat"></button>
-            <div class="lens-spinner"></div>
-          </div>
-          <div class="cta-hint" id="ctaHint">Sistem Yayında</div>
+          <button class="cta-btn is-on" id="ctaBtn">
+            <span class="spinner"></span>
+            <span class="cta-label" id="ctaLabel">Reklamı Durdur</span>
+          </button>
+          <div class="cta-hint" id="ctaHint">Şu anda yayında — istediğiniz an durdurabilirsiniz.</div>
         </section>
       </div>
 
@@ -468,6 +451,63 @@
   document.getElementById('yil').textContent = new Date().getFullYear();
 
   /* =====================================================
+     ARKA PLAN ANİMASYONU (Kuru Dal / Asimetrik Ağ)
+  ===================================================== */
+  const canvas = document.getElementById('bgCanvas');
+  const ctx = canvas.getContext('2d');
+  let width, height;
+  let particles = [];
+
+  function initBackground() {
+    width = canvas.width = window.innerWidth;
+    height = canvas.height = window.innerHeight;
+    particles = [];
+    const particleCount = Math.floor((width * height) / 12000); 
+    for (let i = 0; i < particleCount; i++) {
+      particles.push({
+        x: Math.random() * width,
+        y: Math.random() * height,
+        vx: (Math.random() - 0.5) * 0.3,
+        vy: (Math.random() - 0.5) * 0.3
+      });
+    }
+  }
+
+  function drawBackground() {
+    ctx.clearRect(0, 0, width, height);
+    for (let i = 0; i < particles.length; i++) {
+      let p1 = particles[i];
+      p1.x += p1.vx;
+      p1.y += p1.vy;
+      
+      if (p1.x < 0 || p1.x > width) p1.vx *= -1;
+      if (p1.y < 0 || p1.y > height) p1.vy *= -1;
+
+      for (let j = i + 1; j < particles.length; j++) {
+        let p2 = particles[j];
+        let dx = p1.x - p2.x;
+        let dy = p1.y - p2.y;
+        let dist = Math.sqrt(dx * dx + dy * dy);
+
+        if (dist < 140) {
+          ctx.beginPath();
+          // Asimetrik dal hissiyatı için şeffaflık mesafe ile azalır
+          ctx.strokeStyle = `rgba(46, 111, 242, ${(1 - dist / 140) * 0.25})`;
+          ctx.lineWidth = 1;
+          ctx.moveTo(p1.x, p1.y);
+          ctx.lineTo(p2.x, p2.y);
+          ctx.stroke();
+        }
+      }
+    }
+    requestAnimationFrame(drawBackground);
+  }
+
+  window.addEventListener('resize', initBackground);
+  initBackground();
+  drawBackground();
+
+  /* =====================================================
      DEMO VERİLERİ 
   ===================================================== */
   const DEMO = {
@@ -499,12 +539,12 @@
   /* =====================================================
      ÇİZGİ GRAFİK (Chart.js)
   ===================================================== */
-  const ctx = document.getElementById('trendChart').getContext('2d');
-  const gradient = ctx.createLinearGradient(0,0,0,190);
+  const ctxChart = document.getElementById('trendChart').getContext('2d');
+  const gradient = ctxChart.createLinearGradient(0,0,0,190);
   gradient.addColorStop(0, 'rgba(46,111,242,.35)');
   gradient.addColorStop(1, 'rgba(46,111,242,0)');
 
-  new Chart(ctx, {
+  new Chart(ctxChart, {
     type: 'line',
     data: {
       labels: DEMO.gunEtiketleri,
@@ -554,7 +594,7 @@
   ];
 
   function renkSkalasi(oran){
-    const a = [159,193,247], b = [18,58,143];
+    const a = [159,193,247], b = [10,25,48]; // Açık maviden çok koyu laciverte
     const k = a.map((v,i)=> Math.round(v + (b[i]-v)*oran));
     return `rgb(${k[0]},${k[1]},${k[2]})`;
   }
@@ -595,20 +635,23 @@
   })();
 
   /* =====================================================
-     AKSIYON OPTİK BUTONU 
+     AKSIYON BUTONU VE OPTİK BİLDİRİM YÖNETİMİ
   ===================================================== */
   let reklamAktif = true;
   const ctaBtn = document.getElementById('ctaBtn');
+  const ctaLabel = document.getElementById('ctaLabel');
   const ctaHint = document.getElementById('ctaHint');
+  const statusDot = document.getElementById('statusDot');
 
   function ctaGorunumunuGuncelle(){
     ctaBtn.classList.toggle('is-off', !reklamAktif);
-    ctaHint.textContent = reklamAktif ? 'Sistem Yayında' : 'Sistem Durduruldu';
-    ctaHint.style.color = reklamAktif ? 'var(--good)' : 'var(--bad)';
+    statusDot.classList.toggle('is-off', !reklamAktif);
+    
+    ctaLabel.textContent = reklamAktif ? 'Reklamı Durdur' : 'Reklamı Başlat';
+    ctaHint.textContent = reklamAktif
+      ? 'Şu anda yayında — istediğiniz an durdurabilirsiniz.'
+      : 'Şu anda durdurulmuş — tekrar başlatmak için dokunun.';
   }
-  
-  // Başlangıç stili uyumu
-  ctaGorunumunuGuncelle();
 
   async function reklamiDegistir(){
     if (ctaBtn.disabled) return;
