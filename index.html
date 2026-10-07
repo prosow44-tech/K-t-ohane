@@ -6,7 +6,7 @@
 <title>Reklam Yönetim Paneli</title>
 <meta name="description" content="Reklam performansınızı canlı takip edin.">
 
-<!-- PWA -->
+<!-- PWA Yönlendirmeleri -->
 <link rel="manifest" href="manifest.json">
 <meta name="theme-color" content="#0B1220">
 <meta name="apple-mobile-web-app-capable" content="yes">
@@ -14,11 +14,13 @@
 <link rel="apple-touch-icon" href="assets/icon-192.png">
 <link rel="icon" href="assets/icon-192.png">
 
+<!-- Fontlar ve Grafikler -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.4/dist/chart.umd.min.js"></script>
 
+<!-- CSS STİLLERİ -->
 <style>
   :root {
     --bg: #050914;
@@ -48,7 +50,6 @@
     overflow-x: hidden;
   }
 
-  /* ARKA PLAN ANİMASYONU */
   #bgCanvas {
     position: fixed; top: 0; left: 0; width: 100%; height: 100%;
     z-index: -1; pointer-events: none;
@@ -57,21 +58,19 @@
   h1, h2, h3, .num { font-family: 'Space Grotesk', sans-serif; }
   a { color: inherit; text-decoration: none; }
   button { font-family: inherit; cursor: pointer; }
+  .is-hidden { display: none !important; }
 
-  /* ---------- GİRİŞ (LOGIN) EKRANI ---------- */
+  /* KİLİT EKRANI */
   #loginScreen {
     position: fixed; inset: 0; background: var(--bg); z-index: 100;
     display: flex; flex-direction: column; align-items: center; justify-content: center;
     padding: 20px;
   }
-  .is-hidden { display: none !important; }
-  
   .login-card {
     background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255, 255, 255, 0.05);
     border-radius: var(--radius-lg); padding: 40px 30px;
     width: 100%; max-width: 380px; box-shadow: 0 20px 40px rgba(0,0,0,0.4);
   }
-
   .login-input-group {
     display: flex; align-items: center; border-bottom: 2px solid var(--muted);
     padding-bottom: 8px; margin-bottom: 8px; transition: border-color 0.2s;
@@ -87,7 +86,6 @@
   }
   .login-input::placeholder { color: rgba(255,255,255,0.1); }
   .login-hint-row { display: flex; justify-content: space-between; font-size: 12px; color: var(--muted); margin-bottom: 30px; }
-  
   .login-btn {
     width: 100%; border: none; border-radius: 30px; padding: 14px;
     font-size: 15px; font-weight: 600; color: #fff; background: var(--accent); transition: opacity 0.2s;
@@ -95,19 +93,17 @@
   .login-btn:active { opacity: 0.8; }
   #loginError { color: var(--bad); font-size: 13px; text-align: center; margin-top: 15px; display: none; }
 
-  /* ---------- APP LAYOUT ---------- */
+  /* ANA UYGULAMA PANELİ */
   .app-container {
     display: flex; flex-direction: column; min-height: 100vh;
     width: 100%; max-width: 500px; margin: 0 auto;
     background: radial-gradient(circle at 50% 0%, rgba(46, 111, 242, 0.05) 0%, transparent 80%);
   }
-
   .header-area {
     padding: 20px; border-bottom: 1px solid var(--panel-border);
     background: rgba(10, 15, 30, 0.8); backdrop-filter: blur(10px);
     position: sticky; top: 0; z-index: 10;
   }
-  
   .brand-area { display: flex; align-items: center; justify-content: space-between; margin-bottom: 20px; }
   .brand-left { display: flex; align-items: center; gap: 12px; }
   .brand-logo {
@@ -115,19 +111,18 @@
     background: linear-gradient(135deg, var(--accent), var(--deep));
     display: flex; align-items: center; justify-content: center;
     font-size: 16px; font-weight: 700; box-shadow: 0 4px 15px rgba(46,111,242,0.3);
+    overflow: hidden; /* Logonun dışarı taşmasını engeller */
   }
   .brand-info h1 { font-size: 16px; margin: 0 0 2px 0; }
   .brand-info p { font-size: 12px; color: var(--muted); margin: 0; }
-
   .header-controls { display: flex; align-items: center; gap: 10px; }
-  
   .trust-badge {
     display: inline-flex; align-items: center; gap: 4px;
     background: rgba(31, 170, 109, 0.1); border: 1px solid rgba(31, 170, 109, 0.2);
     color: var(--good); padding: 4px 8px; border-radius: 20px; font-size: 11px; font-weight: 500;
   }
 
-  /* KÜÇÜK OPTİK DURUM İKONU (GİZLİ ÇIKIŞ BUTONU) */
+  /* GİZLİ ÇIKIŞ İKONU */
   .status-lens-mini {
     position: relative; width: 22px; height: 22px; border-radius: 50%;
     border: none; outline: none; cursor: pointer; padding: 0;
@@ -150,9 +145,8 @@
   }
   .status-lens-mini:active { transform: scale(0.85); }
 
+  /* SWITCH BUTONU */
   .control-panel { background: var(--panel); border: 1px solid var(--panel-border); border-radius: var(--radius-md); padding: 16px; }
-  
-  /* ERGONOMİK SWITCH BUTONU (ANA KONTROL) */
   .switch-container { display: flex; align-items: center; justify-content: space-between; }
   .switch-label { font-size: 14px; font-weight: 500; }
   .switch-status { font-size: 11px; color: var(--good); margin-top: 4px; }
@@ -174,13 +168,13 @@
   /* METRİKLER */
   .dashboard-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
   .card { background: var(--panel); border: 1px solid var(--panel-border); border-radius: var(--radius-lg); padding: 20px; backdrop-filter: blur(10px); }
-  .metric-box { display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; padding: 16px; }
+  .metric-box { display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; padding: 16px; cursor: pointer; transition: transform 0.2s;}
+  .metric-box:active { transform: scale(0.95); }
   .metric-title { font-size: 12px; color: var(--muted); display: flex; flex-direction: column; align-items: center; gap: 4px; }
   .metric-val { font-size: 32px; font-weight: 700; margin: 8px 0; color: #fff; }
 
-  /* GOOGLE ADS ÖNİZLEME ÇERÇEVESİ */
+  /* GOOGLE ARAMA MOCKUP - GÜNCELLENDİ */
   .preview-section h3 { font-size: 15px; margin: 0 0 15px 0; text-align: center; color: var(--pale); }
-  
   .phone-mockup {
     background: #ffffff; border-radius: 36px; border: 4px solid #d1d5db;
     padding: 20px 14px; margin: 0 auto; box-shadow: 0 15px 35px rgba(0,0,0,0.5);
@@ -209,24 +203,21 @@
   .ph-ad-card { border-top: 1px solid #ebebeb; padding-top: 16px; margin-bottom: 16px; }
   .ph-ad-head { display: flex; align-items: center; gap: 10px; margin-bottom: 10px; }
   .ph-ad-icon { width: 26px; height: 26px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: bold; }
-  .ph-ad-domain { font-size: 12px; line-height: 1.2; }
-  .ph-ad-domain strong { display: block; font-weight: 400; color: #202124; }
-  .ph-ad-domain span { font-size: 11px; color: #5f6368; }
-  .ph-ad-title { font-size: 18px; margin-bottom: 8px; font-weight: 400; line-height: 1.3; color: #1a0dab; }
-  
   .ph-ad-body { display: flex; gap: 12px; }
-  .ph-ad-desc { font-size: 13px; color: #4d5156; line-height: 1.5; flex: 1; }
   .ph-ad-img { width: 80px; height: 80px; border-radius: 8px; background: #e8eaed; flex-shrink: 0; object-fit: cover; border: 1px solid #ebebeb; display: none; }
   .ph-ad-body.has-img .ph-ad-img { display: block; }
   
+  /* Gerçekçi Google CSS'leri */
+  .ph-ad-title { font-size: 20px; font-weight: 400; margin-bottom: 4px; line-height: 1.3; color: #1a0dab; text-decoration: none; }
+  .ph-ad-domain strong { display: block; font-weight: 400; color: #202124; font-size: 14px; }
+  .ph-ad-domain span { font-size: 12px; color: #4d5156; }
+  .ph-ad-desc { font-size: 14px; color: #4d5156; line-height: 1.58; flex: 1; }
   .ph-sitelinks { display: flex; gap: 8px; overflow-x: auto; margin-top: 12px; padding-bottom: 4px; }
-  .ph-sitelinks::-webkit-scrollbar { display: none; }
-  .ph-pill { border: 1px solid #dadce0; border-radius: 16px; padding: 6px 12px; font-size: 12px; color: #1a0dab; white-space: nowrap; }
+  .ph-pill { border: 1px solid #dadce0; border-radius: 100px; padding: 6px 14px; font-size: 14px; color: #1a0dab; white-space: nowrap; background: #fff;}
 
   .ad-target { border: 2px dashed #4285F4; background: rgba(66, 133, 244, 0.05); border-radius: 8px; padding: 16px; border-top: none; }
   .ad-target .ph-ad-icon { background: #4285F4; color: white; }
   .ad-target .ph-ad-title { color: #4285F4; font-size: 16px; }
-
   .ad-competitor .ph-ad-icon { background: #fbbc04; color: #fff; }
 
   .rank-btn {
@@ -238,6 +229,7 @@
   }
   .rank-btn:active { transform: scale(0.96); }
 
+  /* GRAFİK VE HARİTA */
   .chart-container { height: 180px; position: relative; }
   .map-container { position: relative; height: 200px; display: flex; align-items: center; justify-content: center; }
   .map-container svg { max-height: 100%; width: auto; }
@@ -249,33 +241,37 @@
     border: 1px dashed var(--panel-border); border-radius: var(--radius-lg);
     padding: 24px; text-align: center; margin-top: 10px;
   }
-  .gif-placeholder {
-    width: 100%; max-width: 250px; height: 140px; background: rgba(0,0,0,0.2);
-    border-radius: 12px; margin: 0 auto 16px; display: flex; align-items: center; justify-content: center;
-    color: var(--muted); font-size: 12px; border: 1px solid rgba(255,255,255,0.05);
-  }
 
+  /* MODAL / OVERLAY EKRANLARI */
   .overlay {
-    position: fixed; inset: 0; background: rgba(5, 9, 20, 0.9); backdrop-filter: blur(8px);
+    position: fixed; inset: 0; background: rgba(5, 9, 20, 0.95); backdrop-filter: blur(8px);
     z-index: 50; display: none; align-items: center; justify-content: center; padding: 20px;
   }
   .overlay.is-visible { display: flex; }
   .overlay-box { background: #0a1120; border: 1px solid var(--bad); padding: 30px; border-radius: var(--radius-lg); text-align: center; width: 100%; }
+  
+  /* YENİ DETAY EKRANI (MODAL) */
+  #detayEkrani {
+    display: none; position: fixed; inset: 0; background: var(--bg); z-index: 999; padding: 20px; flex-direction: column;
+  }
+  .modal-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; }
+  .close-btn { background: var(--bad); border: none; padding: 10px 16px; border-radius: 8px; color: #fff; font-weight: bold; }
 </style>
 </head>
 <body>
 
+<!-- ARKA PLAN ANİMASYONU -->
 <canvas id="bgCanvas"></canvas>
 
+<!-- KİLİT EKRANI -->
 <div id="loginScreen">
   <div class="login-card">
     <div style="margin-bottom: 30px; text-align: center;">
-      <!-- Kilit İkonu (Temiz SVG) -->
       <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin: 0 auto 12px auto; color: var(--text); display: block;">
         <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
         <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
       </svg>
-      <h2 style="margin: 0 0 5px 0; font-size: 18px;">Reklam Yönetim Paneli</h2>
+      <h2 style="margin: 0 0 5px 0; font-size: 18px;">Ajans Yönetim Paneli</h2>
     </div>
 
     <div class="login-input-group">
@@ -284,7 +280,6 @@
         <input type="password" id="pinInput" class="login-input" maxlength="8" placeholder="••••••••" autocomplete="off">
       </div>
       <span class="login-icon" id="togglePasswordIcon" style="margin-right:0; cursor:pointer;">
-        <!-- Göz İkonu (Temiz SVG) -->
         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
           <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
           <circle cx="12" cy="12" r="3"></circle>
@@ -302,6 +297,7 @@
   </div>
 </div>
 
+<!-- ANA PANEL -->
 <div class="app-container is-hidden" id="appContainer">
   
   <header class="header-area">
@@ -337,8 +333,9 @@
         <div class="metric-title">Görüntülenme</div>
         <div class="metric-val num" id="metricGosterim">0</div>
       </div>
-      <div class="card metric-box">
-        <div class="metric-title">Tıklanma</div>
+      <!-- Tıklayınca Modal Açan Kart -->
+      <div class="card metric-box" onclick="document.getElementById('detayEkrani').style.display='flex'">
+        <div class="metric-title">Tıklanma (Detay)</div>
         <div class="metric-val num" id="metricTiklanma">0</div>
       </div>
     </div>
@@ -415,18 +412,19 @@
       </div>
     </div>
 
-    <div class="announcement-card">
-      <div class="gif-placeholder">
-        Ajans Bilgilendirme GIF Alanı
-        <br><span style="font-size: 10px; margin-top: 6px; display:block;">assets/duyuru.gif</span>
-      </div>
-      <h3 style="margin: 0 0 8px 0; font-size: 15px; color: var(--pale);">Güncel Bilgilendirmeler</h3>
-      <p style="margin: 0; font-size: 12px; color: var(--muted); line-height: 1.5;">İlerleyen dönemlerde sistem güncellemeleri ve ipuçları burada şeffaf bir şekilde paylaşılacaktır.</p>
-    </div>
-
   </main>
 </div>
 
+<!-- DETAY EKRANI (MODAL) -->
+<div id="detayEkrani">
+  <div class="modal-header">
+    <h2 style="margin:0;">Detaylı Analiz</h2>
+    <button class="close-btn" onclick="document.getElementById('detayEkrani').style.display='none'">Kapat</button>
+  </div>
+  <p style="color:var(--muted); font-size:14px;">Bu alanda, ileride tıklanma maliyetleri, anahtar kelime analizleri gibi ekstra veriler sergilenebilir.</p>
+</div>
+
+<!-- ÖDEME KİLİDİ (PAYMENT LOCKOUT) -->
 <div class="overlay" id="paymentOverlay">
   <div class="overlay-box">
     <h2 style="color:var(--bad); margin-top:0;">Erişim Durduruldu</h2>
@@ -434,34 +432,51 @@
   </div>
 </div>
 
+<!-- JAVASCRIPT BLOKLARI -->
 <script>
 (function(){
   "use strict";
 
   const AUTH_KEY = 'ajans_yetki_kodu';
-  const MASTER_PIN = 'SBAPG8BY'; 
+  const MASTER_PIN = '56413744'; // Yeni Ajans Şifresi
   const API_URL = 'https://script.google.com/macros/s/AKfycbxJIbDigrHA_YKrEZJQ65_yNTe12GGdO1VA5fo2XBxOJzBRW29Cu9OU7tmvv2ovWJhq9A/exec';
   
   const urlParams = new URLSearchParams(window.location.search);
   const MUSTERI_ID = (urlParams.get('id') || 'merkez_taksi').toLowerCase();
   
+  // DİNAMİK RAKİP VE SEKTÖR ATAMALARI
   let sektor = "İşletme", searchQ = "hizmet";
-  if(MUSTERI_ID.includes('taksi')) { sektor = "Taksi"; searchQ = "taksi"; }
-  else if(MUSTERI_ID.includes('dershane') || MUSTERI_ID.includes('egitim')) { sektor = "Eğitim Kurumları"; searchQ = "dershane"; }
-  else if(MUSTERI_ID.includes('dugun')) { sektor = "Düğün Salonu"; searchQ = "düğün salonu"; }
-  else if(MUSTERI_ID.includes('rent') || MUSTERI_ID.includes('arac')) { sektor = "Rent a Car"; searchQ = "araç kiralama"; }
+  let rakipAd = "Referans İşletme", rakipUrl = "www.referansisletme.com.tr", rakipSektor = "İşletme";
+
+  if(MUSTERI_ID.includes('taksi')) { 
+      sektor = "Taksi"; searchQ = "taksi"; 
+      rakipAd = "Referans Taksi"; rakipUrl = "www.referanstaksi.com.tr"; rakipSektor = "Taksi";
+  }
+  else if(MUSTERI_ID.includes('egitim') || MUSTERI_ID.includes('dershane') || MUSTERI_ID.includes('kurs')) { 
+      sektor = "Eğitim Merkezi"; searchQ = "dershane"; 
+      rakipAd = "Referans Dershane"; rakipUrl = "www.referansdershane.com.tr"; rakipSektor = "Eğitim";
+  }
+  else if(MUSTERI_ID.includes('dugun') || MUSTERI_ID.includes('davet')) { 
+      sektor = "Düğün Salonu"; searchQ = "düğün salonu"; 
+      rakipAd = "Referans Düğün Salonu"; rakipUrl = "www.referansdugunsalonu.com.tr"; rakipSektor = "Organizasyon";
+  }
+  else if(MUSTERI_ID.includes('rent') || MUSTERI_ID.includes('arac') || MUSTERI_ID.includes('car')) { 
+      sektor = "Rent a Car"; searchQ = "araç kiralama"; 
+      rakipAd = "Referans Rent a Car"; rakipUrl = "www.referansrentacar.com.tr"; rakipSektor = "Araç Kiralama";
+  }
 
   const SEARCH_QUERY = `${searchQ} malatya`;
 
   document.getElementById('searchKeywordPreview').textContent = SEARCH_QUERY;
-  document.getElementById('uiLogo').textContent = MUSTERI_ID.charAt(0).toUpperCase();
+  // LOGO YÜKLEME (GitHub assets klasöründen ID'ye göre çeker)
+  document.getElementById('uiLogo').innerHTML = `<img src="assets/${MUSTERI_ID}.png" style="width:100%; height:100%; object-fit:cover;" onerror="this.style.display='none'; this.parentElement.innerText=MUSTERI_ID.charAt(0).toUpperCase();">`;
   document.getElementById('uiName').textContent = MUSTERI_ID.split('_').map(w => w.charAt(0).toUpperCase() + w.slice(1)).join(' ');
   
-  document.getElementById('competitorName').textContent = `Referans ${sektor}`;
-  document.getElementById('competitorUrl').textContent = `www.referans${sektor.toLowerCase().replace(/ /g,'')}.com.tr`;
-  document.getElementById('competitorTitle').textContent = `Malatya'nın En İyi ${sektor} Hizmeti`;
-  document.getElementById('competitorDesc').textContent = `Malatya'da güvenilir ve profesyonel ${sektor.toLowerCase()} arıyorsanız doğru yerdesiniz. Hemen arayın, anında destek alın.`;
+  document.getElementById('competitorName').textContent = rakipAd;
+  document.getElementById('competitorUrl').textContent = rakipUrl;
+  document.getElementById('competitorTitle').textContent = `Malatya'nın En İyi ${rakipSektor} Hizmeti`;
 
+  // ARKA PLAN ANİMASYONU
   const canvas = document.getElementById('bgCanvas');
   const ctx = canvas.getContext('2d');
   let width, height, particles = [];
@@ -493,6 +508,7 @@
   }
   window.addEventListener('resize', initBackground); initBackground(); drawBackground();
 
+  // ŞİFRE EKRANI YÖNETİMİ
   const loginScreen = document.getElementById('loginScreen');
   const appContainer = document.getElementById('appContainer');
   const pinInput = document.getElementById('pinInput');
@@ -504,11 +520,6 @@
   togglePasswordIcon.addEventListener('click', function () {
     const type = pinInput.getAttribute('type') === 'password' ? 'text' : 'password';
     pinInput.setAttribute('type', type);
-    if (type === 'text') {
-      this.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"></path><line x1="1" y1="1" x2="23" y2="23"></line></svg>';
-    } else {
-      this.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg>';
-    }
   });
 
   pinInput.addEventListener('input', (e) => {
@@ -525,7 +536,7 @@
   }
 
   loginBtn.addEventListener('click', () => {
-    if (pinInput.value.toUpperCase() === MASTER_PIN) {
+    if (pinInput.value === MASTER_PIN) {
       localStorage.setItem(AUTH_KEY, MUSTERI_ID); loginError.style.display = 'none'; yetkiKontrol();
     } else {
       loginError.style.display = 'block'; pinInput.value = ''; charCount.textContent = '0/8';
@@ -534,7 +545,7 @@
 
   pinInput.addEventListener('keypress', (e) => { if(e.key === 'Enter') loginBtn.click(); });
 
-  /* KONTROLLER */
+  // REKLAM DURDUR/BAŞLAT VE GİZLİ ÇIKIŞ
   const toggleSwitch = document.getElementById('toggleSwitch');
   const statusLensBtn = document.getElementById('statusLensBtn');
   const statusText = document.getElementById('statusText');
@@ -552,7 +563,6 @@
     }
   }
 
-  /* 1. ANAHTAR: REKLAMI AÇ/KAPAT (Spam korumalı) */
   toggleSwitch.addEventListener('click', () => {
     if(toggleSwitch.disabled) return;
     toggleSwitch.disabled = true; 
@@ -561,7 +571,6 @@
     setTimeout(() => { toggleSwitch.disabled = false; }, 300);
   });
 
-  /* 2. KÜÇÜK LED: GİZLİ ÇIKIŞ İŞLEMİ (Spam koruması YOK, hızlı tıklanabilir) */
   let clickCount = 0, clickTimer;
   statusLensBtn.addEventListener('click', () => {
     clickCount++;
@@ -580,6 +589,7 @@
 
   let chartInstance = null;
 
+  // VERİLERİ ÇEKME
   async function verileriGetir() {
     try {
       const response = await fetch(`${API_URL}?id=${MUSTERI_ID}`);
