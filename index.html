@@ -77,7 +77,7 @@
     padding-bottom: 8px; margin-bottom: 8px; transition: border-color 0.2s;
   }
   .login-input-group:focus-within { border-color: var(--accent); }
-  .login-icon { font-size: 20px; color: var(--muted); margin-right: 12px; }
+  .login-icon { color: var(--muted); margin-right: 12px; display: flex; align-items: center; justify-content: center; }
   .login-input-wrapper { flex: 1; display: flex; flex-direction: column; }
   .login-label { font-size: 11px; color: var(--muted); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 4px; }
   .login-input {
@@ -119,40 +119,55 @@
   .brand-info h1 { font-size: 16px; margin: 0 0 2px 0; }
   .brand-info p { font-size: 12px; color: var(--muted); margin: 0; }
 
+  .header-controls { display: flex; align-items: center; gap: 10px; }
+  
   .trust-badge {
     display: inline-flex; align-items: center; gap: 4px;
     background: rgba(31, 170, 109, 0.1); border: 1px solid rgba(31, 170, 109, 0.2);
     color: var(--good); padding: 4px 8px; border-radius: 20px; font-size: 11px; font-weight: 500;
   }
 
-  .control-panel { background: var(--panel); border: 1px solid var(--panel-border); border-radius: var(--radius-md); padding: 16px; }
-  
-  /* OPTİK BUTON (GİZLİ İŞLEMLİ) */
-  .switch-container { display: flex; align-items: center; justify-content: space-between; }
-  .switch-label { font-size: 14px; font-weight: 500; }
-  .switch-status { font-size: 11px; color: var(--good); margin-top: 4px; }
-  
-  .lens-btn {
-    position: relative; width: 44px; height: 44px; border-radius: 50%;
+  /* KÜÇÜK OPTİK DURUM İKONU (GİZLİ ÇIKIŞ BUTONU) */
+  .status-lens-mini {
+    position: relative; width: 22px; height: 22px; border-radius: 50%;
     border: none; outline: none; cursor: pointer; padding: 0;
     background: radial-gradient(circle at 35% 30%, #4aff80 0%, #0d993b 40%, #032b0f 100%);
     box-shadow: 
-      inset 0 -5px 10px rgba(0,0,0,0.8), inset 0 3px 6px rgba(255,255,255,0.6),
-      0 0 0 4px #070b14, 0 0 20px rgba(36, 229, 113, 0.4), 0 8px 15px rgba(0,0,0,0.6);
-    transition: all 0.2s cubic-bezier(0.25, 1, 0.5, 1);
+      inset 0 -2px 4px rgba(0,0,0,0.8), inset 0 1px 3px rgba(255,255,255,0.6),
+      0 0 0 2px #070b14, 0 0 10px rgba(36, 229, 113, 0.4);
+    transition: all 0.2s;
   }
-  .lens-btn::after {
+  .status-lens-mini::after {
     content: ''; position: absolute; top: 12%; left: 18%; width: 60%; height: 35%;
     border-radius: 50%; background: linear-gradient(180deg, rgba(255,255,255,0.7) 0%, rgba(255,255,255,0) 100%);
     transform: rotate(-10deg); pointer-events: none;
   }
-  .lens-btn.is-off {
+  .status-lens-mini.is-off {
     background: radial-gradient(circle at 35% 30%, #ff5555 0%, #a60f0f 40%, #330303 100%);
     box-shadow: 
-      inset 0 -5px 10px rgba(0,0,0,0.8), inset 0 3px 6px rgba(255,255,255,0.5),
-      0 0 0 4px #070b14, 0 0 20px rgba(255, 68, 68, 0.4), 0 8px 15px rgba(0,0,0,0.6);
+      inset 0 -2px 4px rgba(0,0,0,0.8), inset 0 1px 3px rgba(255,255,255,0.5),
+      0 0 0 2px #070b14, 0 0 10px rgba(255, 68, 68, 0.4);
   }
-  .lens-btn:active { transform: scale(0.92); box-shadow: inset 0 -3px 8px rgba(0,0,0,0.9), 0 0 0 4px #070b14; }
+  .status-lens-mini:active { transform: scale(0.85); }
+
+  .control-panel { background: var(--panel); border: 1px solid var(--panel-border); border-radius: var(--radius-md); padding: 16px; }
+  
+  /* ERGONOMİK SWITCH BUTONU (ANA KONTROL) */
+  .switch-container { display: flex; align-items: center; justify-content: space-between; }
+  .switch-label { font-size: 14px; font-weight: 500; }
+  .switch-status { font-size: 11px; color: var(--good); margin-top: 4px; }
+  .toggle-switch {
+    position: relative; width: 50px; height: 28px; background: var(--good); border-radius: 30px;
+    cursor: pointer; transition: background 0.3s; border: none; outline: none;
+  }
+  .toggle-switch::after {
+    content: ''; position: absolute; top: 3px; left: 3px; width: 22px; height: 22px;
+    background: #fff; border-radius: 50%; transition: transform 0.3s cubic-bezier(0.4, 0.0, 0.2, 1);
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+  }
+  .toggle-switch.is-off { background: var(--muted); }
+  .toggle-switch.is-off::after { transform: translateX(0); }
+  .toggle-switch:not(.is-off)::after { transform: translateX(22px); }
 
   .main-content { padding: 20px; display: flex; flex-direction: column; gap: 20px; }
 
@@ -191,7 +206,6 @@
   .ph-skeleton-row { display: flex; gap: 8px; margin-bottom: 16px; overflow: hidden; }
   .ph-skel { height: 16px; background: #f1f3f4; border-radius: 4px; flex-shrink: 0; }
   
-  /* REKLAM KARTLARI */
   .ph-ad-card { border-top: 1px solid #ebebeb; padding-top: 16px; margin-bottom: 16px; }
   .ph-ad-head { display: flex; align-items: center; gap: 10px; margin-bottom: 10px; }
   .ph-ad-icon { width: 26px; height: 26px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: bold; }
@@ -206,17 +220,15 @@
   .ph-ad-body.has-img .ph-ad-img { display: block; }
   
   .ph-sitelinks { display: flex; gap: 8px; overflow-x: auto; margin-top: 12px; padding-bottom: 4px; }
+  .ph-sitelinks::-webkit-scrollbar { display: none; }
   .ph-pill { border: 1px solid #dadce0; border-radius: 16px; padding: 6px 12px; font-size: 12px; color: #1a0dab; white-space: nowrap; }
 
-  /* 1. SIRA (Soru İşaretli Alan) */
   .ad-target { border: 2px dashed #4285F4; background: rgba(66, 133, 244, 0.05); border-radius: 8px; padding: 16px; border-top: none; }
   .ad-target .ph-ad-icon { background: #4285F4; color: white; }
   .ad-target .ph-ad-title { color: #4285F4; font-size: 16px; }
 
-  /* 2. SIRA (Rakip) */
   .ad-competitor .ph-ad-icon { background: #fbbc04; color: #fff; }
 
-  /* SIRA BULUCU BUTON */
   .rank-btn {
     width: 100%; max-width: 360px; margin: 15px auto 0; display: block;
     background: linear-gradient(135deg, var(--accent), var(--deep));
@@ -226,14 +238,12 @@
   }
   .rank-btn:active { transform: scale(0.96); }
 
-  /* Grafik ve Harita */
   .chart-container { height: 180px; position: relative; }
   .map-container { position: relative; height: 200px; display: flex; align-items: center; justify-content: center; }
   .map-container svg { max-height: 100%; width: auto; }
   .district path { stroke: rgba(255,255,255,0.1); stroke-width: 1.5; transition: all 0.2s; }
   .district text.name { fill: #fff; font-size: 12px; font-weight: 600; text-anchor: middle; pointer-events: none; }
 
-  /* DUYURU / GIF ALANI */
   .announcement-card {
     background: linear-gradient(180deg, rgba(46, 111, 242, 0.05), rgba(15, 23, 42, 0.2));
     border: 1px dashed var(--panel-border); border-radius: var(--radius-lg);
@@ -255,23 +265,31 @@
 </head>
 <body>
 
-<!-- ARKA PLAN ANİMASYONU -->
 <canvas id="bgCanvas"></canvas>
 
-<!-- GİRİŞ EKRANI -->
 <div id="loginScreen">
   <div class="login-card">
     <div style="margin-bottom: 30px; text-align: center;">
-      <div class="login-icon" style="font-size: 24px; margin: 0 auto 12px auto; color: var(--text); display: block;">🔒</div>
-      <h2 style="margin: 0 0 5px 0; font-size: 18px;">Ajans Sistemine Giriş</h2>
+      <!-- Kilit İkonu (Temiz SVG) -->
+      <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin: 0 auto 12px auto; color: var(--text); display: block;">
+        <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+        <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+      </svg>
+      <h2 style="margin: 0 0 5px 0; font-size: 18px;">Reklam Yönetim Paneli</h2>
     </div>
 
     <div class="login-input-group">
       <div class="login-input-wrapper">
         <label class="login-label">Anahtar Kod</label>
-        <input type="text" id="pinInput" class="login-input" maxlength="8" placeholder="••••••••" autocomplete="off">
+        <input type="password" id="pinInput" class="login-input" maxlength="8" placeholder="••••••••" autocomplete="off">
       </div>
-      <span class="login-icon" style="margin-right:0;">👁️</span>
+      <span class="login-icon" id="togglePasswordIcon" style="margin-right:0; cursor:pointer;">
+        <!-- Göz İkonu (Temiz SVG) -->
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+          <circle cx="12" cy="12" r="3"></circle>
+        </svg>
+      </span>
     </div>
     
     <div class="login-hint-row">
@@ -279,12 +297,11 @@
       <span id="charCount">0/8</span>
     </div>
 
-    <button id="loginBtn" class="login-btn">Kütüphaneyi Aç</button>
+    <button id="loginBtn" class="login-btn">Paneli Aç</button>
     <div id="loginError">Geçersiz kod.</div>
   </div>
 </div>
 
-<!-- ANA UYGULAMA EKRANI -->
 <div class="app-container is-hidden" id="appContainer">
   
   <header class="header-area">
@@ -296,7 +313,10 @@
           <p>Reklam Yönetim Paneli</p>
         </div>
       </div>
-      <div class="trust-badge">✓ Şeffaf Veri</div>
+      <div class="header-controls">
+        <button id="statusLensBtn" class="status-lens-mini" aria-label="Sistem Durumu"></button>
+        <div class="trust-badge">✓ Şeffaf Veri</div>
+      </div>
     </div>
 
     <div class="control-panel">
@@ -305,8 +325,7 @@
           <div class="switch-label">Yayın Durumu</div>
           <div class="switch-status" id="statusText">Şu an aktif ve yayında</div>
         </div>
-        <!-- OPTİK BUTON (GİZLİ 10 TIKLAMA ÖZELLİKLİ) -->
-        <button id="lensBtn" class="lens-btn" aria-label="Reklamı Aç/Kapat"></button>
+        <button id="toggleSwitch" class="toggle-switch" aria-label="Reklamı Aç/Kapat"></button>
       </div>
     </div>
   </header>
@@ -324,7 +343,6 @@
       </div>
     </div>
 
-    <!-- GOOGLE ADS ÖNİZLEME -->
     <div class="preview-section">
       <h3>Canlı Reklam Önizlemesi</h3>
       
@@ -346,7 +364,6 @@
           <div class="ph-skel" style="width: 25%;"></div>
         </div>
         
-        <!-- 1. SIRA (Soru İşaretli Alan) -->
         <div class="ph-ad-card ad-target">
           <div class="ph-ad-head">
             <div class="ph-ad-icon">?</div>
@@ -359,20 +376,18 @@
           <div class="ph-ad-desc">Müşterileriniz hizmetinizi aradığında sizi mi buluyor, yoksa rakiplerinizi mi? Rekabetin gerisinde kalmayın.</div>
         </div>
 
-        <!-- 2. SIRA (Rakip) -->
         <div class="ph-ad-card ad-competitor">
           <div class="ph-ad-head">
             <div class="ph-ad-icon">R</div>
             <div class="ph-ad-domain">
               <strong id="competitorName">Referans İşletme</strong>
-              <span>www.referansisletme.com.tr</span>
+              <span id="competitorUrl">www.referansisletme.com.tr</span>
             </div>
           </div>
           <div class="ph-ad-title" id="competitorTitle">Malatya'nın En İyi Hizmeti - Bize Ulaşın</div>
           
           <div class="ph-ad-body has-img">
-            <div class="ph-ad-desc" id="competitorDesc">Malatya'da güvenilir ve profesyonel hizmet arıyorsanız doğru yerdesiniz. Hemen arayın, anında destek alın.</div>
-            <!-- Görsel Alanı (Sağda) -->
+            <div class="ph-ad-desc" id="competitorDesc">Malatya'da güvenilir profesyonel hizmet arıyorsanız doğru yerdesiniz. Hemen arayın, anında destek alın.</div>
             <div class="ph-ad-img"></div> 
           </div>
 
@@ -400,7 +415,6 @@
       </div>
     </div>
 
-    <!-- GIF / DUYURU ALANI -->
     <div class="announcement-card">
       <div class="gif-placeholder">
         Ajans Bilgilendirme GIF Alanı
@@ -413,7 +427,6 @@
   </main>
 </div>
 
-<!-- ÖDEME KALKANI -->
 <div class="overlay" id="paymentOverlay">
   <div class="overlay-box">
     <h2 style="color:var(--bad); margin-top:0;">Erişim Durduruldu</h2>
@@ -425,9 +438,6 @@
 (function(){
   "use strict";
 
-  /* =====================================================
-     AYARLAR VE SEKTÖR YÖNETİMİ
-  ===================================================== */
   const AUTH_KEY = 'ajans_yetki_kodu';
   const MASTER_PIN = 'SBAPG8BY'; 
   const API_URL = 'https://script.google.com/macros/s/AKfycbxJIbDigrHA_YKrEZJQ65_yNTe12GGdO1VA5fo2XBxOJzBRW29Cu9OU7tmvv2ovWJhq9A/exec';
@@ -435,51 +445,38 @@
   const urlParams = new URLSearchParams(window.location.search);
   const MUSTERI_ID = (urlParams.get('id') || 'merkez_taksi').toLowerCase();
   
-  // Sektörü Algıla
-  let sektor = "İşletme";
-  let searchQ = "hizmet";
+  let sektor = "İşletme", searchQ = "hizmet";
   if(MUSTERI_ID.includes('taksi')) { sektor = "Taksi"; searchQ = "taksi"; }
   else if(MUSTERI_ID.includes('dershane') || MUSTERI_ID.includes('egitim')) { sektor = "Eğitim Kurumları"; searchQ = "dershane"; }
-  else if(MUSTERI_ID.includes('dugun')) { sektor = "Düğün Salonları"; searchQ = "düğün salonu"; }
+  else if(MUSTERI_ID.includes('dugun')) { sektor = "Düğün Salonu"; searchQ = "düğün salonu"; }
   else if(MUSTERI_ID.includes('rent') || MUSTERI_ID.includes('arac')) { sektor = "Rent a Car"; searchQ = "araç kiralama"; }
 
   const SEARCH_QUERY = `${searchQ} malatya`;
 
-  // Arayüz Metinlerini Güncelle
   document.getElementById('searchKeywordPreview').textContent = SEARCH_QUERY;
   document.getElementById('uiLogo').textContent = MUSTERI_ID.charAt(0).toUpperCase();
   document.getElementById('uiName').textContent = MUSTERI_ID.split('_').map(w => w.charAt(0).toUpperCase() + w.slice(1)).join(' ');
   
-  // Rakip Reklamı Güncelle ("Referans [Sektör]")
   document.getElementById('competitorName').textContent = `Referans ${sektor}`;
+  document.getElementById('competitorUrl').textContent = `www.referans${sektor.toLowerCase().replace(/ /g,'')}.com.tr`;
   document.getElementById('competitorTitle').textContent = `Malatya'nın En İyi ${sektor} Hizmeti`;
-  document.getElementById('competitorDesc').textContent = `Malatya'da güvenilir ${sektor.toLowerCase()} arıyorsanız doğru yerdesiniz. Hemen arayın, anında destek alın.`;
+  document.getElementById('competitorDesc').textContent = `Malatya'da güvenilir ve profesyonel ${sektor.toLowerCase()} arıyorsanız doğru yerdesiniz. Hemen arayın, anında destek alın.`;
 
-  /* =====================================================
-     ARKA PLAN ANİMASYONU
-  ===================================================== */
   const canvas = document.getElementById('bgCanvas');
   const ctx = canvas.getContext('2d');
   let width, height, particles = [];
 
   function initBackground() {
-    width = canvas.width = window.innerWidth;
-    height = canvas.height = window.innerHeight;
+    width = canvas.width = window.innerWidth; height = canvas.height = window.innerHeight;
     particles = [];
     const particleCount = Math.floor((width * height) / 12000); 
-    for (let i = 0; i < particleCount; i++) {
-      particles.push({
-        x: Math.random() * width, y: Math.random() * height,
-        vx: (Math.random() - 0.5) * 0.3, vy: (Math.random() - 0.5) * 0.3
-      });
-    }
+    for (let i = 0; i < particleCount; i++) particles.push({ x: Math.random() * width, y: Math.random() * height, vx: (Math.random() - 0.5) * 0.3, vy: (Math.random() - 0.5) * 0.3 });
   }
 
   function drawBackground() {
     ctx.clearRect(0, 0, width, height);
     for (let i = 0; i < particles.length; i++) {
-      let p1 = particles[i];
-      p1.x += p1.vx; p1.y += p1.vy;
+      let p1 = particles[i]; p1.x += p1.vx; p1.y += p1.vy;
       if (p1.x < 0 || p1.x > width) p1.vx *= -1;
       if (p1.y < 0 || p1.y > height) p1.vy *= -1;
       for (let j = i + 1; j < particles.length; j++) {
@@ -487,29 +484,32 @@
         let dx = p1.x - p2.x, dy = p1.y - p2.y;
         let dist = Math.sqrt(dx * dx + dy * dy);
         if (dist < 140) {
-          ctx.beginPath();
-          ctx.strokeStyle = `rgba(46, 111, 242, ${(1 - dist / 140) * 0.25})`;
-          ctx.lineWidth = 1;
-          ctx.moveTo(p1.x, p1.y); ctx.lineTo(p2.x, p2.y);
-          ctx.stroke();
+          ctx.beginPath(); ctx.strokeStyle = `rgba(46, 111, 242, ${(1 - dist / 140) * 0.25})`;
+          ctx.lineWidth = 1; ctx.moveTo(p1.x, p1.y); ctx.lineTo(p2.x, p2.y); ctx.stroke();
         }
       }
     }
     requestAnimationFrame(drawBackground);
   }
-  window.addEventListener('resize', initBackground);
-  initBackground();
-  drawBackground();
+  window.addEventListener('resize', initBackground); initBackground(); drawBackground();
 
-  /* =====================================================
-     GİRİŞ İŞLEMLERİ
-  ===================================================== */
   const loginScreen = document.getElementById('loginScreen');
   const appContainer = document.getElementById('appContainer');
   const pinInput = document.getElementById('pinInput');
   const loginBtn = document.getElementById('loginBtn');
   const loginError = document.getElementById('loginError');
   const charCount = document.getElementById('charCount');
+  const togglePasswordIcon = document.getElementById('togglePasswordIcon');
+
+  togglePasswordIcon.addEventListener('click', function () {
+    const type = pinInput.getAttribute('type') === 'password' ? 'text' : 'password';
+    pinInput.setAttribute('type', type);
+    if (type === 'text') {
+      this.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"></path><line x1="1" y1="1" x2="23" y2="23"></line></svg>';
+    } else {
+      this.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg>';
+    }
+  });
 
   pinInput.addEventListener('input', (e) => {
     e.target.value = e.target.value.toUpperCase();
@@ -518,84 +518,66 @@
 
   function yetkiKontrol() {
     if (localStorage.getItem(AUTH_KEY)) {
-      loginScreen.classList.add('is-hidden');
-      appContainer.classList.remove('is-hidden');
-      verileriGetir(); 
+      loginScreen.classList.add('is-hidden'); appContainer.classList.remove('is-hidden'); verileriGetir(); 
     } else {
-      appContainer.classList.add('is-hidden');
-      loginScreen.classList.remove('is-hidden');
+      appContainer.classList.add('is-hidden'); loginScreen.classList.remove('is-hidden');
     }
   }
 
   loginBtn.addEventListener('click', () => {
-    if (pinInput.value === MASTER_PIN) {
-      localStorage.setItem(AUTH_KEY, MUSTERI_ID);
-      loginError.style.display = 'none';
-      yetkiKontrol();
+    if (pinInput.value.toUpperCase() === MASTER_PIN) {
+      localStorage.setItem(AUTH_KEY, MUSTERI_ID); loginError.style.display = 'none'; yetkiKontrol();
     } else {
-      loginError.style.display = 'block';
-      pinInput.value = '';
-      charCount.textContent = '0/8';
+      loginError.style.display = 'block'; pinInput.value = ''; charCount.textContent = '0/8';
     }
   });
 
   pinInput.addEventListener('keypress', (e) => { if(e.key === 'Enter') loginBtn.click(); });
 
-  /* =====================================================
-     GİZLİ 10 TIKLAMA ÇIKIŞ (EASTER EGG) & OPTİK BUTON
-  ===================================================== */
-  const lensBtn = document.getElementById('lensBtn');
+  /* KONTROLLER */
+  const toggleSwitch = document.getElementById('toggleSwitch');
+  const statusLensBtn = document.getElementById('statusLensBtn');
   const statusText = document.getElementById('statusText');
   let reklamAktif = true;
-  
-  let clickCount = 0;
-  let clickTimer;
 
-  function switchGorunumuGuncelle() {
+  function arayuzGuncelle() {
     if(reklamAktif) {
-      lensBtn.classList.remove('is-off');
-      statusText.textContent = "Şu an aktif ve yayında";
-      statusText.style.color = "var(--good)";
+      toggleSwitch.classList.remove('is-off'); 
+      statusLensBtn.classList.remove('is-off');
+      statusText.textContent = "Şu an aktif ve yayında"; statusText.style.color = "var(--good)";
     } else {
-      lensBtn.classList.add('is-off');
-      statusText.textContent = "Sistem durduruldu";
-      statusText.style.color = "var(--bad)";
+      toggleSwitch.classList.add('is-off'); 
+      statusLensBtn.classList.add('is-off');
+      statusText.textContent = "Sistem durduruldu"; statusText.style.color = "var(--bad)";
     }
   }
 
-  lensBtn.addEventListener('click', () => {
-    // Gizli Çıkış İşlemi Kontrolü
-    clickCount++;
-    clearTimeout(clickTimer);
-    
-    if(clickCount >= 10) {
-      // 10 Kere Hızlı Basıldı: Çıkış Yap
-      localStorage.removeItem(AUTH_KEY);
-      location.reload(); 
-      return;
-    }
-    
-    // 0.5 saniye içinde tekrar basılmazsa sayacı sıfırla
-    clickTimer = setTimeout(() => { clickCount = 0; }, 500);
-
-    // Normal Buton İşlevi
-    if(lensBtn.disabled) return;
-    lensBtn.disabled = true;
-    reklamAktif = !reklamAktif;
-    switchGorunumuGuncelle();
-    setTimeout(() => { lensBtn.disabled = false; }, 300);
+  /* 1. ANAHTAR: REKLAMI AÇ/KAPAT (Spam korumalı) */
+  toggleSwitch.addEventListener('click', () => {
+    if(toggleSwitch.disabled) return;
+    toggleSwitch.disabled = true; 
+    reklamAktif = !reklamAktif; 
+    arayuzGuncelle();
+    setTimeout(() => { toggleSwitch.disabled = false; }, 300);
   });
 
-  /* =====================================================
-     SIRA BULUCU BUTONU
-  ===================================================== */
+  /* 2. KÜÇÜK LED: GİZLİ ÇIKIŞ İŞLEMİ (Spam koruması YOK, hızlı tıklanabilir) */
+  let clickCount = 0, clickTimer;
+  statusLensBtn.addEventListener('click', () => {
+    clickCount++;
+    clearTimeout(clickTimer);
+    if(clickCount >= 10) { 
+      localStorage.removeItem(AUTH_KEY); 
+      location.reload(); 
+      return; 
+    }
+    clickTimer = setTimeout(() => { clickCount = 0; }, 1000);
+  });
+
   document.getElementById('searchRankBtn').addEventListener('click', () => {
     window.open(`https://www.google.com/search?q=${encodeURIComponent(SEARCH_QUERY)}`, '_blank');
   });
 
-  /* =====================================================
-     API VERİ ÇEKME & ÇİZİMLER (SHEETS)
-  ===================================================== */
   let chartInstance = null;
 
   async function verileriGetir() {
@@ -604,32 +586,21 @@
       if (!response.ok) throw new Error("Ağ Hatası");
       const data = await response.json();
       if (data.hata) return;
-
       if (data.durum === false) document.getElementById('paymentOverlay').classList.add('is-visible');
 
-      sayarakYukselt('metricGosterim', data.gosterim, 800);
-      sayarakYukselt('metricTiklanma', data.tiklanma, 800);
+      sayarakYukselt('metricGosterim', data.gosterim, 800); sayarakYukselt('metricTiklanma', data.tiklanma, 800);
 
       let ilceler = data.ilceler;
       if (Object.values(ilceler).reduce((a,b)=>a+b,0) === 0 && data.tiklanma > 0) {
-        ilceler = {
-          Battalgazi: Math.floor(data.tiklanma*0.35), Yesilyurt: Math.floor(data.tiklanma*0.30),
-          Akcadag: Math.floor(data.tiklanma*0.10), Dogansehir: Math.floor(data.tiklanma*0.08)
-        };
+        ilceler = { Battalgazi: Math.floor(data.tiklanma*0.35), Yesilyurt: Math.floor(data.tiklanma*0.30), Akcadag: Math.floor(data.tiklanma*0.10), Dogansehir: Math.floor(data.tiklanma*0.08) };
       }
       haritayiCiz(ilceler);
-
-      const graf = [
-        data.tiklanma*0.1, data.tiklanma*0.15, data.tiklanma*0.12, 
-        data.tiklanma*0.2, data.tiklanma*0.18, data.tiklanma*0.25, data.tiklanma*0.3
-      ];
-      grafikCiz(graf);
+      grafikCiz([data.tiklanma*0.1, data.tiklanma*0.15, data.tiklanma*0.12, data.tiklanma*0.2, data.tiklanma*0.18, data.tiklanma*0.25, data.tiklanma*0.3]);
     } catch (e) { console.log(e); }
   }
 
   function sayarakYukselt(elId, hedef, sure){
-    const el = document.getElementById(elId);
-    const bas = performance.now();
+    const el = document.getElementById(elId); const bas = performance.now();
     function adim(simdi){
       const oran = Math.min(1, (simdi - bas) / sure);
       el.textContent = Math.round(hedef * (1 - Math.pow(1 - oran, 3))).toLocaleString('tr-TR');
@@ -641,12 +612,9 @@
   function grafikCiz(veri) {
     if (chartInstance) chartInstance.destroy();
     const ctx = document.getElementById('trendChart').getContext('2d');
-    const grad = ctx.createLinearGradient(0,0,0,190);
-    grad.addColorStop(0, 'rgba(46,111,242,.35)'); grad.addColorStop(1, 'rgba(46,111,242,0)');
-
+    const grad = ctx.createLinearGradient(0,0,0,190); grad.addColorStop(0, 'rgba(46,111,242,.35)'); grad.addColorStop(1, 'rgba(46,111,242,0)');
     chartInstance = new Chart(ctx, {
-      type: 'line',
-      data: { labels: ['Pzt','Sal','Çar','Per','Cum','Cmt','Paz'], datasets: [{ data: veri, borderColor: '#2E6FF2', fill: true, backgroundColor: grad, tension: 0.4, pointRadius: 0 }] },
+      type: 'line', data: { labels: ['Pzt','Sal','Çar','Per','Cum','Cmt','Paz'], datasets: [{ data: veri, borderColor: '#2E6FF2', fill: true, backgroundColor: grad, tension: 0.4, pointRadius: 0 }] },
       options: { responsive:true, maintainAspectRatio:false, plugins:{legend:{display:false}}, scales:{x:{grid:{display:false}},y:{display:false}} }
     });
   }
@@ -663,16 +631,10 @@
     
     mapData.forEach(i => {
       const g = document.createElementNS('http://www.w3.org/2000/svg', 'g'); g.setAttribute('class','district');
-      const p = document.createElementNS('http://www.w3.org/2000/svg', 'path');
-      p.setAttribute('d', i.p);
-      const val = (i.t/max); 
-      p.setAttribute('fill', `rgba(46,111,242,${0.2 + (val*0.8)})`); 
-      g.appendChild(p);
-      
+      const p = document.createElementNS('http://www.w3.org/2000/svg', 'path'); p.setAttribute('d', i.p);
+      p.setAttribute('fill', `rgba(46,111,242,${0.2 + ((i.t/max)*0.8)})`); g.appendChild(p);
       const txt = document.createElementNS('http://www.w3.org/2000/svg', 'text');
-      txt.setAttribute('class','name'); txt.setAttribute('x',i.cx); txt.setAttribute('y',i.cy); txt.textContent=i.ad;
-      g.appendChild(txt);
-      svg.appendChild(g);
+      txt.setAttribute('class','name'); txt.setAttribute('x',i.cx); txt.setAttribute('y',i.cy); txt.textContent=i.ad; g.appendChild(txt); svg.appendChild(g);
     });
   }
 
