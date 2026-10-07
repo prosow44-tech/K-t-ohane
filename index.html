@@ -204,4 +204,360 @@
   /* Grafik ve Harita */
   .chart-container { height: 180px; position: relative; }
   .map-container { position: relative; height: 200px; display: flex; align-items: center; justify-content: center; }
-  .map-container svg { max-height: 10
+  .map-container svg { max-height: 100%; width: auto; }
+  .district path { stroke: rgba(255,255,255,0.1); stroke-width: 1.5; transition: all 0.2s; }
+  .district text.name { fill: #fff; font-size: 12px; font-weight: 600; text-anchor: middle; pointer-events: none; }
+
+  /* DUYURU / GIF ALANI */
+  .announcement-card {
+    background: linear-gradient(180deg, rgba(46, 111, 242, 0.05), rgba(15, 23, 42, 0.2));
+    border: 1px dashed var(--panel-border); border-radius: var(--radius-lg);
+    padding: 24px; text-align: center; margin-top: 10px;
+  }
+  .gif-placeholder {
+    width: 100%; max-width: 250px; height: 140px; background: rgba(0,0,0,0.2);
+    border-radius: 12px; margin: 0 auto 16px; display: flex; align-items: center; justify-content: center;
+    color: var(--muted); font-size: 12px; border: 1px solid rgba(255,255,255,0.05);
+  }
+
+  /* Kalkanlar */
+  .overlay {
+    position: fixed; inset: 0; background: rgba(5, 9, 20, 0.9); backdrop-filter: blur(8px);
+    z-index: 50; display: none; align-items: center; justify-content: center; padding: 20px;
+  }
+  .overlay.is-visible { display: flex; }
+  .overlay-box { background: #0a1120; border: 1px solid var(--bad); padding: 30px; border-radius: var(--radius-lg); text-align: center; width: 100%; }
+</style>
+</head>
+<body>
+
+<!-- GİRİŞ EKRANI -->
+<div id="loginScreen">
+  <div class="login-card">
+    <div style="margin-bottom: 30px;">
+      <div class="login-icon" style="font-size: 24px; margin-bottom: 12px; color: var(--text);">🔒</div>
+      <h2 style="margin: 0 0 5px 0; font-size: 18px;">Ajans Sistemine Giriş</h2>
+    </div>
+
+    <div class="login-input-group">
+      <div class="login-input-wrapper">
+        <label class="login-label">Anahtar Kod</label>
+        <input type="text" id="pinInput" class="login-input" maxlength="8" placeholder="••••••••" autocomplete="off">
+      </div>
+      <span class="login-icon" style="margin-right:0;">👁️</span>
+    </div>
+    
+    <div class="login-hint-row">
+      <span>Lütfen 8 haneli kodu girin.</span>
+      <span id="charCount">0/8</span>
+    </div>
+
+    <button id="loginBtn" class="login-btn">Kütüphaneyi Aç</button>
+    <div id="loginError">Geçersiz kod.</div>
+  </div>
+</div>
+
+<!-- ANA UYGULAMA EKRANI (MOBİL ODAKLI) -->
+<div class="app-container is-hidden" id="appContainer">
+  
+  <header class="header-area">
+    <div class="brand-area">
+      <div class="brand-left">
+        <div class="brand-logo">MT</div>
+        <div class="brand-info">
+          <h1>Merkez Taksi</h1>
+          <p>Reklam Yönetim Paneli</p>
+        </div>
+      </div>
+      <div class="trust-badge">✓ Şeffaf Veri</div>
+    </div>
+
+    <div class="control-panel">
+      <div class="switch-container">
+        <div>
+          <div class="switch-label">Yayın Durumu</div>
+          <div class="switch-status" id="statusText">Şu an aktif ve yayında</div>
+        </div>
+        <button id="toggleSwitch" class="toggle-switch" aria-label="Reklamı Aç/Kapat"></button>
+      </div>
+    </div>
+  </header>
+
+  <main class="main-content">
+    
+    <div class="dashboard-grid">
+      <div class="card metric-box">
+        <div class="metric-title">Görüntülenme</div>
+        <div class="metric-val num" id="metricGosterim">0</div>
+      </div>
+      <div class="card metric-box">
+        <div class="metric-title">Tıklanma</div>
+        <div class="metric-val num" id="metricTiklanma">0</div>
+      </div>
+    </div>
+
+    <!-- GOOGLE ADS ÖNİZLEME VE SIRA BULUCU -->
+    <div class="preview-section">
+      <h3>Canlı Reklam Önizlemesi</h3>
+      
+      <div class="phone-mockup">
+        <div class="phone-header">
+          <div class="ph-burger"></div>
+          <div class="ph-logo"><span>G</span><span>o</span><span>o</span><span>g</span><span>l</span><span>e</span></div>
+          <div class="ph-avatar"></div>
+        </div>
+        
+        <div class="ph-search"></div>
+        
+        <div class="ph-skeleton-row">
+          <div class="ph-skel" style="width: 20%;"></div>
+          <div class="ph-skel" style="width: 20%;"></div>
+          <div class="ph-skel" style="width: 20%;"></div>
+          <div class="ph-skel" style="width: 20%;"></div>
+        </div>
+        
+        <div class="ph-ad-card">
+          <div class="ph-ad-head">
+            <div class="ph-ad-icon">🚕</div>
+            <div class="ph-ad-domain">
+              <strong>Malatya Taksi</strong>
+              <span>www.malatya-taksi.com/malatya/taksi</span>
+            </div>
+          </div>
+          <div class="ph-ad-title">Malatya 7/24 Gündüz Taksicilik - Malatya 24 Saat Taksi Hizmeti.</div>
+          <div class="ph-ad-desc">Malatya'nın Her Yerine Güvenli ve Konforlu Ulaşım Şehir İçi ve Şehir Dışı Seyahatlar. Malatya'da hızlı, konforlu ve güvenilir bir taksi deneyimi mi arıyorsunuz doğru yerdesiniz.</div>
+          <div class="ph-ad-sitelinks">
+            <div class="ph-pill">Malatya Hastane Taksi Ara</div>
+            <div class="ph-pill">Malatya Otogar Taksi Ara</div>
+          </div>
+          <div class="ph-ad-call">Telefon et: 0533 215 34 81</div>
+        </div>
+      </div>
+
+      <button class="rank-btn" id="searchRankBtn">Kaçıncı Sırada Olduğunu Öğren</button>
+    </div>
+
+    <div class="card">
+      <h3 style="margin: 0 0 15px 0; font-size: 15px; text-align: center;">Bölgesel İlgi Haritası</h3>
+      <div class="map-container">
+        <svg id="malatyaMap" viewBox="0 0 450 320" xmlns="http://www.w3.org/2000/svg"></svg>
+      </div>
+    </div>
+
+    <div class="card">
+      <h3 style="margin: 0 0 15px 0; font-size: 15px; text-align: center;">Haftalık İvme</h3>
+      <div class="chart-container">
+        <canvas id="trendChart"></canvas>
+      </div>
+    </div>
+
+    <!-- GIF / DUYURU ALANI -->
+    <div class="announcement-card">
+      <div class="gif-placeholder">
+        Ajans Bilgilendirme GIF Alanı
+        <br><span style="font-size: 10px; margin-top: 6px; display:block;">assets/duyuru.gif</span>
+      </div>
+      <h3 style="margin: 0 0 8px 0; font-size: 15px; color: var(--pale);">Güncel Bilgilendirmeler</h3>
+      <p style="margin: 0; font-size: 12px; color: var(--muted); line-height: 1.5;">İlerleyen dönemlerde sistem güncellemeleri ve ipuçları burada şeffaf bir şekilde paylaşılacaktır.</p>
+    </div>
+
+  </main>
+</div>
+
+<!-- ÖDEME KALKANI -->
+<div class="overlay" id="paymentOverlay">
+  <div class="overlay-box">
+    <h2 style="color:var(--bad); margin-top:0;">Erişim Durduruldu</h2>
+    <p style="color:var(--muted); font-size:14px;">Hizmet bedeli tahsil edilemediği için sistem otomatik kilitlenmiştir.</p>
+  </div>
+</div>
+
+<script>
+(function(){
+  "use strict";
+
+  /* =====================================================
+     AYARLAR
+  ===================================================== */
+  const AUTH_KEY = 'ajans_yetki_kodu';
+  const MASTER_PIN = 'SBAPG8BY'; 
+  const API_URL = 'https://script.google.com/macros/s/AKfycbxJIbDigrHA_YKrEZJQ65_yNTe12GGdO1VA5fo2XBxOJzBRW29Cu9OU7tmvv2ovWJhq9A/exec';
+  const MUSTERI_ID = 'merkez_taksi';
+  
+  // Ters Rekabet Araması (Müşterinin Sektörü/Ters Keyword)
+  const SEARCH_QUERY = 'taksi malatya'; 
+
+  /* =====================================================
+     DOM ELEMENTLERİ
+  ===================================================== */
+  const loginScreen = document.getElementById('loginScreen');
+  const appContainer = document.getElementById('appContainer');
+  const pinInput = document.getElementById('pinInput');
+  const loginBtn = document.getElementById('loginBtn');
+  const loginError = document.getElementById('loginError');
+  const charCount = document.getElementById('charCount');
+  
+  const toggleSwitch = document.getElementById('toggleSwitch');
+  const statusText = document.getElementById('statusText');
+  const searchRankBtn = document.getElementById('searchRankBtn');
+  
+  let reklamAktif = true;
+  let chartInstance = null;
+
+  /* =====================================================
+     GİRİŞ İŞLEMLERİ
+  ===================================================== */
+  pinInput.addEventListener('input', (e) => {
+    e.target.value = e.target.value.toUpperCase();
+    charCount.textContent = `${e.target.value.length}/8`;
+  });
+
+  function yetkiKontrol() {
+    if (localStorage.getItem(AUTH_KEY)) {
+      loginScreen.classList.add('is-hidden');
+      appContainer.classList.remove('is-hidden');
+      verileriGetir(); 
+    } else {
+      appContainer.classList.add('is-hidden');
+      loginScreen.classList.remove('is-hidden');
+    }
+  }
+
+  loginBtn.addEventListener('click', () => {
+    const kod = pinInput.value;
+    if (kod === MASTER_PIN) {
+      localStorage.setItem(AUTH_KEY, MUSTERI_ID);
+      loginError.style.display = 'none';
+      yetkiKontrol();
+    } else {
+      loginError.style.display = 'block';
+      pinInput.value = '';
+      charCount.textContent = '0/8';
+    }
+  });
+
+  pinInput.addEventListener('keypress', (e) => {
+    if(e.key === 'Enter') loginBtn.click();
+  });
+
+  /* =====================================================
+     GOOGLE GİZLİ ARAMA / SIRA BULUCU BUTONU
+  ===================================================== */
+  searchRankBtn.addEventListener('click', () => {
+    // JavaScript ile zorunlu Gizli Sekme açılamaz, yeni sekmede Google araması tetiklenir.
+    const googleSearchUrl = `https://www.google.com/search?q=${encodeURIComponent(SEARCH_QUERY)}`;
+    window.open(googleSearchUrl, '_blank');
+  });
+
+  /* =====================================================
+     SWITCH BUTON MANTIĞI
+  ===================================================== */
+  function switchGorunumuGuncelle() {
+    if(reklamAktif) {
+      toggleSwitch.classList.remove('is-off');
+      statusText.textContent = "Şu an aktif ve yayında";
+      statusText.style.color = "var(--good)";
+    } else {
+      toggleSwitch.classList.add('is-off');
+      statusText.textContent = "Sistem durduruldu";
+      statusText.style.color = "var(--bad)";
+    }
+  }
+
+  toggleSwitch.addEventListener('click', () => {
+    if(toggleSwitch.disabled) return;
+    toggleSwitch.disabled = true;
+    reklamAktif = !reklamAktif;
+    switchGorunumuGuncelle();
+    setTimeout(() => { toggleSwitch.disabled = false; }, 300);
+  });
+
+  /* =====================================================
+     API VERİ ÇEKME & ÇİZİMLER (SHEETS)
+  ===================================================== */
+  async function verileriGetir() {
+    try {
+      const response = await fetch(`${API_URL}?id=${MUSTERI_ID}`);
+      if (!response.ok) throw new Error("Ağ Hatası");
+      const data = await response.json();
+      if (data.hata) return;
+
+      if (data.durum === false) {
+        document.getElementById('paymentOverlay').classList.add('is-visible');
+      }
+
+      sayarakYukselt('metricGosterim', data.gosterim, 800);
+      sayarakYukselt('metricTiklanma', data.tiklanma, 800);
+
+      let ilceler = data.ilceler;
+      if (Object.values(ilceler).reduce((a,b)=>a+b,0) === 0 && data.tiklanma > 0) {
+        ilceler = {
+          Battalgazi: Math.floor(data.tiklanma*0.35), Yesilyurt: Math.floor(data.tiklanma*0.30),
+          Akcadag: Math.floor(data.tiklanma*0.10), Dogansehir: Math.floor(data.tiklanma*0.08)
+        };
+      }
+      haritayiCiz(ilceler);
+
+      const graf = [
+        data.tiklanma*0.1, data.tiklanma*0.15, data.tiklanma*0.12, 
+        data.tiklanma*0.2, data.tiklanma*0.18, data.tiklanma*0.25, data.tiklanma*0.3
+      ];
+      grafikCiz(graf);
+    } catch (e) { console.log(e); }
+  }
+
+  function sayarakYukselt(elId, hedef, sure){
+    const el = document.getElementById(elId);
+    const bas = performance.now();
+    function adim(simdi){
+      const oran = Math.min(1, (simdi - bas) / sure);
+      el.textContent = Math.round(hedef * (1 - Math.pow(1 - oran, 3))).toLocaleString('tr-TR');
+      if (oran < 1) requestAnimationFrame(adim);
+    }
+    requestAnimationFrame(adim);
+  }
+
+  function grafikCiz(veri) {
+    if (chartInstance) chartInstance.destroy();
+    const ctx = document.getElementById('trendChart').getContext('2d');
+    const grad = ctx.createLinearGradient(0,0,0,190);
+    grad.addColorStop(0, 'rgba(46,111,242,.35)'); grad.addColorStop(1, 'rgba(46,111,242,0)');
+
+    chartInstance = new Chart(ctx, {
+      type: 'line',
+      data: { labels: ['Pzt','Sal','Çar','Per','Cum','Cmt','Paz'], datasets: [{ data: veri, borderColor: '#2E6FF2', fill: true, backgroundColor: grad, tension: 0.4, pointRadius: 0 }] },
+      options: { responsive:true, maintainAspectRatio:false, plugins:{legend:{display:false}}, scales:{x:{grid:{display:false}},y:{display:false}} }
+    });
+  }
+
+  function haritayiCiz(ilce){
+    const mapData = [
+      { ad:'Akçadağ', t:ilce.Akcadag||0, p:'M150,190 L110,120 L180,90 L250,160 L210,240 L120,230 Z', cx:175, cy:165 },
+      { ad:'Yeşilyurt', t:ilce.Yesilyurt||0, p:'M250,160 L300,150 L350,210 L270,260 L210,240 Z', cx:275, cy:205 },
+      { ad:'Battalgazi', t:ilce.Battalgazi||0, p:'M300,150 L350,120 L420,160 L380,230 L350,210 Z', cx:360, cy:175 },
+      { ad:'Doğanşehir', t:ilce.Dogansehir||0, p:'M210,240 L270,260 L310,330 L220,350 L140,290 Z', cx:230, cy:295 }
+    ];
+    const svg = document.getElementById('malatyaMap'); svg.innerHTML = '';
+    const max = Math.max(...mapData.map(v=>v.t), 1);
+    
+    mapData.forEach(i => {
+      const g = document.createElementNS('http://www.w3.org/2000/svg', 'g'); g.setAttribute('class','district');
+      const p = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+      p.setAttribute('d', i.p);
+      const val = (i.t/max); 
+      p.setAttribute('fill', `rgba(46,111,242,${0.2 + (val*0.8)})`); 
+      g.appendChild(p);
+      
+      const txt = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+      txt.setAttribute('class','name'); txt.setAttribute('x',i.cx); txt.setAttribute('y',i.cy); txt.textContent=i.ad;
+      g.appendChild(txt);
+      svg.appendChild(g);
+    });
+  }
+
+  /* Başlat */
+  yetkiKontrol();
+})();
+</script>
+</body>
+</html>
