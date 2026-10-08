@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://cdn.jsdelivr.net; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; connect-src https://script.google.com;">
-<title>Ajans Analitik Paneli</title>
+<title>Kurumsal Reklam Paneli</title>
 <link rel="manifest" href="manifest.json">
 <meta name="theme-color" content="#050914">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -43,7 +43,7 @@
   .is-hidden { display: none !important; }
   button { font-family: inherit; cursor: pointer; }
 
-  /* KİLİT EKRANI */
+  /* --- GÜVENLİK EKRANI (LOGIN) --- */
   #loginScreen { position: fixed; inset: 0; background: var(--bg); z-index: 100; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 20px; }
   .login-card { background: var(--panel); border: 1px solid var(--panel-border); border-radius: var(--radius-lg); padding: 40px 30px; width: 100%; max-width: 380px; backdrop-filter: blur(10px); }
   .login-input-wrapper { border-bottom: 2px solid var(--muted); padding-bottom: 8px; margin-bottom: 25px; transition: border-color 0.3s;}
@@ -54,7 +54,7 @@
   .login-btn:active { transform: scale(0.97); opacity: 0.8;}
   #loginError { color: var(--bad); font-size: 13px; text-align: center; margin-top: 15px; display: none; font-weight: 500;}
 
-  /* ANA KONTEYNER */
+  /* --- ANA ARAYÜZ (APP) --- */
   .app-container { display: flex; flex-direction: column; min-height: 100vh; width: 100%; max-width: 550px; margin: 0 auto; }
   
   .header-area { padding: 20px; border-bottom: 1px solid var(--panel-border); background: rgba(5, 9, 20, 0.85); backdrop-filter: blur(10px); position: sticky; top: 0; z-index: 10; display: flex; justify-content: space-between; align-items: center;}
@@ -66,39 +66,48 @@
 
   .main-content { padding: 20px; display: flex; flex-direction: column; gap: 16px; }
   
-  /* BÜYÜK BAŞARI KARTI (ARAMALAR) */
+  /* Dönüşüm (Aramalar) Kutusu */
   .call-box { background: linear-gradient(135deg, rgba(16, 185, 129, 0.15), rgba(16, 185, 129, 0.05)); border: 1px solid rgba(16, 185, 129, 0.3); border-radius: var(--radius-lg); padding: 24px; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 8px 20px rgba(16, 185, 129, 0.05);}
   .call-info h3 { margin: 0 0 6px 0; font-size: 15px; color: var(--good); text-transform: uppercase; letter-spacing: 0.5px; display: flex; align-items: center; gap: 6px;}
   .call-info p { margin: 0; font-size: 12px; color: var(--muted); line-height: 1.4; max-width: 200px;}
   .call-val { font-size: 42px; font-weight: 700; color: #fff; text-shadow: 0 2px 10px rgba(16, 185, 129, 0.3);}
 
-  /* İKİLİ METRİK GRID */
+  /* Grid Metrikler */
   .dashboard-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
   .metric-box { background: var(--panel); border: 1px solid var(--panel-border); border-radius: var(--radius-lg); padding: 20px; display: flex; flex-direction: column; justify-content: center;}
   .metric-title { font-size: 12px; font-weight: 600; color: var(--muted); text-transform: uppercase; margin-bottom: 8px; letter-spacing: 0.5px;}
   .metric-val { font-size: 32px; font-weight: 700; letter-spacing: -1px;}
 
-  /* KAYAN KART (CAROUSEL) */
-  .carousel-card { background: var(--panel); border: 1px solid var(--panel-border); border-radius: var(--radius-lg); overflow: hidden; cursor: pointer; position: relative; height: 170px; transition: border-color 0.3s, transform 0.2s;}
+  /* --- KAYAN KART (CAROUSEL) --- */
+  .carousel-card { background: var(--panel); border: 1px solid var(--panel-border); border-radius: var(--radius-lg); overflow: hidden; cursor: pointer; position: relative; height: 180px; transition: border-color 0.3s, transform 0.2s; display: flex; flex-direction: column;}
   .carousel-card:active { transform: scale(0.98); border-color: var(--accent);}
-  .carousel-track { display: flex; transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1); height: 100%; }
-  .slide { min-width: 100%; padding: 24px 24px 34px 24px; display: flex; flex-direction: column; justify-content: center;}
+  
+  .carousel-track { display: flex; width: 100%; transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1); height: 100%; }
+  
+  /* Sabit Genişlik - Kaymayı Engeller */
+  .slide { flex: 0 0 100%; min-width: 100%; padding: 20px 24px 34px 24px; display: flex; flex-direction: column; justify-content: center;}
   
   .slide-title { margin:0 0 12px 0; font-size:15px; color:var(--text); font-weight: 600; display: flex; align-items: center; gap: 8px;}
   .slide-title svg { color: var(--accent); }
 
-  .device-bar-wrap { margin-top: 5px; }
+  .device-bar-wrap { margin-top: 5px; width: 100%; }
   .device-label { display: flex; justify-content: space-between; font-size: 13px; margin-bottom: 6px; color: var(--muted); font-weight: 500;}
   .device-bar { width: 100%; height: 12px; background: rgba(255,255,255,0.05); border-radius: 6px; overflow: hidden; display: flex; }
   .bar-mobile { background: var(--ads-blue); height: 100%; transition: width 1s cubic-bezier(0.4, 0, 0.2, 1);}
   .bar-pc { background: var(--ads-yellow); height: 100%; transition: width 1s cubic-bezier(0.4, 0, 0.2, 1);}
 
-  .term-tags { display: flex; flex-wrap: wrap; gap: 8px; }
+  .term-tags { display: flex; flex-wrap: wrap; gap: 8px; width: 100%; }
   .term-tag { border: 1px solid rgba(66, 133, 244, 0.4); color: #E2E8F0; padding: 6px 12px; border-radius: 20px; font-size: 13px; font-weight: 500; background: rgba(66, 133, 244, 0.1);}
+
+  .demo-row { display: flex; justify-content: space-between; margin-top: 10px; width: 100%; padding: 0 10px; }
+  .demo-item { text-align: center; flex: 1; }
+  .demo-border { border-left: 1px solid rgba(255,255,255,0.1); }
+  .demo-val { font-size: 24px; font-weight: 700; display: block; }
+  .demo-lbl { font-size: 12px; color: var(--muted); font-weight: 500; }
 
   .card-footer-hint { position: absolute; bottom: 0; left: 0; width: 100%; background: rgba(59, 130, 246, 0.1); padding: 8px 0; text-align: center; font-size: 11px; color: #93C5FD; font-weight: 600; display: flex; align-items: center; justify-content: center; gap: 6px; border-top: 1px solid rgba(59, 130, 246, 0.2);}
 
-  /* YANIP SÖNEN MAVİ BİLGİ KUTUSU (YENİ İSTEK) */
+  /* --- YANIP SÖNEN BİLGİ KUTUSU --- */
   .info-box { background: rgba(59, 130, 246, 0.08); border: 1px solid rgba(59, 130, 246, 0.2); border-radius: var(--radius-md); padding: 16px; display: flex; align-items: flex-start; gap: 14px; margin-top: 5px; }
   .pulse-container { position: relative; width: 14px; height: 14px; margin-top: 3px; flex-shrink: 0;}
   .pulse-dot { position: absolute; width: 100%; height: 100%; background-color: var(--accent); border-radius: 50%; z-index: 2;}
@@ -107,7 +116,7 @@
   .info-text { font-size: 13px; color: #BFDBFE; line-height: 1.5; margin: 0; font-weight: 500;}
   .info-text strong { color: #fff; }
 
-  /* TAM EKRAN ŞEFFAF MODAL */
+  /* --- DETAY MODALI --- */
   #fullDataModal { display: none; position: fixed; inset: 0; background: rgba(5, 9, 20, 0.96); backdrop-filter: blur(15px); z-index: 999; flex-direction: column; overflow-y: auto; }
   .modal-header { padding: 20px 24px; border-bottom: 1px solid rgba(255,255,255,0.05); display: flex; justify-content: space-between; align-items: center; position: sticky; top:0; background: transparent; z-index: 2;}
   .modal-header h2 { margin: 0; font-size: 18px; font-weight: 600; letter-spacing: -0.5px;}
@@ -120,7 +129,6 @@
   
   .chart-wrapper { height: 220px; width: 100%; position: relative;}
 
-  /* Hata Ekranı */
   .overlay { position: fixed; inset: 0; background: rgba(5, 9, 20, 0.98); z-index: 50; display: none; align-items: center; justify-content: center; padding: 20px; }
   .overlay.is-visible { display: flex; }
   .overlay-box { background: var(--panel); border: 1px solid var(--bad); padding: 30px; border-radius: var(--radius-lg); text-align: center; width: 100%; max-width: 400px;}
@@ -130,7 +138,7 @@
 
 <canvas id="bgCanvas"></canvas>
 
-<!-- KİLİT EKRANI -->
+<!-- 1. GÜVENLİK (LOGIN) EKRANI -->
 <div id="loginScreen">
   <div class="login-card">
     <div style="text-align: center; margin-bottom: 25px;">
@@ -138,7 +146,7 @@
       <h2 style="margin: 0; font-size: 20px; font-weight: 600; letter-spacing: -0.5px;">Kurumsal Analiz</h2>
     </div>
     
-    <!-- Honeypot (Bot Tuzağı) -->
+    <!-- Bot Tuzağı -->
     <input type="text" id="botTrap" style="opacity: 0; position: absolute; top: -9999px; left: -9999px;" tabindex="-1" autocomplete="off" aria-hidden="true">
 
     <div class="login-input-wrapper">
@@ -149,7 +157,7 @@
   </div>
 </div>
 
-<!-- ANA PANEL -->
+<!-- 2. ANA PANEL EKRANI -->
 <div class="app-container is-hidden" id="appContainer">
   <header class="header-area">
     <div class="brand-left">
@@ -164,7 +172,7 @@
 
   <main class="main-content">
     
-    <!-- ARAMALAR (DÖNÜŞÜM) KARTI -->
+    <!-- Telefon Aramaları -->
     <div class="call-box">
       <div class="call-info">
         <h3>
@@ -176,7 +184,7 @@
       <div class="call-val" id="uiAramalar">0</div>
     </div>
 
-    <!-- GÖSTERİM VE TIKLANMA -->
+    <!-- Metrikler -->
     <div class="dashboard-grid">
       <div class="metric-box">
         <span class="metric-title">Görüntülenme</span>
@@ -188,10 +196,10 @@
       </div>
     </div>
     
-    <!-- KAYAN BİLGİ KARTI (CAROUSEL) -->
+    <!-- Kademeli Gösterim (Carousel) -->
     <div class="carousel-card" id="openModalBtn">
       <div class="carousel-track" id="carouselTrack">
-        <!-- Slayt 1 -->
+        <!-- Slayt 1: Cihazlar -->
         <div class="slide">
           <h3 class="slide-title">
             <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="2" width="14" height="20" rx="2" ry="2"></rect><line x1="12" y1="18" x2="12.01" y2="18"></line></svg>
@@ -205,7 +213,7 @@
             </div>
           </div>
         </div>
-        <!-- Slayt 2 -->
+        <!-- Slayt 2: Kelimeler -->
         <div class="slide">
           <h3 class="slide-title">
             <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
@@ -213,23 +221,23 @@
           </h3>
           <div class="term-tags" id="uiKelimeler"></div>
         </div>
-        <!-- Slayt 3 -->
+        <!-- Slayt 3: Demografi -->
         <div class="slide">
           <h3 class="slide-title">
             <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
             Kitle Özeti
           </h3>
-          <div style="display:flex; justify-content:space-between; margin-top:10px; padding: 0 10px;">
-            <div style="text-align:center;"><span style="font-size:24px; color:var(--ads-blue); font-weight:700;" id="uiErkek">0%</span><br><span style="font-size:12px; color:var(--muted); font-weight:500;">Erkek</span></div>
-            <div style="text-align:center; border-left: 1px solid rgba(255,255,255,0.1); padding-left: 15px;"><span style="font-size:20px; color:var(--text); font-weight:600;" id="uiYas">-</span><br><span style="font-size:12px; color:var(--muted); font-weight:500;">Aktif Yaş</span></div>
-            <div style="text-align:center; border-left: 1px solid rgba(255,255,255,0.1); padding-left: 15px;"><span style="font-size:24px; color:#A78BFA; font-weight:700;" id="uiKadin">0%</span><br><span style="font-size:12px; color:var(--muted); font-weight:500;">Kadın</span></div>
+          <div class="demo-row">
+            <div class="demo-item"><span class="demo-val" style="color:var(--ads-blue);" id="uiErkek">0%</span><span class="demo-lbl">Erkek</span></div>
+            <div class="demo-item demo-border"><span class="demo-val" id="uiYas">-</span><span class="demo-lbl">Aktif Yaş</span></div>
+            <div class="demo-item demo-border"><span class="demo-val" style="color:#A78BFA;" id="uiKadin">0%</span><span class="demo-lbl">Kadın</span></div>
           </div>
         </div>
       </div>
       <div class="card-footer-hint">Tüm detayları ve şeffaf harcamayı görmek için dokunun</div>
     </div>
 
-    <!-- YANIP SÖNEN MAVİ BİLGİ KUTUSU (AKILLI ASİSTAN NOTU) -->
+    <!-- Yanıp Sönen Mavi Bilgi Kutusu -->
     <div class="info-box">
       <div class="pulse-container">
         <div class="pulse-ring"></div>
@@ -243,7 +251,7 @@
   </main>
 </div>
 
-<!-- DETAYLI X-Y GRAFİK MODALI -->
+<!-- 3. ŞEFFAF DETAY MODALI -->
 <div id="fullDataModal">
   <div class="modal-header">
     <h2>Analiz Raporu <span style="font-size: 13px; color: var(--muted); font-weight: 500; margin-left: 8px;">(Son 7 Gün)</span></h2>
@@ -251,7 +259,6 @@
   </div>
   
   <div class="modal-body">
-    
     <div style="display:flex; gap:16px;">
       <div class="data-section" style="flex:1; padding: 20px;">
         <h3 class="sec-title">Toplam Harcama</h3>
@@ -281,7 +288,7 @@
         <div class="device-label" style="margin-top:10px;"><span>Mobil</span> <span id="modMob">%0</span></div>
         <div class="device-bar" style="margin-bottom:20px;"><div class="bar-mobile" id="modMobBar" style="width:0%;"></div></div>
         <div class="device-label"><span>Bilgisayar</span> <span id="modPc">%0</span></div>
-        <div class="device-bar"><div class="bar-pc" id="modPcBar" style="width:0%;"></div></div>
+        <div class="device-bar"><div class="bar-pc" id="modPcBar" style="width:0%; background:var(--ads-yellow);"></div></div>
       </div>
 
       <div class="data-section" style="flex:1; min-width:220px;">
@@ -293,10 +300,10 @@
         </div>
       </div>
     </div>
-
   </div>
 </div>
 
+<!-- Durdurulma Overlay -->
 <div class="overlay" id="paymentOverlay">
   <div class="overlay-box">
     <h2 style="color:var(--bad); margin-top:0; font-size: 18px;">Hizmet Durduruldu</h2>
@@ -315,24 +322,24 @@
 
   // YENİ APPS SCRIPT URL
   const API_URL = 'https://script.google.com/macros/s/AKfycbyRfkh4PeHKle7qNrr3qiSu-ByqW7ORDdC1lHCu9ba7SYvKqllti5PMGRGQFGU10oYjPg/exec';
-  const MUSTERI_ID = (new URLSearchParams(window.location.search).get('id') || 'merkez_taksi').toLowerCase();
+  const MUSTERI_ID = (new URLSearchParams(window.location.search).get('id') || 'sahin_taksi').toLowerCase();
 
-  // Marka Bilgileri
+  // Marka Bilgileri İşleme
   document.getElementById('uiLogo').innerHTML = `<img src="assets/${MUSTERI_ID}.png" style="width:100%; height:100%; object-fit:cover;" onerror="this.style.display='none'; this.parentElement.innerText=MUSTERI_ID.charAt(0).toUpperCase();">`;
   document.getElementById('uiName').textContent = MUSTERI_ID.split('_').map(w => w.charAt(0).toUpperCase() + w.slice(1)).join(' ');
 
-  // Arka Plan Ağı
+  // Arka Plan Animasyonu
   const canvas = document.getElementById('bgCanvas'); const ctx = canvas.getContext('2d');
   let width, height, particles = [];
   function initBg() { width = canvas.width = window.innerWidth; height = canvas.height = window.innerHeight; particles = []; for (let i=0; i<35; i++) particles.push({x:Math.random()*width, y:Math.random()*height, vx:(Math.random()-0.5)*0.4, vy:(Math.random()-0.5)*0.4}); }
   function drawBg() { ctx.clearRect(0,0,width,height); particles.forEach(p => { p.x += p.vx; p.y += p.vy; if(p.x<0||p.x>width)p.vx*=-1; if(p.y<0||p.y>height)p.vy*=-1; particles.forEach(p2 => { let d = Math.hypot(p.x-p2.x, p.y-p2.y); if(d<160){ ctx.beginPath(); ctx.strokeStyle=`rgba(59,130,246,${(1-d/160)*0.25})`; ctx.moveTo(p.x,p.y); ctx.lineTo(p2.x,p2.y); ctx.stroke(); } }); }); requestAnimationFrame(drawBg); }
   window.addEventListener('resize', initBg); initBg(); drawBg();
 
-  // Kilit Ekranı
+  // Giriş Doğrulama
   document.getElementById('loginBtn').addEventListener('click', () => {
     let hataSayisi = parseInt(sessionStorage.getItem('hata_lock') || 0);
     if(hataSayisi >= 3) { document.getElementById('loginError').textContent = "Kilitlendi."; document.getElementById('loginError').style.display = 'block'; return; }
-    if(document.getElementById('botTrap').value !== '') return; // Bot yakalandı
+    if(document.getElementById('botTrap').value !== '') return; 
     
     if(document.getElementById('pinInput').value === '56413744') {
       sessionStorage.setItem('hata_lock', 0);
@@ -345,14 +352,15 @@
       document.getElementById('pinInput').value = '';
     }
   });
+  document.getElementById('pinInput').addEventListener('keypress', (e) => { if(e.key === 'Enter') document.getElementById('loginBtn').click(); });
 
-  // Kayan Kart (Carousel)
+  // Carousel Otomatik Kaydırma
   let slideIndex = 0;
   const track = document.getElementById('carouselTrack');
   setInterval(() => {
     slideIndex = (slideIndex + 1) % 3;
     track.style.transform = `translateX(-${slideIndex * 100}%)`;
-  }, 3500); // 3.5 saniyede bir
+  }, 3500); 
 
   // Modal Açılış
   document.getElementById('openModalBtn').addEventListener('click', () => { document.getElementById('fullDataModal').style.display = 'flex'; });
@@ -377,7 +385,7 @@
     });
   }
 
-  // Veri Çekme (Fetch)
+  // Veri Çekme (Fetch API)
   async function verileriGetir() {
     try {
       const response = await fetch(`${API_URL}?id=${MUSTERI_ID}`);
@@ -386,31 +394,41 @@
 
       if(data.durum === false) { document.getElementById('paymentOverlay').classList.add('is-visible'); }
 
-      // Animasyonlu Sayı Artışı
-      sayarakYukselt('uiGosterim', data.gosterim, 1000); 
-      sayarakYukselt('uiTiklanma', data.tiklanma, 1000);
-      sayarakYukselt('uiAramalar', data.aramalar, 1000);
+      // Ana Ekran Rakamları
+      sayarakYukselt('uiGosterim', data.gosterim || 0, 1000); 
+      sayarakYukselt('uiTiklanma', data.tiklanma || 0, 1000);
+      sayarakYukselt('uiAramalar', data.aramalar || 0, 1000);
       
       // Slayt 1 - Cihazlar
-      document.getElementById('mobYuzde').textContent = data.cihaz.mobil;
-      document.getElementById('pcYuzde').textContent = data.cihaz.pc;
-      setTimeout(() => { document.getElementById('mobBar').style.width = data.cihaz.mobil + '%'; document.getElementById('pcBar').style.width = data.cihaz.pc + '%'; }, 300); 
+      document.getElementById('mobYuzde').textContent = data.cihaz.mobil || 0;
+      document.getElementById('pcYuzde').textContent = data.cihaz.pc || 0;
+      setTimeout(() => { document.getElementById('mobBar').style.width = (data.cihaz.mobil || 0) + '%'; document.getElementById('pcBar').style.width = (data.cihaz.pc || 0) + '%'; }, 300); 
       
       // Slayt 2 - Kelimeler
-      let kelimeHtml = ''; data.kelimeler.slice(0, 4).forEach(k => { kelimeHtml += `<div class="term-tag">${k.trim()}</div>`; }); document.getElementById('uiKelimeler').innerHTML = kelimeHtml;
+      if(data.kelimeler && data.kelimeler.length > 0) {
+        let kelimeHtml = ''; data.kelimeler.slice(0, 4).forEach(k => { kelimeHtml += `<div class="term-tag">${k.trim()}</div>`; }); 
+        document.getElementById('uiKelimeler').innerHTML = kelimeHtml;
+      } else { document.getElementById('uiKelimeler').innerHTML = '<div class="term-tag">Veri Bekleniyor</div>'; }
       
       // Slayt 3 - Demografi
-      document.getElementById('uiErkek').textContent = data.demografi.erkek + '%'; document.getElementById('uiKadin').textContent = data.demografi.kadin + '%'; document.getElementById('uiYas').textContent = data.demografi.yas;
+      document.getElementById('uiErkek').textContent = (data.demografi.erkek || 0) + '%'; 
+      document.getElementById('uiKadin').textContent = (data.demografi.kadin || 0) + '%'; 
+      document.getElementById('uiYas').textContent = data.demografi.yas || '-';
 
-      // Modal Doldurma
-      grafikCiz(data.tiklanma);
-      document.getElementById('modMaliyet').textContent = data.maliyet.toLocaleString('tr-TR', {minimumFractionDigits: 2});
-      document.getElementById('modTbm').textContent = data.tbm.toLocaleString('tr-TR', {minimumFractionDigits: 2});
-      document.getElementById('modMob').textContent = '%' + data.cihaz.mobil; document.getElementById('modPc').textContent = '%' + data.cihaz.pc;
-      document.getElementById('modMobBar').style.width = data.cihaz.mobil + '%'; document.getElementById('modPcBar').style.width = data.cihaz.pc + '%';
+      // Modal Verileri
+      grafikCiz(data.tiklanma || 0);
+      document.getElementById('modMaliyet').textContent = (data.maliyet || 0).toLocaleString('tr-TR', {minimumFractionDigits: 2});
+      document.getElementById('modTbm').textContent = (data.tbm || 0).toLocaleString('tr-TR', {minimumFractionDigits: 2});
+      document.getElementById('modMob').textContent = '%' + (data.cihaz.mobil || 0); document.getElementById('modPc').textContent = '%' + (data.cihaz.pc || 0);
+      document.getElementById('modMobBar').style.width = (data.cihaz.mobil || 0) + '%'; document.getElementById('modPcBar').style.width = (data.cihaz.pc || 0) + '%';
       
-      let fullKelimeHtml = ''; data.kelimeler.forEach(k => { fullKelimeHtml += `<div class="term-tag">${k.trim()}</div>`; }); document.getElementById('modKelimeler').innerHTML = fullKelimeHtml;
-      document.getElementById('modErkek').textContent = data.demografi.erkek + '%'; document.getElementById('modKadin').textContent = data.demografi.kadin + '%'; document.getElementById('modYas').textContent = data.demografi.yas;
+      if(data.kelimeler && data.kelimeler.length > 0) {
+        let fullKelimeHtml = ''; data.kelimeler.forEach(k => { fullKelimeHtml += `<div class="term-tag">${k.trim()}</div>`; }); 
+        document.getElementById('modKelimeler').innerHTML = fullKelimeHtml;
+      }
+      document.getElementById('modErkek').textContent = (data.demografi.erkek || 0) + '%'; 
+      document.getElementById('modKadin').textContent = (data.demografi.kadin || 0) + '%'; 
+      document.getElementById('modYas').textContent = data.demografi.yas || '-';
 
     } catch (e) { console.log("Bağlantı Hatası", e); }
   }
