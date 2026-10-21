@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Reklam Performans Paneli</title>
-<meta name="description" content="Google Ads reklam performansınızı canlı takip edin.">
+<meta name="description" content="Google Ads reklam performansınızı takip edin.">
 <meta name="theme-color" content="#050914">
 <meta name="robots" content="noindex, nofollow">
 <meta name="referrer" content="no-referrer">
@@ -28,13 +28,13 @@
     --ads-blue:#1a73e8; --ads-red:#d93025; --ads-yellow:#fbbc04; --ads-green:#1e8e3e;
     --ads-purple:#9334e6; --ads-cyan:#12b5cb;
     --good:#22c55e; --bad:#ef4444;
-    --r-lg:18px; --r-md:12px;
+    --r-lg:16px; --r-md:12px;
   }
   *{box-sizing:border-box}
   html{-webkit-text-size-adjust:100%}
   body{
     margin:0; color:var(--text); min-height:100vh; min-height:100dvh; overflow-x:hidden;
-    font:400 14.5px/1.45 'IBM Plex Sans',system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;
+    font:400 14px/1.45 'IBM Plex Sans',system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;
     background:
       radial-gradient(950px 620px at 15% -10%, rgba(26,115,232,.24), transparent 60%),
       radial-gradient(850px 580px at 100% 10%, rgba(30,58,138,.28), transparent 55%),
@@ -123,111 +123,107 @@
   .card.danger{border-color:rgba(239,68,68,.42)}
   .kod{display:inline-block; margin-top:8px; padding:3px 9px; border-radius:7px; background:rgba(143,160,196,.12); color:var(--muted); font-size:11px}
 
-  /* ---------- Ana Kokpit (Sıkılaştırılmış, Boşluksuz, Tasarruflu) ---------- */
+  /* ---------- Ana Kokpit ---------- */
   .wrap{
-    max-width:1120px; margin:0 auto;
-    padding:max(8px,env(safe-area-inset-top)) 10px max(24px,env(safe-area-inset-bottom));
+    max-width:1160px; margin:0 auto;
+    padding:max(6px,env(safe-area-inset-top)) 10px max(22px,env(safe-area-inset-bottom));
   }
 
-  /* ÜST MENÜ: Boşlukları Alınmış Tek Parça Kompakt Kokpit Barı */
-  .top-compact{
-    display:flex; flex-direction:column; gap:7px;
-    padding:8px 10px; border-radius:14px; border:1px solid var(--line);
-    background:rgba(11,19,40,.86); -webkit-backdrop-filter:blur(10px); backdrop-filter:blur(10px);
+  /* TEK SATIRLI KOMPAKT ÜST BAR (İkinci bar kaldırıldı, her şey tek mavi çizgide) */
+  .top-single{
+    display:flex; align-items:center; justify-content:space-between; gap:10px; flex-wrap:wrap;
+    padding:7px 10px; border-radius:14px; border:1px solid var(--line);
+    background:rgba(11,19,40,.90); -webkit-backdrop-filter:blur(10px); backdrop-filter:blur(10px);
     margin-bottom:8px;
   }
-  .top-row-1{
-    display:flex; align-items:center; justify-content:space-between; gap:8px;
-  }
-  .brand{display:flex; align-items:center; gap:8px; min-width:0; flex:1}
+  .brand{display:flex; align-items:center; gap:8px; min-width:0}
   .badge{
-    width:36px; height:36px; flex:none; border-radius:10px; display:grid; place-items:center;
-    font:700 14px 'Space Grotesk',sans-serif; background:linear-gradient(155deg,var(--accent),var(--deep));
-    box-shadow:0 4px 14px rgba(26,115,232,.35); color:#fff;
+    width:34px; height:34px; flex:none; border-radius:9px; display:grid; place-items:center;
+    font:700 13.5px 'Space Grotesk',sans-serif; background:linear-gradient(155deg,var(--accent),var(--deep));
+    box-shadow:0 4px 12px rgba(26,115,232,.35); color:#fff;
   }
-  .brand-txt{min-width:0; flex:1}
+  .brand-txt{min-width:0}
   .brand-row{display:flex; align-items:center; gap:6px; flex-wrap:nowrap}
-  .brand b{font:600 15px/1.15 'Space Grotesk',sans-serif; white-space:nowrap; overflow:hidden; text-overflow:ellipsis}
+  .brand b{font:600 14.5px/1.15 'Space Grotesk',sans-serif; white-space:nowrap; overflow:hidden; text-overflow:ellipsis}
   .city-tag{
-    display:inline-flex; align-items:center; padding:1.5px 7px; border-radius:999px;
+    display:inline-flex; align-items:center; padding:1px 6px; border-radius:999px;
     background:rgba(26,115,232,.2); border:1px solid rgba(26,115,232,.4);
-    color:var(--pale); font-size:10.5px; font-weight:600; white-space:nowrap; flex:none;
+    color:var(--pale); font-size:10px; font-weight:600; white-space:nowrap; flex:none;
   }
   .update-top{
-    display:block; margin-top:1px; color:#93c5fd; font-size:10.5px; font-weight:500;
+    display:block; margin-top:1px; color:#93c5fd; font-size:10px; font-weight:500;
     white-space:nowrap; overflow:hidden; text-overflow:ellipsis;
   }
+
+  /* Orta Bölüm: Kampanya Aç/Kapat Şalteri + Dönem Seçici Aynı Satırda */
+  .top-controls{
+    display:flex; align-items:center; gap:10px; flex-wrap:wrap;
+  }
+  .ad-switch-wrap{
+    display:inline-flex; align-items:center; gap:7px;
+    padding:4px 9px; border-radius:10px; background:rgba(5,9,20,.6); border:1px solid rgba(120,150,220,.14);
+  }
+  .ad-toggle{
+    position:relative; width:38px; height:21px; border-radius:999px; border:0; cursor:pointer;
+    background:#64748b; transition:background .25s; flex:none; padding:0;
+    box-shadow:inset 0 1px 3px rgba(0,0,0,.35);
+  }
+  .ad-toggle::after{
+    content:""; position:absolute; top:2.5px; left:2.5px; width:16px; height:16px;
+    border-radius:50%; background:#fff; transition:transform .25s cubic-bezier(.4,0,.2,1);
+    box-shadow:0 2px 4px rgba(0,0,0,.3);
+  }
+  .ad-toggle.on{background:var(--good)}
+  .ad-toggle.on::after{transform:translateX(17px)}
+  .ad-toggle.off{background:#64748b}
+  .ad-toggle.off::after{transform:translateX(0)}
+  .ad-toggle:disabled{opacity:.45; cursor:not-allowed}
+  .switch-info{display:flex; align-items:center; gap:5px; white-space:nowrap}
+  .switch-lbl{font-size:11px; font-weight:600; color:var(--muted)}
+  .switch-sub{font-size:11px; font-weight:600; color:#cbd5e1}
+  .switch-sub.active{color:var(--good)}
+  .switch-sub.paused{color:#fca5a5}
+  .switch-sub.wait{color:#fcd34d}
+
+  .donem-seg{
+    display:inline-flex; gap:2px; background:rgba(5,9,20,.75); padding:2.5px;
+    border-radius:9px; border:1px solid rgba(120,150,220,.14);
+  }
+  .donem-seg button{
+    min-height:25px; border:0; background:transparent; color:var(--muted);
+    font-size:11px; font-weight:600; padding:0 8px; border-radius:6px; cursor:pointer; transition:.15s;
+  }
+  .donem-seg button.on{background:var(--ads-blue); color:#fff; box-shadow:0 2px 8px rgba(26,115,232,.35)}
+
   .top-r{display:flex; align-items:center; gap:5px; flex:none}
   .pill{
-    display:inline-flex; align-items:center; gap:5px; height:34px; padding:0 10px;
+    display:inline-flex; align-items:center; gap:5px; height:32px; padding:0 9px;
     border-radius:999px; border:1px solid rgba(34,197,94,.35); background:rgba(34,197,94,.1);
-    color:#86efac; font-size:11.5px; font-weight:600; white-space:nowrap; cursor:pointer;
+    color:#86efac; font-size:11px; font-weight:600; white-space:nowrap; cursor:pointer;
   }
   .pill svg{width:13px; height:13px; flex:none}
   .pill:active{transform:scale(.96)}
   .mini{
-    width:34px; height:34px; border:1px solid var(--line); background:rgba(16,26,52,.8);
+    width:32px; height:32px; border:1px solid var(--line); background:rgba(16,26,52,.8);
     color:var(--pale); padding:0; border-radius:999px; display:grid; place-items:center; cursor:pointer;
     transition:background .15s, color .15s, transform .12s; flex:none;
   }
   .mini:hover{color:#fff; background:rgba(26,115,232,.28)}
   .mini:active{transform:scale(.94)}
   .mini:disabled{opacity:.5; cursor:default}
-  .mini svg{width:15px; height:15px}
-  .mini.yukleniyor svg{animation:spin .8s linear infinite}
-  @media (max-width:520px){
+  .mini svg{width:14px; height:14px}
+  .mini.yukleniyor svg{animation:spin .65s linear infinite}
+
+  @media (max-width:760px){
+    .top-single{gap:6px; padding:7px 8px}
     .pill span{display:none}
-    .pill{width:34px; padding:0; justify-content:center}
-  }
-
-  /* Üst Bar 2. Satır: Kampanya Aç/Kapat Şalteri + Dönem Seçici */
-  .top-row-2{
-    display:flex; align-items:center; justify-content:space-between; gap:8px;
-    padding-top:6px; border-top:1px solid rgba(120,150,220,.12); flex-wrap:wrap;
-  }
-  .ad-switch-wrap{display:flex; align-items:center; gap:8px; min-width:0}
-  .ad-toggle{
-    position:relative; width:42px; height:24px; border-radius:999px; border:0; cursor:pointer;
-    background:var(--good); transition:background .25s; flex:none; padding:0;
-    box-shadow:inset 0 1px 3px rgba(0,0,0,.35);
-  }
-  .ad-toggle::after{
-    content:""; position:absolute; top:3px; left:3px; width:18px; height:18px;
-    border-radius:50%; background:#fff; transition:transform .25s cubic-bezier(.4,0,.2,1);
-    box-shadow:0 2px 4px rgba(0,0,0,.3);
-  }
-  .ad-toggle.on::after{transform:translateX(18px)}
-  .ad-toggle.off{background:#64748b}
-  .ad-toggle.off::after{transform:translateX(0)}
-  .ad-toggle:disabled{opacity:.55; cursor:wait}
-  .switch-info{display:flex; align-items:center; gap:6px; min-width:0; flex-wrap:wrap}
-  .switch-lbl{font-size:11.5px; font-weight:600; color:var(--text); white-space:nowrap}
-  .switch-sub{font-size:11px; color:var(--good); font-weight:600; white-space:nowrap}
-  .switch-sub.paused{color:#fca5a5}
-
-  .donem-seg{display:inline-flex; gap:2px; background:rgba(5,9,20,.75); padding:2.5px; border-radius:9px; border:1px solid rgba(120,150,220,.14)}
-  .donem-seg button{
-    min-height:26px; border:0; background:transparent; color:var(--muted);
-    font-size:11.5px; font-weight:600; padding:0 9px; border-radius:6px; cursor:pointer; transition:.15s;
-  }
-  .donem-seg button.on{background:var(--ads-blue); color:#fff; box-shadow:0 2px 8px rgba(26,115,232,.35)}
-
-  /* Kurulum Bilgilendirme Bandı (Orijinal PWA Yapısı) */
-  .kurulum{
-    display:flex; align-items:center; gap:8px; flex-wrap:wrap;
-    margin:0 0 8px; padding:8px 12px; border-radius:12px;
-    border:1px solid rgba(34,211,238,.35); background:rgba(34,211,238,.08);
-    color:var(--pale); font-size:12.5px;
-  }
-  .kurulum span{flex:1; min-width:170px}
-  .kurulum-btn{
-    height:30px; padding:0 12px; border-radius:999px; border:1px solid rgba(34,211,238,.45);
-    background:rgba(34,211,238,.15); color:#fff; font-size:12px; font-weight:600; cursor:pointer;
+    .pill{width:32px; padding:0; justify-content:center}
+    .top-controls{width:100%; justify-content:space-between; order:3; padding-top:4px; border-top:1px solid rgba(120,150,220,.1)}
   }
 
   /* 6'lı Google Ads Ana Özet Kartları */
   .stats-6{
-    display:grid; grid-template-columns:repeat(6,1fr); gap:7px; margin-bottom:10px;
+    display:grid; grid-template-columns:repeat(6,1fr); gap:7px; margin-bottom:8px;
   }
   @media (max-width:980px){
     .stats-6{grid-template-columns:repeat(3,1fr)}
@@ -237,7 +233,7 @@
   }
   .stat{
     display:flex; flex-direction:column; justify-content:space-between;
-    width:100%; text-align:left; padding:10px 11px; border-radius:13px;
+    width:100%; text-align:left; padding:9px 11px; border-radius:12px;
     border:1px solid var(--line); background:linear-gradient(160deg,rgba(18,30,60,.88),rgba(9,15,32,.88));
     position:relative; overflow:hidden;
   }
@@ -258,10 +254,10 @@
   .stat.cyan-top .dot-i{background:var(--ads-cyan)}
   .stat .val{
     display:block; margin-top:3px;
-    font:700 clamp(19px,4.5vw,25px)/1.1 'Space Grotesk',sans-serif;
+    font:700 clamp(18px,4.2vw,24px)/1.1 'Space Grotesk',sans-serif;
     font-variant-numeric:tabular-nums; color:#fff;
   }
-  .stat .ft{display:block; margin-top:3px; color:var(--muted); font-size:10.5px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis}
+  .stat .ft{display:block; margin-top:3px; color:var(--muted); font-size:10px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis}
   button.stat{cursor:pointer; appearance:none; -webkit-appearance:none; transition:transform .12s, box-shadow .2s}
   button.stat.click{border-color:rgba(26,115,232,.55); background:linear-gradient(160deg,rgba(26,115,232,.28),rgba(9,15,32,.9))}
   button.stat.click:hover{box-shadow:0 6px 20px rgba(26,115,232,.25)}
@@ -269,43 +265,43 @@
 
   /* Aşağıya Doğru Akıcı Tüm Google Ads Arayüz Panelleri */
   .cockpit-grid{
-    display:grid; grid-template-columns:1fr; gap:10px;
+    display:grid; grid-template-columns:1fr; gap:9px;
   }
   @media (min-width:920px){
     .cockpit-grid{grid-template-columns:repeat(2,minmax(0,1fr)); align-items:stretch}
   }
   .panel-box{
     display:flex; flex-direction:column; justify-content:space-between;
-    padding:14px; border:1px solid var(--line); border-radius:16px;
+    padding:13px 14px; border:1px solid var(--line); border-radius:15px;
     background:linear-gradient(180deg,rgba(16,25,50,.84),rgba(9,15,32,.84));
   }
   .panel-box.wide{grid-column:1 / -1}
   .pane-head{display:flex; align-items:center; justify-content:space-between; gap:8px; margin-bottom:8px; flex-wrap:wrap}
-  .pane-head h2{font-size:14px; font-weight:600; margin:0; display:flex; align-items:center; gap:6px}
-  .pane-head .sub{margin:1px 0 0; color:var(--muted); font-size:11.5px}
+  .pane-head h2{font-size:13.5px; font-weight:600; margin:0; display:flex; align-items:center; gap:6px}
+  .pane-head .sub{margin:1px 0 0; color:var(--muted); font-size:11px}
 
   /* 1. Arayüz: Google Ads Çift Çizgili Grafik (Mavi + Kırmızı) */
-  .ads-legend{display:flex; align-items:center; gap:12px; font-size:11.5px; font-weight:600}
+  .ads-legend{display:flex; align-items:center; gap:12px; font-size:11px; font-weight:600}
   .ads-leg-item{display:inline-flex; align-items:center; gap:5px; color:var(--text)}
   .ads-pill-line{width:13px; height:4px; border-radius:99px; display:inline-block}
   .ads-pill-line.blue{background:var(--ads-blue)}
   .ads-pill-line.red{background:var(--ads-red)}
-  .chart-box{position:relative; height:210px; width:100%}
+  .chart-box{position:relative; height:205px; width:100%}
   .chart-box canvas{width:100% !important; height:100% !important}
   .ozet-bar{
-    margin:8px 0 0; padding:8px 11px; border-radius:10px;
+    margin:8px 0 0; padding:7px 10px; border-radius:9px;
     background:rgba(26,115,232,.1); border:1px solid rgba(26,115,232,.22);
-    color:var(--pale); font-size:12px; display:flex; align-items:center; justify-content:space-between; gap:8px; flex-wrap:wrap;
+    color:var(--pale); font-size:11.5px; display:flex; align-items:center; justify-content:space-between; gap:8px; flex-wrap:wrap;
   }
 
-  /* 2. Arayüz: Kampanyalar & Anahtar Kelimeler Performans Listesi */
-  .ads-list-wrap{display:flex; flex-direction:column; gap:5px; margin-top:4px}
+  /* 2. Arayüz: Kampanyalar & Anahtar Kelimeler Performans Listesi (Yeşil Işık Kesilmesi Düzeltildi) */
+  .ads-list-wrap{display:flex; flex-direction:column; gap:4px; margin-top:2px}
   .ads-list-head,.ads-list-row{
-    display:grid; grid-template-columns:minmax(0,1.8fr) repeat(4,minmax(0,1fr));
-    gap:6px; align-items:center; padding:6px 8px; font-size:11.5px;
+    display:grid; grid-template-columns:minmax(0,1.9fr) repeat(4,minmax(0,1fr));
+    gap:6px; align-items:center; padding:6px 6px 6px 10px; font-size:11.5px;
   }
   .ads-list-head.kw-cols,.ads-list-row.kw-cols{
-    grid-template-columns:minmax(0,2fr) repeat(3,minmax(0,1fr));
+    grid-template-columns:minmax(0,2.1fr) repeat(3,minmax(0,1fr));
   }
   .ads-list-head{color:var(--muted); font-size:10.5px; font-weight:600; border-bottom:1px solid var(--line)}
   .ads-list-row{border-bottom:1px solid rgba(120,150,220,.08); color:var(--text)}
@@ -315,79 +311,93 @@
     background:rgba(26,115,232,.16); font-weight:600; color:#93c5fd;
     padding:3px 6px; border-radius:5px; text-align:right; font-variant-numeric:tabular-nums;
   }
-  .status-dot{
-    display:inline-block; width:8px; height:8px; border-radius:50%;
-    background:var(--good); margin-right:6px; box-shadow:0 0 6px var(--good); flex:none;
+  .term-title{
+    display:flex; align-items:center; gap:8px; min-width:0; padding-left:4px; overflow:visible;
   }
-  .status-dot.off{background:#ef4444; box-shadow:none}
-  .term-title{white-space:nowrap; overflow:hidden; text-overflow:ellipsis; display:flex; align-items:center}
+  .term-text{
+    white-space:nowrap; overflow:hidden; text-overflow:ellipsis; display:block;
+  }
+  .status-dot{
+    display:inline-block; width:9px; height:9px; border-radius:50%;
+    background:var(--good); box-shadow:0 0 6px var(--good); flex:0 0 9px;
+  }
+  .status-dot.off{background:#ef4444; box-shadow:0 0 6px rgba(239,68,68,.6)}
 
-  .kw-cloud{display:flex; flex-wrap:wrap; gap:5px; margin-top:10px; padding-top:8px; border-top:1px solid var(--line)}
+  .kw-cloud{display:flex; flex-wrap:wrap; gap:5px; margin-top:8px; padding-top:8px; border-top:1px solid var(--line)}
   .kw-chip{
     display:inline-flex; align-items:center; gap:5px; padding:4px 9px;
     border-radius:999px; border:1px solid rgba(165,195,251,.26);
-    background:rgba(26,115,232,.09); color:var(--text); font-size:11.5px;
+    background:rgba(26,115,232,.09); color:var(--text); font-size:11px;
   }
   .kw-chip b{
     padding:1px 5px; border-radius:999px; background:rgba(26,115,232,.32);
-    color:#fff; font-size:10.5px; font-family:'Space Grotesk',sans-serif;
+    color:#fff; font-size:10px; font-family:'Space Grotesk',sans-serif;
   }
 
-  /* 3. Arayüz: Canlı Reklam Önizlemesi (Telefon Simülasyonu) */
+  /* 3. Arayüz: Reklam Önizlemesi (Uzatılmış Telefon, Sabit İçerik, Kırmızı/Yeşil Arka Plan) */
   .phone-google{
-    width:100%; max-width:330px; margin:0 auto; padding:12px 11px;
-    background:#ffffff; color:#202124; border-radius:22px;
-    border:3px solid #d1d5db; box-shadow:0 14px 32px rgba(0,0,0,.42);
+    width:100%; max-width:350px; min-height:425px; margin:4px auto 0; padding:16px 14px;
+    background:#ffffff; color:#202124; border-radius:26px;
+    border:3px solid #d1d5db; box-shadow:0 16px 36px rgba(0,0,0,.45);
     font-family:Roboto,Arial,sans-serif; text-align:left;
+    display:flex; flex-direction:column; justify-content:space-between;
   }
-  .pg-top{display:flex; align-items:center; justify-content:space-between; margin-bottom:8px}
-  .pg-burger{width:15px; height:2px; background:#5f6368; position:relative}
-  .pg-burger::before,.pg-burger::after{content:""; position:absolute; left:0; width:15px; height:2px; background:#5f6368}
-  .pg-burger::before{top:-4px} .pg-burger::after{top:4px}
-  .pg-logo{font-size:17px; font-weight:600; letter-spacing:-.4px}
+  .pg-top{display:flex; align-items:center; justify-content:space-between; margin-bottom:10px}
+  .pg-burger{width:16px; height:2px; background:#5f6368; position:relative}
+  .pg-burger::before,.pg-burger::after{content:""; position:absolute; left:0; width:16px; height:2px; background:#5f6368}
+  .pg-burger::before{top:-5px} .pg-burger::after{top:5px}
+  .pg-logo{font-size:18px; font-weight:600; letter-spacing:-.4px}
   .pg-logo span:nth-child(1){color:#4285F4} .pg-logo span:nth-child(2){color:#EA4335}
   .pg-logo span:nth-child(3){color:#FBBC05} .pg-logo span:nth-child(4){color:#4285F4}
   .pg-logo span:nth-child(5){color:#34A853} .pg-logo span:nth-child(6){color:#EA4335}
-  .pg-avatar{width:22px; height:22px; border-radius:50%; background:#e8eaed}
+  .pg-avatar{width:24px; height:24px; border-radius:50%; background:#e8eaed}
 
   .pg-search{
-    display:flex; align-items:center; gap:7px; padding:7px 12px;
-    border-radius:22px; border:1px solid #dfe1e5; box-shadow:0 1px 4px rgba(0,0,0,.08);
-    margin-bottom:8px; font-size:13px; color:#202124; font-weight:500;
+    display:flex; align-items:center; gap:8px; padding:9px 13px;
+    border-radius:24px; border:1px solid #dfe1e5; box-shadow:0 1px 5px rgba(0,0,0,.08);
+    margin-bottom:12px; font-size:13.5px; color:#202124; font-weight:500;
   }
-  .pg-search svg{width:14px; height:14px; color:#4285f4; flex:none}
+  .pg-search svg{width:15px; height:15px; color:#4285f4; flex:none}
   #phoneQuery{white-space:nowrap; overflow:hidden; text-overflow:ellipsis}
 
+  /* 1. Kutu: Yazılar Sabit, Kampanya Açıkken Yeşil, Kapalıyken Kırmızı Arka Plan */
   .pg-target-box{
-    border:2px dashed #4285f4; background:#f4f8ff; border-radius:11px;
-    padding:9px 10px; margin-bottom:8px; transition:.25s;
+    border:2px dashed #ef4444; background:#fff1f2; border-radius:13px;
+    padding:12px 12px; margin-bottom:12px; transition:background .25s, border-color .25s;
   }
-  .pg-target-box.paused{border-color:#d93025; background:#fff5f5}
-  .pg-ad-head{display:flex; align-items:center; gap:7px; margin-bottom:4px}
+  .pg-target-box.active{
+    border-color:#16a34a; background:#dcfce7;
+  }
+  .pg-target-box.paused{
+    border-color:#ef4444; background:#fee2e2;
+  }
+  .pg-ad-head{display:flex; align-items:center; gap:8px; margin-bottom:6px}
   .pg-icon-q{
-    width:20px; height:20px; border-radius:50%; background:#4285f4; color:#fff;
-    display:grid; place-items:center; font-size:10.5px; font-weight:700; flex:none;
+    width:22px; height:22px; border-radius:50%; background:#ef4444; color:#fff;
+    display:grid; place-items:center; font-size:11.5px; font-weight:700; flex:none;
+    transition:background .25s;
   }
-  .pg-target-box.paused .pg-icon-q{background:#d93025}
-  .pg-domain strong{display:block; font-size:11.5px; color:#202124; line-height:1.15}
-  .pg-domain span{display:block; font-size:10px; color:#5f6368}
-  .pg-target-title{font-size:13.5px; font-weight:600; color:#1a73e8; line-height:1.22; margin-bottom:2px}
-  .pg-target-box.paused .pg-target-title{color:#d93025}
-  .pg-target-desc{font-size:11px; color:#4d5156; line-height:1.35}
+  .pg-target-box.active .pg-icon-q{background:#16a34a}
+  .pg-domain strong{display:block; font-size:12px; color:#202124; line-height:1.2}
+  .pg-domain span{display:block; font-size:10.5px; color:#4b5563}
+  .pg-target-title{font-size:14.5px; font-weight:700; color:#b91c1c; line-height:1.25; margin-bottom:4px; transition:color .25s}
+  .pg-target-box.active .pg-target-title{color:#15803d}
+  .pg-target-desc{font-size:11.5px; color:#374151; line-height:1.4}
 
-  .pg-comp-box{border-top:1px solid #ebebeb; padding-top:8px}
+  /* 2. Kutu: Referans Rakip */
+  .pg-comp-box{border-top:1px solid #e5e7eb; padding-top:10px}
   .pg-icon-r{
-    width:20px; height:20px; border-radius:50%; background:#fbbc04; color:#fff;
-    display:grid; place-items:center; font-size:10.5px; font-weight:700; flex:none;
+    width:22px; height:22px; border-radius:50%; background:#fbbc04; color:#fff;
+    display:grid; place-items:center; font-size:11px; font-weight:700; flex:none;
   }
-  .pg-comp-title{font-size:13.5px; font-weight:600; color:#1a0dab; line-height:1.22; margin-bottom:2px}
-  .pg-comp-body{display:flex; gap:7px; align-items:flex-start}
-  .pg-comp-desc{font-size:11px; color:#4d5156; line-height:1.35; flex:1}
-  .pg-comp-thumb{width:46px; height:46px; border-radius:7px; background:#e8eaed; flex:none}
-  .pg-pills{display:flex; gap:5px; margin-top:6px; flex-wrap:wrap}
+  .pg-comp-title{font-size:14.5px; font-weight:600; color:#1a0dab; line-height:1.25; margin-bottom:4px}
+  .pg-comp-body{display:flex; gap:8px; align-items:flex-start}
+  .pg-comp-desc{font-size:11.5px; color:#4d5156; line-height:1.4; flex:1}
+  .pg-comp-thumb{width:50px; height:50px; border-radius:8px; background:#e8eaed; flex:none}
+  .pg-pills{display:flex; gap:6px; margin-top:8px; flex-wrap:wrap}
   .pg-pill{
-    border:1px solid #dadce0; border-radius:999px; padding:2.5px 9px;
-    font-size:10.5px; color:#1a0dab; font-weight:500; background:#fff;
+    border:1px solid #dadce0; border-radius:999px; padding:3px 10px;
+    font-size:11px; color:#1a0dab; font-weight:500; background:#fff;
   }
 
   /* 4. Arayüz: Demografi (Kadın/Erkek & Yaş Sütunları) + Cihazlar */
@@ -406,7 +416,7 @@
   .age-bar-wrap{width:100%; max-width:24px; flex:1; display:flex; align-items:flex-end; justify-content:center}
   .age-bar{
     width:100%; border-radius:4px 4px 2px 2px;
-    background:linear-gradient(180deg,#3b82f6,#1d4ed8); min-height:4px; transition:height .4s;
+    background:linear-gradient(180deg,#3b82f6,#1d4ed8); min-height:3px; transition:height .4s;
   }
   .age-col.top-age .age-bar{background:linear-gradient(180deg,#22d3ee,#1a73e8); box-shadow:0 0 8px rgba(34,211,238,.4)}
   .age-lbl{font-size:10px; color:var(--muted); font-weight:500}
@@ -420,7 +430,7 @@
   .dev-fill.pc{background:var(--ads-yellow)}
   .dev-fill.tab{background:var(--ads-red)}
 
-  /* 5. Arayüz: Gün ve Saat Performans Isı Haritası */
+  /* 5. Arayüz: Gün ve Saat Performans Isı Haritası (Gerçek Saat Verisiyle) */
   .hour-grid{display:grid; grid-template-columns:repeat(4,1fr); gap:6px; margin-bottom:10px}
   .hour-box{
     padding:7px 5px; border-radius:10px; border:1px solid rgba(120,150,220,.15);
@@ -431,13 +441,13 @@
   .hour-box b{display:block; margin-top:2px; font:700 14px 'Space Grotesk',sans-serif; color:#fff}
 
   .heatmap-wrap{display:flex; flex-direction:column; gap:3px; margin-top:4px}
-  .hm-row{display:grid; grid-template-columns:28px repeat(12,1fr); gap:3px; align-items:center}
+  .hm-row{display:grid; grid-template-columns:28px repeat(24,1fr); gap:2px; align-items:center}
   .hm-day{font-size:10px; color:var(--muted); font-weight:600}
-  .hm-cell{height:13px; border-radius:3px; background:rgba(26,115,232,.08)}
+  .hm-cell{height:13px; border-radius:2px; background:rgba(26,115,232,.07)}
   .hm-cell.l1{background:rgba(26,115,232,.25)}
-  .hm-cell.l2{background:rgba(26,115,232,.5)}
-  .hm-cell.l3{background:rgba(26,115,232,.78)}
-  .hm-cell.l4{background:#22d3ee; box-shadow:0 0 6px rgba(34,211,238,.45)}
+  .hm-cell.l2{background:rgba(26,115,232,.48)}
+  .hm-cell.l3{background:rgba(26,115,232,.75)}
+  .hm-cell.l4{background:#22d3ee; box-shadow:0 0 5px rgba(34,211,238,.4)}
   .hm-hours{display:grid; grid-template-columns:28px repeat(4,1fr); font-size:10px; color:var(--muted); margin-top:3px}
 
   /* ---------- YER KAPLAMAYAN, TIKLANAMAYAN, DOĞRUDAN ARAYÜZ ÜSTÜNDE ÇIKAN `yazi.txt` KATMANI ---------- */
@@ -470,15 +480,6 @@
   .modal p{margin:8px 0 0; color:var(--muted); font-size:14px}
   .modal p.ek{color:var(--pale)}
   .modal .btn{margin-top:16px}
-
-  .media-box{width:100%; max-width:480px; padding:18px; text-align:left}
-  .media-box h2{margin:0 0 4px; font-size:16.5px}
-  .media-box p{margin:0 0 10px; color:var(--muted); font-size:12.5px}
-  .video-frame{
-    width:100%; border-radius:12px; overflow:hidden; background:#000;
-    border:1px solid var(--line); aspect-ratio:16/9; display:flex; align-items:center; justify-content:center;
-  }
-  .video-frame video{width:100%; height:100%; object-fit:cover; display:block}
 
   .overlay{position:fixed; inset:0; z-index:80; display:none; align-items:center; justify-content:center; padding:22px; background:rgba(3,6,16,.65); -webkit-backdrop-filter:blur(7px); backdrop-filter:blur(7px)}
   .overlay.on{display:flex}
@@ -570,66 +571,56 @@
 <!-- ============ ANA KOKPİT PANELİ ============ -->
 <main id="dashScreen" class="screen">
   <div class="wrap">
-    <!-- 1. GRUP: Boşluksuz, Daraltılmış Üst Menü + Kampanya Şalteri + Dönem Seçici -->
-    <header class="top-compact">
-      <div class="top-row-1">
-        <div class="brand">
-          <div class="badge" id="dashBas" aria-hidden="true">R</div>
-          <div class="brand-txt">
-            <div class="brand-row">
-              <b id="dashIsletme">Reklam Paneli</b>
-              <span class="city-tag" id="dashSehirEtiket">Türkiye</span>
-            </div>
-            <small class="update-top" id="dashGuncellemeUst">Son güncelleme: --:--:-- (Her 1 saatte veriler güncellenir)</small>
+    <!-- 1. GRUP: TEK SATIRLI KOMPAKT ÜST BAR (İkinci bar kaldırıldı, tüm kontroller tek çizgide) -->
+    <header class="top-single">
+      <div class="brand">
+        <div class="badge" id="dashBas" aria-hidden="true">R</div>
+        <div class="brand-txt">
+          <div class="brand-row">
+            <b id="dashIsletme">Reklam Paneli</b>
+            <span class="city-tag" id="dashSehirEtiket">Türkiye</span>
           </div>
-        </div>
-        <div class="top-r">
-          <!-- 10 KERE ÜST ÜSTE TIKLANINCA GİZLİ ÇIKIŞ YAPAN GÜVENLİ BAĞLANTI ROZETİ -->
-          <button class="pill" id="btnGuvenli" type="button" title="Güvenli Bağlantı">
-            <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 2l7 3v6c0 5-3.4 8.4-7 10-3.6-1.6-7-5-7-10V5l7-3z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><path d="M9 12l2 2 4-4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
-            <span>Güvenli bağlantı</span>
-          </button>
-          <!-- ESKİ KODDAKİ ORİJİNAL PWA UYGULAMA YÜKLEME SİMGESİ (YAZISIZ) -->
-          <button class="mini" id="btnKurulum" type="button" aria-label="Ana Ekrana Ekle" title="Uygulamayı Yükle">
-            <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 3v12m0 0l-4-4m4 4l4-4M4 17v2a2 2 0 002 2h12a2 2 0 002-2v-2" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-          </button>
-          <!-- TANITIM MP4 VİDEO SİMGESİ -->
-          <button class="mini" id="btnVideoAc" type="button" aria-label="Tanıtım Videosu" title="Tanıtım MP4">
-            <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><polygon points="6 4 20 12 6 20 6 4" fill="currentColor"/></svg>
-          </button>
-          <!-- YENİLEME SİMGESİ -->
-          <button class="mini" id="btnYenile" type="button" aria-label="Verileri yenile" title="Yenile">
-            <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M20 12a8 8 0 11-2.6-5.9M20 4v5h-5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-          </button>
+          <small class="update-top" id="dashGuncellemeUst">Son güncelleme: --:--:-- (Her 1 saatte veriler güncellenir)</small>
         </div>
       </div>
 
-      <div class="top-row-2">
+      <div class="top-controls">
         <div class="ad-switch-wrap">
-          <button type="button" id="btnYayinToggle" class="ad-toggle on" role="switch" aria-checked="true" aria-label="Google Ads Reklamını Aç veya Duraklat"></button>
+          <button type="button" id="btnYayinToggle" class="ad-toggle off" role="switch" aria-checked="false" aria-label="Google Ads Reklamını Aç veya Duraklat"></button>
           <div class="switch-info">
             <span class="switch-lbl">Kampanya:</span>
-            <span class="switch-sub" id="yayinDurumMetni">Aktif ve Yayında</span>
+            <span class="switch-sub" id="yayinDurumMetni">Kontrol ediliyor…</span>
           </div>
         </div>
+
         <div class="donem-seg" role="group" aria-label="Rapor dönemi">
+          <button type="button" id="dBtn0">Saatlik</button>
           <button type="button" id="dBtn1">Günlük</button>
           <button type="button" id="dBtn7">7 Gün</button>
           <button type="button" id="dBtn30" class="on">30 Gün</button>
         </div>
       </div>
-    </header>
 
-    <!-- ESKİ KODDAKİ ORİJİNAL KURULUM ÇUBUĞU (PC, Android ve iOS Safari Desteği) -->
-    <div class="kurulum" id="kurulumBar" hidden>
-      <span id="kurulumMetin">Paneli telefonunuzun ana ekranına ekleyin, tek dokunuşla açın.</span>
-      <button class="kurulum-btn" id="kurulumEkle" type="button" hidden>Ana Ekrana Ekle</button>
-      <button class="kurulum-btn" id="kurulumKapat" type="button">Tamam</button>
-    </div>
+      <div class="top-r">
+        <!-- 10 KERE ÜST ÜSTE TIKLANINCA GİZLİ ÇIKIŞ YAPAN GÜVENLİ BAĞLANTI ROZETİ -->
+        <button class="pill" id="btnGuvenli" type="button" title="Güvenli Bağlantı">
+          <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 2l7 3v6c0 5-3.4 8.4-7 10-3.6-1.6-7-5-7-10V5l7-3z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><path d="M9 12l2 2 4-4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          <span>Güvenli bağlantı</span>
+        </button>
+        <!-- DOĞRUDAN UYGULAMA İNDİRME BUTONU (Bilgi yazısı çıkarmaz, doğrudan indirir) -->
+        <button class="mini" id="btnKurulum" type="button" aria-label="Uygulamayı İndir" title="Uygulamayı İndir">
+          <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 3v12m0 0l-4-4m4 4l4-4M4 17v2a2 2 0 002 2h12a2 2 0 002-2v-2" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
+        <!-- ANLIK SANİYELİK YENİLEME SİMGESİ -->
+        <button class="mini" id="btnYenile" type="button" aria-label="Verileri anlık yenile" title="Verileri Şimdi Yenile">
+          <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M20 12a8 8 0 11-2.6-5.9M20 4v5h-5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
+      </div>
+    </header>
 
     <div class="demo-bant" id="demoBant" role="status" hidden>ÖRNEK VERİLERLE ÖNİZLEME: Bu rakamlar görünümü göstermek içindir.</div>
 
-    <!-- 2. GRUP: 6'lı Google Ads Tüm Ana Metrikler -->
+    <!-- 2. GRUP: 6'lı Google Ads Gerçek Ana Metrikler (Sahte veri yok) -->
     <div class="stats-6">
       <button class="stat click" id="btnTiklayanlar" type="button" aria-haspopup="dialog">
         <span class="lbl"><span>Tıklamalar</span><i class="dot-i"></i></span>
@@ -639,40 +630,40 @@
       <section class="stat red-top" aria-label="Gösterim sayısı">
         <span class="lbl"><span>Gösterim Sayısı</span><i class="dot-i"></i></span>
         <span class="val num" id="vGosterim">0</span>
-        <span class="ft" id="ftGosterim">Son 30 günde</span>
+        <span class="ft" id="ftGosterim">Seçili dönemde</span>
       </section>
       <section class="stat yellow-top" aria-label="Tıklama oranı">
         <span class="lbl"><span>Etkileşim (TO %)</span><i class="dot-i"></i></span>
-        <span class="val num" id="vTO">%0</span>
-        <span class="ft">Gösterim / tıklama oranı</span>
+        <span class="val num" id="vTO">%0,00</span>
+        <span class="ft" id="ftTO">Gösterim / tıklama oranı</span>
       </section>
       <section class="stat cyan-top" aria-label="Tıklama başına maliyet">
         <span class="lbl"><span>Ort. TBM</span><i class="dot-i"></i></span>
         <span class="val num" id="vTBM">₺0,00</span>
-        <span class="ft">Tıklama başına maliyet</span>
+        <span class="ft" id="ftTBM">Tıklama başına maliyet</span>
       </section>
       <section class="stat purple-top" aria-label="Toplam maliyet">
         <span class="lbl"><span>Toplam Maliyet</span><i class="dot-i"></i></span>
-        <span class="val num" id="vMaliyet">₺0</span>
+        <span class="val num" id="vMaliyet">₺0,00</span>
         <span class="ft" id="ftMaliyet">Harcanan reklam bütçesi</span>
       </section>
       <section class="stat green-top" aria-label="Telefon ve dönüşüm">
-        <span class="lbl"><span id="lblAltinciKart">Telefon / Erişim</span><i class="dot-i"></i></span>
+        <span class="lbl"><span>Telefon / Dönüşüm</span><i class="dot-i"></i></span>
         <span class="val num" id="vAramalar">0</span>
-        <span class="ft" id="ftAltinciKart">Doğrudan etkileşim</span>
+        <span class="ft" id="ftAltinciKart">Doğrudan arama / dönüşüm</span>
       </section>
     </div>
 
-    <!-- 3. GRUP: TÜM GOOGLE ADS ARAYÜZLERİ (AŞAĞIYA DOĞRU EKSİKSİZ SIRALI) -->
+    <!-- 3. GRUP: TÜM GOOGLE ADS ARAYÜZLERİ -->
     <div class="cockpit-grid">
 
-      <!-- ARAYÜZ 1: GOOGLE ADS ÇİFT ÇİZGİLİ (MAVİ/KIRMIZI) PERFORMANS GRAFİĞİ -->
+      <!-- ARAYÜZ 1: GOOGLE ADS ÇİFT ÇİZGİLİ (MAVİ/KIRMIZI) PERFORMANS GRAFİĞİ (SAATLİK + GÜNLÜK) -->
       <section class="panel-box wide" aria-label="Google Ads Performans Grafiği">
         <div>
           <div class="pane-head">
             <div>
-              <h2>📈 Google Ads Zaman Serisi Grafiği</h2>
-              <p class="sub">Noktalara dokunarak günlük Tıklama ve Gösterim sayısını inceleyin</p>
+              <h2 id="grafikBaslik">📈 Google Ads Zaman Serisi Grafiği</h2>
+              <p class="sub" id="grafikAltBaslik">Noktalara dokunarak Tıklama ve Gösterim sayısını inceleyin</p>
             </div>
             <div class="ads-legend">
               <span class="ads-leg-item"><i class="ads-pill-line blue"></i>Tıklamalar</span>
@@ -680,7 +671,7 @@
             </div>
           </div>
           <div class="chart-box">
-            <canvas id="trendCanvas" aria-label="Günlük tıklama ve gösterim grafiği" role="img"></canvas>
+            <canvas id="trendCanvas" aria-label="Tıklama ve gösterim grafiği" role="img"></canvas>
           </div>
         </div>
         <div class="ozet-bar" id="trendOzet">Veriler analiz ediliyor…</div>
@@ -692,7 +683,7 @@
           <div class="pane-head">
             <div>
               <h2>📊 Kampanyalar ve Anahtar Kelimeler</h2>
-              <p class="sub">Anahtar kelimelerinizin maliyet, tıklama ve TO (%) performansı</p>
+              <p class="sub" id="kampanyaAltBaslik">Seçili dönem kampanya özeti ve en çok tıklanan aramalar</p>
             </div>
           </div>
           <div class="ads-list-wrap" aria-label="Kampanya özeti">
@@ -706,7 +697,7 @@
             <div id="kampanyaListeGovde"></div>
           </div>
 
-          <h2 style="font-size:13px; margin:12px 0 4px">🔑 En Çok Tıklanan Anahtar Kelimeler</h2>
+          <h2 style="font-size:13px; margin:12px 0 4px">🔑 En Çok Tıklanan Arama Kelimeleri (Son 30 Gün)</h2>
           <div class="ads-list-wrap" aria-label="Anahtar kelime performansı">
             <div class="ads-list-head kw-cols">
               <span>Arama Terimi / Kelime</span>
@@ -720,35 +711,38 @@
         <div class="kw-cloud" id="chipList"></div>
       </section>
 
-      <!-- ARAYÜZ 3: CANLI GOOGLE ARAMA REKLAM ÖNİZLEMESİ -->
-      <section class="panel-box" aria-label="Canlı Reklam Önizlemesi">
+      <!-- ARAYÜZ 3: REKLAM ÖNİZLEMESİ ("Canlı" İbaresi Kaldırıldı, Kutu Uzatıldı, İçerik Sabit, Kırmızı/Yeşil Arka Plan) -->
+      <section class="panel-box" aria-label="Reklam Önizlemesi">
         <div class="pane-head">
           <div>
-            <h2>🔍 Canlı Reklam Önizlemesi</h2>
-            <p class="sub" id="onizlemeAltBaslik">Google aramalarında işletmenizin 1. sıra görünümü</p>
+            <h2>🔍 Reklam Önizlemesi</h2>
+            <p class="sub" id="onizlemeAltBaslik">Google aramalarında örnek reklam görünümü</p>
           </div>
         </div>
         <div class="phone-google">
-          <div class="pg-top">
-            <div class="pg-burger"></div>
-            <div class="pg-logo"><span>G</span><span>o</span><span>o</span><span>g</span><span>l</span><span>e</span></div>
-            <div class="pg-avatar"></div>
-          </div>
-          <div class="pg-search">
-            <svg viewBox="0 0 24 24" fill="none"><circle cx="11" cy="11" r="7" stroke="currentColor" stroke-width="2.2"/><path d="M20 20l-4-4" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/></svg>
-            <span id="phoneQuery">taksi malatya</span>
-          </div>
-
-          <div class="pg-target-box" id="pgTargetBox">
-            <div class="pg-ad-head">
-              <div class="pg-icon-q" id="pgTargetIcon">1</div>
-              <div class="pg-domain">
-                <strong id="pgTargetDomain">Şahin Taksi · Sponsorlu</strong>
-                <span id="pgTargetSub">Sektörünüzde 1. Sırada Yayındasınız</span>
-              </div>
+          <div>
+            <div class="pg-top">
+              <div class="pg-burger"></div>
+              <div class="pg-logo"><span>G</span><span>o</span><span>o</span><span>g</span><span>l</span><span>e</span></div>
+              <div class="pg-avatar"></div>
             </div>
-            <div class="pg-target-title" id="pgTargetTitle">Şahin Taksi - 7/24 Hızlı ve Güvenilir Hizmet</div>
-            <div class="pg-target-desc" id="pgTargetDesc">Müşterileriniz hizmetinizi aradığında ilk sırada sizi buluyor. Hemen arayın, anında ulaşın.</div>
+            <div class="pg-search">
+              <svg viewBox="0 0 24 24" fill="none"><circle cx="11" cy="11" r="7" stroke="currentColor" stroke-width="2.2"/><path d="M20 20l-4-4" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/></svg>
+              <span id="phoneQuery">taksi malatya</span>
+            </div>
+
+            <!-- 1. Kutu: İçerik Yazıları Sabit; Kampanya Kapalıyken Kırmızı, Açıkken Yeşil Arka Plan -->
+            <div class="pg-target-box paused" id="pgTargetBox">
+              <div class="pg-ad-head">
+                <div class="pg-icon-q" id="pgTargetIcon">?</div>
+                <div class="pg-domain">
+                  <strong id="pgTargetDomain">??? Sizin İşletmeniz ???</strong>
+                  <span id="pgTargetSub">Reklam Başlatıldığında Burada Görünür</span>
+                </div>
+              </div>
+              <div class="pg-target-title" id="pgTargetTitle">Sektörünüzde 1. Sırada Çıkıyor Musunuz?</div>
+              <div class="pg-target-desc" id="pgTargetDesc">Müşterileriniz hizmetinizi aradığında sizi mi buluyor, yoksa rakiplerinizi mi? Rekabetin gerisinde kalmayın.</div>
+            </div>
           </div>
 
           <div class="pg-comp-box">
@@ -778,16 +772,16 @@
           <div class="pane-head">
             <div>
               <h2>👥 Demografi: Yaş ve Cinsiyet</h2>
-              <p class="sub" id="yasBaskinMetin">En yoğun ilgi gösteren kitle: 25-34 Yaş</p>
+              <p class="sub" id="yasBaskinMetin">En yoğun ilgi gösteren yaş grubu: —</p>
             </div>
           </div>
           <div class="gender-row">
-            <span style="color:#f472b6" id="txtKadin">👩 Kadın %50</span>
-            <span style="color:#60a5fa" id="txtErkek">👨 Erkek %50</span>
+            <span style="color:#f472b6" id="txtKadin">👩 Kadın %0</span>
+            <span style="color:#60a5fa" id="txtErkek">👨 Erkek %0</span>
           </div>
           <div class="gender-bar">
-            <div class="g-female" id="barKadin" style="width:50%"></div>
-            <div class="g-male" id="barErkek" style="width:50%"></div>
+            <div class="g-female" id="barKadin" style="width:0%"></div>
+            <div class="g-male" id="barErkek" style="width:0%"></div>
           </div>
           <div class="age-grid" id="ageGrid"></div>
         </div>
@@ -809,47 +803,32 @@
         </div>
       </section>
 
-      <!-- ARAYÜZ 5: GÜN VE SAAT PERFORMANS ISI HARİTASI -->
+      <!-- ARAYÜZ 5: GÜN VE SAAT PERFORMANS ISI HARİTASI (GERÇEK VERİYLE) -->
       <section class="panel-box" aria-label="Gün ve Saat Performansı">
         <div>
           <div class="pane-head">
             <div>
               <h2>🕒 Gün ve Saat Performansı</h2>
-              <p class="sub">Haftanın gününe ve günün saatine göre tıklama yoğunluğu</p>
+              <p class="sub">Günün saatlerine göre gerçek tıklama dağılımı</p>
             </div>
           </div>
           <div class="hour-grid" id="hourGrid"></div>
-          <div class="heatmap-wrap" id="heatmapGrid" aria-label="Haftalık saat yoğunluk haritası"></div>
+          <div class="heatmap-wrap" id="heatmapGrid" aria-label="24 saatlik yoğunluk haritası"></div>
           <div class="hm-hours">
             <span></span><span>00:00</span><span>06:00</span><span>12:00</span><span>18:00</span>
           </div>
         </div>
-        <div class="ozet-bar" id="saatOzet">En yoğun saat dilimi analiz ediliyor…</div>
+        <div class="ozet-bar" id="saatOzet">Saat verisi analiz ediliyor…</div>
       </section>
 
     </div>
   </div>
 
-  <!-- ============ YER KAPLAMAYAN, TIKLANAMAYAN, DOĞRUDAN ARAYÜZ ÜSTÜNE ÇIKAN `yazi.txt` KATMANI ============ -->
+  <!-- ============ YER KAPLAMAYAN, TIKLANAMAYAN, DOĞRUDAN ARAYÜZ ÜSTÜNDE ÇIKAN `yazi.txt` KATMANI ============ -->
   <div class="floating-yazi-layer" aria-hidden="true">
     <div class="floating-yazi-pill" id="tickerMetin">SORUNUZ VARSA BANA ULAŞABİLİRSİNİZ 0534 595 74 44</div>
   </div>
 </main>
-
-<!-- ============ MP4 VİDEO MODALI ============ -->
-<div id="videoModal" class="modal" role="dialog" aria-modal="true" aria-labelledby="videoBaslik" aria-hidden="true">
-  <div class="card media-box">
-    <h2 id="videoBaslik">İşletme Bilgilendirme Videosu</h2>
-    <p>Reklam sisteminizin nasıl çalıştığını ve sonuçları nasıl artırdığımızı buradan izleyebilirsiniz.</p>
-    <div class="video-frame">
-      <video id="tanitimVideo" controls playsinline preload="metadata" poster="assets/icon-512.png">
-        <source src="assets/tanitim.mp4" type="video/mp4">
-        Tarayıcınız video oynatmayı desteklemiyor.
-      </video>
-    </div>
-    <button id="videoKapat" class="btn primary" type="button" style="margin-top:12px">Kapat</button>
-  </div>
-</div>
 
 <!-- ============ TEBRİKLER MODALI ============ -->
 <div id="tebrikModal" class="modal" role="dialog" aria-modal="true" aria-labelledby="tebrikBaslik" aria-hidden="true">
@@ -889,21 +868,20 @@ setTimeout(function () {
 /* =====================================================================
    AYARLAR
    ===================================================================== */
-var API_URL = 'https://script.google.com/macros/s/AKfycbzjWMQhrlKDxS6db7JVYrXUD2qjAsDxjYjgkF1JaSFOXkKffdpRisWJFSBhxRLXsvQ77A/exec';
+var API_URL = 'https://script.google.com/macros/s/AKfycbwIpd9CN_9guOSY202-0H4Q6t4bOcLfVF_Tz9Y5jIcP9InwStuFCYZJBsM9mTfVKBC-ag/exec';
 var VARSAYILAN_ALT_YAZI = 'SORUNUZ VARSA BANA ULAŞABİLİRSİNİZ 0534 595 74 44';
 
 var PIN_UZUNLUGU     = 8;
 var MAX_PIN_DENEME   = 2;
 var BAN_SURESI_SAAT  = 0;
-var ZAMAN_ASIMI_MS   = 8000;
+var ZAMAN_ASIMI_MS   = 9000;
 var YENIDEN_DENEME   = 1;
 var YENILEME_ESIGI   = 15 * 60 * 1000;
 var BEKCI_MS         = 26000;
-var YENILE_BEKLEME   = 6000;
 
-var LS = { oturum: 'pnl_oturum', deneme: 'pnl_deneme', ban: 'pnl_ban', veri: 'pnl_veri_v5', kurulum: 'pnl_kurulum_gizle' };
+var LS = { oturum: 'pnl_oturum', deneme: 'pnl_deneme', ban: 'pnl_ban', veri: 'pnl_veri_v6' };
 var TOK_DESEN = /^\d{9,14}\.[0-9a-f]{64}$/;
-var VERI_SEMA = 6;
+var VERI_SEMA = 7;
 
 /* =====================================================================
    81 İL PLAKA SÖZLÜĞÜ VE 7 SEKTÖR OTOMASYON MOTORU
@@ -939,16 +917,16 @@ function kimlikCozumle(id) {
 
   var sehirKucuk = sehir.toLocaleLowerCase('tr-TR');
   var sektor = 'Taksi', arama = 'taksi ' + sehirKucuk;
-  var rakipAd = 'Referans Taksi', rakipUrl = 'www.referanstaksi.com.tr', rakipBaslik = sehir + ' En İyi Taksi Hizmeti';
-  var rakipAciklama = sehir + ' genelinde güvenilir ve profesyonel taksi arıyorsanız doğru yerdesiniz. Hemen arayın, anında destek alın.';
+  var rakipAd = 'Referans Taksi', rakipUrl = 'www.referanstaksi.com.tr', rakipBaslik = sehir + '\'nın En İyi Taksi Hizmeti';
+  var rakipAciklama = sehir + '\'da güvenilir ve profesyonel taksi arıyorsanız doğru yerdesiniz. Hemen arayın, anında destek alın.';
 
   if (temiz.indexOf('taksi') > -1) {
     sektor = 'Taksi';
     arama = 'taksi ' + sehirKucuk;
     rakipAd = 'Referans Taksi';
     rakipUrl = 'www.referanstaksi.com.tr';
-    rakipBaslik = sehir + ' En İyi Taksi Hizmeti';
-    rakipAciklama = sehir + ' genelinde 7/24 güvenilir ve hızlı taksi arıyorsanız doğru yerdesiniz. Hemen arayın, anında kapınıza gelsin.';
+    rakipBaslik = sehir + '\'nın En İyi Taksi Hizmeti';
+    rakipAciklama = sehir + '\'da güvenilir ve profesyonel taksi arıyorsanız doğru yerdesiniz. Hemen arayın, anında destek alın.';
   } else if (temiz.indexOf('rent') > -1 || temiz.indexOf('arac') > -1 || temiz.indexOf('kiralama') > -1) {
     sektor = 'Rent a Car';
     arama = sehirKucuk + ' rent a car';
@@ -1040,9 +1018,7 @@ var AYLAR = ['Oca', 'Şub', 'Mar', 'Nis', 'May', 'Haz', 'Tem', 'Ağu', 'Eyl', 'E
 function tarihSaniyeliYaz(s) {
   var m = /^(\d{4})-(\d{2})-(\d{2})(?:[ T](\d{2}):(\d{2})(?::(\d{2}))?)?/.exec(String(s || ''));
   if (!m) {
-    var d = new Date();
-    return ('0' + d.getDate()).slice(-2) + ' ' + AYLAR[d.getMonth()] + ' ' + d.getFullYear() + ' ' +
-           ('0' + d.getHours()).slice(-2) + ':' + ('0' + d.getMinutes()).slice(-2) + ':' + ('0' + d.getSeconds()).slice(-2);
+    return String(s || '--:--:--');
   }
   var sn = m[6] ? m[6] : '00';
   return parseInt(m[3], 10) + ' ' + AYLAR[parseInt(m[2], 10) - 1] + ' ' + m[1] +
@@ -1064,7 +1040,7 @@ function log() {
 function PanelHata(kod, mesaj, detay) { this.kod = kod; this.mesaj = mesaj; this.detay = detay || ''; }
 
 /* =====================================================================
-   ESKİ KODDAKİ ORİJİNAL PWA ANA EKRANA EKLEME MANTIĞI (PC, ANDROID & iOS)
+   DOĞRUDAN UYGULAMA İNDİRME MANTIĞI (BİLGİ METNİ ÇIKARMAZ, DİREKT İNDİRİR)
    ===================================================================== */
 var kurulumOlayi = null;
 function standaloneMu() {
@@ -1072,61 +1048,27 @@ function standaloneMu() {
     return (window.matchMedia && window.matchMedia('(display-mode: standalone)').matches) || window.navigator.standalone === true;
   } catch (e) { return false; }
 }
-function iosMu() {
-  return /iphone|ipad|ipod/i.test(navigator.userAgent || '') && !window.MSStream;
-}
-function kurulumGoster() {
-  var bar = $('kurulumBar');
+function kurulumButonDurumu() {
   var ustBtn = $('btnKurulum');
-  if (standaloneMu()) {
-    if (bar) { bar.hidden = true; }
-    if (ustBtn) { ustBtn.hidden = true; }
-    return;
-  }
-  if (ustBtn) { ustBtn.hidden = false; }
-  if (DEMO || depo.al(LS.kurulum) === '1' || !$('dashScreen')) {
-    bar.hidden = true;
-    return;
-  }
-  if (kurulumOlayi) {
-    $('kurulumMetin').textContent = 'Paneli telefonunuzun veya bilgisayarınızın ana ekranına ekleyin, tek dokunuşla uygulama olarak açın.';
-    $('kurulumEkle').hidden = false;
-    bar.hidden = false;
-  } else if (iosMu()) {
-    $('kurulumMetin').textContent = 'Ana ekrana eklemek için Safari\'de Paylaş düğmesine, sonra "Ana Ekrana Ekle"ye dokunun.';
-    $('kurulumEkle').hidden = true;
-    bar.hidden = false;
-  } else {
-    bar.hidden = true;
-  }
+  if (!ustBtn) { return; }
+  ustBtn.hidden = standaloneMu();
 }
 
 window.addEventListener('beforeinstallprompt', function (e) {
   e.preventDefault();
   kurulumOlayi = e;
-  if (aktifOturum || DEMO) { kurulumGoster(); }
+  kurulumButonDurumu();
 });
 window.addEventListener('appinstalled', function () {
   kurulumOlayi = null;
-  $('kurulumBar').hidden = true;
-  $('btnKurulum').hidden = true;
+  kurulumButonDurumu();
 });
 
 function kurulumTetikle() {
   if (kurulumOlayi) {
     try { kurulumOlayi.prompt(); } catch (e) {}
     kurulumOlayi = null;
-    $('kurulumBar').hidden = true;
-    return;
   }
-  var bar = $('kurulumBar');
-  if (iosMu()) {
-    $('kurulumMetin').textContent = 'Ana ekrana eklemek için Safari\'de Paylaş düğmesine, sonra "Ana Ekrana Ekle"ye dokunun.';
-  } else {
-    $('kurulumMetin').textContent = 'Ana ekrana eklemek için tarayıcınızın sağ üst menüsünden "Uygulamayı Yükle" veya "Ana Ekrana Ekle" seçeneğine dokunun.';
-  }
-  $('kurulumEkle').hidden = true;
-  bar.hidden = false;
 }
 
 /* =====================================================================
@@ -1259,7 +1201,7 @@ async function altYaziYukle() {
 }
 
 /* =====================================================================
-   API İLETİŞİMİ VE VERİ DÜZENLEME
+   API İLETİŞİMİ VE SAF GERÇEK VERİ DÜZENLEME (SAHTE VERİ YOK)
    ===================================================================== */
 function apiAyarliMi() { return API_URL && API_URL.indexOf('BURAYA_') === -1 && /^https:\/\//.test(API_URL); }
 
@@ -1286,32 +1228,42 @@ async function apiCagir(id, kimlik, ekParam) {
   return veri;
 }
 
-async function apiTekrarli(id, kimlik) {
+async function apiTekrarli(id, kimlik, ekParam) {
   var deneme = 0;
   for (;;) {
-    try { return await apiCagir(id, kimlik, ''); }
+    try { return await apiCagir(id, kimlik, ekParam || ''); }
     catch (h) {
       var gecici = h instanceof PanelHata && (h.kod === 'AG-01' || h.kod === 'AG-02');
       if (!gecici || deneme >= YENIDEN_DENEME || navigator.onLine === false) { throw h; }
-      deneme++; await bekle(600);
+      deneme++; await bekle(500);
     }
   }
 }
 
 function duzenle(v) {
-  var cz = v.cihaz || {}, dm = v.demografi || {}, g = v.gunluk || {};
+  var cz = v.cihaz || {}, dm = v.demografi || {}, g = v.gunluk || {}, st = v.saatlik || {};
   function dizi(a) { return Array.isArray(a) ? a.map(n) : []; }
+  function sifirDizi(uzunluk) { var a = []; for (var i = 0; i < uzunluk; i++) { a.push(0); } return a; }
+
   var gos = n(v.gosterim), tik = n(v.tiklanma);
-  var toHesap = v.to !== undefined && n(v.to) > 0 ? n(v.to) : (gos > 0 ? Number((tik / gos * 100).toFixed(2)) : 0);
   var hamMaliyet = n(v.maliyet);
-  var hamTbm = n(v.tbm);
-  if (hamTbm <= 0 && hamMaliyet > 0 && tik > 0) { hamTbm = Number((hamMaliyet / tik).toFixed(2)); }
-  if (hamMaliyet <= 0 && hamTbm > 0 && tik > 0) { hamMaliyet = Number((hamTbm * tik).toFixed(2)); }
+  var hamTbm = tik > 0 ? Number((hamMaliyet / tik).toFixed(2)) : 0;
+  var toHesap = gos > 0 ? Number((tik / gos * 100).toFixed(2)) : 0;
+
+  var komutMetni = String(v.yayin_komutu || '').trim().toUpperCase();
+  var yayinAcik = (komutMetni === 'ACIK');
+
+  var yasDizi = Array.isArray(dm.yas_dagilim) && dm.yas_dagilim.length === 6 ? dm.yas_dagilim.map(n) : sifirDizi(6);
+  var saatDilim4 = Array.isArray(v.saat_dagilim) && v.saat_dagilim.length === 4 ? v.saat_dagilim.map(n) : sifirDizi(4);
+  var saatlikTik24 = Array.isArray(st.tiklama) && st.tiklama.length === 24 ? st.tiklama.map(n) : sifirDizi(24);
+  var saatlikGos24 = Array.isArray(st.gosterim) && st.gosterim.length === 24 ? st.gosterim.map(n) : sifirDizi(24);
+  var saatlikMal24 = Array.isArray(st.maliyet) && st.maliyet.length === 24 ? st.maliyet.map(n) : sifirDizi(24);
 
   return {
     id: String(v.id || ''),
     durum: v.durum !== false,
-    yayinAcik: String(v.yayin_komutu || 'ACIK').toUpperCase() !== 'DURAKLATILDI',
+    yayinAcik: yayinAcik,
+    yayinKomutuHam: komutMetni || 'DURAKLATILDI',
     isletme: String(v.isletme || '').slice(0, 60),
     telefon: String(v.telefon || '').slice(0, 30),
     gosterim: gos,
@@ -1324,12 +1276,22 @@ function duzenle(v) {
     demografi: {
       kadin: n(dm.kadin),
       erkek: n(dm.erkek),
-      yasBaskin: String(dm.yas || '25-34'),
-      yasDagilim: (Array.isArray(dm.yas_dagilim) && dm.yas_dagilim.length === 6 && topla(dm.yas_dagilim) > 0) ? dm.yas_dagilim.map(n) : [14, 38, 24, 13, 7, 4]
+      yasBaskin: String(dm.yas || '—'),
+      yasDagilim: yasDizi
     },
-    saatDagilim: (Array.isArray(v.saat_dagilim) && v.saat_dagilim.length === 4 && topla(v.saat_dagilim) > 0) ? v.saat_dagilim.map(n) : [8, 30, 42, 20],
+    saatDagilim: saatDilim4,
+    saatlik: {
+      tiklama: saatlikTik24,
+      gosterim: saatlikGos24,
+      maliyet: saatlikMal24
+    },
     kelimeler: Array.isArray(v.kelimeler) ? v.kelimeler.map(String).filter(Boolean).slice(0, 6) : [],
-    gunluk: { baslangic: String(g.baslangic || ''), tiklama: dizi(g.tiklama), gosterim: dizi(g.gosterim) },
+    gunluk: {
+      baslangic: String(g.baslangic || ''),
+      tiklama: dizi(g.tiklama),
+      gosterim: dizi(g.gosterim),
+      maliyet: dizi(g.maliyet)
+    },
     guncelleme: String(v.guncelleme || '')
   };
 }
@@ -1366,7 +1328,8 @@ function denemeSayisi() { return parseInt(depo.al(LS.deneme) || '0', 10) || 0; }
    VERİ YÜKLEME VE GİRİŞ AKIŞI
    ===================================================================== */
 var son = null, sonYukleme = 0, aktifOturum = null, oturumNesil = 0;
-var seciliDonem = 30;
+var seciliDonem = 30; // 0 = Saatlik, 1 = Günlük, 7 = 7 Gün, 30 = 30 Gün
+var komutBekleniyor = false;
 
 function girisMesaji(t, tur) { var m = $('pinMsg'); m.textContent = t || ''; m.className = 'msg' + (tur ? ' ' + tur : ''); }
 
@@ -1398,7 +1361,7 @@ async function veriYukle(id, kimlik, sec) {
   var nesil = oturumNesil;
   if (!sec.sessiz && !sec.giris) { bootMetni('Verileriniz getiriliyor…'); goster('bootScreen'); }
   var ham;
-  try { ham = await apiTekrarli(id, kimlik); }
+  try { ham = await apiTekrarli(id, kimlik, sec.taze ? '&taze=1' : ''); }
   catch (h) {
     if (nesil !== oturumNesil) { return 'iptal'; }
     if (sec.giris) { girisMesaji((h.mesaj || 'Bağlantı kurulamadı.') + ' (' + h.kod + ')', 'err'); return 'hata'; }
@@ -1421,7 +1384,7 @@ async function veriYukle(id, kimlik, sec) {
     son = v; sonYukleme = Date.now();
     if (!v.durum) {
       depo.sil(LS.veri);
-      $('lockIsletme').textContent = v.isletme || '';
+      $('lockIsletme').textContent = guzelAd(v.isletme) || '';
       goster('lockScreen'); return 'kilit';
     }
     try { onbellekYaz(v); } catch (e) {}
@@ -1451,7 +1414,7 @@ async function girisDene() {
   var pin = input.value.replace(/\D/g, '');
   if (pin.length !== PIN_UZUNLUGU) { girisMesaji('Lütfen 8 haneli kodu eksiksiz girin.', 'err'); return; }
   btn.disabled = true; btn.textContent = 'Kontrol ediliyor…'; girisMesaji('', '');
-  var sonuc = await veriYukle(URL_ID, { pin: pin }, { giris: true });
+  var sonuc = await veriYukle(URL_ID, { pin: pin }, { giris: true, taze: true });
   btn.textContent = 'Giriş Yap';
   if (sonuc === 'kimlik') {
     if (DEBUG) { input.value = ''; pinNoktalari(); girisMesaji('Anahtar kod hatalı (debug modu).', 'err'); input.focus(); return; }
@@ -1488,95 +1451,111 @@ function cikis() {
 }
 
 /* =====================================================================
-   GOOGLE ADS KAMPANYA AÇ / KAPAT (GERÇEK DURAKLATMA KOMUTU)
+   GOOGLE ADS KAMPANYA AÇ / KAPAT (1 DAKİKA KİLİDİ + SABİT METİNLİ YEŞİL/KIRMIZI ÖNİZLEME)
    ===================================================================== */
-function yayinArayuzGuncelle(acik, ad, info) {
+function yayinArayuzGuncelle(acik, bekleniyor) {
   var btn = $('btnYayinToggle'), txt = $('yayinDurumMetni');
-  var box = $('pgTargetBox'), icon = $('pgTargetIcon'), dom = $('pgTargetDomain'), sub = $('pgTargetSub'), tit = $('pgTargetTitle'), desc = $('pgTargetDesc');
+  var box = $('pgTargetBox');
 
   btn.classList.toggle('on', acik);
   btn.classList.toggle('off', !acik);
   btn.setAttribute('aria-checked', acik ? 'true' : 'false');
 
-  if (acik) {
-    txt.textContent = 'Aktif ve Yayında';
-    txt.classList.remove('paused');
-    box.classList.remove('paused');
-    icon.textContent = '1';
-    dom.textContent = ad + ' · Sponsorlu';
-    sub.textContent = info.sehir + ' bölgesinde 1. sırada yayındasınız';
-    tit.textContent = ad + ' - ' + info.sehir + ' ' + info.sektor + ' Hizmeti';
-    desc.textContent = 'Müşterileriniz Google\'da "' + info.arama + '" araması yaptığında ilk sırada işletmenizi görür.';
+  // Reklam önizlemesinde içerik yazıları ASLA değişmez; sadece arka plan ve çerçeve Yeşil / Kırmızı olur
+  box.classList.toggle('active', acik);
+  box.classList.toggle('paused', !acik);
+
+  if (bekleniyor) {
+    btn.disabled = true;
+    txt.textContent = '1 dk içerisinde uygulanacak...';
+    txt.className = 'switch-sub wait';
   } else {
-    txt.textContent = 'Duraklatıldı (Kapalı)';
-    txt.classList.add('paused');
-    box.classList.add('paused');
-    icon.textContent = '?';
-    dom.textContent = '??? Sizin İşletmeniz ???';
-    sub.textContent = 'Reklam Başlatıldığında Burada Görünür';
-    tit.textContent = 'Sektörünüzde 1. Sırada Çıkıyor Musunuz?';
-    desc.textContent = 'Müşterileriniz hizmetinizi aradığında sizi mi buluyor, yoksa rakiplerinizi mi? Rekabetin gerisinde kalmayın.';
+    btn.disabled = false;
+    if (acik) {
+      txt.textContent = 'Aktif ve Yayında';
+      txt.className = 'switch-sub active';
+    } else {
+      txt.textContent = 'Duraklatıldı (Kapalı)';
+      txt.className = 'switch-sub paused';
+    }
   }
 }
 
 async function yayinDegistir() {
-  if (!son) { return; }
+  if (!son || komutBekleniyor) { return; }
   var btn = $('btnYayinToggle');
   if (btn.disabled) { return; }
+
   var eskiAcik = son.yayinAcik;
   var yeniAcik = !eskiAcik;
   son.yayinAcik = yeniAcik;
-  var ad = son.isletme || guzelAd(son.id) || 'İşletmeniz';
-  if (/_/.test(ad) && !/\s/.test(ad)) { ad = guzelAd(ad); }
-  var info = kimlikCozumle(son.id || URL_ID);
-  yayinArayuzGuncelle(yeniAcik, ad, info);
+  komutBekleniyor = true;
+
+  yayinArayuzGuncelle(yeniAcik, true);
   kampanyaListesiCiz(son, donemMetrikleri(son, seciliDonem));
 
-  if (DEMO || !aktifOturum || !aktifOturum.tok) { return; }
-  btn.disabled = true;
+  if (DEMO || !aktifOturum || !aktifOturum.tok) {
+    setTimeout(function () {
+      komutBekleniyor = false;
+      yayinArayuzGuncelle(son.yayinAcik, false);
+    }, 3000);
+    return;
+  }
+
   try {
     var komut = yeniAcik ? 'ACIK' : 'DURAKLATILDI';
-    await apiCagir(aktifOturum.id, { tok: aktifOturum.tok }, '&islem=komut&komut=' + komut);
+    await apiCagir(aktifOturum.id, { tok: aktifOturum.tok }, '&islem=komut&komut=' + komut + '&taze=1');
     onbellekYaz(son);
+    // 1 dakika boyunca buton kilitli kalır ve "1 dk içerisinde..." yazar, ardından canlı durumu çeker
+    setTimeout(async function () {
+      komutBekleniyor = false;
+      if (aktifOturum && aktifOturum.tok) {
+        await veriYukle(aktifOturum.id, { tok: aktifOturum.tok }, { sessiz: true, taze: true });
+      }
+      yayinArayuzGuncelle(son ? son.yayinAcik : yeniAcik, false);
+    }, 60000);
   } catch (e) {
+    komutBekleniyor = false;
     son.yayinAcik = eskiAcik;
-    yayinArayuzGuncelle(eskiAcik, ad, info);
+    yayinArayuzGuncelle(eskiAcik, false);
     kampanyaListesiCiz(son, donemMetrikleri(son, seciliDonem));
-  } finally {
-    setTimeout(function () { btn.disabled = false; }, 500);
   }
 }
 
 /* =====================================================================
-   DEMO VERİSİ VE BAŞLATMA
+   DEMO VERİSİ VE BAŞLATMA (GERÇEK SENARYO)
    ===================================================================== */
 function demoVeri() {
-  var hamTik = [11,14,9,18,22,16,25,19,13,17,21,28,24,15,19,23,29,34,27,21,18,24,31,26,20,22,27,33,19,15];
-  var hamGos = hamTik.map(function (x, i) { return x * 9 + ((i * 7) % 15); });
-  var topTik = topla(hamTik), topGos = topla(hamGos);
-  var tbmOrnek = 19.42;
-  var malOrnek = Number((topTik * tbmOrnek).toFixed(2));
+  var hamTik = [0,0,4,2,5,0,1,7,8,6,5,9,11,4,0,6,12,18,14,9,11,15,22,19,8,14,10,6,0,0];
+  var hamGos = [0,3,61,28,51,0,3,74,89,62,55,94,112,45,0,68,124,182,141,92,108,149,215,180,79,110,59,30,0,0];
+  var hamMal = hamTik.map(function (t) { return Number((t * 19.42).toFixed(2)); });
+  var saatTik = [0,0,0,0,0,0,0,0,1,2,3,4,5,4,3,2,1,2,1,0,0,0,0,0];
+  var saatGos = [0,0,1,0,0,2,4,8,14,22,31,38,45,39,28,19,12,18,11,5,2,0,0,0];
+  var saatMal = saatTik.map(function (t) { return Number((t * 19.42).toFixed(2)); });
+
   var bugun = new Date();
-  var bs = new Date(bugun.getFullYear(), bugun.getMonth(), bugun.getDate() - 30);
+  var bs = new Date(bugun.getFullYear(), bugun.getMonth(), bugun.getDate() - 29);
   var iso = bs.getFullYear() + '-' + ('0' + (bs.getMonth() + 1)).slice(-2) + '-' + ('0' + bs.getDate()).slice(-2);
   var simdiIso = bugun.getFullYear() + '-' + ('0' + (bugun.getMonth() + 1)).slice(-2) + '-' + ('0' + bugun.getDate()).slice(-2) +
                  ' ' + ('0' + bugun.getHours()).slice(-2) + ':' + ('0' + bugun.getMinutes()).slice(-2) + ':' + ('0' + bugun.getSeconds()).slice(-2);
   return {
-    ok: true, durum: true, yayin_komutu: 'ACIK',
+    ok: true, durum: true, yayin_komutu: 'DURAKLATILDI',
     id: URL_ID || 'taksi_44_1', isletme: 'Şahin Taksi', telefon: '0534 595 74 44',
-    gosterim: topGos, tiklanma: topTik, to: Number((topTik / topGos * 100).toFixed(2)),
-    maliyet: malOrnek, tbm: tbmOrnek, aramalar: 42,
+    gosterim: 1988, tiklanma: 208, to: 10.46,
+    maliyet: 4039.52, tbm: 19.42, aramalar: 0,
     cihaz: { mobil: 97, pc: 3, tablet: 0 },
     demografi: { kadin: 51, erkek: 49, yas: '25-34', yas_dagilim: [16, 39, 23, 12, 6, 4] },
-    saat_dagilim: [9, 29, 41, 21],
-    kelimeler: ['malatya taksi:49', 'taksi malatya:22', 'maşti taksi:7', 'fahri kayahan taksi:7', 'malatya taksi:5'],
-    gunluk: { baslangic: iso, tiklama: hamTik, gosterim: hamGos },
+    saat_dagilim: [6, 18, 52, 24],
+    saatlik: { tiklama: saatTik, gosterim: saatGos, maliyet: saatMal },
+    kelimeler: ['malatya taksi:49:951.58:12.40', 'taksi malatya:22:427.24:9.80', 'maşti taksi:7:135.94:14.20', 'fahri kayahan taksi:7:135.94:11.10'],
+    gunluk: { baslangic: iso, tiklama: hamTik, gosterim: hamGos, maliyet: hamMal },
     guncelleme: simdiIso
   };
 }
 
 async function baslat() {
   altYaziYukle();
+  kurulumButonDurumu();
   if (durduruldu) { return; }
   if (DEMO) {
     var v = duzenle(demoVeri());
@@ -1598,28 +1577,33 @@ async function baslat() {
       panoyuCiz(kayit.v, false); goster('dashScreen');
     } catch (e) { depo.sil(LS.veri); kayit = null; }
   }
-  if (kayit) { await veriYukle(o.id, { tok: o.tok }, { sessiz: true }); }
-  else { await veriYukle(o.id, { tok: o.tok }, {}); }
+  if (kayit) { await veriYukle(o.id, { tok: o.tok }, { sessiz: true, taze: true }); }
+  else { await veriYukle(o.id, { tok: o.tok }, { taze: true }); }
 }
 
-var yenileKilit = false;
+// ANLIK SANİYELİK YENİLEME (Bekleme kilidi yok, önbelleği atlayıp canlı veriyi ve sayfayı yeniler)
+var yenileCalisiyor = false;
 async function yenile() {
-  if (yenileKilit || !aktifOturum || durduruldu) { return; }
-  yenileKilit = true;
-  var b = $('btnYenile'); b.disabled = true; b.classList.add('yukleniyor');
-  await veriYukle(aktifOturum.id, { tok: aktifOturum.tok }, { sessiz: true });
-  b.classList.remove('yukleniyor');
-  setTimeout(function () { b.disabled = false; yenileKilit = false; }, YENILE_BEKLEME);
+  if (yenileCalisiyor || !aktifOturum || durduruldu) { return; }
+  yenileCalisiyor = true;
+  var b = $('btnYenile'); b.classList.add('yukleniyor');
+  try {
+    await altYaziYukle();
+    await veriYukle(aktifOturum.id, { tok: aktifOturum.tok }, { sessiz: true, taze: true });
+  } finally {
+    b.classList.remove('yukleniyor');
+    yenileCalisiyor = false;
+  }
 }
 
 function tazeleGerekirse() {
   if (aktifOturum && aktifOturum.tok && !durduruldu && $('dashScreen').classList.contains('on') && Date.now() - sonYukleme > YENILEME_ESIGI) {
-    veriYukle(aktifOturum.id, { tok: aktifOturum.tok }, { sessiz: true });
+    veriYukle(aktifOturum.id, { tok: aktifOturum.tok }, { sessiz: true, taze: true });
   }
 }
 
 /* =====================================================================
-   PANEL ÇİZİMİ VE DÖNEM HESAPLAMALARI (TBM VE MALİYET DAHİL)
+   PANEL ÇİZİMİ VE DÖNEM HESAPLAMALARI (SAHTE VERİ YOK, GERÇEK TBM & TO)
    ===================================================================== */
 function sayarakYukselt(el, hedef, sure, animasyon) {
   var jeton = (el._jeton = (el._jeton || 0) + 1);
@@ -1636,27 +1620,53 @@ function sayarakYukselt(el, hedef, sure, animasyon) {
 function donemMetrikleri(v, gunSayisi) {
   var gt = (v.gunluk && Array.isArray(v.gunluk.tiklama)) ? v.gunluk.tiklama : [];
   var gg = (v.gunluk && Array.isArray(v.gunluk.gosterim)) ? v.gunluk.gosterim : [];
-  var birimTbm = v.tbm > 0 ? v.tbm : (v.tiklanma > 0 && v.maliyet > 0 ? (v.maliyet / v.tiklanma) : 0);
+  var gm = (v.gunluk && Array.isArray(v.gunluk.maliyet)) ? v.gunluk.maliyet : [];
+  var stTik = (v.saatlik && Array.isArray(v.saatlik.tiklama)) ? v.saatlik.tiklama : [];
+  var stGos = (v.saatlik && Array.isArray(v.saatlik.gosterim)) ? v.saatlik.gosterim : [];
+  var stMal = (v.saatlik && Array.isArray(v.saatlik.maliyet)) ? v.saatlik.maliyet : [];
 
+  var birimTbm30 = (v.tiklanma > 0 && v.maliyet > 0) ? (v.maliyet / v.tiklanma) : 0;
+
+  // 0 = Saatlik (İçinde bulunulan son saatin gerçek verisi)
+  if (gunSayisi === 0) {
+    var aktifSaat = new Date().getHours();
+    var tS = stTik.length === 24 ? n(stTik[aktifSaat]) : 0;
+    var gS = stGos.length === 24 ? n(stGos[aktifSaat]) : 0;
+    var mS = stMal.length === 24 && topla(stMal) > 0 ? n(stMal[aktifSaat]) : (tS > 0 ? Number((tS * birimTbm30).toFixed(2)) : 0);
+    var toS = gS > 0 ? (tS / gS * 100) : 0;
+    var tbmS = tS > 0 ? (mS / tS) : 0;
+    return { gosterim: gS, tiklanma: tS, to: toS, tbm: tbmS, maliyet: mS, etiket: 'Son saatte (Saatlik)' };
+  }
+
+  // 1 = Günlük (Bugünün gerçek toplamı; tıklama 0 ise TBM ve TO da gerçek olarak 0,00 olur)
   if (gunSayisi === 1) {
-    var t1 = gt.length ? n(gt[gt.length - 1]) : Math.round(v.tiklanma / 30);
-    var g1 = gg.length ? n(gg[gg.length - 1]) : Math.round(v.gosterim / 30);
-    var to1 = g1 > 0 ? (t1 / g1 * 100) : v.to;
-    var mal1 = birimTbm > 0 ? (t1 * birimTbm) : (v.maliyet / 30);
-    return { gosterim: g1, tiklanma: t1, to: to1, tbm: birimTbm, maliyet: mal1, etiket: 'Son günde (Günlük)' };
+    var t1 = gt.length ? n(gt[gt.length - 1]) : topla(stTik);
+    var g1 = gg.length ? n(gg[gg.length - 1]) : topla(stGos);
+    var m1 = gm.length && topla(gm) > 0 ? n(gm[gm.length - 1]) : (t1 > 0 ? Number((t1 * birimTbm30).toFixed(2)) : 0);
+    var to1 = g1 > 0 ? (t1 / g1 * 100) : 0;
+    var tbm1 = t1 > 0 ? (m1 / t1) : 0;
+    return { gosterim: g1, tiklanma: t1, to: to1, tbm: tbm1, maliyet: m1, etiket: 'Bugün (Günlük)' };
   }
+
+  // 7 = Son 7 Gün
   if (gunSayisi === 7) {
-    var t7 = gt.length >= 7 ? topla(gt.slice(-7)) : Math.round(v.tiklanma * (7 / 30));
-    var g7 = gg.length >= 7 ? topla(gg.slice(-7)) : Math.round(v.gosterim * (7 / 30));
-    var to7 = g7 > 0 ? (t7 / g7 * 100) : v.to;
-    var mal7 = birimTbm > 0 ? (t7 * birimTbm) : (v.maliyet * (7 / 30));
-    return { gosterim: g7, tiklanma: t7, to: to7, tbm: birimTbm, maliyet: mal7, etiket: 'Son 7 günde (Haftalık)' };
+    var t7 = gt.length >= 7 ? topla(gt.slice(-7)) : topla(gt);
+    var g7 = gg.length >= 7 ? topla(gg.slice(-7)) : topla(gg);
+    var m7 = gm.length >= 7 && topla(gm) > 0 ? topla(gm.slice(-7)) : (t7 > 0 ? Number((t7 * birimTbm30).toFixed(2)) : 0);
+    var to7 = g7 > 0 ? (t7 / g7 * 100) : 0;
+    var tbm7 = t7 > 0 ? (m7 / t7) : 0;
+    return { gosterim: g7, tiklanma: t7, to: to7, tbm: tbm7, maliyet: m7, etiket: 'Son 7 günde (Haftalık)' };
   }
-  return { gosterim: v.gosterim, tiklanma: v.tiklanma, to: v.to, tbm: birimTbm, maliyet: v.maliyet, etiket: 'Son 30 günde (Aylık)' };
+
+  // 30 = Son 30 Gün
+  var to30 = v.gosterim > 0 ? (v.tiklanma / v.gosterim * 100) : 0;
+  var tbm30 = v.tiklanma > 0 ? (v.maliyet / v.tiklanma) : 0;
+  return { gosterim: v.gosterim, tiklanma: v.tiklanma, to: to30, tbm: tbm30, maliyet: v.maliyet, etiket: 'Son 30 günde (Aylık)' };
 }
 
 function donemSec(gun, sessiz) {
   seciliDonem = gun;
+  $('dBtn0').classList.toggle('on', gun === 0);
   $('dBtn1').classList.toggle('on', gun === 1);
   $('dBtn7').classList.toggle('on', gun === 7);
   $('dBtn30').classList.toggle('on', gun === 30);
@@ -1664,20 +1674,23 @@ function donemSec(gun, sessiz) {
   var m = donemMetrikleri(son, gun);
   $('ftGosterim').textContent = m.etiket;
   $('ftMaliyet').textContent = m.etiket;
-  sayarakYukselt($('vGosterim'), m.gosterim, 800, !sessiz);
-  sayarakYukselt($('vTiklanma'), m.tiklanma, 900, !sessiz);
+  $('ftTO').textContent = m.etiket;
+  $('ftTBM').textContent = m.etiket;
+
+  sayarakYukselt($('vGosterim'), m.gosterim, 650, !sessiz);
+  sayarakYukselt($('vTiklanma'), m.tiklanma, 750, !sessiz);
   $('vTO').textContent = '%' + m.to.toFixed(2).replace('.', ',');
   $('vTBM').textContent = fmtPara(m.tbm);
   $('vMaliyet').textContent = fmtPara(m.maliyet);
 
-  googleAdsGrafikCiz(son.gunluk, gun === 1 ? 7 : gun);
+  googleAdsGrafikCiz(son, gun);
   kampanyaListesiCiz(son, m);
 }
 
 function panoyuCiz(v, sessiz) {
   var info = kimlikCozumle(v.id || URL_ID);
-  var ad = v.isletme || guzelAd(v.id) || (info.sehir + ' ' + info.sektor);
-  if (/_/.test(ad) && !/\s/.test(ad)) { ad = info.sehir + ' ' + info.sektor; }
+  var temizIsletme = guzelAd(v.isletme);
+  var ad = temizIsletme || (info.sehir + ' ' + info.sektor);
 
   document.title = ad + ' · Reklam Paneli';
   $('dashIsletme').textContent = ad;
@@ -1685,53 +1698,63 @@ function panoyuCiz(v, sessiz) {
   $('dashSehirEtiket').textContent = info.plaka + ' ' + info.sehir + ' · ' + info.sektor;
   $('dashGuncellemeUst').textContent = 'Son güncelleme: ' + tarihSaniyeliYaz(v.guncelleme) + ' (Her 1 saatte veriler güncellenir)';
 
-  if (v.aramalar > 0) {
-    $('lblAltinciKart').textContent = 'Telefon Aramaları';
-    $('vAramalar').textContent = fmt(v.aramalar);
-    $('ftAltinciKart').textContent = 'Doğrudan arayan müşteri';
-  } else {
-    var mobYuzde = v.cihaz.mobil > 0 ? v.cihaz.mobil : 97;
-    $('lblAltinciKart').textContent = 'Mobil Erişim Oranı';
-    $('vAramalar').textContent = '%' + mobYuzde;
-    $('ftAltinciKart').textContent = 'Cepten ulaşan müşteriler';
-  }
+  // 6. Kart: Sahte veri yok, gerçek arama/dönüşüm sayısı
+  $('vAramalar').textContent = fmt(v.aramalar);
+  $('ftAltinciKart').textContent = 'Son 30 günde toplam';
 
-  yayinArayuzGuncelle(v.yayinAcik, ad, info);
-  onizlemeCiz(v, ad, info);
+  yayinArayuzGuncelle(v.yayinAcik, komutBekleniyor);
+  onizlemeCiz(v, info);
   demografiVeCihazCiz(v);
   saatVeIsiHaritasiCiz(v);
   donemSec(seciliDonem, sessiz);
-  kurulumGoster();
+  kurulumButonDurumu();
 }
 
-/* ---- ARAYÜZ 1: GOOGLE ADS ÇİFT ÇİZGİLİ GRAFİK ---- */
+/* ---- ARAYÜZ 1: GOOGLE ADS ÇİFT ÇİZGİLİ GRAFİK (SAATLİK 24 SAAT VEYA GÜNLÜK SERİ) ---- */
 var trendGrafik = null;
-function googleAdsGrafikCiz(g, gunSayisi) {
+function googleAdsGrafikCiz(v, gunSayisi) {
   var canvas = $('trendCanvas');
-  if (!g || !Array.isArray(g.tiklama) || typeof window.Chart === 'undefined') { return; }
+  if (!v || typeof window.Chart === 'undefined') { return; }
 
-  var toplam = g.tiklama.length || 30;
-  var adet = Math.min(gunSayisi, toplam);
-  var tikDizi = g.tiklama.slice(-adet);
-  var gosDizi = (g.gosterim && g.gosterim.length >= adet) ? g.gosterim.slice(-adet) : tikDizi.map(function (x) { return x * 9; });
+  var kisaEtiket = [], tamTarih = [], tikDizi = [], gosDizi = [];
 
-  var m = /^(\d{4})-(\d{2})-(\d{2})$/.exec(g.baslangic);
-  var kisaEtiket = [], tamTarih = [];
-  var basTarih = m ? new Date(parseInt(m[1], 10), parseInt(m[2], 10) - 1, parseInt(m[3], 10) + (toplam - adet)) : new Date(Date.now() - adet * 86400000);
+  // Saatlik (0) veya Günlük (1) seçildiğinde bugünün 24 saatlik (00:00 - 23:00) grafiğini çizer
+  if (gunSayisi === 0 || gunSayisi === 1) {
+    $('grafikBaslik').textContent = '📈 Google Ads Saatlik Performans Grafiği (00:00 - 23:00)';
+    $('grafikAltBaslik').textContent = 'Bugünün saat bazında gerçek Tıklama ve Gösterim dağılımı';
+    tikDizi = v.saatlik.tiklama.slice(0, 24);
+    gosDizi = v.saatlik.gosterim.slice(0, 24);
+    for (var s = 0; s < 24; s++) {
+      var stMetin = ('0' + s).slice(-2) + ':00';
+      kisaEtiket.push(stMetin);
+      tamTarih.push('Bugün Saat ' + stMetin + ' - ' + ('0' + s).slice(-2) + ':59');
+    }
+  } else {
+    $('grafikBaslik').textContent = '📈 Google Ads Zaman Serisi Grafiği';
+    $('grafikAltBaslik').textContent = 'Noktalara dokunarak günlük Tıklama ve Gösterim sayısını inceleyin';
+    var g = v.gunluk;
+    var toplam = (g && g.tiklama && g.tiklama.length) ? g.tiklama.length : 30;
+    var adet = Math.min(gunSayisi, toplam);
+    tikDizi = (g && g.tiklama) ? g.tiklama.slice(-adet) : [];
+    gosDizi = (g && g.gosterim && g.gosterim.length >= adet) ? g.gosterim.slice(-adet) : tikDizi.map(function () { return 0; });
 
-  for (var i = 0; i < adet; i++) {
-    var d = new Date(basTarih.getFullYear(), basTarih.getMonth(), basTarih.getDate() + i);
-    var gunAd = d.toLocaleDateString('tr-TR', { weekday: 'short' });
-    kisaEtiket.push(d.getDate() + ' ' + AYLAR[d.getMonth()]);
-    tamTarih.push(d.getDate() + ' ' + AYLAR[d.getMonth()] + ' ' + d.getFullYear() + ' ' + gunAd);
+    var m = /^(\d{4})-(\d{2})-(\d{2})$/.exec(g ? g.baslangic : '');
+    var basTarih = m ? new Date(parseInt(m[1], 10), parseInt(m[2], 10) - 1, parseInt(m[3], 10) + (toplam - adet)) : new Date(Date.now() - (adet - 1) * 86400000);
+
+    for (var i = 0; i < adet; i++) {
+      var d = new Date(basTarih.getFullYear(), basTarih.getMonth(), basTarih.getDate() + i);
+      var gunAd = d.toLocaleDateString('tr-TR', { weekday: 'short' });
+      kisaEtiket.push(d.getDate() + ' ' + AYLAR[d.getMonth()]);
+      tamTarih.push(d.getDate() + ' ' + AYLAR[d.getMonth()] + ' ' + d.getFullYear() + ' ' + gunAd);
+    }
   }
 
-  var enCok = 0, enIndeks = 0;
+  var enCok = 0, enIndeks = -1;
   for (var k = 0; k < tikDizi.length; k++) {
-    if (tikDizi[k] >= enCok) { enCok = tikDizi[k]; enIndeks = k; }
+    if (tikDizi[k] > enCok) { enCok = tikDizi[k]; enIndeks = k; }
   }
-  $('trendOzet').innerHTML = '<span>Dönem toplamı: <b>' + fmt(topla(tikDizi)) + ' tıklama</b> · <b>' + fmt(topla(gosDizi)) + ' gösterim</b></span>' +
-                             (enCok > 0 ? '<span>En yüksek gün: <b>' + (tamTarih[enIndeks] || '') + ' (' + fmt(enCok) + ' tıklama)</b></span>' : '');
+  $('trendOzet').innerHTML = '<span>Grafik toplamı: <b>' + fmt(topla(tikDizi)) + ' tıklama</b> · <b>' + fmt(topla(gosDizi)) + ' gösterim</b></span>' +
+                             (enCok > 0 && enIndeks > -1 ? '<span>En yüksek: <b>' + (tamTarih[enIndeks] || '') + ' (' + fmt(enCok) + ' tıklama)</b></span>' : '<span>Seçili aralıkta tıklama kaydı yok</span>');
 
   if (trendGrafik) {
     trendGrafik.data.labels = kisaEtiket;
@@ -1754,7 +1777,7 @@ function googleAdsGrafikCiz(g, gunSayisi) {
           data: tikDizi,
           borderColor: '#1a73e8',
           backgroundColor: 'rgba(26,115,232,0.12)',
-          borderWidth: 2.8,
+          borderWidth: 2.6,
           pointRadius: 2.5,
           pointHoverRadius: 6,
           pointBackgroundColor: '#1a73e8',
@@ -1767,7 +1790,7 @@ function googleAdsGrafikCiz(g, gunSayisi) {
           data: gosDizi,
           borderColor: '#d93025',
           backgroundColor: 'rgba(217,48,37,0.05)',
-          borderWidth: 2.4,
+          borderWidth: 2.2,
           pointRadius: 2,
           pointHoverRadius: 6,
           pointBackgroundColor: '#d93025',
@@ -1789,12 +1812,12 @@ function googleAdsGrafikCiz(g, gunSayisi) {
           bodyColor: '#3c4043',
           borderColor: '#dadce0',
           borderWidth: 1,
-          padding: 12,
+          padding: 11,
           boxWidth: 12,
           boxHeight: 5,
           usePointStyle: false,
-          titleFont: { size: 13, weight: 'bold' },
-          bodyFont: { size: 13, weight: '600' },
+          titleFont: { size: 12.5, weight: 'bold' },
+          bodyFont: { size: 12.5, weight: '600' },
           callbacks: {
             title: function (items) { return tamTarih[items[0].dataIndex] || items[0].label; },
             label: function (c) { return ' ' + c.dataset.label + ':   ' + fmt(c.parsed.y); }
@@ -1804,75 +1827,76 @@ function googleAdsGrafikCiz(g, gunSayisi) {
       scales: {
         x: {
           grid: { display: false },
-          ticks: { color: '#8fa0c4', maxTicksLimit: 6, maxRotation: 0, font: { size: 11 } }
+          ticks: { color: '#8fa0c4', maxTicksLimit: 8, maxRotation: 0, font: { size: 10.5 } }
         },
         y: {
           type: 'linear', display: true, position: 'left', beginAtZero: true,
           grid: { color: 'rgba(120,150,220,0.12)' },
-          ticks: { color: '#60a5fa', maxTicksLimit: 4, font: { size: 11 } }
+          ticks: { color: '#60a5fa', maxTicksLimit: 4, font: { size: 10.5 } }
         },
         y1: {
           type: 'linear', display: true, position: 'right', beginAtZero: true,
           grid: { drawOnChartArea: false },
-          ticks: { color: '#f87171', maxTicksLimit: 4, font: { size: 11 } }
+          ticks: { color: '#f87171', maxTicksLimit: 4, font: { size: 10.5 } }
         }
       }
     }
   });
 }
 
-/* ---- ARAYÜZ 2: KAMPANYALAR VE ANAHTAR KELİMELER LİSTESİ (MALİYET, TIKLAMA, TBM, TO) ---- */
+/* ---- ARAYÜZ 2: KAMPANYALAR VE ANAHTAR KELİMELER LİSTESİ (SAHTE FORMÜL YOK, YEŞİL NOKTALAR TAM) ---- */
 function kampanyaListesiCiz(v, m) {
   var info = kimlikCozumle(v.id || URL_ID);
   var kg = $('kampanyaListeGovde');
   kg.innerHTML = '<div class="ads-list-row">' +
-    '<span class="term-title"><span class="status-dot' + (v.yayinAcik ? '' : ' off') + '"></span><b>Web Reklam 1 (' + info.sehir + ')</b></span>' +
+    '<span class="term-title"><span class="status-dot' + (v.yayinAcik ? '' : ' off') + '"></span><b class="term-text">Web Reklam 1 (' + info.sehir + ')</b></span>' +
     '<span class="cost-badge">' + fmtPara(m.maliyet) + '</span>' +
     '<span class="r-align num"><b>' + fmt(m.tiklanma) + '</b></span>' +
     '<span class="r-align num">' + fmtPara(m.tbm) + '</span>' +
     '<span class="r-align num">%' + m.to.toFixed(2).replace('.', ',') + '</span>' +
   '</div>';
 
-  var kList = v.kelimeler.length ? v.kelimeler : [
-    info.arama + ':49',
-    info.sehir.toLocaleLowerCase('tr-TR') + ' ' + info.sektor.toLocaleLowerCase('tr-TR') + ':22',
-    info.sehir.toLocaleLowerCase('tr-TR') + ' en yakın ' + info.sektor.toLocaleLowerCase('tr-TR') + ':7'
-  ];
-
   var kwGovde = $('kelimeListeGovde');
   var cl = $('chipList');
   kwGovde.innerHTML = '';
   cl.innerHTML = '';
 
-  var birimTbm = m.tbm > 0 ? m.tbm : 19.42;
-  kList.forEach(function (item, idx) {
+  if (!v.kelimeler || v.kelimeler.length === 0) {
+    kwGovde.innerHTML = '<div class="ads-list-row kw-cols"><span class="term-title" style="color:var(--muted)">Henüz arama terimi verisi oluşmadı</span><span class="r-align">—</span><span class="r-align">0</span><span class="r-align">%0,00</span></div>';
+    return;
+  }
+
+  v.kelimeler.forEach(function (item) {
+    // Format: kelime:tiklama:maliyet:to  (veya eski format: kelime:tiklama)
     var parca = String(item).split(':');
-    var adK = parca[0].trim();
-    var tikSayi = parca[1] ? n(parca[1]) : Math.max(2, Math.round(m.tiklanma / (idx + 2)));
-    var kelimeMaliyet = tikSayi * birimTbm;
-    var kelimeTo = Math.min(38.9, Math.max(6.4, (m.to || 9.6) + (idx % 2 === 0 ? 1.8 : -1.2)));
+    var adK = (parca[0] || '').trim();
+    var tikSayi = parca[1] !== undefined ? n(parca[1]) : 0;
+    var gercekMal = parca[2] !== undefined ? fmtPara(n(parca[2])) : '—';
+    var gercekTo = parca[3] !== undefined ? ('%' + n(parca[3]).toFixed(2).replace('.', ',')) : '—';
 
     var row = document.createElement('div');
     row.className = 'ads-list-row kw-cols';
-    row.innerHTML = '<span class="term-title"><span class="status-dot"></span>"' + adK + '"</span>' +
-                    '<span class="cost-badge">' + fmtPara(kelimeMaliyet) + '</span>' +
+    row.innerHTML = '<span class="term-title"><span class="status-dot' + (v.yayinAcik ? '' : ' off') + '"></span><span class="term-text">"' + adK + '"</span></span>' +
+                    '<span class="cost-badge">' + gercekMal + '</span>' +
                     '<span class="r-align num"><b>' + fmt(tikSayi) + '</b></span>' +
-                    '<span class="r-align num">%' + kelimeTo.toFixed(2).replace('.', ',') + '</span>';
+                    '<span class="r-align num">' + gercekTo + '</span>';
     kwGovde.appendChild(row);
 
     var chip = document.createElement('span');
     chip.className = 'kw-chip';
     chip.textContent = adK + ' ';
-    var b = document.createElement('b');
-    b.textContent = fmt(tikSayi);
-    chip.appendChild(b);
+    if (tikSayi > 0) {
+      var b = document.createElement('b');
+      b.textContent = fmt(tikSayi);
+      chip.appendChild(b);
+    }
     cl.appendChild(chip);
   });
 }
 
-/* ---- ARAYÜZ 3: CANLI REKLAM ÖNİZLEMESİ ---- */
-function onizlemeCiz(v, ad, info) {
-  $('onizlemeAltBaslik').textContent = info.sehir + ' (' + info.plaka + ') bölgesinde "' + info.arama + '" araması canlı simülasyonu';
+/* ---- ARAYÜZ 3: REKLAM ÖNİZLEMESİ ("Canlı" İbaresi Yok, Yazılar Sabit) ---- */
+function onizlemeCiz(v, info) {
+  $('onizlemeAltBaslik').textContent = info.sehir + ' (' + info.plaka + ') bölgesinde "' + info.arama + '" araması örnek görünümü';
   var ilkKelime = v.kelimeler.length ? v.kelimeler[0].split(':')[0] : info.arama;
   $('phoneQuery').textContent = ilkKelime;
   $('pgCompName').textContent = info.rakipAd;
@@ -1883,23 +1907,23 @@ function onizlemeCiz(v, ad, info) {
   $('pgTelPill').textContent = telOk ? ('Hemen Ara · ' + v.telefon) : 'Hemen Ara';
 }
 
-/* ---- ARAYÜZ 4: DEMOGRAFİ VE CİHAZLAR ---- */
+/* ---- ARAYÜZ 4: DEMOGRAFİ VE CİHAZLAR (SAHTE VERİ YOK, GERÇEK ORANLAR) ---- */
 function demografiVeCihazCiz(v) {
-  var kadin = v.demografi.kadin, erkek = v.demografi.erkek;
-  if (kadin + erkek === 0) { kadin = 51; erkek = 49; }
+  var kadin = n(v.demografi.kadin), erkek = n(v.demografi.erkek);
   $('txtKadin').textContent = '👩 Kadın %' + kadin;
   $('txtErkek').textContent = '👨 Erkek %' + erkek;
   $('barKadin').style.width = kadin + '%';
   $('barErkek').style.width = erkek + '%';
-  $('yasBaskinMetin').textContent = 'En yoğun ilgi gösteren yaş grubu: ' + (v.demografi.yasBaskin && v.demografi.yasBaskin !== '-' ? v.demografi.yasBaskin : '25-34') + ' Yaş';
+  var baskinYas = (v.demografi.yasBaskin && v.demografi.yasBaskin !== '0') ? v.demografi.yasBaskin : '—';
+  $('yasBaskinMetin').textContent = 'En yoğun ilgi gösteren yaş grubu: ' + baskinYas;
 
   var yasEtiketler = ['18-24', '25-34', '35-44', '45-54', '55-64', '65+'];
   var yasDegerler = v.demografi.yasDagilim;
   var maksYas = Math.max.apply(null, yasDegerler.concat([1]));
   var ag = $('ageGrid'); ag.innerHTML = '';
   for (var i = 0; i < yasEtiketler.length; i++) {
-    var oran = yasDegerler[i] || 0;
-    var yukseklik = Math.max(8, Math.round((oran / maksYas) * 60));
+    var oran = n(yasDegerler[i]);
+    var yukseklik = oran > 0 ? Math.max(8, Math.round((oran / maksYas) * 60)) : 3;
     var col = document.createElement('div');
     col.className = 'age-col' + (oran === maksYas && oran > 0 ? ' top-age' : '');
     col.innerHTML = '<span class="age-val">%' + oran + '</span>' +
@@ -1908,34 +1932,40 @@ function demografiVeCihazCiz(v) {
     ag.appendChild(col);
   }
 
-  var m = v.cihaz.mobil, p = v.cihaz.pc, t = v.cihaz.tablet;
+  var m = n(v.cihaz.mobil), p = n(v.cihaz.pc), t = n(v.cihaz.tablet);
   var top = m + p + t;
-  if (top <= 0) { m = 97; p = 3; t = 0; top = 100; }
-  var mY = Math.round(m / top * 100), pY = Math.round(p / top * 100), tY = Math.max(0, 100 - mY - pY);
+  var mY = top > 0 ? Math.round(m / top * 100) : 0;
+  var pY = top > 0 ? Math.round(p / top * 100) : 0;
+  var tY = top > 0 ? Math.max(0, 100 - mY - pY) : 0;
   $('txtMobil').textContent = '%' + mY; $('barMobil').style.width = mY + '%';
   $('txtPc').textContent = '%' + pY; $('barPc').style.width = pY + '%';
   $('txtTablet').textContent = '%' + tY; $('barTablet').style.width = tY + '%';
 }
 
-/* ---- ARAYÜZ 5: GÜN VE SAAT PERFORMANS ISI HARİTASI ---- */
+/* ---- ARAYÜZ 5: GÜN VE SAAT PERFORMANS ISI HARİTASI (SAHTE TOHUM YOK, GERÇEK SAAT VERİSİ) ---- */
 function saatVeIsiHaritasiCiz(v) {
   var saatAdlar = ['00-06 Gece', '06-12 Sabah', '12-18 Öğle', '18-24 Akşam'];
   var saatOranlar = v.saatDagilim;
-  var maksSaat = Math.max.apply(null, saatOranlar.concat([1]));
-  var enYogunDilim = saatAdlar[2];
+  var maksSaat = Math.max.apply(null, saatOranlar);
+  var enYogunDilim = 'Henüz veri yok';
   var hg = $('hourGrid'); hg.innerHTML = '';
+
   for (var i = 0; i < 4; i++) {
-    var sDeger = saatOranlar[i] || 0;
-    if (sDeger === maksSaat) { enYogunDilim = saatAdlar[i]; }
+    var sDeger = n(saatOranlar[i]);
+    if (sDeger === maksSaat && maksSaat > 0) { enYogunDilim = saatAdlar[i] + ' (%' + maksSaat + ')'; }
     var kutu = document.createElement('div');
     kutu.className = 'hour-box' + (sDeger === maksSaat && sDeger > 0 ? ' peak' : '');
     kutu.innerHTML = '<small>' + saatAdlar[i] + '</small><b>%' + sDeger + '</b>';
     hg.appendChild(kutu);
   }
-  $('saatOzet').innerHTML = '<span>En yüksek müşteri trafiği: <b>' + enYogunDilim + ' (%' + maksSaat + ')</b></span>';
+  $('saatOzet').innerHTML = '<span>En yüksek müşteri trafiği: <b>' + enYogunDilim + '</b></span>';
 
   var gunAdlar = ['Pzt', 'Sal', 'Çar', 'Per', 'Cum', 'Cmt', 'Paz'];
   var hm = $('heatmapGrid'); hm.innerHTML = '';
+  var saatlik24 = v.saatlik.tiklama;
+  var maks24 = Math.max.apply(null, saatlik24.concat([1]));
+  var topSaat = topla(saatOranlar);
+
   for (var g = 0; g < 7; g++) {
     var row = document.createElement('div');
     row.className = 'hm-row';
@@ -1944,16 +1974,24 @@ function saatVeIsiHaritasiCiz(v) {
     dSpan.textContent = gunAdlar[g];
     row.appendChild(dSpan);
 
-    for (var s = 0; s < 12; s++) {
-      var dilimIx = Math.floor(s / 3);
-      var baz = saatOranlar[dilimIx] || 15;
-      var tohum = ((g * 7 + s * 13) % 18);
-      var skor = baz + (s >= 5 && s <= 9 ? 12 : 0) - (tohum % 14);
+    for (var s = 0; s < 24; s++) {
+      var dilimIx = Math.floor(s / 6);
+      var dilimYuzde = topSaat > 0 ? n(saatOranlar[dilimIx]) : 0;
+      var saatCanli = n(saatlik24[s]);
       var sinif = 'hm-cell';
-      if (skor > 38) { sinif += ' l4'; }
-      else if (skor > 28) { sinif += ' l3'; }
-      else if (skor > 18) { sinif += ' l2'; }
-      else if (skor > 10) { sinif += ' l1'; }
+
+      if (saatCanli > 0) {
+        var oran24 = saatCanli / maks24;
+        if (oran24 >= 0.75) { sinif += ' l4'; }
+        else if (oran24 >= 0.45) { sinif += ' l3'; }
+        else if (oran24 >= 0.20) { sinif += ' l2'; }
+        else { sinif += ' l1'; }
+      } else if (dilimYuzde > 0) {
+        if (dilimYuzde >= 45) { sinif += ' l3'; }
+        else if (dilimYuzde >= 25) { sinif += ' l2'; }
+        else if (dilimYuzde >= 10) { sinif += ' l1'; }
+      }
+
       var cell = document.createElement('i');
       cell.className = sinif;
       row.appendChild(cell);
@@ -1963,19 +2001,19 @@ function saatVeIsiHaritasiCiz(v) {
 }
 
 /* =====================================================================
-   TEBRİKLER VE VİDEO MODALLARI
+   TEBRİKLER MODALI
    ===================================================================== */
 var konfetiSurum = 0;
 function tebrikAc() {
   if (!son) { return; }
   var m = $('tebrikModal'), metrik = donemMetrikleri(son, seciliDonem), t = metrik.tiklanma;
-  $('tebrikBaslik').textContent = 'Tebrikler!';
+  $('tebrikBaslik').textContent = t > 0 ? 'Tebrikler!' : 'Bilgilendirme';
   $('tebrikSayi').textContent = fmt(t);
-  $('tebrikMetin').textContent = metrik.etiket.toLowerCase() + ' reklamınıza tam ' + fmt(t) + ' kez tıklandı ve ' + fmt(metrik.gosterim) + ' kez görüntülendi.';
+  $('tebrikMetin').textContent = metrik.etiket + ' içerisinde reklamınıza ' + fmt(t) + ' kez tıklandı ve ' + fmt(metrik.gosterim) + ' kez görüntülendi.';
   var a = $('tebrikAra'); a.hidden = !(son.aramalar > 0);
-  if (son.aramalar > 0) { a.textContent = 'Ayrıca ' + fmt(son.aramalar) + ' müşteri doğrudan telefonla aradı.'; }
+  if (son.aramalar > 0) { a.textContent = 'Ayrıca ' + fmt(son.aramalar) + ' müşteri doğrudan telefonla iletişime geçti.'; }
   m.classList.add('on'); m.setAttribute('aria-hidden', 'false');
-  konfetiBaslat();
+  if (t > 0) { konfetiBaslat(); }
 }
 function tebrikKapat() {
   var m = $('tebrikModal'); m.classList.remove('on'); m.setAttribute('aria-hidden', 'true'); konfetiSurum++;
@@ -2000,15 +2038,6 @@ function konfetiBaslat() {
   })(performance.now());
 }
 
-function videoAc() {
-  var vm = $('videoModal'); vm.classList.add('on'); vm.setAttribute('aria-hidden', 'false');
-  var vid = $('tanitimVideo'); if (vid && vid.play) { try { vid.play().catch(function(){}); } catch (e) {} }
-}
-function videoKapat() {
-  var vm = $('videoModal'); vm.classList.remove('on'); vm.setAttribute('aria-hidden', 'true');
-  var vid = $('tanitimVideo'); if (vid && vid.pause) { try { vid.pause(); } catch (e) {} }
-}
-
 /* ---- GÜVENLİ BAĞLANTI ROZETİNE 10 KEZ TIKLAYINCA GİZLİ ÇIKIŞ ---- */
 var gizliTikSayisi = 0, gizliTikZamanlayici = null;
 $('btnGuvenli').addEventListener('click', function () {
@@ -2031,20 +2060,17 @@ $('hpAlan').addEventListener('input', botDurdur);
 $('btnYenile').addEventListener('click', yenile);
 $('btnYayinToggle').addEventListener('click', yayinDegistir);
 $('btnKurulum').addEventListener('click', kurulumTetikle);
-$('kurulumEkle').addEventListener('click', kurulumTetikle);
-$('kurulumKapat').addEventListener('click', function () { depo.yaz(LS.kurulum, '1'); $('kurulumBar').hidden = true; });
 $('errCikis').addEventListener('click', cikis);
 $('lockYenile').addEventListener('click', function () {
   var o = aktifOturum && aktifOturum.tok ? aktifOturum : oturumuOku();
-  if (o && o.tok) { veriYukle(o.id, { tok: o.tok }, {}); } else { goster('loginScreen'); }
+  if (o && o.tok) { veriYukle(o.id, { tok: o.tok }, { taze: true }); } else { goster('loginScreen'); }
 });
 $('errTekrar').addEventListener('click', function () { baslat(); });
 $('btnTiklayanlar').addEventListener('click', tebrikAc);
 $('tebrikKapat').addEventListener('click', tebrikKapat);
 $('tebrikModal').addEventListener('click', function (e) { if (e.target === $('tebrikModal')) { tebrikKapat(); } });
-$('btnVideoAc').addEventListener('click', videoAc);
-$('videoKapat').addEventListener('click', videoKapat);
-$('videoModal').addEventListener('click', function (e) { if (e.target === $('videoModal')) { videoKapat(); } });
+
+$('dBtn0').addEventListener('click', function () { donemSec(0, false); });
 $('dBtn1').addEventListener('click', function () { donemSec(1, false); });
 $('dBtn7').addEventListener('click', function () { donemSec(7, false); });
 $('dBtn30').addEventListener('click', function () { donemSec(30, false); });
