@@ -180,7 +180,7 @@
     .pill{width:34px; padding:0; justify-content:center}
   }
 
-  /* Üst Bar 2. Satır: Kampanya Aç/Kapat Şalteri + Dönem Seçici (Boşluksuz Yan Yana) */
+  /* Üst Bar 2. Satır: Kampanya Aç/Kapat Şalteri + Dönem Seçici */
   .top-row-2{
     display:flex; align-items:center; justify-content:space-between; gap:8px;
     padding-top:6px; border-top:1px solid rgba(120,150,220,.12); flex-wrap:wrap;
@@ -212,7 +212,7 @@
   }
   .donem-seg button.on{background:var(--ads-blue); color:#fff; box-shadow:0 2px 8px rgba(26,115,232,.35)}
 
-  /* Kurulum Bilgilendirme Bandı (Eski Koddaki Orjinal Yapı) */
+  /* Kurulum Bilgilendirme Bandı (Orijinal PWA Yapısı) */
   .kurulum{
     display:flex; align-items:center; gap:8px; flex-wrap:wrap;
     margin:0 0 8px; padding:8px 12px; border-radius:12px;
@@ -225,7 +225,7 @@
     background:rgba(34,211,238,.15); color:#fff; font-size:12px; font-weight:600; cursor:pointer;
   }
 
-  /* 6'lı Google Ads Ana Özet Kartları (Tıklama, Gösterim, TO %, Ort. TBM, Maliyet, Aramalar) */
+  /* 6'lı Google Ads Ana Özet Kartları */
   .stats-6{
     display:grid; grid-template-columns:repeat(6,1fr); gap:7px; margin-bottom:10px;
   }
@@ -267,7 +267,7 @@
   button.stat.click:hover{box-shadow:0 6px 20px rgba(26,115,232,.25)}
   button.stat.click:active{transform:scale(.98)}
 
-  /* Aşağıya Doğru Akıcı Tüm Google Ads Arayüz Panelleri (Sekmesiz, Tam Görünüm) */
+  /* Aşağıya Doğru Akıcı Tüm Google Ads Arayüz Panelleri */
   .cockpit-grid{
     display:grid; grid-template-columns:1fr; gap:10px;
   }
@@ -298,23 +298,29 @@
     color:var(--pale); font-size:12px; display:flex; align-items:center; justify-content:space-between; gap:8px; flex-wrap:wrap;
   }
 
-  /* 2. Arayüz: Kampanyalar & Anahtar Kelimeler Performans Tablosu (Google Ads Kartı) */
-  .ads-table{width:100%; border-collapse:collapse; font-size:12px; margin-top:4px}
-  .ads-table th{
-    text-align:left; color:var(--muted); font-weight:600; font-size:11px;
-    padding:6px 8px; border-bottom:1px solid var(--line);
+  /* 2. Arayüz: Kampanyalar & Anahtar Kelimeler Performans Listesi */
+  .ads-list-wrap{display:flex; flex-direction:column; gap:5px; margin-top:4px}
+  .ads-list-head,.ads-list-row{
+    display:grid; grid-template-columns:minmax(0,1.8fr) repeat(4,minmax(0,1fr));
+    gap:6px; align-items:center; padding:6px 8px; font-size:11.5px;
   }
-  .ads-table th.r,.ads-table td.r{text-align:right; font-variant-numeric:tabular-nums}
-  .ads-table td{padding:7px 8px; border-bottom:1px solid rgba(120,150,220,.08); color:var(--text)}
-  .ads-table tr:last-child td{border-bottom:0}
-  .ads-table .cost-cell{
-    background:rgba(26,115,232,.16); font-weight:600; color:#93c5fd; border-radius:4px;
+  .ads-list-head.kw-cols,.ads-list-row.kw-cols{
+    grid-template-columns:minmax(0,2fr) repeat(3,minmax(0,1fr));
+  }
+  .ads-list-head{color:var(--muted); font-size:10.5px; font-weight:600; border-bottom:1px solid var(--line)}
+  .ads-list-row{border-bottom:1px solid rgba(120,150,220,.08); color:var(--text)}
+  .ads-list-row:last-child{border-bottom:0}
+  .r-align{text-align:right; font-variant-numeric:tabular-nums}
+  .cost-badge{
+    background:rgba(26,115,232,.16); font-weight:600; color:#93c5fd;
+    padding:3px 6px; border-radius:5px; text-align:right; font-variant-numeric:tabular-nums;
   }
   .status-dot{
     display:inline-block; width:8px; height:8px; border-radius:50%;
-    background:var(--good); margin-right:6px; box-shadow:0 0 6px var(--good);
+    background:var(--good); margin-right:6px; box-shadow:0 0 6px var(--good); flex:none;
   }
   .status-dot.off{background:#ef4444; box-shadow:none}
+  .term-title{white-space:nowrap; overflow:hidden; text-overflow:ellipsis; display:flex; align-items:center}
 
   .kw-cloud{display:flex; flex-wrap:wrap; gap:5px; margin-top:10px; padding-top:8px; border-top:1px solid var(--line)}
   .kw-chip{
@@ -414,7 +420,7 @@
   .dev-fill.pc{background:var(--ads-yellow)}
   .dev-fill.tab{background:var(--ads-red)}
 
-  /* 5. Arayüz: Gün ve Saat Performans Isı Haritası (Google Ads Heatmap) */
+  /* 5. Arayüz: Gün ve Saat Performans Isı Haritası */
   .hour-grid{display:grid; grid-template-columns:repeat(4,1fr); gap:6px; margin-bottom:10px}
   .hour-box{
     padding:7px 5px; border-radius:10px; border:1px solid rgba(120,150,220,.15);
@@ -434,12 +440,7 @@
   .hm-cell.l4{background:#22d3ee; box-shadow:0 0 6px rgba(34,211,238,.45)}
   .hm-hours{display:grid; grid-template-columns:28px repeat(4,1fr); font-size:10px; color:var(--muted); margin-top:3px}
 
-  /* ---------- YER KAPLAMAYAN, TIKLANAMAYAN, DOĞRUDAN ARAYÜZ ÜSTÜNDE ÇIKAN `yazi.txt` KATMANI ----------
-     13 saniyelik döngü:
-     - 0.0s - 0.8s (%0 -> %6): Sağdan merkeze gelir
-     - 0.8s - 2.3s (%6 -> %18): Ortada 1.5 saniye sabit bekler
-     - 2.3s - 3.0s (%18 -> %23): Ters istikamete (sağa) kayarak kaybolur
-     - 3.0s - 13.0s (%23 -> %100): 10 saniye boyunca tamamen gizli kalır ve sonsuz döngüde tekrarlar */
+  /* ---------- YER KAPLAMAYAN, TIKLANAMAYAN, DOĞRUDAN ARAYÜZ ÜSTÜNDE ÇIKAN `yazi.txt` KATMANI ---------- */
   .floating-yazi-layer{
     position:fixed; left:0; right:0; bottom:max(14px,env(safe-area-inset-bottom));
     z-index:55; pointer-events:none; user-select:none; -webkit-user-select:none;
@@ -619,7 +620,7 @@
       </div>
     </header>
 
-    <!-- ESKİ KODDAKİ ORİJİNAL KURULUM ÇUBUĞU (Butona basınca veya iOS/Android'de otomatik destek sağlar) -->
+    <!-- ESKİ KODDAKİ ORİJİNAL KURULUM ÇUBUĞU (PC, Android ve iOS Safari Desteği) -->
     <div class="kurulum" id="kurulumBar" hidden>
       <span id="kurulumMetin">Paneli telefonunuzun ana ekranına ekleyin, tek dokunuşla açın.</span>
       <button class="kurulum-btn" id="kurulumEkle" type="button" hidden>Ana Ekrana Ekle</button>
@@ -628,7 +629,7 @@
 
     <div class="demo-bant" id="demoBant" role="status" hidden>ÖRNEK VERİLERLE ÖNİZLEME: Bu rakamlar görünümü göstermek içindir.</div>
 
-    <!-- 2. GRUP: 6'lı Google Ads Tüm Ana Metrikler (Tıklama, Gösterim, TO %, Ort. TBM, Toplam Maliyet, Aramalar) -->
+    <!-- 2. GRUP: 6'lı Google Ads Tüm Ana Metrikler -->
     <div class="stats-6">
       <button class="stat click" id="btnTiklayanlar" type="button" aria-haspopup="dialog">
         <span class="lbl"><span>Tıklamalar</span><i class="dot-i"></i></span>
@@ -685,7 +686,7 @@
         <div class="ozet-bar" id="trendOzet">Veriler analiz ediliyor…</div>
       </section>
 
-      <!-- ARAYÜZ 2: KAMPANYALAR VE ANAHTAR KELİMELER PERFORMANS ÖZETİ (MALİYET, TIKLAMA, TO, TBM) -->
+      <!-- ARAYÜZ 2: KAMPANYALAR VE ANAHTAR KELİMELER PERFORMANS ÖZETİ -->
       <section class="panel-box" aria-label="Kampanyalar ve Anahtar Kelimeler">
         <div>
           <div class="pane-head">
@@ -694,33 +695,27 @@
               <p class="sub">Anahtar kelimelerinizin maliyet, tıklama ve TO (%) performansı</p>
             </div>
           </div>
-          <!-- Kampanya Satırı -->
-          <table class="ads-table" aria-label="Kampanya özeti">
-            <thead>
-              <tr>
-                <th>Kampanya Adı</th>
-                <th class="r">Maliyet</th>
-                <th class="r">Tıklama</th>
-                <th class="r">Ort. TBM</th>
-                <th class="r">TO</th>
-              </tr>
-            </thead>
-            <tbody id="kampanyaTabloGovde"></tbody>
-          </table>
+          <div class="ads-list-wrap" aria-label="Kampanya özeti">
+            <div class="ads-list-head">
+              <span>Kampanya Adı</span>
+              <span class="r-align">Maliyet</span>
+              <span class="r-align">Tıklama</span>
+              <span class="r-align">Ort. TBM</span>
+              <span class="r-align">TO</span>
+            </div>
+            <div id="kampanyaListeGovde"></div>
+          </div>
 
-          <!-- Anahtar Kelimeler Performans Tablosu -->
           <h2 style="font-size:13px; margin:12px 0 4px">🔑 En Çok Tıklanan Anahtar Kelimeler</h2>
-          <table class="ads-table" aria-label="Anahtar kelime performansı">
-            <thead>
-              <tr>
-                <th>Arama Terimi / Kelime</th>
-                <th class="r">Maliyet</th>
-                <th class="r">Tıklamalar</th>
-                <th class="r">TO</th>
-              </tr>
-            </thead>
-            <tbody id="kelimeTabloGovde"></tbody>
-          </table>
+          <div class="ads-list-wrap" aria-label="Anahtar kelime performansı">
+            <div class="ads-list-head kw-cols">
+              <span>Arama Terimi / Kelime</span>
+              <span class="r-align">Maliyet</span>
+              <span class="r-align">Tıklamalar</span>
+              <span class="r-align">TO</span>
+            </div>
+            <div id="kelimeListeGovde"></div>
+          </div>
         </div>
         <div class="kw-cloud" id="chipList"></div>
       </section>
@@ -814,7 +809,7 @@
         </div>
       </section>
 
-      <!-- ARAYÜZ 5: GÜN VE SAAT PERFORMANS ISI HARİTASI (GOOGLE ADS GÜN & SAAT KARTI) -->
+      <!-- ARAYÜZ 5: GÜN VE SAAT PERFORMANS ISI HARİTASI -->
       <section class="panel-box" aria-label="Gün ve Saat Performansı">
         <div>
           <div class="pane-head">
@@ -835,7 +830,7 @@
     </div>
   </div>
 
-  <!-- ============ ALTTAKİ GEREKSİZ BAR KALDIRILDI: DOĞRUDAN ARAYÜZ ÜSTÜNE ÇIKAN, TIKLANAMAYAN `yazi.txt` KATMANI ============ -->
+  <!-- ============ YER KAPLAMAYAN, TIKLANAMAYAN, DOĞRUDAN ARAYÜZ ÜSTÜNE ÇIKAN `yazi.txt` KATMANI ============ -->
   <div class="floating-yazi-layer" aria-hidden="true">
     <div class="floating-yazi-pill" id="tickerMetin">SORUNUZ VARSA BANA ULAŞABİLİRSİNİZ 0534 595 74 44</div>
   </div>
@@ -906,12 +901,13 @@ var YENILEME_ESIGI   = 15 * 60 * 1000;
 var BEKCI_MS         = 26000;
 var YENILE_BEKLEME   = 6000;
 
-var LS = { oturum: 'pnl_oturum', deneme: 'pnl_deneme', ban: 'pnl_ban', veri: 'pnl_veri_v4', kurulum: 'pnl_kurulum_gizle' };
+var LS = { oturum: 'pnl_oturum', deneme: 'pnl_deneme', ban: 'pnl_ban', veri: 'pnl_veri_v5', kurulum: 'pnl_kurulum_gizle' };
 var TOK_DESEN = /^\d{9,14}\.[0-9a-f]{64}$/;
-var VERI_SEMA = 5;
+var VERI_SEMA = 6;
 
 /* =====================================================================
-   81 İL PLAKA SÖZLÜĞÜ VE SEKTÖR OTOMASYON MOTORU
+   81 İL PLAKA SÖZLÜĞÜ VE 7 SEKTÖR OTOMASYON MOTORU
+   (1. Taksi | 2. Rentecar | 3. Oto Çekici | 4. Çilingir | 5. Halı | 6. Berber | 7. Dershane)
    ===================================================================== */
 var PLAKALAR = {
   '01':'Adana','02':'Adıyaman','03':'Afyonkarahisar','04':'Ağrı','05':'Amasya','06':'Ankara','07':'Antalya','08':'Artvin','09':'Aydın','10':'Balıkesir',
@@ -919,7 +915,7 @@ var PLAKALAR = {
   '21':'Diyarbakır','22':'Edirne','23':'Elazığ','24':'Erzincan','25':'Erzurum','26':'Eskişehir','27':'Gaziantep','28':'Giresun','29':'Gümüşhane','30':'Hakkari',
   '31':'Hatay','32':'Isparta','33':'Mersin','34':'İstanbul','35':'İzmir','36':'Kars','37':'Kastamonu','38':'Kayseri','39':'Kırklareli','40':'Kırşehir',
   '41':'Kocaeli','42':'Konya','43':'Kütahya','44':'Malatya','45':'Manisa','46':'Kahramanmaraş','47':'Mardin','48':'Muğla','49':'Muş','50':'Nevşehir',
-  '51':'Niğde','52':'Ordu','53':'Rize','54':'Sakarya','55':'Samsun','56':'Siirt','57':'Sinop','58':'Sivas','58':'Sivas','59':'Tekirdağ','60':'Tokat',
+  '51':'Niğde','52':'Ordu','53':'Rize','54':'Sakarya','55':'Samsun','56':'Siirt','57':'Sinop','58':'Sivas','59':'Tekirdağ','60':'Tokat',
   '61':'Trabzon','62':'Tunceli','63':'Şanlıurfa','64':'Uşak','65':'Van','66':'Yozgat','67':'Zonguldak','68':'Aksaray','69':'Bayburt','70':'Karaman',
   '71':'Kırıkkale','72':'Batman','73':'Şırnak','74':'Bartın','75':'Ardahan','76':'Iğdır','77':'Yalova','78':'Karabük','79':'Kilis','80':'Osmaniye','81':'Düzce'
 };
@@ -941,45 +937,60 @@ function kimlikCozumle(id) {
     }
   }
 
-  var sektor = 'İşletme', arama = sehir.toLocaleLowerCase('tr-TR') + ' hizmet';
-  var rakipAd = 'Referans İşletme', rakipUrl = 'www.referansisletme.com.tr', rakipBaslik = sehir + ' Profesyonel Hizmet';
-  var rakipAciklama = sehir + ' genelinde güvenilir ve profesyonel hizmet arıyorsanız doğru yerdesiniz. Hemen arayın, anında destek alın.';
+  var sehirKucuk = sehir.toLocaleLowerCase('tr-TR');
+  var sektor = 'Taksi', arama = 'taksi ' + sehirKucuk;
+  var rakipAd = 'Referans Taksi', rakipUrl = 'www.referanstaksi.com.tr', rakipBaslik = sehir + ' En İyi Taksi Hizmeti';
+  var rakipAciklama = sehir + ' genelinde güvenilir ve profesyonel taksi arıyorsanız doğru yerdesiniz. Hemen arayın, anında destek alın.';
 
   if (temiz.indexOf('taksi') > -1) {
     sektor = 'Taksi';
-    arama = 'taksi ' + sehir.toLocaleLowerCase('tr-TR');
+    arama = 'taksi ' + sehirKucuk;
     rakipAd = 'Referans Taksi';
     rakipUrl = 'www.referanstaksi.com.tr';
     rakipBaslik = sehir + ' En İyi Taksi Hizmeti';
-    rakipAciklama = sehir + ' genelinde güvenilir ve profesyonel taksi arıyorsanız doğru yerdesiniz. Hemen arayın, anında destek alın.';
-  } else if (temiz.indexOf('cekici') > -1 || temiz.indexOf('kurtarma') > -1 || temiz.indexOf('yol_yardim') > -1) {
+    rakipAciklama = sehir + ' genelinde 7/24 güvenilir ve hızlı taksi arıyorsanız doğru yerdesiniz. Hemen arayın, anında kapınıza gelsin.';
+  } else if (temiz.indexOf('rent') > -1 || temiz.indexOf('arac') > -1 || temiz.indexOf('kiralama') > -1) {
+    sektor = 'Rent a Car';
+    arama = sehirKucuk + ' rent a car';
+    rakipAd = 'Referans Rent a Car';
+    rakipUrl = 'www.referansrentacar.com.tr';
+    rakipBaslik = sehir + ' Güvenilir Araç Kiralama Hizmeti';
+    rakipAciklama = sehir + ' kaskolu, yeni model ve uygun fiyatlı kiralık araçlar. Günlük ve aylık rezervasyon için hemen arayın.';
+  } else if (temiz.indexOf('cekici') > -1 || temiz.indexOf('kurtarma') > -1 || temiz.indexOf('yol') > -1) {
     sektor = 'Oto Çekici';
-    arama = sehir.toLocaleLowerCase('tr-TR') + ' oto çekici';
+    arama = sehirKucuk + ' oto çekici';
     rakipAd = 'Referans Oto Çekici';
     rakipUrl = 'www.referansotocekici.com.tr';
     rakipBaslik = sehir + ' 7/24 Oto Çekici ve Yol Yardım';
     rakipAciklama = sehir + ' ve çevresinde 7/24 hızlı oto çekici ve kurtarıcı hizmeti. En yakın çekici için hemen arayın.';
+  } else if (temiz.indexOf('cilingir') > -1 || temiz.indexOf('anahtar') > -1) {
+    sektor = 'Çilingir';
+    arama = sehirKucuk + ' nöbetçi çilingir';
+    rakipAd = 'Referans Çilingir';
+    rakipUrl = 'www.referanscilingir.com.tr';
+    rakipBaslik = sehir + ' 7/24 Acil Çilingir ve Anahtarcı';
+    rakipAciklama = sehir + ' genelinde 15 dakikada kapınızda, hasarsız kapı açma, çelik kapı ve oto çilingir hizmeti. Hemen arayın.';
+  } else if (temiz.indexOf('hali') > -1 || temiz.indexOf('yikama') > -1 || temiz.indexOf('koltuk') > -1) {
+    sektor = 'Halı Yıkama';
+    arama = sehirKucuk + ' halı yıkama';
+    rakipAd = 'Referans Halı Yıkama';
+    rakipUrl = 'www.referanshaliyikama.com.tr';
+    rakipBaslik = sehir + ' Profesyonel Halı ve Koltuk Yıkama';
+    rakipAciklama = sehir + ' ücretsiz servis, bitkisel şampuan ve tam otomatik makinelerle hijyenik halı yıkama. Hemen randevu alın.';
+  } else if (temiz.indexOf('berber') > -1 || temiz.indexOf('kuafor') > -1 || temiz.indexOf('sac') > -1) {
+    sektor = 'Berber';
+    arama = sehirKucuk + ' en iyi berber';
+    rakipAd = 'Referans Berber & Kuaför';
+    rakipUrl = 'www.referansberber.com.tr';
+    rakipBaslik = sehir + ' Profesyonel Saç ve Sakal Tasarımı';
+    rakipAciklama = sehir + ' modern saç kesimi, sakal tasarımı ve cilt bakımında uzman kadro. Randevu için hemen arayın.';
   } else if (temiz.indexOf('dershane') > -1 || temiz.indexOf('egitim') > -1 || temiz.indexOf('kurs') > -1) {
-    sektor = 'Eğitim Merkezi';
-    arama = sehir.toLocaleLowerCase('tr-TR') + ' dershane';
-    rakipAd = 'Referans Eğitim Kurumu';
-    rakipUrl = 'www.referansegitim.com.tr';
-    rakipBaslik = sehir + ' En Başarılı Eğitim ve Kurs Merkezi';
-    rakipAciklama = sehir + ' uzman kadrosuyla sınavlara hazırlıkta doğru adres. Kayıt ve bilgi için hemen iletişime geçin.';
-  } else if (temiz.indexOf('rent') > -1 || temiz.indexOf('arac') > -1 || temiz.indexOf('oto_kiralama') > -1) {
-    sektor = 'Rent a Car';
-    arama = sehir.toLocaleLowerCase('tr-TR') + ' araç kiralama';
-    rakipAd = 'Referans Rent a Car';
-    rakipUrl = 'www.referansrentacar.com.tr';
-    rakipBaslik = sehir + ' Güvenilir Araç Kiralama';
-    rakipAciklama = sehir + ' kaskolu, yeni model ve uygun fiyatlı kiralık araçlar. Rezervasyon için hemen arayın.';
-  } else if (temiz.indexOf('dugun') > -1 || temiz.indexOf('davet') > -1 || temiz.indexOf('balo') > -1) {
-    sektor = 'Düğün Salonu';
-    arama = sehir.toLocaleLowerCase('tr-TR') + ' düğün salonu';
-    rakipAd = 'Referans Düğün Salonu';
-    rakipUrl = 'www.referansdugunsalonu.com.tr';
-    rakipBaslik = sehir + ' En Şık Düğün ve Davet Salonu';
-    rakipAciklama = sehir + ' unutulmaz organizasyonlar ve erken rezervasyon fırsatları için hemen arayın.';
+    sektor = 'Dershane';
+    arama = sehirKucuk + ' dershane';
+    rakipAd = 'Referans Dershane';
+    rakipUrl = 'www.referansdershane.com.tr';
+    rakipBaslik = sehir + ' En Başarılı Dershane ve Kurs Merkezi';
+    rakipAciklama = sehir + ' uzman öğretmen kadrosu, birebir etüt ve Türkiye geneli deneme sınavlarıyla başarıya ulaşın. Hemen arayın.';
   }
 
   return {
@@ -1009,6 +1020,7 @@ function fmt(x) { return Math.round(n(x)).toLocaleString('tr-TR'); }
 function fmtPara(x) {
   return '₺' + n(x).toLocaleString('tr-TR', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
 }
+function topla(a) { return Array.isArray(a) ? a.reduce(function (s, x) { return s + n(x); }, 0) : 0; }
 function bekle(ms) { return new Promise(function (r) { setTimeout(r, ms); }); }
 function hareketAzalt() { try { return !!(window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches); } catch (e) { return false; } }
 function trNorm(s) {
@@ -1107,7 +1119,6 @@ function kurulumTetikle() {
     $('kurulumBar').hidden = true;
     return;
   }
-  // iOS Safari veya tarayıcıda butona basıldığında eski koddaki sabit bilgilendirme çubuğunu açar
   var bar = $('kurulumBar');
   if (iosMu()) {
     $('kurulumMetin').textContent = 'Ana ekrana eklemek için Safari\'de Paylaş düğmesine, sonra "Ana Ekrana Ekle"ye dokunun.';
@@ -1248,7 +1259,7 @@ async function altYaziYukle() {
 }
 
 /* =====================================================================
-   API İLETİŞİMİ VE VERİ DÜZENLEME (MALİYET VE TBM DAHİL)
+   API İLETİŞİMİ VE VERİ DÜZENLEME
    ===================================================================== */
 function apiAyarliMi() { return API_URL && API_URL.indexOf('BURAYA_') === -1 && /^https:\/\//.test(API_URL); }
 
@@ -1314,9 +1325,9 @@ function duzenle(v) {
       kadin: n(dm.kadin),
       erkek: n(dm.erkek),
       yasBaskin: String(dm.yas || '25-34'),
-      yasDagilim: Array.isArray(dm.yas_dagilim) && dm.yas_dagilim.length === 6 ? dm.yas_dagilim.map(n) : [14, 38, 24, 13, 7, 4]
+      yasDagilim: (Array.isArray(dm.yas_dagilim) && dm.yas_dagilim.length === 6 && topla(dm.yas_dagilim) > 0) ? dm.yas_dagilim.map(n) : [14, 38, 24, 13, 7, 4]
     },
-    saatDagilim: Array.isArray(v.saat_dagilim) && v.saat_dagilim.length === 4 ? v.saat_dagilim.map(n) : [8, 30, 42, 20],
+    saatDagilim: (Array.isArray(v.saat_dagilim) && v.saat_dagilim.length === 4 && topla(v.saat_dagilim) > 0) ? v.saat_dagilim.map(n) : [8, 30, 42, 20],
     kelimeler: Array.isArray(v.kelimeler) ? v.kelimeler.map(String).filter(Boolean).slice(0, 6) : [],
     gunluk: { baslangic: String(g.baslangic || ''), tiklama: dizi(g.tiklama), gosterim: dizi(g.gosterim) },
     guncelleme: String(v.guncelleme || '')
@@ -1519,7 +1530,7 @@ async function yayinDegistir() {
   if (/_/.test(ad) && !/\s/.test(ad)) { ad = guzelAd(ad); }
   var info = kimlikCozumle(son.id || URL_ID);
   yayinArayuzGuncelle(yeniAcik, ad, info);
-  kampanyaTablosuCiz(son, donemMetrikleri(son, seciliDonem));
+  kampanyaListesiCiz(son, donemMetrikleri(son, seciliDonem));
 
   if (DEMO || !aktifOturum || !aktifOturum.tok) { return; }
   btn.disabled = true;
@@ -1530,7 +1541,7 @@ async function yayinDegistir() {
   } catch (e) {
     son.yayinAcik = eskiAcik;
     yayinArayuzGuncelle(eskiAcik, ad, info);
-    kampanyaTablosuCiz(son, donemMetrikleri(son, seciliDonem));
+    kampanyaListesiCiz(son, donemMetrikleri(son, seciliDonem));
   } finally {
     setTimeout(function () { btn.disabled = false; }, 500);
   }
@@ -1555,7 +1566,7 @@ function demoVeri() {
     id: URL_ID || 'taksi_44_1', isletme: 'Şahin Taksi', telefon: '0534 595 74 44',
     gosterim: topGos, tiklanma: topTik, to: Number((topTik / topGos * 100).toFixed(2)),
     maliyet: malOrnek, tbm: tbmOrnek, aramalar: 42,
-    cihaz: { mobil: 95, pc: 5, tablet: 0 },
+    cihaz: { mobil: 97, pc: 3, tablet: 0 },
     demografi: { kadin: 51, erkek: 49, yas: '25-34', yas_dagilim: [16, 39, 23, 12, 6, 4] },
     saat_dagilim: [9, 29, 41, 21],
     kelimeler: ['malatya taksi:49', 'taksi malatya:22', 'maşti taksi:7', 'fahri kayahan taksi:7', 'malatya taksi:5'],
@@ -1601,6 +1612,12 @@ async function yenile() {
   setTimeout(function () { b.disabled = false; yenileKilit = false; }, YENILE_BEKLEME);
 }
 
+function tazeleGerekirse() {
+  if (aktifOturum && aktifOturum.tok && !durduruldu && $('dashScreen').classList.contains('on') && Date.now() - sonYukleme > YENILEME_ESIGI) {
+    veriYukle(aktifOturum.id, { tok: aktifOturum.tok }, { sessiz: true });
+  }
+}
+
 /* =====================================================================
    PANEL ÇİZİMİ VE DÖNEM HESAPLAMALARI (TBM VE MALİYET DAHİL)
    ===================================================================== */
@@ -1615,8 +1632,6 @@ function sayarakYukselt(el, hedef, sure, animasyon) {
     if (o < 1) { window.requestAnimationFrame(adim); } else { el.textContent = fmt(hedef); }
   })(t0);
 }
-
-function topla(a) { return a.reduce(function (s, x) { return s + n(x); }, 0); }
 
 function donemMetrikleri(v, gunSayisi) {
   var gt = (v.gunluk && Array.isArray(v.gunluk.tiklama)) ? v.gunluk.tiklama : [];
@@ -1656,7 +1671,7 @@ function donemSec(gun, sessiz) {
   $('vMaliyet').textContent = fmtPara(m.maliyet);
 
   googleAdsGrafikCiz(son.gunluk, gun === 1 ? 7 : gun);
-  kampanyaTablosuCiz(son, m);
+  kampanyaListesiCiz(son, m);
 }
 
 function panoyuCiz(v, sessiz) {
@@ -1675,7 +1690,7 @@ function panoyuCiz(v, sessiz) {
     $('vAramalar').textContent = fmt(v.aramalar);
     $('ftAltinciKart').textContent = 'Doğrudan arayan müşteri';
   } else {
-    var mobYuzde = v.cihaz.mobil > 0 ? v.cihaz.mobil : 95;
+    var mobYuzde = v.cihaz.mobil > 0 ? v.cihaz.mobil : 97;
     $('lblAltinciKart').textContent = 'Mobil Erişim Oranı';
     $('vAramalar').textContent = '%' + mobYuzde;
     $('ftAltinciKart').textContent = 'Cepten ulaşan müşteriler';
@@ -1806,17 +1821,17 @@ function googleAdsGrafikCiz(g, gunSayisi) {
   });
 }
 
-/* ---- ARAYÜZ 2: KAMPANYALAR VE ANAHTAR KELİMELER TABLOSU (MALİYET, TIKLAMA, TBM, TO) ---- */
-function kampanyaTablosuCiz(v, m) {
+/* ---- ARAYÜZ 2: KAMPANYALAR VE ANAHTAR KELİMELER LİSTESİ (MALİYET, TIKLAMA, TBM, TO) ---- */
+function kampanyaListesiCiz(v, m) {
   var info = kimlikCozumle(v.id || URL_ID);
-  var kg = $('kampanyaTabloGovde');
-  kg.innerHTML = '<tr>' +
-    '<td><span class="status-dot' + (v.yayinAcik ? '' : ' off') + '"></span><b>Web Reklam 1 (' + info.sehir + ')</b></td>' +
-    '<td class="r cost-cell">' + fmtPara(m.maliyet) + '</td>' +
-    '<td class="r num"><b>' + fmt(m.tiklanma) + '</b></td>' +
-    '<td class="r num">' + fmtPara(m.tbm) + '</td>' +
-    '<td class="r num">%' + m.to.toFixed(2).replace('.', ',') + '</td>' +
-  '</tr>';
+  var kg = $('kampanyaListeGovde');
+  kg.innerHTML = '<div class="ads-list-row">' +
+    '<span class="term-title"><span class="status-dot' + (v.yayinAcik ? '' : ' off') + '"></span><b>Web Reklam 1 (' + info.sehir + ')</b></span>' +
+    '<span class="cost-badge">' + fmtPara(m.maliyet) + '</span>' +
+    '<span class="r-align num"><b>' + fmt(m.tiklanma) + '</b></span>' +
+    '<span class="r-align num">' + fmtPara(m.tbm) + '</span>' +
+    '<span class="r-align num">%' + m.to.toFixed(2).replace('.', ',') + '</span>' +
+  '</div>';
 
   var kList = v.kelimeler.length ? v.kelimeler : [
     info.arama + ':49',
@@ -1824,12 +1839,12 @@ function kampanyaTablosuCiz(v, m) {
     info.sehir.toLocaleLowerCase('tr-TR') + ' en yakın ' + info.sektor.toLocaleLowerCase('tr-TR') + ':7'
   ];
 
-  var kwGovde = $('kelimeTabloGovde');
+  var kwGovde = $('kelimeListeGovde');
   var cl = $('chipList');
   kwGovde.innerHTML = '';
   cl.innerHTML = '';
 
-  var birimTbm = m.tbm > 0 ? m.tbm : 18.20;
+  var birimTbm = m.tbm > 0 ? m.tbm : 19.42;
   kList.forEach(function (item, idx) {
     var parca = String(item).split(':');
     var adK = parca[0].trim();
@@ -1837,12 +1852,13 @@ function kampanyaTablosuCiz(v, m) {
     var kelimeMaliyet = tikSayi * birimTbm;
     var kelimeTo = Math.min(38.9, Math.max(6.4, (m.to || 9.6) + (idx % 2 === 0 ? 1.8 : -1.2)));
 
-    var tr = document.createElement('tr');
-    tr.innerHTML = '<td><span class="status-dot"></span>"' + adK + '"</td>' +
-                   '<td class="r cost-cell">' + fmtPara(kelimeMaliyet) + '</td>' +
-                   '<td class="r num"><b>' + fmt(tikSayi) + '</b></td>' +
-                   '<td class="r num">%' + kelimeTo.toFixed(2).replace('.', ',') + '</td>';
-    kwGovde.appendChild(tr);
+    var row = document.createElement('div');
+    row.className = 'ads-list-row kw-cols';
+    row.innerHTML = '<span class="term-title"><span class="status-dot"></span>"' + adK + '"</span>' +
+                    '<span class="cost-badge">' + fmtPara(kelimeMaliyet) + '</span>' +
+                    '<span class="r-align num"><b>' + fmt(tikSayi) + '</b></span>' +
+                    '<span class="r-align num">%' + kelimeTo.toFixed(2).replace('.', ',') + '</span>';
+    kwGovde.appendChild(row);
 
     var chip = document.createElement('span');
     chip.className = 'kw-chip';
@@ -1894,7 +1910,7 @@ function demografiVeCihazCiz(v) {
 
   var m = v.cihaz.mobil, p = v.cihaz.pc, t = v.cihaz.tablet;
   var top = m + p + t;
-  if (top <= 0) { m = 95; p = 5; t = 0; top = 100; }
+  if (top <= 0) { m = 97; p = 3; t = 0; top = 100; }
   var mY = Math.round(m / top * 100), pY = Math.round(p / top * 100), tY = Math.max(0, 100 - mY - pY);
   $('txtMobil').textContent = '%' + mY; $('barMobil').style.width = mY + '%';
   $('txtPc').textContent = '%' + pY; $('barPc').style.width = pY + '%';
@@ -2034,7 +2050,10 @@ $('dBtn7').addEventListener('click', function () { donemSec(7, false); });
 $('dBtn30').addEventListener('click', function () { donemSec(30, false); });
 
 window.addEventListener('offline', function () { $('offlineOverlay').classList.add('on'); });
-window.addEventListener('online', function () { $('offlineOverlay').classList.remove('on'); });
+window.addEventListener('online', function () { $('offlineOverlay').classList.remove('on'); tazeleGerekirse(); });
+document.addEventListener('visibilitychange', function () { if (!document.hidden) { tazeleGerekirse(); } });
+window.addEventListener('pageshow', function (e) { if (e.persisted) { tazeleGerekirse(); } });
+setInterval(tazeleGerekirse, 60000);
 
 window.__panelHazir = true;
 if (QS.get('sifirla') === '1') {
