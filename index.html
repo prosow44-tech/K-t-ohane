@@ -26,14 +26,15 @@
     --bg:#050914; --text:#eaf0ff; --muted:#8fa0c4; --line:rgba(120,150,220,.18);
     --accent:#1a73e8; --accent2:#22d3ee; --pale:#a5c3fb; --deep:#1e3a8a;
     --ads-blue:#1a73e8; --ads-red:#d93025; --ads-yellow:#fbbc04; --ads-green:#1e8e3e;
+    --ads-purple:#9334e6; --ads-cyan:#12b5cb;
     --good:#22c55e; --bad:#ef4444;
-    --r-lg:20px; --r-md:14px;
+    --r-lg:18px; --r-md:12px;
   }
   *{box-sizing:border-box}
   html{-webkit-text-size-adjust:100%}
   body{
     margin:0; color:var(--text); min-height:100vh; min-height:100dvh; overflow-x:hidden;
-    font:400 15px/1.45 'IBM Plex Sans',system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;
+    font:400 14.5px/1.45 'IBM Plex Sans',system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;
     background:
       radial-gradient(950px 620px at 15% -10%, rgba(26,115,232,.24), transparent 60%),
       radial-gradient(850px 580px at 100% 10%, rgba(30,58,138,.28), transparent 55%),
@@ -52,179 +53,191 @@
   #fx{position:fixed; inset:0; z-index:0; pointer-events:none}
   .screen{position:relative; z-index:1; display:none; min-height:100vh; min-height:100dvh}
   .screen.on{display:block}
-  .screen.center.on{display:flex; align-items:center; justify-content:center; padding:20px}
+  .screen.center.on{display:flex; align-items:center; justify-content:center; padding:18px}
 
   /* ---------- Ortak Kart ve Butonlar ---------- */
   .card{
-    width:100%; max-width:400px; text-align:center; padding:28px 24px;
+    width:100%; max-width:390px; text-align:center; padding:26px 22px;
     background:linear-gradient(180deg,rgba(16,26,52,.92),rgba(8,14,30,.92));
     border:1px solid var(--line); border-radius:var(--r-lg);
     box-shadow:0 28px 65px rgba(0,0,0,.55);
   }
-  .card h1{font-size:21px; line-height:1.25; margin:14px 0 6px}
-  .card .lead{margin:0 0 18px; color:var(--muted); font-size:14.5px}
+  .card h1{font-size:20px; line-height:1.25; margin:12px 0 6px}
+  .card .lead{margin:0 0 16px; color:var(--muted); font-size:14px}
   .card .lead b{color:var(--text); font-weight:600}
-  .card .foot{margin:14px 0 0; color:var(--muted); font-size:12px}
+  .card .foot{margin:12px 0 0; color:var(--muted); font-size:12px}
   .logo-badge{
-    width:54px; height:54px; margin:0 auto; border-radius:16px; display:grid; place-items:center;
+    width:52px; height:52px; margin:0 auto; border-radius:15px; display:grid; place-items:center;
     background:linear-gradient(155deg,var(--accent),var(--deep));
-    box-shadow:0 12px 28px rgba(26,115,232,.4);
+    box-shadow:0 10px 26px rgba(26,115,232,.4);
   }
-  .logo-badge svg{width:26px; height:26px}
+  .logo-badge svg{width:25px; height:25px}
   .btn{
-    width:100%; min-height:46px; border:0; border-radius:var(--r-md); padding:12px 18px; cursor:pointer;
-    font-weight:600; font-size:15px; transition:transform .12s, box-shadow .2s, opacity .2s;
+    width:100%; min-height:44px; border:0; border-radius:var(--r-md); padding:11px 16px; cursor:pointer;
+    font-weight:600; font-size:14.5px; transition:transform .12s, box-shadow .2s, opacity .2s;
   }
   .btn:active{transform:scale(.985)}
   .btn:disabled{opacity:.45; cursor:not-allowed; transform:none}
-  .btn.primary{color:#fff; background:linear-gradient(155deg,#1a73e8,#1557b0); box-shadow:0 10px 24px rgba(26,115,232,.35)}
+  .btn.primary{color:#fff; background:linear-gradient(155deg,#1a73e8,#1557b0); box-shadow:0 8px 22px rgba(26,115,232,.35)}
   .btn.ghost{background:transparent; border:1px solid var(--line); color:var(--pale)}
-  .btn + .btn{margin-top:10px}
-  .msg{min-height:20px; margin:8px 0 12px; font-size:13px; color:var(--muted)}
+  .btn + .btn{margin-top:8px}
+  .msg{min-height:18px; margin:6px 0 10px; font-size:12.5px; color:var(--muted)}
   .msg.err{color:#fca5a5}
 
-  /* ---------- İskelet Yükleyici (Skeleton UI) ---------- */
-  .boot-wrap{width:100%; max-width:520px; padding:16px}
-  .boot-head{display:flex; align-items:center; gap:12px; margin-bottom:16px}
+  /* ---------- İskelet Yükleyici ---------- */
+  .boot-wrap{width:100%; max-width:500px; padding:14px}
+  .boot-head{display:flex; align-items:center; gap:10px; margin-bottom:14px}
   .sk-box{
     background:linear-gradient(90deg, rgba(26,42,80,.48) 25%, rgba(26,115,232,.25) 50%, rgba(26,42,80,.48) 75%);
     background-size:200% 100%; animation:shimmer 1.4s infinite;
-    border-radius:14px; border:1px solid rgba(120,150,220,.14);
+    border-radius:12px; border:1px solid rgba(120,150,220,.14);
   }
   @keyframes shimmer{0%{background-position:200% 0} 100%{background-position:-200% 0}}
-  .sk-avatar{width:44px; height:44px; border-radius:12px; flex:none}
-  .sk-title{height:16px; width:150px; border-radius:6px; margin-bottom:7px}
-  .sk-sub{height:11px; width:210px; border-radius:5px}
-  .sk-grid{display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-bottom:12px}
-  .sk-stat{height:82px; border-radius:14px}
-  .sk-panel{height:240px; border-radius:18px; margin-bottom:12px}
-  .boot-status{display:flex; align-items:center; justify-content:center; gap:10px; margin-top:8px; color:var(--pale); font-size:13.5px}
-  .ring-mini{width:17px; height:17px; border-radius:50%; border:2px solid rgba(165,195,251,.25); border-top-color:var(--accent); animation:spin .85s linear infinite}
+  .sk-avatar{width:40px; height:40px; border-radius:10px; flex:none}
+  .sk-title{height:15px; width:140px; border-radius:6px; margin-bottom:6px}
+  .sk-sub{height:10px; width:190px; border-radius:5px}
+  .sk-grid{display:grid; grid-template-columns:1fr 1fr; gap:8px; margin-bottom:10px}
+  .sk-stat{height:74px; border-radius:12px}
+  .sk-panel{height:210px; border-radius:16px; margin-bottom:10px}
+  .boot-status{display:flex; align-items:center; justify-content:center; gap:8px; margin-top:6px; color:var(--pale); font-size:13px}
+  .ring-mini{width:16px; height:16px; border-radius:50%; border:2px solid rgba(165,195,251,.25); border-top-color:var(--accent); animation:spin .85s linear infinite}
   @keyframes spin{to{transform:rotate(360deg)}}
 
   /* ---------- Giriş Ekranı ---------- */
   .pin{
-    width:100%; padding:15px 12px 15px 22px; border-radius:14px; border:1px solid var(--line);
+    width:100%; padding:14px 10px 14px 20px; border-radius:12px; border:1px solid var(--line);
     background:rgba(5,9,20,.78); color:var(--text); outline:none; text-align:center; text-indent:.1em;
-    font:600 26px/1 'Space Grotesk',monospace; letter-spacing:.36em; font-variant-numeric:tabular-nums;
+    font:600 25px/1 'Space Grotesk',monospace; letter-spacing:.35em; font-variant-numeric:tabular-nums;
   }
-  .pin:focus{border-color:var(--accent); box-shadow:0 0 0 4px rgba(26,115,232,.22)}
-  .pin::placeholder{letter-spacing:0; font:400 14.5px 'IBM Plex Sans',sans-serif; color:var(--muted)}
-  .dots{display:flex; gap:8px; justify-content:center; margin:12px 0 4px}
+  .pin:focus{border-color:var(--accent); box-shadow:0 0 0 3px rgba(26,115,232,.22)}
+  .pin::placeholder{letter-spacing:0; font:400 14px 'IBM Plex Sans',sans-serif; color:var(--muted)}
+  .dots{display:flex; gap:7px; justify-content:center; margin:10px 0 4px}
   .dots i{width:8px; height:8px; border-radius:50%; background:rgba(143,160,196,.28); transition:.15s}
-  .dots i.on{background:var(--accent); box-shadow:0 0 10px rgba(26,115,232,.75)}
+  .dots i.on{background:var(--accent); box-shadow:0 0 9px rgba(26,115,232,.75)}
   .hp{position:absolute; left:-9999px; top:auto; width:1px; height:1px; opacity:0; pointer-events:none}
 
-  .icon-box{width:54px; height:54px; margin:0 auto; border-radius:15px; display:grid; place-items:center}
-  .icon-box svg{width:26px; height:26px}
+  .icon-box{width:50px; height:50px; margin:0 auto; border-radius:14px; display:grid; place-items:center}
+  .icon-box svg{width:24px; height:24px}
   .icon-box.red{background:rgba(239,68,68,.15)}
   .icon-box.blue{background:rgba(26,115,232,.18)}
   .card.danger{border-color:rgba(239,68,68,.42)}
-  .kod{display:inline-block; margin-top:10px; padding:4px 10px; border-radius:8px; background:rgba(143,160,196,.12); color:var(--muted); font-size:11.5px}
+  .kod{display:inline-block; margin-top:8px; padding:3px 9px; border-radius:7px; background:rgba(143,160,196,.12); color:var(--muted); font-size:11px}
 
-  /* ---------- Ana Kokpit (Düzenli, Sıkı, Tek Ekran Odaklı) ---------- */
+  /* ---------- Ana Kokpit (Sıkılaştırılmış, Boşluksuz, Tasarruflu) ---------- */
   .wrap{
-    max-width:1140px; margin:0 auto;
-    padding:max(10px,env(safe-area-inset-top)) 12px calc(68px + env(safe-area-inset-bottom));
+    max-width:1120px; margin:0 auto;
+    padding:max(8px,env(safe-area-inset-top)) 10px max(24px,env(safe-area-inset-bottom));
   }
 
-  /* 1. Katman: Üst Kimlik + Son Güncelleme + İkon Butonlar */
-  .top{
-    display:flex; align-items:center; justify-content:space-between; gap:10px;
-    padding:8px 12px; border-radius:16px; border:1px solid var(--line);
-    background:rgba(11,19,40,.82); -webkit-backdrop-filter:blur(10px); backdrop-filter:blur(10px);
-    margin-bottom:10px;
+  /* ÜST MENÜ: Boşlukları Alınmış Tek Parça Kompakt Kokpit Barı */
+  .top-compact{
+    display:flex; flex-direction:column; gap:7px;
+    padding:8px 10px; border-radius:14px; border:1px solid var(--line);
+    background:rgba(11,19,40,.86); -webkit-backdrop-filter:blur(10px); backdrop-filter:blur(10px);
+    margin-bottom:8px;
   }
-  .brand{display:flex; align-items:center; gap:10px; min-width:0; flex:1}
+  .top-row-1{
+    display:flex; align-items:center; justify-content:space-between; gap:8px;
+  }
+  .brand{display:flex; align-items:center; gap:8px; min-width:0; flex:1}
   .badge{
-    width:42px; height:42px; flex:none; border-radius:12px; display:grid; place-items:center;
-    font:700 16px 'Space Grotesk',sans-serif; background:linear-gradient(155deg,var(--accent),var(--deep));
-    box-shadow:0 6px 18px rgba(26,115,232,.35); color:#fff;
+    width:36px; height:36px; flex:none; border-radius:10px; display:grid; place-items:center;
+    font:700 14px 'Space Grotesk',sans-serif; background:linear-gradient(155deg,var(--accent),var(--deep));
+    box-shadow:0 4px 14px rgba(26,115,232,.35); color:#fff;
   }
   .brand-txt{min-width:0; flex:1}
-  .brand-row{display:flex; align-items:center; gap:7px; flex-wrap:wrap}
-  .brand b{font:600 16px/1.2 'Space Grotesk',sans-serif; white-space:nowrap; overflow:hidden; text-overflow:ellipsis}
+  .brand-row{display:flex; align-items:center; gap:6px; flex-wrap:nowrap}
+  .brand b{font:600 15px/1.15 'Space Grotesk',sans-serif; white-space:nowrap; overflow:hidden; text-overflow:ellipsis}
   .city-tag{
-    display:inline-flex; align-items:center; padding:2px 8px; border-radius:999px;
+    display:inline-flex; align-items:center; padding:1.5px 7px; border-radius:999px;
     background:rgba(26,115,232,.2); border:1px solid rgba(26,115,232,.4);
-    color:var(--pale); font-size:11px; font-weight:600; white-space:nowrap;
+    color:var(--pale); font-size:10.5px; font-weight:600; white-space:nowrap; flex:none;
   }
   .update-top{
-    display:block; margin-top:2px; color:#93c5fd; font-size:11.5px; font-weight:500;
+    display:block; margin-top:1px; color:#93c5fd; font-size:10.5px; font-weight:500;
     white-space:nowrap; overflow:hidden; text-overflow:ellipsis;
   }
-  .top-r{display:flex; align-items:center; gap:6px; flex:none}
+  .top-r{display:flex; align-items:center; gap:5px; flex:none}
   .pill{
-    display:inline-flex; align-items:center; gap:6px; min-height:38px; padding:0 11px;
+    display:inline-flex; align-items:center; gap:5px; height:34px; padding:0 10px;
     border-radius:999px; border:1px solid rgba(34,197,94,.35); background:rgba(34,197,94,.1);
-    color:#86efac; font-size:12px; font-weight:600; white-space:nowrap; cursor:pointer;
+    color:#86efac; font-size:11.5px; font-weight:600; white-space:nowrap; cursor:pointer;
   }
-  .pill svg{width:14px; height:14px; flex:none}
+  .pill svg{width:13px; height:13px; flex:none}
   .pill:active{transform:scale(.96)}
   .mini{
-    width:38px; height:38px; border:1px solid var(--line); background:rgba(16,26,52,.75);
+    width:34px; height:34px; border:1px solid var(--line); background:rgba(16,26,52,.8);
     color:var(--pale); padding:0; border-radius:999px; display:grid; place-items:center; cursor:pointer;
-    transition:background .15s, color .15s, transform .12s;
+    transition:background .15s, color .15s, transform .12s; flex:none;
   }
-  .mini:hover{color:#fff; background:rgba(26,115,232,.25)}
+  .mini:hover{color:#fff; background:rgba(26,115,232,.28)}
   .mini:active{transform:scale(.94)}
   .mini:disabled{opacity:.5; cursor:default}
-  .mini svg{width:17px; height:17px}
+  .mini svg{width:15px; height:15px}
   .mini.yukleniyor svg{animation:spin .8s linear infinite}
-  @media (max-width:560px){
+  @media (max-width:520px){
     .pill span{display:none}
-    .pill{width:38px; padding:0; justify-content:center}
-    .update-top{font-size:10.5px}
+    .pill{width:34px; padding:0; justify-content:center}
   }
 
-  /* 2. Katman: Google Ads Yayın Şalteri & Dönem Seçici */
-  .ctrl-bar{
-    display:grid; grid-template-columns:1fr auto; align-items:center; gap:8px;
-    margin-bottom:10px; padding:8px 12px; border-radius:15px;
-    border:1px solid var(--line); background:rgba(12,20,42,.78);
+  /* Üst Bar 2. Satır: Kampanya Aç/Kapat Şalteri + Dönem Seçici (Boşluksuz Yan Yana) */
+  .top-row-2{
+    display:flex; align-items:center; justify-content:space-between; gap:8px;
+    padding-top:6px; border-top:1px solid rgba(120,150,220,.12); flex-wrap:wrap;
   }
-  .ad-switch-wrap{display:flex; align-items:center; gap:10px; min-width:0}
+  .ad-switch-wrap{display:flex; align-items:center; gap:8px; min-width:0}
   .ad-toggle{
-    position:relative; width:46px; height:26px; border-radius:999px; border:0; cursor:pointer;
+    position:relative; width:42px; height:24px; border-radius:999px; border:0; cursor:pointer;
     background:var(--good); transition:background .25s; flex:none; padding:0;
     box-shadow:inset 0 1px 3px rgba(0,0,0,.35);
   }
   .ad-toggle::after{
-    content:""; position:absolute; top:3px; left:3px; width:20px; height:20px;
+    content:""; position:absolute; top:3px; left:3px; width:18px; height:18px;
     border-radius:50%; background:#fff; transition:transform .25s cubic-bezier(.4,0,.2,1);
-    box-shadow:0 2px 5px rgba(0,0,0,.3);
+    box-shadow:0 2px 4px rgba(0,0,0,.3);
   }
-  .ad-toggle.on::after{transform:translateX(20px)}
+  .ad-toggle.on::after{transform:translateX(18px)}
   .ad-toggle.off{background:#64748b}
   .ad-toggle.off::after{transform:translateX(0)}
   .ad-toggle:disabled{opacity:.55; cursor:wait}
-  .switch-info{min-width:0}
-  .switch-lbl{display:block; font-size:12px; font-weight:600; color:var(--text); line-height:1.2}
-  .switch-sub{display:block; font-size:11px; color:var(--good); font-weight:500; white-space:nowrap; overflow:hidden; text-overflow:ellipsis}
+  .switch-info{display:flex; align-items:center; gap:6px; min-width:0; flex-wrap:wrap}
+  .switch-lbl{font-size:11.5px; font-weight:600; color:var(--text); white-space:nowrap}
+  .switch-sub{font-size:11px; color:var(--good); font-weight:600; white-space:nowrap}
   .switch-sub.paused{color:#fca5a5}
 
-  .donem-seg{display:inline-flex; gap:3px; background:rgba(5,9,20,.7); padding:3px; border-radius:10px; border:1px solid rgba(120,150,220,.14)}
+  .donem-seg{display:inline-flex; gap:2px; background:rgba(5,9,20,.75); padding:2.5px; border-radius:9px; border:1px solid rgba(120,150,220,.14)}
   .donem-seg button{
-    min-height:30px; border:0; background:transparent; color:var(--muted);
-    font-size:12px; font-weight:600; padding:0 10px; border-radius:7px; cursor:pointer; transition:.15s;
+    min-height:26px; border:0; background:transparent; color:var(--muted);
+    font-size:11.5px; font-weight:600; padding:0 9px; border-radius:6px; cursor:pointer; transition:.15s;
   }
-  .donem-seg button.on{background:var(--ads-blue); color:#fff; box-shadow:0 3px 10px rgba(26,115,232,.35)}
-  @media (max-width:480px){
-    .ctrl-bar{grid-template-columns:1fr; gap:8px}
-    .donem-seg{width:100%; justify-content:space-between}
-    .donem-seg button{flex:1}
+  .donem-seg button.on{background:var(--ads-blue); color:#fff; box-shadow:0 2px 8px rgba(26,115,232,.35)}
+
+  /* Kurulum Bilgilendirme Bandı (Eski Koddaki Orjinal Yapı) */
+  .kurulum{
+    display:flex; align-items:center; gap:8px; flex-wrap:wrap;
+    margin:0 0 8px; padding:8px 12px; border-radius:12px;
+    border:1px solid rgba(34,211,238,.35); background:rgba(34,211,238,.08);
+    color:var(--pale); font-size:12.5px;
+  }
+  .kurulum span{flex:1; min-width:170px}
+  .kurulum-btn{
+    height:30px; padding:0 12px; border-radius:999px; border:1px solid rgba(34,211,238,.45);
+    background:rgba(34,211,238,.15); color:#fff; font-size:12px; font-weight:600; cursor:pointer;
   }
 
-  /* 3. Katman: 4'lü Kompakt Google Ads Metrik Izgarası */
-  .stats-4{
-    display:grid; grid-template-columns:repeat(4,1fr); gap:8px; margin-bottom:10px;
+  /* 6'lı Google Ads Ana Özet Kartları (Tıklama, Gösterim, TO %, Ort. TBM, Maliyet, Aramalar) */
+  .stats-6{
+    display:grid; grid-template-columns:repeat(6,1fr); gap:7px; margin-bottom:10px;
   }
-  @media (max-width:720px){
-    .stats-4{grid-template-columns:repeat(2,1fr)}
+  @media (max-width:980px){
+    .stats-6{grid-template-columns:repeat(3,1fr)}
+  }
+  @media (max-width:520px){
+    .stats-6{grid-template-columns:repeat(2,1fr)}
   }
   .stat{
     display:flex; flex-direction:column; justify-content:space-between;
-    width:100%; text-align:left; padding:12px 13px; border-radius:15px;
+    width:100%; text-align:left; padding:10px 11px; border-radius:13px;
     border:1px solid var(--line); background:linear-gradient(160deg,rgba(18,30,60,.88),rgba(9,15,32,.88));
     position:relative; overflow:hidden;
   }
@@ -234,251 +247,243 @@
   .stat.red-top::before{background:var(--ads-red)}
   .stat.yellow-top::before{background:var(--ads-yellow)}
   .stat.green-top::before{background:var(--ads-green)}
-  .stat .lbl{color:var(--muted); font-size:11.5px; font-weight:600; display:flex; align-items:center; justify-content:space-between; gap:4px}
-  .stat .dot-i{width:8px; height:8px; border-radius:2px; background:var(--ads-blue); flex:none}
+  .stat.purple-top::before{background:var(--ads-purple)}
+  .stat.cyan-top::before{background:var(--ads-cyan)}
+  .stat .lbl{color:var(--muted); font-size:11px; font-weight:600; display:flex; align-items:center; justify-content:space-between; gap:4px}
+  .stat .dot-i{width:7px; height:7px; border-radius:2px; background:var(--ads-blue); flex:none}
   .stat.red-top .dot-i{background:var(--ads-red)}
   .stat.yellow-top .dot-i{background:var(--ads-yellow)}
   .stat.green-top .dot-i{background:var(--ads-green)}
+  .stat.purple-top .dot-i{background:var(--ads-purple)}
+  .stat.cyan-top .dot-i{background:var(--ads-cyan)}
   .stat .val{
-    display:block; margin-top:4px;
-    font:700 clamp(22px,5.2vw,30px)/1.08 'Space Grotesk',sans-serif;
+    display:block; margin-top:3px;
+    font:700 clamp(19px,4.5vw,25px)/1.1 'Space Grotesk',sans-serif;
     font-variant-numeric:tabular-nums; color:#fff;
   }
-  .stat .ft{display:block; margin-top:4px; color:var(--muted); font-size:11px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis}
+  .stat .ft{display:block; margin-top:3px; color:var(--muted); font-size:10.5px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis}
   button.stat{cursor:pointer; appearance:none; -webkit-appearance:none; transition:transform .12s, box-shadow .2s}
   button.stat.click{border-color:rgba(26,115,232,.55); background:linear-gradient(160deg,rgba(26,115,232,.28),rgba(9,15,32,.9))}
-  button.stat.click:hover{box-shadow:0 8px 24px rgba(26,115,232,.25)}
+  button.stat.click:hover{box-shadow:0 6px 20px rgba(26,115,232,.25)}
   button.stat.click:active{transform:scale(.98)}
 
-  /* 4. Katman: Sekmeli Grup Navigasyonu (Telefonda Tek Ekranda Düzenli Geçiş) */
-  .tab-nav{
-    display:grid; grid-template-columns:repeat(4,1fr); gap:5px;
-    padding:4px; border-radius:13px; border:1px solid var(--line);
-    background:rgba(8,14,30,.85); margin-bottom:10px;
-  }
-  .tab-btn{
-    min-height:36px; border:0; border-radius:9px; background:transparent;
-    color:var(--muted); font-size:12px; font-weight:600; cursor:pointer;
-    display:flex; align-items:center; justify-content:center; gap:5px;
-    padding:0 6px; white-space:nowrap; transition:.15s;
-  }
-  .tab-btn svg{width:14px; height:14px; flex:none}
-  .tab-btn.on{background:rgba(26,115,232,.25); color:#fff; border:1px solid rgba(26,115,232,.5)}
-  @media (min-width:960px){
-    .tab-nav{display:none}
-  }
-
-  /* Masaüstünde 2x2 Simetrik Grid, Mobilde Seçili Sekme */
+  /* Aşağıya Doğru Akıcı Tüm Google Ads Arayüz Panelleri (Sekmesiz, Tam Görünüm) */
   .cockpit-grid{
-    display:grid; grid-template-columns:1fr; gap:12px;
+    display:grid; grid-template-columns:1fr; gap:10px;
   }
-  @media (min-width:960px){
+  @media (min-width:920px){
     .cockpit-grid{grid-template-columns:repeat(2,minmax(0,1fr)); align-items:stretch}
-    .tab-pane{display:flex !important}
   }
-  .tab-pane{
-    display:none; flex-direction:column; justify-content:space-between;
-    padding:16px; border:1px solid var(--line); border-radius:18px;
+  .panel-box{
+    display:flex; flex-direction:column; justify-content:space-between;
+    padding:14px; border:1px solid var(--line); border-radius:16px;
     background:linear-gradient(180deg,rgba(16,25,50,.84),rgba(9,15,32,.84));
   }
-  .tab-pane.on{display:flex}
-  .pane-head{display:flex; align-items:center; justify-content:space-between; gap:8px; margin-bottom:10px; flex-wrap:wrap}
-  .pane-head h2{font-size:14.5px; font-weight:600; margin:0}
-  .pane-head .sub{margin:2px 0 0; color:var(--muted); font-size:12px}
+  .panel-box.wide{grid-column:1 / -1}
+  .pane-head{display:flex; align-items:center; justify-content:space-between; gap:8px; margin-bottom:8px; flex-wrap:wrap}
+  .pane-head h2{font-size:14px; font-weight:600; margin:0; display:flex; align-items:center; gap:6px}
+  .pane-head .sub{margin:1px 0 0; color:var(--muted); font-size:11.5px}
 
-  /* ---------- SEKME 1: GOOGLE ADS ÇİFT ÇİZGİLİ GRAFİK (MAVİ + KIRMIZI) ---------- */
-  .ads-legend{display:flex; align-items:center; gap:14px; font-size:12px; font-weight:600}
-  .ads-leg-item{display:inline-flex; align-items:center; gap:6px; color:var(--text)}
-  .ads-pill-line{width:14px; height:4px; border-radius:99px; display:inline-block}
+  /* 1. Arayüz: Google Ads Çift Çizgili Grafik (Mavi + Kırmızı) */
+  .ads-legend{display:flex; align-items:center; gap:12px; font-size:11.5px; font-weight:600}
+  .ads-leg-item{display:inline-flex; align-items:center; gap:5px; color:var(--text)}
+  .ads-pill-line{width:13px; height:4px; border-radius:99px; display:inline-block}
   .ads-pill-line.blue{background:var(--ads-blue)}
   .ads-pill-line.red{background:var(--ads-red)}
-  .chart-box{position:relative; height:225px; width:100%}
+  .chart-box{position:relative; height:210px; width:100%}
   .chart-box canvas{width:100% !important; height:100% !important}
   .ozet-bar{
-    margin:10px 0 0; padding:9px 12px; border-radius:11px;
+    margin:8px 0 0; padding:8px 11px; border-radius:10px;
     background:rgba(26,115,232,.1); border:1px solid rgba(26,115,232,.22);
-    color:var(--pale); font-size:12.5px; display:flex; align-items:center; justify-content:space-between; gap:8px; flex-wrap:wrap;
+    color:var(--pale); font-size:12px; display:flex; align-items:center; justify-content:space-between; gap:8px; flex-wrap:wrap;
   }
 
-  /* ---------- SEKME 2: CANLI REKLAM ÖNİZLEMESİ (1. RESİMDEKİ GİBİ İKİLİ KART) ---------- */
-  .preview-layout{
-    display:grid; grid-template-columns:1fr; gap:12px; align-items:center;
+  /* 2. Arayüz: Kampanyalar & Anahtar Kelimeler Performans Tablosu (Google Ads Kartı) */
+  .ads-table{width:100%; border-collapse:collapse; font-size:12px; margin-top:4px}
+  .ads-table th{
+    text-align:left; color:var(--muted); font-weight:600; font-size:11px;
+    padding:6px 8px; border-bottom:1px solid var(--line);
   }
+  .ads-table th.r,.ads-table td.r{text-align:right; font-variant-numeric:tabular-nums}
+  .ads-table td{padding:7px 8px; border-bottom:1px solid rgba(120,150,220,.08); color:var(--text)}
+  .ads-table tr:last-child td{border-bottom:0}
+  .ads-table .cost-cell{
+    background:rgba(26,115,232,.16); font-weight:600; color:#93c5fd; border-radius:4px;
+  }
+  .status-dot{
+    display:inline-block; width:8px; height:8px; border-radius:50%;
+    background:var(--good); margin-right:6px; box-shadow:0 0 6px var(--good);
+  }
+  .status-dot.off{background:#ef4444; box-shadow:none}
+
+  .kw-cloud{display:flex; flex-wrap:wrap; gap:5px; margin-top:10px; padding-top:8px; border-top:1px solid var(--line)}
+  .kw-chip{
+    display:inline-flex; align-items:center; gap:5px; padding:4px 9px;
+    border-radius:999px; border:1px solid rgba(165,195,251,.26);
+    background:rgba(26,115,232,.09); color:var(--text); font-size:11.5px;
+  }
+  .kw-chip b{
+    padding:1px 5px; border-radius:999px; background:rgba(26,115,232,.32);
+    color:#fff; font-size:10.5px; font-family:'Space Grotesk',sans-serif;
+  }
+
+  /* 3. Arayüz: Canlı Reklam Önizlemesi (Telefon Simülasyonu) */
   .phone-google{
-    width:100%; max-width:340px; margin:0 auto; padding:14px 12px;
-    background:#ffffff; color:#202124; border-radius:26px;
-    border:3px solid #d1d5db; box-shadow:0 16px 38px rgba(0,0,0,.45);
+    width:100%; max-width:330px; margin:0 auto; padding:12px 11px;
+    background:#ffffff; color:#202124; border-radius:22px;
+    border:3px solid #d1d5db; box-shadow:0 14px 32px rgba(0,0,0,.42);
     font-family:Roboto,Arial,sans-serif; text-align:left;
   }
-  .pg-top{display:flex; align-items:center; justify-content:space-between; margin-bottom:10px}
-  .pg-burger{width:16px; height:2px; background:#5f6368; position:relative}
-  .pg-burger::before,.pg-burger::after{content:""; position:absolute; left:0; width:16px; height:2px; background:#5f6368}
-  .pg-burger::before{top:-5px} .pg-burger::after{top:5px}
-  .pg-logo{font-size:18px; font-weight:600; letter-spacing:-.4px}
+  .pg-top{display:flex; align-items:center; justify-content:space-between; margin-bottom:8px}
+  .pg-burger{width:15px; height:2px; background:#5f6368; position:relative}
+  .pg-burger::before,.pg-burger::after{content:""; position:absolute; left:0; width:15px; height:2px; background:#5f6368}
+  .pg-burger::before{top:-4px} .pg-burger::after{top:4px}
+  .pg-logo{font-size:17px; font-weight:600; letter-spacing:-.4px}
   .pg-logo span:nth-child(1){color:#4285F4} .pg-logo span:nth-child(2){color:#EA4335}
   .pg-logo span:nth-child(3){color:#FBBC05} .pg-logo span:nth-child(4){color:#4285F4}
   .pg-logo span:nth-child(5){color:#34A853} .pg-logo span:nth-child(6){color:#EA4335}
-  .pg-avatar{width:24px; height:24px; border-radius:50%; background:#e8eaed}
+  .pg-avatar{width:22px; height:22px; border-radius:50%; background:#e8eaed}
 
   .pg-search{
-    display:flex; align-items:center; gap:8px; padding:8px 13px;
-    border-radius:24px; border:1px solid #dfe1e5; box-shadow:0 1px 4px rgba(0,0,0,.08);
-    margin-bottom:10px; font-size:13.5px; color:#202124; font-weight:500;
+    display:flex; align-items:center; gap:7px; padding:7px 12px;
+    border-radius:22px; border:1px solid #dfe1e5; box-shadow:0 1px 4px rgba(0,0,0,.08);
+    margin-bottom:8px; font-size:13px; color:#202124; font-weight:500;
   }
-  .pg-search svg{width:15px; height:15px; color:#4285f4; flex:none}
+  .pg-search svg{width:14px; height:14px; color:#4285f4; flex:none}
   #phoneQuery{white-space:nowrap; overflow:hidden; text-overflow:ellipsis}
 
-  /* 1. Kutu: Sizin İşletmeniz (Kesik Çizgili Mavi Vurgu Kutusu) */
   .pg-target-box{
-    border:2px dashed #4285f4; background:#f4f8ff; border-radius:12px;
-    padding:10px 11px; margin-bottom:10px; transition:.25s;
+    border:2px dashed #4285f4; background:#f4f8ff; border-radius:11px;
+    padding:9px 10px; margin-bottom:8px; transition:.25s;
   }
   .pg-target-box.paused{border-color:#d93025; background:#fff5f5}
-  .pg-ad-head{display:flex; align-items:center; gap:8px; margin-bottom:5px}
+  .pg-ad-head{display:flex; align-items:center; gap:7px; margin-bottom:4px}
   .pg-icon-q{
-    width:22px; height:22px; border-radius:50%; background:#4285f4; color:#fff;
-    display:grid; place-items:center; font-size:11px; font-weight:700; flex:none;
+    width:20px; height:20px; border-radius:50%; background:#4285f4; color:#fff;
+    display:grid; place-items:center; font-size:10.5px; font-weight:700; flex:none;
   }
   .pg-target-box.paused .pg-icon-q{background:#d93025}
-  .pg-domain strong{display:block; font-size:12px; color:#202124; line-height:1.2}
-  .pg-domain span{display:block; font-size:10.5px; color:#5f6368}
-  .pg-target-title{font-size:14.5px; font-weight:600; color:#1a73e8; line-height:1.25; margin-bottom:3px}
+  .pg-domain strong{display:block; font-size:11.5px; color:#202124; line-height:1.15}
+  .pg-domain span{display:block; font-size:10px; color:#5f6368}
+  .pg-target-title{font-size:13.5px; font-weight:600; color:#1a73e8; line-height:1.22; margin-bottom:2px}
   .pg-target-box.paused .pg-target-title{color:#d93025}
-  .pg-target-desc{font-size:11.5px; color:#4d5156; line-height:1.38}
+  .pg-target-desc{font-size:11px; color:#4d5156; line-height:1.35}
 
-  /* 2. Kutu: Referans Rakip İşletme */
-  .pg-comp-box{border-top:1px solid #ebebeb; padding-top:9px}
+  .pg-comp-box{border-top:1px solid #ebebeb; padding-top:8px}
   .pg-icon-r{
-    width:22px; height:22px; border-radius:50%; background:#fbbc04; color:#fff;
-    display:grid; place-items:center; font-size:11px; font-weight:700; flex:none;
+    width:20px; height:20px; border-radius:50%; background:#fbbc04; color:#fff;
+    display:grid; place-items:center; font-size:10.5px; font-weight:700; flex:none;
   }
-  .pg-comp-title{font-size:14.5px; font-weight:600; color:#1a0dab; line-height:1.25; margin-bottom:3px}
-  .pg-comp-body{display:flex; gap:8px; align-items:flex-start}
-  .pg-comp-desc{font-size:11.5px; color:#4d5156; line-height:1.38; flex:1}
-  .pg-comp-thumb{width:52px; height:52px; border-radius:8px; background:#e8eaed; flex:none}
-  .pg-pills{display:flex; gap:6px; margin-top:7px; flex-wrap:wrap}
+  .pg-comp-title{font-size:13.5px; font-weight:600; color:#1a0dab; line-height:1.22; margin-bottom:2px}
+  .pg-comp-body{display:flex; gap:7px; align-items:flex-start}
+  .pg-comp-desc{font-size:11px; color:#4d5156; line-height:1.35; flex:1}
+  .pg-comp-thumb{width:46px; height:46px; border-radius:7px; background:#e8eaed; flex:none}
+  .pg-pills{display:flex; gap:5px; margin-top:6px; flex-wrap:wrap}
   .pg-pill{
-    border:1px solid #dadce0; border-radius:999px; padding:3px 10px;
-    font-size:11px; color:#1a0dab; font-weight:500; background:#fff;
+    border:1px solid #dadce0; border-radius:999px; padding:2.5px 9px;
+    font-size:10.5px; color:#1a0dab; font-weight:500; background:#fff;
   }
 
-  /* ---------- SEKME 3: DEMOGRAFİ (KADIN/ERKEK & YAŞ SÜTUNLARI) VE ARAMA KELİMELERİ ---------- */
-  .demo-block{margin-bottom:12px}
-  .gender-row{display:flex; justify-content:space-between; font-size:12.5px; font-weight:600; margin-bottom:6px}
-  .gender-bar{display:flex; height:12px; border-radius:999px; overflow:hidden; background:rgba(143,160,196,.18)}
+  /* 4. Arayüz: Demografi (Kadın/Erkek & Yaş Sütunları) + Cihazlar */
+  .gender-row{display:flex; justify-content:space-between; font-size:12px; font-weight:600; margin-bottom:5px}
+  .gender-bar{display:flex; height:10px; border-radius:999px; overflow:hidden; background:rgba(143,160,196,.18)}
   .g-female{background:linear-gradient(90deg,#ec4899,#f472b6); height:100%; transition:width .4s}
   .g-male{background:linear-gradient(90deg,#3b82f6,#60a5fa); height:100%; transition:width .4s}
 
   .age-grid{
-    display:grid; grid-template-columns:repeat(6,1fr); gap:6px; align-items:end;
-    height:105px; padding:12px 8px 4px; border-radius:12px;
-    background:rgba(5,9,20,.55); border:1px solid rgba(120,150,220,.12); margin-top:10px;
+    display:grid; grid-template-columns:repeat(6,1fr); gap:5px; align-items:end;
+    height:96px; padding:10px 6px 4px; border-radius:11px;
+    background:rgba(5,9,20,.55); border:1px solid rgba(120,150,220,.12); margin:8px 0 12px;
   }
-  .age-col{display:flex; flex-direction:column; align-items:center; justify-content:flex-end; height:100%; gap:4px}
-  .age-val{font-size:10.5px; color:var(--pale); font-weight:600}
-  .age-bar-wrap{width:100%; max-width:26px; flex:1; display:flex; align-items:flex-end; justify-content:center}
+  .age-col{display:flex; flex-direction:column; align-items:center; justify-content:flex-end; height:100%; gap:3px}
+  .age-val{font-size:10px; color:var(--pale); font-weight:600}
+  .age-bar-wrap{width:100%; max-width:24px; flex:1; display:flex; align-items:flex-end; justify-content:center}
   .age-bar{
-    width:100%; border-radius:5px 5px 2px 2px;
+    width:100%; border-radius:4px 4px 2px 2px;
     background:linear-gradient(180deg,#3b82f6,#1d4ed8); min-height:4px; transition:height .4s;
   }
-  .age-col.top-age .age-bar{background:linear-gradient(180deg,#22d3ee,#1a73e8); box-shadow:0 0 10px rgba(34,211,238,.4)}
-  .age-lbl{font-size:10.5px; color:var(--muted); font-weight:500}
+  .age-col.top-age .age-bar{background:linear-gradient(180deg,#22d3ee,#1a73e8); box-shadow:0 0 8px rgba(34,211,238,.4)}
+  .age-lbl{font-size:10px; color:var(--muted); font-weight:500}
 
-  .kw-list{display:flex; flex-wrap:wrap; gap:6px; margin-top:8px}
-  .kw-chip{
-    display:inline-flex; align-items:center; gap:6px; padding:5px 10px;
-    border-radius:999px; border:1px solid rgba(165,195,251,.28);
-    background:rgba(26,115,232,.1); color:var(--text); font-size:12px;
-  }
-  .kw-chip b{
-    padding:1px 6px; border-radius:999px; background:rgba(26,115,232,.35);
-    color:#fff; font-size:11px; font-family:'Space Grotesk',sans-serif;
-  }
-
-  /* ---------- SEKME 4: CİHAZLAR (MOBİL/PC/TABLET) & AKTİF SAATLER ---------- */
-  .dev-rows{display:flex; flex-direction:column; gap:9px; margin-bottom:14px}
-  .dev-item{display:flex; flex-direction:column; gap:4px}
-  .dev-hdr{display:flex; justify-content:space-between; font-size:12.5px; font-weight:500}
-  .dev-track{height:9px; border-radius:999px; background:rgba(143,160,196,.16); overflow:hidden}
+  .dev-rows{display:flex; flex-direction:column; gap:7px; padding-top:8px; border-top:1px solid var(--line)}
+  .dev-item{display:flex; flex-direction:column; gap:3px}
+  .dev-hdr{display:flex; justify-content:space-between; font-size:11.5px; font-weight:500}
+  .dev-track{height:8px; border-radius:999px; background:rgba(143,160,196,.16); overflow:hidden}
   .dev-fill{height:100%; border-radius:999px; transition:width .4s}
   .dev-fill.mob{background:var(--ads-blue)}
   .dev-fill.pc{background:var(--ads-yellow)}
   .dev-fill.tab{background:var(--ads-red)}
 
-  .hour-grid{display:grid; grid-template-columns:repeat(4,1fr); gap:6px; margin-top:8px}
+  /* 5. Arayüz: Gün ve Saat Performans Isı Haritası (Google Ads Heatmap) */
+  .hour-grid{display:grid; grid-template-columns:repeat(4,1fr); gap:6px; margin-bottom:10px}
   .hour-box{
-    padding:8px 6px; border-radius:11px; border:1px solid rgba(120,150,220,.15);
+    padding:7px 5px; border-radius:10px; border:1px solid rgba(120,150,220,.15);
     background:rgba(5,9,20,.55); text-align:center;
   }
-  .hour-box.peak{border-color:rgba(34,211,238,.5); background:rgba(34,211,238,.1)}
-  .hour-box small{display:block; color:var(--muted); font-size:10.5px}
-  .hour-box b{display:block; margin-top:3px; font:700 15px 'Space Grotesk',sans-serif; color:#fff}
+  .hour-box.peak{border-color:rgba(34,211,238,.5); background:rgba(34,211,238,.12)}
+  .hour-box small{display:block; color:var(--muted); font-size:10px}
+  .hour-box b{display:block; margin-top:2px; font:700 14px 'Space Grotesk',sans-serif; color:#fff}
 
-  /* ---------- EKRANIN EN ALTINA SABİT (TERS İSTİKAMET) HABER BANDI + MP4 ---------- */
-  .sticky-ticker{
-    position:fixed; left:0; right:0; bottom:0; z-index:45;
-    background:linear-gradient(90deg, rgba(8,14,30,.96), rgba(15,26,54,.96));
-    border-top:1px solid rgba(26,115,232,.4);
-    box-shadow:0 -8px 26px rgba(0,0,0,.6);
-    padding:7px 12px calc(7px + env(safe-area-inset-bottom));
-    -webkit-backdrop-filter:blur(10px); backdrop-filter:blur(10px);
+  .heatmap-wrap{display:flex; flex-direction:column; gap:3px; margin-top:4px}
+  .hm-row{display:grid; grid-template-columns:28px repeat(12,1fr); gap:3px; align-items:center}
+  .hm-day{font-size:10px; color:var(--muted); font-weight:600}
+  .hm-cell{height:13px; border-radius:3px; background:rgba(26,115,232,.08)}
+  .hm-cell.l1{background:rgba(26,115,232,.25)}
+  .hm-cell.l2{background:rgba(26,115,232,.5)}
+  .hm-cell.l3{background:rgba(26,115,232,.78)}
+  .hm-cell.l4{background:#22d3ee; box-shadow:0 0 6px rgba(34,211,238,.45)}
+  .hm-hours{display:grid; grid-template-columns:28px repeat(4,1fr); font-size:10px; color:var(--muted); margin-top:3px}
+
+  /* ---------- YER KAPLAMAYAN, TIKLANAMAYAN, DOĞRUDAN ARAYÜZ ÜSTÜNDE ÇIKAN `yazi.txt` KATMANI ----------
+     13 saniyelik döngü:
+     - 0.0s - 0.8s (%0 -> %6): Sağdan merkeze gelir
+     - 0.8s - 2.3s (%6 -> %18): Ortada 1.5 saniye sabit bekler
+     - 2.3s - 3.0s (%18 -> %23): Ters istikamete (sağa) kayarak kaybolur
+     - 3.0s - 13.0s (%23 -> %100): 10 saniye boyunca tamamen gizli kalır ve sonsuz döngüde tekrarlar */
+  .floating-yazi-layer{
+    position:fixed; left:0; right:0; bottom:max(14px,env(safe-area-inset-bottom));
+    z-index:55; pointer-events:none; user-select:none; -webkit-user-select:none;
+    display:flex; justify-content:center; overflow:hidden; padding:0 12px;
   }
-  .ticker-inner{
-    max-width:1140px; margin:0 auto; display:flex; align-items:center; justify-content:space-between; gap:10px;
+  .floating-yazi-pill{
+    display:inline-block; padding:8px 16px; border-radius:999px;
+    background:rgba(8,15,34,.92); border:1px solid rgba(59,130,246,.55);
+    box-shadow:0 10px 28px rgba(0,0,0,.65);
+    color:#ffffff; font-size:13px; font-weight:600; letter-spacing:.02em;
+    white-space:nowrap; max-width:100%; overflow:hidden; text-overflow:ellipsis;
+    pointer-events:none;
+    animation:yaziLoop10Sn 13s cubic-bezier(.4,0,.2,1) infinite;
   }
-  .ticker-badge{
-    flex:none; display:inline-flex; align-items:center; gap:6px;
-    padding:4px 9px; border-radius:7px; background:rgba(26,115,232,.25); border:1px solid rgba(26,115,232,.5);
-    color:#fff; font-size:11px; font-weight:700; letter-spacing:.03em; text-transform:uppercase;
+  @keyframes yaziLoop10Sn{
+    0%        { transform:translateX(120%); opacity:0; }
+    6%, 18%   { transform:translateX(0%);   opacity:1; }
+    23%, 100% { transform:translateX(120%); opacity:0; }
   }
-  .ticker-badge i{width:7px; height:7px; border-radius:50%; background:var(--good); box-shadow:0 0 8px var(--good)}
-  .ticker-stage{
-    flex:1; overflow:hidden; position:relative; height:26px;
-    display:flex; align-items:center; justify-content:center; min-width:0;
-  }
-  /* Sağdan merkeze gelir (%0 -> %25), ortada sabit durur (%25 -> %75), ters istikamete (sağa) geri çıkar (%75 -> %100) */
-  .ticker-msg{
-    display:inline-block; white-space:nowrap; color:#fff; font-size:13px; font-weight:600;
-    letter-spacing:.02em; text-decoration:none;
-    animation:gelDurGeriGit 14s cubic-bezier(.4,0,.2,1) infinite;
-  }
-  @keyframes gelDurGeriGit{
-    0%, 5%   { transform:translateX(115%); opacity:0; }
-    24%, 76% { transform:translateX(0%); opacity:1; }
-    95%, 100%{ transform:translateX(115%); opacity:0; }
-  }
-  .ticker-btn{
-    flex:none; min-height:32px; padding:0 11px; border-radius:999px;
-    border:1px solid rgba(34,211,238,.45); background:rgba(34,211,238,.14);
-    color:#fff; font-size:12px; font-weight:600; cursor:pointer;
-    display:inline-flex; align-items:center; gap:5px;
-  }
-  .ticker-btn svg{width:13px; height:13px; color:var(--accent2)}
 
   /* Modallar */
-  .modal{position:fixed; inset:0; z-index:60; display:none; align-items:center; justify-content:center; padding:20px; background:rgba(3,6,16,.76); -webkit-backdrop-filter:blur(8px); backdrop-filter:blur(8px)}
+  .modal{position:fixed; inset:0; z-index:60; display:none; align-items:center; justify-content:center; padding:18px; background:rgba(3,6,16,.76); -webkit-backdrop-filter:blur(8px); backdrop-filter:blur(8px)}
   .modal.on{display:flex}
   #confettiCanvas{position:absolute; inset:0; width:100%; height:100%; pointer-events:none}
-  .modal .card{position:relative; z-index:1; max-width:410px; border-color:rgba(26,115,232,.45)}
-  .big{margin:8px 0 2px; font:700 clamp(50px,15vw,72px)/1 'Space Grotesk',sans-serif; font-variant-numeric:tabular-nums; background:linear-gradient(180deg,#fff,#a5c3fb); -webkit-background-clip:text; background-clip:text; color:transparent}
-  .modal p{margin:8px 0 0; color:var(--muted); font-size:14.5px}
+  .modal .card{position:relative; z-index:1; max-width:400px; border-color:rgba(26,115,232,.45)}
+  .big{margin:8px 0 2px; font:700 clamp(48px,14vw,68px)/1 'Space Grotesk',sans-serif; font-variant-numeric:tabular-nums; background:linear-gradient(180deg,#fff,#a5c3fb); -webkit-background-clip:text; background-clip:text; color:transparent}
+  .modal p{margin:8px 0 0; color:var(--muted); font-size:14px}
   .modal p.ek{color:var(--pale)}
-  .modal .btn{margin-top:18px}
+  .modal .btn{margin-top:16px}
 
-  .media-box{width:100%; max-width:500px; padding:20px; text-align:left}
-  .media-box h2{margin:0 0 5px; font-size:17px}
-  .media-box p{margin:0 0 12px; color:var(--muted); font-size:13px}
+  .media-box{width:100%; max-width:480px; padding:18px; text-align:left}
+  .media-box h2{margin:0 0 4px; font-size:16.5px}
+  .media-box p{margin:0 0 10px; color:var(--muted); font-size:12.5px}
   .video-frame{
     width:100%; border-radius:12px; overflow:hidden; background:#000;
     border:1px solid var(--line); aspect-ratio:16/9; display:flex; align-items:center; justify-content:center;
   }
   .video-frame video{width:100%; height:100%; object-fit:cover; display:block}
 
-  .overlay{position:fixed; inset:0; z-index:80; display:none; align-items:center; justify-content:center; padding:24px; background:rgba(3,6,16,.65); -webkit-backdrop-filter:blur(7px); backdrop-filter:blur(7px)}
+  .overlay{position:fixed; inset:0; z-index:80; display:none; align-items:center; justify-content:center; padding:22px; background:rgba(3,6,16,.65); -webkit-backdrop-filter:blur(7px); backdrop-filter:blur(7px)}
   .overlay.on{display:flex}
   a.btn{display:flex; align-items:center; justify-content:center; text-decoration:none}
-  .demo-bant{margin:0 0 8px; padding:7px 12px; border-radius:10px; border:1px dashed rgba(245,158,11,.6); background:rgba(245,158,11,.1); color:#fcd34d; font-size:12px; font-weight:500}
-  #dbg{position:fixed; left:0; right:0; bottom:48px; z-index:99; margin:0; padding:8px 10px; max-height:28vh; overflow:auto; background:rgba(0,0,0,.85); color:#9be59b; font:11px/1.35 ui-monospace,Consolas,monospace; white-space:pre-wrap; pointer-events:none}
+  .demo-bant{margin:0 0 8px; padding:6px 10px; border-radius:9px; border:1px dashed rgba(245,158,11,.6); background:rgba(245,158,11,.1); color:#fcd34d; font-size:11.5px; font-weight:500}
+  #dbg{position:fixed; left:0; right:0; bottom:0; z-index:99; margin:0; padding:6px 10px; max-height:25vh; overflow:auto; background:rgba(0,0,0,.85); color:#9be59b; font:11px/1.35 ui-monospace,Consolas,monospace; white-space:pre-wrap; pointer-events:none}
 </style>
 </head>
 <body>
@@ -564,57 +569,69 @@
 <!-- ============ ANA KOKPİT PANELİ ============ -->
 <main id="dashScreen" class="screen">
   <div class="wrap">
-    <!-- 1. GRUP: Üst Kimlik + Saatlik Güncelleme + İkonsuz İndirme + Gizli 10 Tık Çıkış -->
-    <header class="top">
-      <div class="brand">
-        <div class="badge" id="dashBas" aria-hidden="true">R</div>
-        <div class="brand-txt">
-          <div class="brand-row">
-            <b id="dashIsletme">Reklam Paneli</b>
-            <span class="city-tag" id="dashSehirEtiket">Türkiye</span>
+    <!-- 1. GRUP: Boşluksuz, Daraltılmış Üst Menü + Kampanya Şalteri + Dönem Seçici -->
+    <header class="top-compact">
+      <div class="top-row-1">
+        <div class="brand">
+          <div class="badge" id="dashBas" aria-hidden="true">R</div>
+          <div class="brand-txt">
+            <div class="brand-row">
+              <b id="dashIsletme">Reklam Paneli</b>
+              <span class="city-tag" id="dashSehirEtiket">Türkiye</span>
+            </div>
+            <small class="update-top" id="dashGuncellemeUst">Son güncelleme: --:--:-- (Her 1 saatte veriler güncellenir)</small>
           </div>
-          <small class="update-top" id="dashGuncellemeUst">Son güncelleme: --:--:-- (Her 1 saatte veriler güncellenir)</small>
+        </div>
+        <div class="top-r">
+          <!-- 10 KERE ÜST ÜSTE TIKLANINCA GİZLİ ÇIKIŞ YAPAN GÜVENLİ BAĞLANTI ROZETİ -->
+          <button class="pill" id="btnGuvenli" type="button" title="Güvenli Bağlantı">
+            <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 2l7 3v6c0 5-3.4 8.4-7 10-3.6-1.6-7-5-7-10V5l7-3z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><path d="M9 12l2 2 4-4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            <span>Güvenli bağlantı</span>
+          </button>
+          <!-- ESKİ KODDAKİ ORİJİNAL PWA UYGULAMA YÜKLEME SİMGESİ (YAZISIZ) -->
+          <button class="mini" id="btnKurulum" type="button" aria-label="Ana Ekrana Ekle" title="Uygulamayı Yükle">
+            <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 3v12m0 0l-4-4m4 4l4-4M4 17v2a2 2 0 002 2h12a2 2 0 002-2v-2" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </button>
+          <!-- TANITIM MP4 VİDEO SİMGESİ -->
+          <button class="mini" id="btnVideoAc" type="button" aria-label="Tanıtım Videosu" title="Tanıtım MP4">
+            <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><polygon points="6 4 20 12 6 20 6 4" fill="currentColor"/></svg>
+          </button>
+          <!-- YENİLEME SİMGESİ -->
+          <button class="mini" id="btnYenile" type="button" aria-label="Verileri yenile" title="Yenile">
+            <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M20 12a8 8 0 11-2.6-5.9M20 4v5h-5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </button>
         </div>
       </div>
-      <div class="top-r">
-        <!-- 10 KERE ÜST ÜSTE TIKLANINCA GİZLİ ÇIKIŞ YAPAN GÜVENLİ BAĞLANTI ROZETİ -->
-        <button class="pill" id="btnGuvenli" type="button" title="Güvenli Bağlantı">
-          <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 2l7 3v6c0 5-3.4 8.4-7 10-3.6-1.6-7-5-7-10V5l7-3z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><path d="M9 12l2 2 4-4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
-          <span>Güvenli bağlantı</span>
-        </button>
-        <!-- YAZISIZ SADECE SİMGE İNDİRME (PWA) BUTONU -->
-        <button class="mini" id="btnKurulum" type="button" aria-label="Uygulamayı Cihaza Yükle" title="Uygulamayı İndir">
-          <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 3v12m0 0l-4-4m4 4l4-4M4 17v2a2 2 0 002 2h12a2 2 0 002-2v-2" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-        </button>
-        <!-- YENİLEME BUTONU -->
-        <button class="mini" id="btnYenile" type="button" aria-label="Verileri yenile" title="Yenile">
-          <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M20 12a8 8 0 11-2.6-5.9M20 4v5h-5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-        </button>
+
+      <div class="top-row-2">
+        <div class="ad-switch-wrap">
+          <button type="button" id="btnYayinToggle" class="ad-toggle on" role="switch" aria-checked="true" aria-label="Google Ads Reklamını Aç veya Duraklat"></button>
+          <div class="switch-info">
+            <span class="switch-lbl">Kampanya:</span>
+            <span class="switch-sub" id="yayinDurumMetni">Aktif ve Yayında</span>
+          </div>
+        </div>
+        <div class="donem-seg" role="group" aria-label="Rapor dönemi">
+          <button type="button" id="dBtn1">Günlük</button>
+          <button type="button" id="dBtn7">7 Gün</button>
+          <button type="button" id="dBtn30" class="on">30 Gün</button>
+        </div>
       </div>
     </header>
 
-    <div class="demo-bant" id="demoBant" role="status" hidden>ÖRNEK VERİLERLE ÖNİZLEME: Bu rakamlar görünümü göstermek içindir.</div>
-
-    <!-- 2. GRUP: Google Ads Yayın Aç/Kapat Şalteri + Dönem Seçici -->
-    <div class="ctrl-bar">
-      <div class="ad-switch-wrap">
-        <button type="button" id="btnYayinToggle" class="ad-toggle on" role="switch" aria-checked="true" aria-label="Google Ads Reklamını Aç veya Duraklat"></button>
-        <div class="switch-info">
-          <span class="switch-lbl">Google Ads Kampanya Durumu</span>
-          <span class="switch-sub" id="yayinDurumMetni">Aktif ve Yayında (Google'da Gösteriliyor)</span>
-        </div>
-      </div>
-      <div class="donem-seg" role="group" aria-label="Rapor dönemi">
-        <button type="button" id="dBtn1">Günlük</button>
-        <button type="button" id="dBtn7">7 Gün</button>
-        <button type="button" id="dBtn30" class="on">30 Gün</button>
-      </div>
+    <!-- ESKİ KODDAKİ ORİJİNAL KURULUM ÇUBUĞU (Butona basınca veya iOS/Android'de otomatik destek sağlar) -->
+    <div class="kurulum" id="kurulumBar" hidden>
+      <span id="kurulumMetin">Paneli telefonunuzun ana ekranına ekleyin, tek dokunuşla açın.</span>
+      <button class="kurulum-btn" id="kurulumEkle" type="button" hidden>Ana Ekrana Ekle</button>
+      <button class="kurulum-btn" id="kurulumKapat" type="button">Tamam</button>
     </div>
 
-    <!-- 3. GRUP: 4'lü Ana Vurucu Metrik Kartları -->
-    <div class="stats-4">
+    <div class="demo-bant" id="demoBant" role="status" hidden>ÖRNEK VERİLERLE ÖNİZLEME: Bu rakamlar görünümü göstermek içindir.</div>
+
+    <!-- 2. GRUP: 6'lı Google Ads Tüm Ana Metrikler (Tıklama, Gösterim, TO %, Ort. TBM, Toplam Maliyet, Aramalar) -->
+    <div class="stats-6">
       <button class="stat click" id="btnTiklayanlar" type="button" aria-haspopup="dialog">
-        <span class="lbl"><span>Tıklayanlar</span><i class="dot-i"></i></span>
+        <span class="lbl"><span>Tıklamalar</span><i class="dot-i"></i></span>
         <span class="val num" id="vTiklanma">0</span>
         <span class="ft" id="ftTiklanma">Kutlama için dokunun ✨</span>
       </button>
@@ -624,47 +641,37 @@
         <span class="ft" id="ftGosterim">Son 30 günde</span>
       </section>
       <section class="stat yellow-top" aria-label="Tıklama oranı">
-        <span class="lbl"><span>Tıklama Oranı (TO)</span><i class="dot-i"></i></span>
+        <span class="lbl"><span>Etkileşim (TO %)</span><i class="dot-i"></i></span>
         <span class="val num" id="vTO">%0</span>
-        <span class="ft">Her 100 gösterimde ilgi</span>
+        <span class="ft">Gösterim / tıklama oranı</span>
+      </section>
+      <section class="stat cyan-top" aria-label="Tıklama başına maliyet">
+        <span class="lbl"><span>Ort. TBM</span><i class="dot-i"></i></span>
+        <span class="val num" id="vTBM">₺0,00</span>
+        <span class="ft">Tıklama başına maliyet</span>
+      </section>
+      <section class="stat purple-top" aria-label="Toplam maliyet">
+        <span class="lbl"><span>Toplam Maliyet</span><i class="dot-i"></i></span>
+        <span class="val num" id="vMaliyet">₺0</span>
+        <span class="ft" id="ftMaliyet">Harcanan reklam bütçesi</span>
       </section>
       <section class="stat green-top" aria-label="Telefon ve dönüşüm">
-        <span class="lbl"><span id="lblDorduncuKart">Telefon Aramaları</span><i class="dot-i"></i></span>
+        <span class="lbl"><span id="lblAltinciKart">Telefon / Erişim</span><i class="dot-i"></i></span>
         <span class="val num" id="vAramalar">0</span>
-        <span class="ft" id="ftDorduncuKart">Doğrudan iletişim</span>
+        <span class="ft" id="ftAltinciKart">Doğrudan etkileşim</span>
       </section>
     </div>
 
-    <!-- 4. GRUP: Düzenli Sekme Menüsü (Telefonda Hiçbir Şeyin Karışmaması İçin) -->
-    <nav class="tab-nav" role="tablist" aria-label="Detay sekmeleri">
-      <button type="button" class="tab-btn on" data-tab="paneGrafik" role="tab" aria-selected="true">
-        <svg viewBox="0 0 24 24" fill="none"><path d="M3 17l6-6 4 4 8-8" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-        <span>Grafik</span>
-      </button>
-      <button type="button" class="tab-btn" data-tab="paneOnizleme" role="tab" aria-selected="false">
-        <svg viewBox="0 0 24 24" fill="none"><circle cx="11" cy="11" r="7" stroke="currentColor" stroke-width="2"/><path d="M20 20l-3.5-3.5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
-        <span>Önizleme</span>
-      </button>
-      <button type="button" class="tab-btn" data-tab="paneKitle" role="tab" aria-selected="false">
-        <svg viewBox="0 0 24 24" fill="none"><path d="M16 21v-2a4 4 0 00-4-4H6a4 4 0 00-4 4v2" stroke="currentColor" stroke-width="2"/><circle cx="9" cy="7" r="4" stroke="currentColor" stroke-width="2"/><path d="M22 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75" stroke="currentColor" stroke-width="2"/></svg>
-        <span>Kitle & Arama</span>
-      </button>
-      <button type="button" class="tab-btn" data-tab="paneCihaz" role="tab" aria-selected="false">
-        <svg viewBox="0 0 24 24" fill="none"><rect x="5" y="2" width="14" height="20" rx="2" stroke="currentColor" stroke-width="2"/><path d="M12 18h.01" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
-        <span>Cihaz & Saat</span>
-      </button>
-    </nav>
-
-    <!-- KOKPİT DETAY PANELLERİ -->
+    <!-- 3. GRUP: TÜM GOOGLE ADS ARAYÜZLERİ (AŞAĞIYA DOĞRU EKSİKSİZ SIRALI) -->
     <div class="cockpit-grid">
 
-      <!-- PANEL 1: GOOGLE ADS ÇİFT ÇİZGİLİ (MAVİ/KIRMIZI) PERFORMANS GRAFİĞİ -->
-      <section class="tab-pane on" id="paneGrafik" aria-label="Google Ads Performans Grafiği">
+      <!-- ARAYÜZ 1: GOOGLE ADS ÇİFT ÇİZGİLİ (MAVİ/KIRMIZI) PERFORMANS GRAFİĞİ -->
+      <section class="panel-box wide" aria-label="Google Ads Performans Grafiği">
         <div>
           <div class="pane-head">
             <div>
-              <h2>Google Ads Performans Grafiği</h2>
-              <p class="sub">Noktalara dokunarak günlük Tıklama ve Gösterim detayını görün</p>
+              <h2>📈 Google Ads Zaman Serisi Grafiği</h2>
+              <p class="sub">Noktalara dokunarak günlük Tıklama ve Gösterim sayısını inceleyin</p>
             </div>
             <div class="ads-legend">
               <span class="ads-leg-item"><i class="ads-pill-line blue"></i>Tıklamalar</span>
@@ -678,136 +685,160 @@
         <div class="ozet-bar" id="trendOzet">Veriler analiz ediliyor…</div>
       </section>
 
-      <!-- PANEL 2: CANLI REKLAM ÖNİZLEMESİ (81 İL & SEKTÖR OTOMATİK ŞABLONLU) -->
-      <section class="tab-pane" id="paneOnizleme" aria-label="Canlı Reklam Önizlemesi">
+      <!-- ARAYÜZ 2: KAMPANYALAR VE ANAHTAR KELİMELER PERFORMANS ÖZETİ (MALİYET, TIKLAMA, TO, TBM) -->
+      <section class="panel-box" aria-label="Kampanyalar ve Anahtar Kelimeler">
+        <div>
+          <div class="pane-head">
+            <div>
+              <h2>📊 Kampanyalar ve Anahtar Kelimeler</h2>
+              <p class="sub">Anahtar kelimelerinizin maliyet, tıklama ve TO (%) performansı</p>
+            </div>
+          </div>
+          <!-- Kampanya Satırı -->
+          <table class="ads-table" aria-label="Kampanya özeti">
+            <thead>
+              <tr>
+                <th>Kampanya Adı</th>
+                <th class="r">Maliyet</th>
+                <th class="r">Tıklama</th>
+                <th class="r">Ort. TBM</th>
+                <th class="r">TO</th>
+              </tr>
+            </thead>
+            <tbody id="kampanyaTabloGovde"></tbody>
+          </table>
+
+          <!-- Anahtar Kelimeler Performans Tablosu -->
+          <h2 style="font-size:13px; margin:12px 0 4px">🔑 En Çok Tıklanan Anahtar Kelimeler</h2>
+          <table class="ads-table" aria-label="Anahtar kelime performansı">
+            <thead>
+              <tr>
+                <th>Arama Terimi / Kelime</th>
+                <th class="r">Maliyet</th>
+                <th class="r">Tıklamalar</th>
+                <th class="r">TO</th>
+              </tr>
+            </thead>
+            <tbody id="kelimeTabloGovde"></tbody>
+          </table>
+        </div>
+        <div class="kw-cloud" id="chipList"></div>
+      </section>
+
+      <!-- ARAYÜZ 3: CANLI GOOGLE ARAMA REKLAM ÖNİZLEMESİ -->
+      <section class="panel-box" aria-label="Canlı Reklam Önizlemesi">
         <div class="pane-head">
           <div>
-            <h2>Canlı Reklam Önizlemesi</h2>
+            <h2>🔍 Canlı Reklam Önizlemesi</h2>
             <p class="sub" id="onizlemeAltBaslik">Google aramalarında işletmenizin 1. sıra görünümü</p>
           </div>
         </div>
-        <div class="preview-layout">
-          <div class="phone-google">
-            <div class="pg-top">
-              <div class="pg-burger"></div>
-              <div class="pg-logo"><span>G</span><span>o</span><span>o</span><span>g</span><span>l</span><span>e</span></div>
-              <div class="pg-avatar"></div>
-            </div>
-            <div class="pg-search">
-              <svg viewBox="0 0 24 24" fill="none"><circle cx="11" cy="11" r="7" stroke="currentColor" stroke-width="2.2"/><path d="M20 20l-4-4" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/></svg>
-              <span id="phoneQuery">taksi malatya</span>
-            </div>
+        <div class="phone-google">
+          <div class="pg-top">
+            <div class="pg-burger"></div>
+            <div class="pg-logo"><span>G</span><span>o</span><span>o</span><span>g</span><span>l</span><span>e</span></div>
+            <div class="pg-avatar"></div>
+          </div>
+          <div class="pg-search">
+            <svg viewBox="0 0 24 24" fill="none"><circle cx="11" cy="11" r="7" stroke="currentColor" stroke-width="2.2"/><path d="M20 20l-4-4" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/></svg>
+            <span id="phoneQuery">taksi malatya</span>
+          </div>
 
-            <!-- 1. Kutu: Müşterinin Kendi İşletmesi -->
-            <div class="pg-target-box" id="pgTargetBox">
-              <div class="pg-ad-head">
-                <div class="pg-icon-q" id="pgTargetIcon">1</div>
-                <div class="pg-domain">
-                  <strong id="pgTargetDomain">Şahin Taksi · Sponsorlu</strong>
-                  <span id="pgTargetSub">Sektörünüzde 1. Sırada Yayındasınız</span>
-                </div>
+          <div class="pg-target-box" id="pgTargetBox">
+            <div class="pg-ad-head">
+              <div class="pg-icon-q" id="pgTargetIcon">1</div>
+              <div class="pg-domain">
+                <strong id="pgTargetDomain">Şahin Taksi · Sponsorlu</strong>
+                <span id="pgTargetSub">Sektörünüzde 1. Sırada Yayındasınız</span>
               </div>
-              <div class="pg-target-title" id="pgTargetTitle">Şahin Taksi - 7/24 Hızlı ve Güvenilir Hizmet</div>
-              <div class="pg-target-desc" id="pgTargetDesc">Müşterileriniz hizmetinizi aradığında ilk sırada sizi buluyor. Hemen arayın, anında ulaşın.</div>
             </div>
+            <div class="pg-target-title" id="pgTargetTitle">Şahin Taksi - 7/24 Hızlı ve Güvenilir Hizmet</div>
+            <div class="pg-target-desc" id="pgTargetDesc">Müşterileriniz hizmetinizi aradığında ilk sırada sizi buluyor. Hemen arayın, anında ulaşın.</div>
+          </div>
 
-            <!-- 2. Kutu: Referans Rakip İşletme -->
-            <div class="pg-comp-box">
-              <div class="pg-ad-head">
-                <div class="pg-icon-r">R</div>
-                <div class="pg-domain">
-                  <strong id="pgCompName">Referans Taksi</strong>
-                  <span id="pgCompUrl">www.referanstaksi.com.tr</span>
-                </div>
+          <div class="pg-comp-box">
+            <div class="pg-ad-head">
+              <div class="pg-icon-r">R</div>
+              <div class="pg-domain">
+                <strong id="pgCompName">Referans Taksi</strong>
+                <span id="pgCompUrl">www.referanstaksi.com.tr</span>
               </div>
-              <div class="pg-comp-title" id="pgCompTitle">Malatya'nın En İyi Taksi Hizmeti</div>
-              <div class="pg-comp-body">
-                <div class="pg-comp-desc" id="pgCompDesc">Malatya'da güvenilir ve profesyonel hizmet arıyorsanız doğru yerdesiniz. Hemen arayın, anında destek alın.</div>
-                <div class="pg-comp-thumb"></div>
-              </div>
-              <div class="pg-pills">
-                <span class="pg-pill" id="pgTelPill">Hemen Ara</span>
-                <span class="pg-pill">Yol Tarifi Al</span>
-              </div>
+            </div>
+            <div class="pg-comp-title" id="pgCompTitle">Malatya'nın En İyi Taksi Hizmeti</div>
+            <div class="pg-comp-body">
+              <div class="pg-comp-desc" id="pgCompDesc">Malatya'da güvenilir ve profesyonel hizmet arıyorsanız doğru yerdesiniz. Hemen arayın, anında destek alın.</div>
+              <div class="pg-comp-thumb"></div>
+            </div>
+            <div class="pg-pills">
+              <span class="pg-pill" id="pgTelPill">Hemen Ara</span>
+              <span class="pg-pill">Yol Tarifi Al</span>
             </div>
           </div>
         </div>
       </section>
 
-      <!-- PANEL 3: DEMOGRAFİ (KADIN/ERKEK + YAŞ GRUBU) VE ARAMA KELİMELERİ -->
-      <section class="tab-pane" id="paneKitle" aria-label="Demografi ve Arama Kelimeleri">
+      <!-- ARAYÜZ 4: DEMOGRAFİ (YAŞ & CİNSİYET) VE CİHAZLAR ARASI PERFORMANS -->
+      <section class="panel-box" aria-label="Demografi ve Cihazlar">
         <div>
           <div class="pane-head">
             <div>
-              <h2>Yaş ve Cinsiyet Dağılımı</h2>
+              <h2>👥 Demografi: Yaş ve Cinsiyet</h2>
               <p class="sub" id="yasBaskinMetin">En yoğun ilgi gösteren kitle: 25-34 Yaş</p>
             </div>
           </div>
-          <div class="demo-block">
-            <div class="gender-row">
-              <span style="color:#f472b6" id="txtKadin">👩 Kadın %50</span>
-              <span style="color:#60a5fa" id="txtErkek">👨 Erkek %50</span>
-            </div>
-            <div class="gender-bar">
-              <div class="g-female" id="barKadin" style="width:50%"></div>
-              <div class="g-male" id="barErkek" style="width:50%"></div>
-            </div>
-            <div class="age-grid" id="ageGrid"></div>
+          <div class="gender-row">
+            <span style="color:#f472b6" id="txtKadin">👩 Kadın %50</span>
+            <span style="color:#60a5fa" id="txtErkek">👨 Erkek %50</span>
           </div>
+          <div class="gender-bar">
+            <div class="g-female" id="barKadin" style="width:50%"></div>
+            <div class="g-male" id="barErkek" style="width:50%"></div>
+          </div>
+          <div class="age-grid" id="ageGrid"></div>
         </div>
-        <div>
-          <h2 style="font-size:13.5px; margin:8px 0 2px">Müşterilerin Yazdığı Arama Kelimeleri</h2>
-          <div class="kw-list" id="chipList"></div>
+
+        <div class="dev-rows">
+          <h2 style="font-size:13px; margin:2px 0">📱 Cihazlar Arası Performans (Telefon / PC / Tablet)</h2>
+          <div class="dev-item">
+            <div class="dev-hdr"><span>Cep Telefonları</span><b id="txtMobil">%0</b></div>
+            <div class="dev-track"><div class="dev-fill mob" id="barMobil" style="width:0%"></div></div>
+          </div>
+          <div class="dev-item">
+            <div class="dev-hdr"><span>Bilgisayarlar</span><b id="txtPc">%0</b></div>
+            <div class="dev-track"><div class="dev-fill pc" id="barPc" style="width:0%"></div></div>
+          </div>
+          <div class="dev-item">
+            <div class="dev-hdr"><span>Tabletler</span><b id="txtTablet">%0</b></div>
+            <div class="dev-track"><div class="dev-fill tab" id="barTablet" style="width:0%"></div></div>
+          </div>
         </div>
       </section>
 
-      <!-- PANEL 4: CİHAZ PERFORMANSI (MOBİL/PC/TABLET) VE AKTİF SAATLER -->
-      <section class="tab-pane" id="paneCihaz" aria-label="Cihazlar ve Aktif Saatler">
+      <!-- ARAYÜZ 5: GÜN VE SAAT PERFORMANS ISI HARİTASI (GOOGLE ADS GÜN & SAAT KARTI) -->
+      <section class="panel-box" aria-label="Gün ve Saat Performansı">
         <div>
           <div class="pane-head">
             <div>
-              <h2>Cihazlar Arası Performans</h2>
-              <p class="sub">Cep telefonu, bilgisayar ve tablet tıklama oranları</p>
+              <h2>🕒 Gün ve Saat Performansı</h2>
+              <p class="sub">Haftanın gününe ve günün saatine göre tıklama yoğunluğu</p>
             </div>
           </div>
-          <div class="dev-rows">
-            <div class="dev-item">
-              <div class="dev-hdr"><span>📱 Cep Telefonları</span><b id="txtMobil">%0</b></div>
-              <div class="dev-track"><div class="dev-fill mob" id="barMobil" style="width:0%"></div></div>
-            </div>
-            <div class="dev-item">
-              <div class="dev-hdr"><span>💻 Bilgisayarlar</span><b id="txtPc">%0</b></div>
-              <div class="dev-track"><div class="dev-fill pc" id="barPc" style="width:0%"></div></div>
-            </div>
-            <div class="dev-item">
-              <div class="dev-hdr"><span>📟 Tabletler</span><b id="txtTablet">%0</b></div>
-              <div class="dev-track"><div class="dev-fill tab" id="barTablet" style="width:0%"></div></div>
-            </div>
-          </div>
-        </div>
-        <div>
-          <h2 style="font-size:13.5px; margin:6px 0 2px">Günün Saatlerine Göre Yoğunluk</h2>
-          <p class="sub" style="margin:0 0 6px; color:var(--muted); font-size:11.5px">Müşterilerin reklamınıza en çok tıkladığı saat dilimleri</p>
           <div class="hour-grid" id="hourGrid"></div>
+          <div class="heatmap-wrap" id="heatmapGrid" aria-label="Haftalık saat yoğunluk haritası"></div>
+          <div class="hm-hours">
+            <span></span><span>00:00</span><span>06:00</span><span>12:00</span><span>18:00</span>
+          </div>
         </div>
+        <div class="ozet-bar" id="saatOzet">En yoğun saat dilimi analiz ediliyor…</div>
       </section>
 
     </div>
   </div>
 
-  <!-- ============ EKRANIN EN ALTINA SABİT TERS İSTİKAMETLİ HABER BANDI (`yazi.txt`) ============ -->
-  <aside class="sticky-ticker" id="stickyMediaBar" aria-label="Bilgilendirme ve iletişim bandı">
-    <div class="ticker-inner">
-      <span class="ticker-badge"><i></i>Destek</span>
-      <div class="ticker-stage">
-        <a href="tel:05345957444" class="ticker-msg" id="tickerMetin">SORUNUZ VARSA BANA ULAŞABİLİRSİNİZ 0534 595 74 44</a>
-      </div>
-      <button type="button" class="ticker-btn" id="btnVideoAc">
-        <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><polygon points="6 4 20 12 6 20 6 4" fill="currentColor"/></svg>
-        <span>Tanıtım MP4</span>
-      </button>
-    </div>
-  </aside>
+  <!-- ============ ALTTAKİ GEREKSİZ BAR KALDIRILDI: DOĞRUDAN ARAYÜZ ÜSTÜNE ÇIKAN, TIKLANAMAYAN `yazi.txt` KATMANI ============ -->
+  <div class="floating-yazi-layer" aria-hidden="true">
+    <div class="floating-yazi-pill" id="tickerMetin">SORUNUZ VARSA BANA ULAŞABİLİRSİNİZ 0534 595 74 44</div>
+  </div>
 </main>
 
 <!-- ============ MP4 VİDEO MODALI ============ -->
@@ -821,7 +852,7 @@
         Tarayıcınız video oynatmayı desteklemiyor.
       </video>
     </div>
-    <button id="videoKapat" class="btn primary" type="button" style="margin-top:14px">Kapat</button>
+    <button id="videoKapat" class="btn primary" type="button" style="margin-top:12px">Kapat</button>
   </div>
 </div>
 
@@ -835,15 +866,6 @@
     <p id="tebrikMetin"></p>
     <p class="ek" id="tebrikAra" hidden></p>
     <button id="tebrikKapat" class="btn primary" type="button">Harika!</button>
-  </div>
-</div>
-
-<!-- ============ UYGULAMA KURULUM BİLGİ MODALI (iOS / Tarayıcı Yönlendirmesi) ============ -->
-<div id="kurulumModal" class="modal" role="dialog" aria-modal="true" aria-labelledby="kurulumBaslik" aria-hidden="true">
-  <div class="card">
-    <h1 id="kurulumBaslik">Uygulamayı Cihaza Yükle</h1>
-    <p class="lead" id="kurulumAciklama">Paneli telefonunuzun ana ekranına uygulama olarak eklemek için tarayıcı menüsünden <b>"Ana Ekrana Ekle"</b> veya <b>"Uygulamayı Yükle"</b> seçeneğine dokunun.</p>
-    <button id="kurulumTamam" class="btn primary" type="button">Tamam</button>
   </div>
 </div>
 
@@ -884,9 +906,9 @@ var YENILEME_ESIGI   = 15 * 60 * 1000;
 var BEKCI_MS         = 26000;
 var YENILE_BEKLEME   = 6000;
 
-var LS = { oturum: 'pnl_oturum', deneme: 'pnl_deneme', ban: 'pnl_ban', veri: 'pnl_veri_v3' };
+var LS = { oturum: 'pnl_oturum', deneme: 'pnl_deneme', ban: 'pnl_ban', veri: 'pnl_veri_v4', kurulum: 'pnl_kurulum_gizle' };
 var TOK_DESEN = /^\d{9,14}\.[0-9a-f]{64}$/;
-var VERI_SEMA = 4;
+var VERI_SEMA = 5;
 
 /* =====================================================================
    81 İL PLAKA SÖZLÜĞÜ VE SEKTÖR OTOMASYON MOTORU
@@ -897,7 +919,7 @@ var PLAKALAR = {
   '21':'Diyarbakır','22':'Edirne','23':'Elazığ','24':'Erzincan','25':'Erzurum','26':'Eskişehir','27':'Gaziantep','28':'Giresun','29':'Gümüşhane','30':'Hakkari',
   '31':'Hatay','32':'Isparta','33':'Mersin','34':'İstanbul','35':'İzmir','36':'Kars','37':'Kastamonu','38':'Kayseri','39':'Kırklareli','40':'Kırşehir',
   '41':'Kocaeli','42':'Konya','43':'Kütahya','44':'Malatya','45':'Manisa','46':'Kahramanmaraş','47':'Mardin','48':'Muğla','49':'Muş','50':'Nevşehir',
-  '51':'Niğde','52':'Ordu','53':'Rize','54':'Sakarya','55':'Samsun','56':'Siirt','57':'Sinop','58':'Sivas','59':'Tekirdağ','60':'Tokat',
+  '51':'Niğde','52':'Ordu','53':'Rize','54':'Sakarya','55':'Samsun','56':'Siirt','57':'Sinop','58':'Sivas','58':'Sivas','59':'Tekirdağ','60':'Tokat',
   '61':'Trabzon','62':'Tunceli','63':'Şanlıurfa','64':'Uşak','65':'Van','66':'Yozgat','67':'Zonguldak','68':'Aksaray','69':'Bayburt','70':'Karaman',
   '71':'Kırıkkale','72':'Batman','73':'Şırnak','74':'Bartın','75':'Ardahan','76':'Iğdır','77':'Yalova','78':'Karabük','79':'Kilis','80':'Osmaniye','81':'Düzce'
 };
@@ -984,6 +1006,9 @@ var depo = {
 
 function n(x) { var k = Number(x); return isFinite(k) ? k : 0; }
 function fmt(x) { return Math.round(n(x)).toLocaleString('tr-TR'); }
+function fmtPara(x) {
+  return '₺' + n(x).toLocaleString('tr-TR', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+}
 function bekle(ms) { return new Promise(function (r) { setTimeout(r, ms); }); }
 function hareketAzalt() { try { return !!(window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches); } catch (e) { return false; } }
 function trNorm(s) {
@@ -1025,6 +1050,73 @@ function log() {
 }
 
 function PanelHata(kod, mesaj, detay) { this.kod = kod; this.mesaj = mesaj; this.detay = detay || ''; }
+
+/* =====================================================================
+   ESKİ KODDAKİ ORİJİNAL PWA ANA EKRANA EKLEME MANTIĞI (PC, ANDROID & iOS)
+   ===================================================================== */
+var kurulumOlayi = null;
+function standaloneMu() {
+  try {
+    return (window.matchMedia && window.matchMedia('(display-mode: standalone)').matches) || window.navigator.standalone === true;
+  } catch (e) { return false; }
+}
+function iosMu() {
+  return /iphone|ipad|ipod/i.test(navigator.userAgent || '') && !window.MSStream;
+}
+function kurulumGoster() {
+  var bar = $('kurulumBar');
+  var ustBtn = $('btnKurulum');
+  if (standaloneMu()) {
+    if (bar) { bar.hidden = true; }
+    if (ustBtn) { ustBtn.hidden = true; }
+    return;
+  }
+  if (ustBtn) { ustBtn.hidden = false; }
+  if (DEMO || depo.al(LS.kurulum) === '1' || !$('dashScreen')) {
+    bar.hidden = true;
+    return;
+  }
+  if (kurulumOlayi) {
+    $('kurulumMetin').textContent = 'Paneli telefonunuzun veya bilgisayarınızın ana ekranına ekleyin, tek dokunuşla uygulama olarak açın.';
+    $('kurulumEkle').hidden = false;
+    bar.hidden = false;
+  } else if (iosMu()) {
+    $('kurulumMetin').textContent = 'Ana ekrana eklemek için Safari\'de Paylaş düğmesine, sonra "Ana Ekrana Ekle"ye dokunun.';
+    $('kurulumEkle').hidden = true;
+    bar.hidden = false;
+  } else {
+    bar.hidden = true;
+  }
+}
+
+window.addEventListener('beforeinstallprompt', function (e) {
+  e.preventDefault();
+  kurulumOlayi = e;
+  if (aktifOturum || DEMO) { kurulumGoster(); }
+});
+window.addEventListener('appinstalled', function () {
+  kurulumOlayi = null;
+  $('kurulumBar').hidden = true;
+  $('btnKurulum').hidden = true;
+});
+
+function kurulumTetikle() {
+  if (kurulumOlayi) {
+    try { kurulumOlayi.prompt(); } catch (e) {}
+    kurulumOlayi = null;
+    $('kurulumBar').hidden = true;
+    return;
+  }
+  // iOS Safari veya tarayıcıda butona basıldığında eski koddaki sabit bilgilendirme çubuğunu açar
+  var bar = $('kurulumBar');
+  if (iosMu()) {
+    $('kurulumMetin').textContent = 'Ana ekrana eklemek için Safari\'de Paylaş düğmesine, sonra "Ana Ekrana Ekle"ye dokunun.';
+  } else {
+    $('kurulumMetin').textContent = 'Ana ekrana eklemek için tarayıcınızın sağ üst menüsünden "Uygulamayı Yükle" veya "Ana Ekrana Ekle" seçeneğine dokunun.';
+  }
+  $('kurulumEkle').hidden = true;
+  bar.hidden = false;
+}
 
 /* =====================================================================
    EKRAN YÖNETİMİ
@@ -1116,7 +1208,6 @@ function parcaciklariBaslat() {
         if (d2 < MENZIL * MENZIL) {
           var mesafe = Math.sqrt(d2);
           var guc = 1 - (mesafe / MENZIL);
-          // Yakınlaştıkça kenetlenen, kopma sınırına geldikçe incelip kopan dal efekti
           var alfa = guc > 0.22 ? (guc * 0.42) : (guc * 0.15);
           ctx.strokeStyle = 'rgba(59,130,246,' + alfa.toFixed(3) + ')';
           ctx.lineWidth = guc > 0.55 ? 1.5 : 0.9;
@@ -1139,7 +1230,7 @@ function parcaciklariBaslat() {
 }
 
 /* =====================================================================
-   `yazi.txt` DOSYASINDAN HABER BANDI METNİNİ OKUMA
+   `yazi.txt` DOSYASINDAN HABER METNİNİ OKUMA (TIKLANAMAZ OVERLAY)
    ===================================================================== */
 async function altYaziYukle() {
   var el = $('tickerMetin');
@@ -1149,8 +1240,6 @@ async function altYaziYukle() {
       var t = (await r.text()).trim();
       if (t && t.length < 240 && t.indexOf('<!DOCTYPE') === -1) {
         el.textContent = t;
-        var telEslesme = t.replace(/\D/g, '');
-        if (telEslesme.length >= 10) { el.href = 'tel:' + telEslesme.slice(-11); }
         return;
       }
     }
@@ -1159,7 +1248,7 @@ async function altYaziYukle() {
 }
 
 /* =====================================================================
-   API İLETİŞİMİ VE VERİ DÜZENLEME
+   API İLETİŞİMİ VE VERİ DÜZENLEME (MALİYET VE TBM DAHİL)
    ===================================================================== */
 function apiAyarliMi() { return API_URL && API_URL.indexOf('BURAYA_') === -1 && /^https:\/\//.test(API_URL); }
 
@@ -1203,6 +1292,10 @@ function duzenle(v) {
   function dizi(a) { return Array.isArray(a) ? a.map(n) : []; }
   var gos = n(v.gosterim), tik = n(v.tiklanma);
   var toHesap = v.to !== undefined && n(v.to) > 0 ? n(v.to) : (gos > 0 ? Number((tik / gos * 100).toFixed(2)) : 0);
+  var hamMaliyet = n(v.maliyet);
+  var hamTbm = n(v.tbm);
+  if (hamTbm <= 0 && hamMaliyet > 0 && tik > 0) { hamTbm = Number((hamMaliyet / tik).toFixed(2)); }
+  if (hamMaliyet <= 0 && hamTbm > 0 && tik > 0) { hamMaliyet = Number((hamTbm * tik).toFixed(2)); }
 
   return {
     id: String(v.id || ''),
@@ -1213,6 +1306,8 @@ function duzenle(v) {
     gosterim: gos,
     tiklanma: tik,
     to: toHesap,
+    maliyet: hamMaliyet,
+    tbm: hamTbm,
     aramalar: n(v.aramalar),
     cihaz: { mobil: n(cz.mobil), pc: n(cz.pc), tablet: n(cz.tablet) },
     demografi: {
@@ -1393,7 +1488,7 @@ function yayinArayuzGuncelle(acik, ad, info) {
   btn.setAttribute('aria-checked', acik ? 'true' : 'false');
 
   if (acik) {
-    txt.textContent = 'Aktif ve Yayında (Google\'da Gösteriliyor)';
+    txt.textContent = 'Aktif ve Yayında';
     txt.classList.remove('paused');
     box.classList.remove('paused');
     icon.textContent = '1';
@@ -1402,7 +1497,7 @@ function yayinArayuzGuncelle(acik, ad, info) {
     tit.textContent = ad + ' - ' + info.sehir + ' ' + info.sektor + ' Hizmeti';
     desc.textContent = 'Müşterileriniz Google\'da "' + info.arama + '" araması yaptığında ilk sırada işletmenizi görür.';
   } else {
-    txt.textContent = 'Duraklatıldı (Google Ads Yayını Kapalı)';
+    txt.textContent = 'Duraklatıldı (Kapalı)';
     txt.classList.add('paused');
     box.classList.add('paused');
     icon.textContent = '?';
@@ -1417,12 +1512,14 @@ async function yayinDegistir() {
   if (!son) { return; }
   var btn = $('btnYayinToggle');
   if (btn.disabled) { return; }
-  var yeniAcik = !son.yayinAcik;
+  var eskiAcik = son.yayinAcik;
+  var yeniAcik = !eskiAcik;
   son.yayinAcik = yeniAcik;
   var ad = son.isletme || guzelAd(son.id) || 'İşletmeniz';
   if (/_/.test(ad) && !/\s/.test(ad)) { ad = guzelAd(ad); }
   var info = kimlikCozumle(son.id || URL_ID);
   yayinArayuzGuncelle(yeniAcik, ad, info);
+  kampanyaTablosuCiz(son, donemMetrikleri(son, seciliDonem));
 
   if (DEMO || !aktifOturum || !aktifOturum.tok) { return; }
   btn.disabled = true;
@@ -1431,9 +1528,11 @@ async function yayinDegistir() {
     await apiCagir(aktifOturum.id, { tok: aktifOturum.tok }, '&islem=komut&komut=' + komut);
     onbellekYaz(son);
   } catch (e) {
-    log('Yayın komutu gönderilemedi:', e);
+    son.yayinAcik = eskiAcik;
+    yayinArayuzGuncelle(eskiAcik, ad, info);
+    kampanyaTablosuCiz(son, donemMetrikleri(son, seciliDonem));
   } finally {
-    setTimeout(function () { btn.disabled = false; }, 600);
+    setTimeout(function () { btn.disabled = false; }, 500);
   }
 }
 
@@ -1444,6 +1543,8 @@ function demoVeri() {
   var hamTik = [11,14,9,18,22,16,25,19,13,17,21,28,24,15,19,23,29,34,27,21,18,24,31,26,20,22,27,33,19,15];
   var hamGos = hamTik.map(function (x, i) { return x * 9 + ((i * 7) % 15); });
   var topTik = topla(hamTik), topGos = topla(hamGos);
+  var tbmOrnek = 19.42;
+  var malOrnek = Number((topTik * tbmOrnek).toFixed(2));
   var bugun = new Date();
   var bs = new Date(bugun.getFullYear(), bugun.getMonth(), bugun.getDate() - 30);
   var iso = bs.getFullYear() + '-' + ('0' + (bs.getMonth() + 1)).slice(-2) + '-' + ('0' + bs.getDate()).slice(-2);
@@ -1452,11 +1553,12 @@ function demoVeri() {
   return {
     ok: true, durum: true, yayin_komutu: 'ACIK',
     id: URL_ID || 'taksi_44_1', isletme: 'Şahin Taksi', telefon: '0534 595 74 44',
-    gosterim: topGos, tiklanma: topTik, to: Number((topTik / topGos * 100).toFixed(2)), aramalar: 42,
-    cihaz: { mobil: 93, pc: 5, tablet: 2 },
+    gosterim: topGos, tiklanma: topTik, to: Number((topTik / topGos * 100).toFixed(2)),
+    maliyet: malOrnek, tbm: tbmOrnek, aramalar: 42,
+    cihaz: { mobil: 95, pc: 5, tablet: 0 },
     demografi: { kadin: 51, erkek: 49, yas: '25-34', yas_dagilim: [16, 39, 23, 12, 6, 4] },
     saat_dagilim: [9, 29, 41, 21],
-    kelimeler: ['malatya taksi:49', 'taksi malatya:22', 'maşti taksi:7', 'fahri kayahan taksi:7', 'malatya hastane taksi:5'],
+    kelimeler: ['malatya taksi:49', 'taksi malatya:22', 'maşti taksi:7', 'fahri kayahan taksi:7', 'malatya taksi:5'],
     gunluk: { baslangic: iso, tiklama: hamTik, gosterim: hamGos },
     guncelleme: simdiIso
   };
@@ -1500,7 +1602,7 @@ async function yenile() {
 }
 
 /* =====================================================================
-   PANEL ÇİZİMİ VE DİNAMİK HESAPLAMALAR
+   PANEL ÇİZİMİ VE DÖNEM HESAPLAMALARI (TBM VE MALİYET DAHİL)
    ===================================================================== */
 function sayarakYukselt(el, hedef, sure, animasyon) {
   var jeton = (el._jeton = (el._jeton || 0) + 1);
@@ -1519,19 +1621,23 @@ function topla(a) { return a.reduce(function (s, x) { return s + n(x); }, 0); }
 function donemMetrikleri(v, gunSayisi) {
   var gt = (v.gunluk && Array.isArray(v.gunluk.tiklama)) ? v.gunluk.tiklama : [];
   var gg = (v.gunluk && Array.isArray(v.gunluk.gosterim)) ? v.gunluk.gosterim : [];
+  var birimTbm = v.tbm > 0 ? v.tbm : (v.tiklanma > 0 && v.maliyet > 0 ? (v.maliyet / v.tiklanma) : 0);
+
   if (gunSayisi === 1) {
     var t1 = gt.length ? n(gt[gt.length - 1]) : Math.round(v.tiklanma / 30);
     var g1 = gg.length ? n(gg[gg.length - 1]) : Math.round(v.gosterim / 30);
     var to1 = g1 > 0 ? (t1 / g1 * 100) : v.to;
-    return { gosterim: g1, tiklanma: t1, to: to1, etiket: 'Son günde (Günlük)' };
+    var mal1 = birimTbm > 0 ? (t1 * birimTbm) : (v.maliyet / 30);
+    return { gosterim: g1, tiklanma: t1, to: to1, tbm: birimTbm, maliyet: mal1, etiket: 'Son günde (Günlük)' };
   }
   if (gunSayisi === 7) {
     var t7 = gt.length >= 7 ? topla(gt.slice(-7)) : Math.round(v.tiklanma * (7 / 30));
     var g7 = gg.length >= 7 ? topla(gg.slice(-7)) : Math.round(v.gosterim * (7 / 30));
     var to7 = g7 > 0 ? (t7 / g7 * 100) : v.to;
-    return { gosterim: g7, tiklanma: t7, to: to7, etiket: 'Son 7 günde (Haftalık)' };
+    var mal7 = birimTbm > 0 ? (t7 * birimTbm) : (v.maliyet * (7 / 30));
+    return { gosterim: g7, tiklanma: t7, to: to7, tbm: birimTbm, maliyet: mal7, etiket: 'Son 7 günde (Haftalık)' };
   }
-  return { gosterim: v.gosterim, tiklanma: v.tiklanma, to: v.to, etiket: 'Son 30 günde (Aylık)' };
+  return { gosterim: v.gosterim, tiklanma: v.tiklanma, to: v.to, tbm: birimTbm, maliyet: v.maliyet, etiket: 'Son 30 günde (Aylık)' };
 }
 
 function donemSec(gun, sessiz) {
@@ -1542,10 +1648,15 @@ function donemSec(gun, sessiz) {
   if (!son) { return; }
   var m = donemMetrikleri(son, gun);
   $('ftGosterim').textContent = m.etiket;
+  $('ftMaliyet').textContent = m.etiket;
   sayarakYukselt($('vGosterim'), m.gosterim, 800, !sessiz);
   sayarakYukselt($('vTiklanma'), m.tiklanma, 900, !sessiz);
   $('vTO').textContent = '%' + m.to.toFixed(2).replace('.', ',');
+  $('vTBM').textContent = fmtPara(m.tbm);
+  $('vMaliyet').textContent = fmtPara(m.maliyet);
+
   googleAdsGrafikCiz(son.gunluk, gun === 1 ? 7 : gun);
+  kampanyaTablosuCiz(son, m);
 }
 
 function panoyuCiz(v, sessiz) {
@@ -1557,30 +1668,28 @@ function panoyuCiz(v, sessiz) {
   $('dashIsletme').textContent = ad;
   $('dashBas').textContent = bas(ad);
   $('dashSehirEtiket').textContent = info.plaka + ' ' + info.sehir + ' · ' + info.sektor;
-
-  // En üstte saat, tarih, saniye ve "(Her 1 saatte veriler güncellenir)"
   $('dashGuncellemeUst').textContent = 'Son güncelleme: ' + tarihSaniyeliYaz(v.guncelleme) + ' (Her 1 saatte veriler güncellenir)';
 
-  // 4. Kart: Aramalar > 0 ise Telefon Aramaları, 0 ise Mobil Tıklama Oranı
   if (v.aramalar > 0) {
-    $('lblDorduncuKart').textContent = 'Telefon Aramaları';
+    $('lblAltinciKart').textContent = 'Telefon Aramaları';
     $('vAramalar').textContent = fmt(v.aramalar);
-    $('ftDorduncuKart').textContent = 'Doğrudan arayan müşteri';
+    $('ftAltinciKart').textContent = 'Doğrudan arayan müşteri';
   } else {
-    var mobYuzde = v.cihaz.mobil > 0 ? v.cihaz.mobil : 92;
-    $('lblDorduncuKart').textContent = 'Mobil Erişim Oranı';
+    var mobYuzde = v.cihaz.mobil > 0 ? v.cihaz.mobil : 95;
+    $('lblAltinciKart').textContent = 'Mobil Erişim Oranı';
     $('vAramalar').textContent = '%' + mobYuzde;
-    $('ftDorduncuKart').textContent = 'Cepten ulaşan müşteriler';
+    $('ftAltinciKart').textContent = 'Cepten ulaşan müşteriler';
   }
 
   yayinArayuzGuncelle(v.yayinAcik, ad, info);
   onizlemeCiz(v, ad, info);
-  demografiVeKelimeCiz(v, info);
-  cihazVeSaatCiz(v);
+  demografiVeCihazCiz(v);
+  saatVeIsiHaritasiCiz(v);
   donemSec(seciliDonem, sessiz);
+  kurulumGoster();
 }
 
-/* ---- SEKME 1: ORİJİNAL GOOGLE ADS ÇİFT ÇİZGİLİ GRAFİK (MAVİ TIKLAMA + KIRMIZI GÖSTERİM) ---- */
+/* ---- ARAYÜZ 1: GOOGLE ADS ÇİFT ÇİZGİLİ GRAFİK ---- */
 var trendGrafik = null;
 function googleAdsGrafikCiz(g, gunSayisi) {
   var canvas = $('trendCanvas');
@@ -1602,13 +1711,12 @@ function googleAdsGrafikCiz(g, gunSayisi) {
     tamTarih.push(d.getDate() + ' ' + AYLAR[d.getMonth()] + ' ' + d.getFullYear() + ' ' + gunAd);
   }
 
-  // En yüksek tıklama günü özeti
   var enCok = 0, enIndeks = 0;
   for (var k = 0; k < tikDizi.length; k++) {
     if (tikDizi[k] >= enCok) { enCok = tikDizi[k]; enIndeks = k; }
   }
-  $('trendOzet').innerHTML = '<span>Seçili dönemde toplam <b>' + fmt(topla(tikDizi)) + ' tıklama</b> ve <b>' + fmt(topla(gosDizi)) + ' gösterim</b></span>' +
-                             (enCok > 0 ? '<span>Zirve gün: <b>' + (tamTarih[enIndeks] || '') + ' (' + fmt(enCok) + ' tıklama)</b></span>' : '');
+  $('trendOzet').innerHTML = '<span>Dönem toplamı: <b>' + fmt(topla(tikDizi)) + ' tıklama</b> · <b>' + fmt(topla(gosDizi)) + ' gösterim</b></span>' +
+                             (enCok > 0 ? '<span>En yüksek gün: <b>' + (tamTarih[enIndeks] || '') + ' (' + fmt(enCok) + ' tıklama)</b></span>' : '');
 
   if (trendGrafik) {
     trendGrafik.data.labels = kisaEtiket;
@@ -1698,7 +1806,55 @@ function googleAdsGrafikCiz(g, gunSayisi) {
   });
 }
 
-/* ---- SEKME 2: CANLI REKLAM ÖNİZLEMESİ (81 İL & SEKTÖR OTOMASYONU) ---- */
+/* ---- ARAYÜZ 2: KAMPANYALAR VE ANAHTAR KELİMELER TABLOSU (MALİYET, TIKLAMA, TBM, TO) ---- */
+function kampanyaTablosuCiz(v, m) {
+  var info = kimlikCozumle(v.id || URL_ID);
+  var kg = $('kampanyaTabloGovde');
+  kg.innerHTML = '<tr>' +
+    '<td><span class="status-dot' + (v.yayinAcik ? '' : ' off') + '"></span><b>Web Reklam 1 (' + info.sehir + ')</b></td>' +
+    '<td class="r cost-cell">' + fmtPara(m.maliyet) + '</td>' +
+    '<td class="r num"><b>' + fmt(m.tiklanma) + '</b></td>' +
+    '<td class="r num">' + fmtPara(m.tbm) + '</td>' +
+    '<td class="r num">%' + m.to.toFixed(2).replace('.', ',') + '</td>' +
+  '</tr>';
+
+  var kList = v.kelimeler.length ? v.kelimeler : [
+    info.arama + ':49',
+    info.sehir.toLocaleLowerCase('tr-TR') + ' ' + info.sektor.toLocaleLowerCase('tr-TR') + ':22',
+    info.sehir.toLocaleLowerCase('tr-TR') + ' en yakın ' + info.sektor.toLocaleLowerCase('tr-TR') + ':7'
+  ];
+
+  var kwGovde = $('kelimeTabloGovde');
+  var cl = $('chipList');
+  kwGovde.innerHTML = '';
+  cl.innerHTML = '';
+
+  var birimTbm = m.tbm > 0 ? m.tbm : 18.20;
+  kList.forEach(function (item, idx) {
+    var parca = String(item).split(':');
+    var adK = parca[0].trim();
+    var tikSayi = parca[1] ? n(parca[1]) : Math.max(2, Math.round(m.tiklanma / (idx + 2)));
+    var kelimeMaliyet = tikSayi * birimTbm;
+    var kelimeTo = Math.min(38.9, Math.max(6.4, (m.to || 9.6) + (idx % 2 === 0 ? 1.8 : -1.2)));
+
+    var tr = document.createElement('tr');
+    tr.innerHTML = '<td><span class="status-dot"></span>"' + adK + '"</td>' +
+                   '<td class="r cost-cell">' + fmtPara(kelimeMaliyet) + '</td>' +
+                   '<td class="r num"><b>' + fmt(tikSayi) + '</b></td>' +
+                   '<td class="r num">%' + kelimeTo.toFixed(2).replace('.', ',') + '</td>';
+    kwGovde.appendChild(tr);
+
+    var chip = document.createElement('span');
+    chip.className = 'kw-chip';
+    chip.textContent = adK + ' ';
+    var b = document.createElement('b');
+    b.textContent = fmt(tikSayi);
+    chip.appendChild(b);
+    cl.appendChild(chip);
+  });
+}
+
+/* ---- ARAYÜZ 3: CANLI REKLAM ÖNİZLEMESİ ---- */
 function onizlemeCiz(v, ad, info) {
   $('onizlemeAltBaslik').textContent = info.sehir + ' (' + info.plaka + ') bölgesinde "' + info.arama + '" araması canlı simülasyonu';
   var ilkKelime = v.kelimeler.length ? v.kelimeler[0].split(':')[0] : info.arama;
@@ -1711,10 +1867,10 @@ function onizlemeCiz(v, ad, info) {
   $('pgTelPill').textContent = telOk ? ('Hemen Ara · ' + v.telefon) : 'Hemen Ara';
 }
 
-/* ---- SEKME 3: DEMOGRAFİ (KADIN/ERKEK & YAŞ) VE ARAMA KELİMELERİ ---- */
-function demografiVeKelimeCiz(v, info) {
+/* ---- ARAYÜZ 4: DEMOGRAFİ VE CİHAZLAR ---- */
+function demografiVeCihazCiz(v) {
   var kadin = v.demografi.kadin, erkek = v.demografi.erkek;
-  if (kadin + erkek === 0) { kadin = 48; erkek = 52; }
+  if (kadin + erkek === 0) { kadin = 51; erkek = 49; }
   $('txtKadin').textContent = '👩 Kadın %' + kadin;
   $('txtErkek').textContent = '👨 Erkek %' + erkek;
   $('barKadin').style.width = kadin + '%';
@@ -1727,7 +1883,7 @@ function demografiVeKelimeCiz(v, info) {
   var ag = $('ageGrid'); ag.innerHTML = '';
   for (var i = 0; i < yasEtiketler.length; i++) {
     var oran = yasDegerler[i] || 0;
-    var yukseklik = Math.max(8, Math.round((oran / maksYas) * 68));
+    var yukseklik = Math.max(8, Math.round((oran / maksYas) * 60));
     var col = document.createElement('div');
     col.className = 'age-col' + (oran === maksYas && oran > 0 ? ' top-age' : '');
     col.innerHTML = '<span class="age-val">%' + oran + '</span>' +
@@ -1736,49 +1892,62 @@ function demografiVeKelimeCiz(v, info) {
     ag.appendChild(col);
   }
 
-  var cl = $('chipList'); cl.innerHTML = '';
-  var kList = v.kelimeler.length ? v.kelimeler : [info.arama + ':35', info.sehir.toLocaleLowerCase('tr-TR') + ' en yakın ' + info.sektor.toLocaleLowerCase('tr-TR') + ':18'];
-  kList.forEach(function (item) {
-    var parca = String(item).split(':');
-    var adK = parca[0].trim();
-    var sayiK = parca[1] ? parca[1].trim() : '';
-    var chip = document.createElement('span');
-    chip.className = 'kw-chip';
-    chip.textContent = adK + ' ';
-    if (sayiK) {
-      var b = document.createElement('b');
-      b.textContent = sayiK + ' tık';
-      chip.appendChild(b);
-    }
-    cl.appendChild(chip);
-  });
-}
-
-/* ---- SEKME 4: CİHAZLAR (MOBİL/PC/TABLET) VE AKTİF SAATLER ---- */
-function cihazVeSaatCiz(v) {
   var m = v.cihaz.mobil, p = v.cihaz.pc, t = v.cihaz.tablet;
   var top = m + p + t;
-  if (top <= 0) { m = 92; p = 6; t = 2; top = 100; }
+  if (top <= 0) { m = 95; p = 5; t = 0; top = 100; }
   var mY = Math.round(m / top * 100), pY = Math.round(p / top * 100), tY = Math.max(0, 100 - mY - pY);
   $('txtMobil').textContent = '%' + mY; $('barMobil').style.width = mY + '%';
   $('txtPc').textContent = '%' + pY; $('barPc').style.width = pY + '%';
   $('txtTablet').textContent = '%' + tY; $('barTablet').style.width = tY + '%';
+}
 
-  var saatAdlar = ['00:00 - 06:00 (Gece)', '06:00 - 12:00 (Sabah)', '12:00 - 18:00 (Öğle)', '18:00 - 24:00 (Akşam)'];
+/* ---- ARAYÜZ 5: GÜN VE SAAT PERFORMANS ISI HARİTASI ---- */
+function saatVeIsiHaritasiCiz(v) {
+  var saatAdlar = ['00-06 Gece', '06-12 Sabah', '12-18 Öğle', '18-24 Akşam'];
   var saatOranlar = v.saatDagilim;
   var maksSaat = Math.max.apply(null, saatOranlar.concat([1]));
+  var enYogunDilim = saatAdlar[2];
   var hg = $('hourGrid'); hg.innerHTML = '';
   for (var i = 0; i < 4; i++) {
     var sDeger = saatOranlar[i] || 0;
+    if (sDeger === maksSaat) { enYogunDilim = saatAdlar[i]; }
     var kutu = document.createElement('div');
     kutu.className = 'hour-box' + (sDeger === maksSaat && sDeger > 0 ? ' peak' : '');
     kutu.innerHTML = '<small>' + saatAdlar[i] + '</small><b>%' + sDeger + '</b>';
     hg.appendChild(kutu);
   }
+  $('saatOzet').innerHTML = '<span>En yüksek müşteri trafiği: <b>' + enYogunDilim + ' (%' + maksSaat + ')</b></span>';
+
+  var gunAdlar = ['Pzt', 'Sal', 'Çar', 'Per', 'Cum', 'Cmt', 'Paz'];
+  var hm = $('heatmapGrid'); hm.innerHTML = '';
+  for (var g = 0; g < 7; g++) {
+    var row = document.createElement('div');
+    row.className = 'hm-row';
+    var dSpan = document.createElement('span');
+    dSpan.className = 'hm-day';
+    dSpan.textContent = gunAdlar[g];
+    row.appendChild(dSpan);
+
+    for (var s = 0; s < 12; s++) {
+      var dilimIx = Math.floor(s / 3);
+      var baz = saatOranlar[dilimIx] || 15;
+      var tohum = ((g * 7 + s * 13) % 18);
+      var skor = baz + (s >= 5 && s <= 9 ? 12 : 0) - (tohum % 14);
+      var sinif = 'hm-cell';
+      if (skor > 38) { sinif += ' l4'; }
+      else if (skor > 28) { sinif += ' l3'; }
+      else if (skor > 18) { sinif += ' l2'; }
+      else if (skor > 10) { sinif += ' l1'; }
+      var cell = document.createElement('i');
+      cell.className = sinif;
+      row.appendChild(cell);
+    }
+    hm.appendChild(row);
+  }
 }
 
 /* =====================================================================
-   TEBRİKLER MODALI, VİDEO MODALI VE SEKME GEÇİŞLERİ
+   TEBRİKLER VE VİDEO MODALLARI
    ===================================================================== */
 var konfetiSurum = 0;
 function tebrikAc() {
@@ -1824,19 +1993,6 @@ function videoKapat() {
   var vid = $('tanitimVideo'); if (vid && vid.pause) { try { vid.pause(); } catch (e) {} }
 }
 
-/* ---- İKONSUZ PWA İNDİRME BUTONU ---- */
-var kurulumOlayi = null;
-window.addEventListener('beforeinstallprompt', function (e) { e.preventDefault(); kurulumOlayi = e; });
-$('btnKurulum').addEventListener('click', function () {
-  if (kurulumOlayi) {
-    try { kurulumOlayi.prompt(); } catch (e) {}
-    kurulumOlayi = null;
-  } else {
-    $('kurulumModal').classList.add('on');
-  }
-});
-$('kurulumTamam').addEventListener('click', function () { $('kurulumModal').classList.remove('on'); });
-
 /* ---- GÜVENLİ BAĞLANTI ROZETİNE 10 KEZ TIKLAYINCA GİZLİ ÇIKIŞ ---- */
 var gizliTikSayisi = 0, gizliTikZamanlayici = null;
 $('btnGuvenli').addEventListener('click', function () {
@@ -1850,24 +2006,6 @@ $('btnGuvenli').addEventListener('click', function () {
   gizliTikZamanlayici = setTimeout(function () { gizliTikSayisi = 0; }, 1800);
 });
 
-/* ---- SEKME BUTONLARI ---- */
-var tabBtns = document.querySelectorAll('.tab-btn');
-tabBtns.forEach(function (btn) {
-  btn.addEventListener('click', function () {
-    var hedef = btn.getAttribute('data-tab');
-    tabBtns.forEach(function (b) {
-      var aktif = b === btn;
-      b.classList.toggle('on', aktif);
-      b.setAttribute('aria-selected', aktif ? 'true' : 'false');
-    });
-    ['paneGrafik', 'paneOnizleme', 'paneKitle', 'paneCihaz'].forEach(function (id) {
-      var el = $(id);
-      if (el) { el.classList.toggle('on', id === hedef); }
-    });
-    if (hedef === 'paneGrafik' && trendGrafik) { setTimeout(function () { trendGrafik.resize(); }, 30); }
-  });
-});
-
 /* =====================================================================
    OLAY DİNLEYİCİLERİ VE BAŞLATMA
    ===================================================================== */
@@ -1876,6 +2014,9 @@ $('pinForm').addEventListener('submit', function (e) { e.preventDefault(); giris
 $('hpAlan').addEventListener('input', botDurdur);
 $('btnYenile').addEventListener('click', yenile);
 $('btnYayinToggle').addEventListener('click', yayinDegistir);
+$('btnKurulum').addEventListener('click', kurulumTetikle);
+$('kurulumEkle').addEventListener('click', kurulumTetikle);
+$('kurulumKapat').addEventListener('click', function () { depo.yaz(LS.kurulum, '1'); $('kurulumBar').hidden = true; });
 $('errCikis').addEventListener('click', cikis);
 $('lockYenile').addEventListener('click', function () {
   var o = aktifOturum && aktifOturum.tok ? aktifOturum : oturumuOku();
