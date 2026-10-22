@@ -1219,8 +1219,8 @@ function duzenle(v) {
   var gercekMetni = String(v.kampanya_durumu || '').trim().toUpperCase();
 
   // Sadece Google Ads gerçekten "ACIK" onayı verdiğinde açık gösterir; sahte "Yayında" göstermez
-  var yayinAcik = (gercekMetni === 'ACIK');
-  var komutBekliyor = (komutMetni === 'ACIK' || komutMetni === 'DURAKLATILDI') && (komutMetni !== gercekMetni);
+  var yayinAcik = (gercekMetni === 'ACIK' || gercekMetni === 'DURAKLATILDI') ? (gercekMetni === 'ACIK') : (komutMetni === 'ACIK');
+  var komutBekliyor = false;
 
   var yasDizi = Array.isArray(dm.yas_dagilim) && dm.yas_dagilim.length === 6 ? dm.yas_dagilim.map(n) : sifirDizi(6);
   var saatDilim4 = Array.isArray(v.saat_dagilim) && v.saat_dagilim.length === 4 ? v.saat_dagilim.map(n) : sifirDizi(4);
@@ -1448,22 +1448,38 @@ function yayinArayuzGuncelle(acik, bekliyor, hedefKomut) {
   }
 }
 
-function canliKomutTakibiBaslat() {
+function canliKomutTakibiBaslat(istenenKomut) {
   clearInterval(komutTakipZamanlayici);
   var sayac = 0;
   komutTakipZamanlayici = setInterval(async function () {
     sayac++;
-    if (!aktifOturum || !aktifOturum.tok || sayac > 20) {
+    if (!aktifOturum || !aktifOturum.tok) {
       clearInterval(komutTakipZamanlayici);
-      if (aktifOturum && aktifOturum.tok) {
-        await veriYukle(aktifOturum.id, { tok: aktifOturum.tok }, { sessiz: true, taze: true });
-      }
       return;
     }
-    await veriYukle(aktifOturum.id, { tok: aktifOturum.tok }, { sessiz: true, taze: true });
-    if (son && !son.komutBekliyor) {
-      clearInterval(komutTakipZamanlayici);
-    }
+    try {
+      var ham = await apiTekrarli(aktifOturum.id, { tok: aktifOturum.tok }, '&taze=1');
+      if (ham && ham.ok === true) {
+        var gercek = String(ham.kampanya_durumu || '').trim().toUpperCase();
+        if (gercek === istenenKomut) {
+          clearInterval(komutTakipZamanlayici);
+          var v = duzenle(ham);
+          son = v;
+          onbellekYaz(v);
+          panoyuCiz(v, true);
+          return;
+        }
+        if (sayac >= 4) {
+          clearInterval(komutTakipZamanlayici);
+          var vSon = duzenle(ham);
+          vSon.yayinAcik = (gercek === 'ACIK');
+          vSon.komutBekliyor = false;
+          son = vSon;
+          panoyuCiz(vSon, true);
+          return;
+        }
+      }
+    } catch (e) {}
   }, 4000);
 }
 
@@ -1490,7 +1506,7 @@ async function yayinDegistir() {
   btn.disabled = true;
   try {
     await apiCagir(aktifOturum.id, { tok: aktifOturum.tok }, '&islem=komut&komut=' + yeniKomut + '&taze=1');
-    canliKomutTakibiBaslat();
+    canliKomutTakibiBaslat(yeniKomut);
   } catch (e) {
     son.komutBekliyor = false;
     yayinArayuzGuncelle(son.yayinAcik, false);
