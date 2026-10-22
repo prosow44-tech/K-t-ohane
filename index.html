@@ -1435,7 +1435,6 @@ function yayinArayuzGuncelle(acik, bekliyor, hedefKomut) {
   var btn = $('btnYayinToggle'), txt = $('yayinDurumMetni');
   var box = $('pgTargetBox');
 
-  // Şalter ve önizleme kutusu SADECE Google Ads'te gerçekten açıksa yeşil olur
   btn.classList.toggle('on', acik && !bekliyor);
   btn.classList.toggle('off', !acik || bekliyor);
   btn.setAttribute('aria-checked', (acik && !bekliyor) ? 'true' : 'false');
@@ -1463,7 +1462,6 @@ function canliKomutTakibiBaslat() {
     sayac++;
     if (!aktifOturum || !aktifOturum.tok || sayac > 20) {
       clearInterval(komutTakipZamanlayici);
-      // Süre dolduğunda sahte "Yayında" yazmaz; Google Ads'teki gerçek durumu çeker
       if (aktifOturum && aktifOturum.tok) {
         await veriYukle(aktifOturum.id, { tok: aktifOturum.tok }, { sessiz: true, taze: true });
       }
@@ -1498,48 +1496,6 @@ async function yayinDegistir() {
     btn.disabled = false;
   }
 }
-  if (!son) { return; }
-  var btn = $('btnYayinToggle');
-  if (btn.disabled) { return; }
-
-  var eskiAcik = son.yayinAcik;
-  var yeniAcik = !eskiAcik;
-  son.yayinAcik = yeniAcik;
-  son.komutBekliyor = true;
-
-  yayinArayuzGuncelle(yeniAcik, true);
-  kampanyaListesiCiz(son, donemMetrikleri(son, seciliDonem));
-
-  if (DEMO || !aktifOturum || !aktifOturum.tok) {
-    setTimeout(function () {
-      son.komutBekliyor = false;
-      yayinArayuzGuncelle(son.yayinAcik, false);
-    }, 1000);
-    return;
-  }
-
-  btn.disabled = true;
-  try {
-    var komut = yeniAcik ? 'ACIK' : 'DURAKLATILDI';
-    var yanit = await apiCagir(aktifOturum.id, { tok: aktifOturum.tok }, '&islem=komut&komut=' + komut + '&taze=1');
-    son.komutBekliyor = !!(yanit && yanit.komut_bekliyor);
-    yayinArayuzGuncelle(yeniAcik, son.komutBekliyor);
-    onbellekYaz(son);
-    if (son.komutBekliyor) {
-      canliKomutTakibiBaslat();
-    }
-  } catch (e) {
-    son.yayinAcik = eskiAcik;
-    son.komutBekliyor = false;
-    yayinArayuzGuncelle(eskiAcik, false);
-    kampanyaListesiCiz(son, donemMetrikleri(son, seciliDonem));
-  } finally {
-    btn.disabled = false;
-  }
-}
-
-/* =====================================================================
-   DEMO VERİSİ VE BAŞLATMA
    ===================================================================== */
 function demoVeri() {
   var hamTik = [0,0,4,2,5,0,1,7,8,6,5,9,11,4,0,6,12,18,14,9,11,15,22,19,8,14,10,6,2,4];
