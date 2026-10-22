@@ -1228,8 +1228,8 @@ function duzenle(v) {
 
   var komutMetni = String(v.yayin_komutu || '').trim().toUpperCase();
   var gercekMetni = String(v.kampanya_durumu || '').trim().toUpperCase();
-  var yayinAcik = (gercekMetni === 'ACIK');
-  var komutBekliyor = (komutMetni === 'ACIK' || komutMetni === 'DURAKLATILDI') && (komutMetni !== gercekMetni);
+  var yayinAcik = (komutMetni === 'ACIK');
+  var komutBekliyor = (gercekMetni === 'ACIK' || gercekMetni === 'DURAKLATILDI') ? (komutMetni !== gercekMetni) : false;
 
   var yasDizi = Array.isArray(dm.yas_dagilim) && dm.yas_dagilim.length === 6 ? dm.yas_dagilim.map(n) : sifirDizi(6);
   var saatDilim4 = Array.isArray(v.saat_dagilim) && v.saat_dagilim.length === 4 ? v.saat_dagilim.map(n) : sifirDizi(4);
@@ -1431,21 +1431,19 @@ function cikis() {
 /* =====================================================================
    GOOGLE ADS KAMPANYA AÇ / KAPAT (BEKLEMESİZ ANLIK KOMUT + OTOMATİK TAKİP)
    ===================================================================== */
-function yayinArayuzGuncelle(acik, bekliyor, hedefKomut) {
+function yayinArayuzGuncelle(acik, bekliyor) {
   var btn = $('btnYayinToggle'), txt = $('yayinDurumMetni');
   var box = $('pgTargetBox');
 
-  // Şalter ve önizleme kutusu SADECE Google Ads'te gerçekten açıksa yeşil olur
-  btn.classList.toggle('on', acik && !bekliyor);
-  btn.classList.toggle('off', !acik || bekliyor);
-  btn.setAttribute('aria-checked', (acik && !bekliyor) ? 'true' : 'false');
+  btn.classList.toggle('on', acik);
+  btn.classList.toggle('off', !acik);
+  btn.setAttribute('aria-checked', acik ? 'true' : 'false');
 
-  box.classList.toggle('active', acik && !bekliyor);
-  box.classList.toggle('paused', !acik || bekliyor);
+  box.classList.toggle('active', acik);
+  box.classList.toggle('paused', !acik);
 
   if (bekliyor) {
-    var aciliyorMu = (hedefKomut === 'ACIK') || (!hedefKomut && !acik);
-    txt.textContent = aciliyorMu ? 'Başlatılıyor…' : 'Duraklatılıyor…';
+    txt.textContent = acik ? 'Başlatılıyor…' : 'Duraklatılıyor…';
     txt.className = 'cmp-text wait';
   } else if (acik) {
     txt.textContent = 'Yayında';
@@ -1461,17 +1459,18 @@ function canliKomutTakibiBaslat() {
   var sayac = 0;
   komutTakipZamanlayici = setInterval(async function () {
     sayac++;
-    if (!aktifOturum || !aktifOturum.tok || sayac > 20) {
+    if (!aktifOturum || !aktifOturum.tok || sayac > 10) {
       clearInterval(komutTakipZamanlayici);
-      // Süre dolduğunda sahte "Yayında" yazmaz; Google Ads'teki gerçek durumu çeker
-      if (aktifOturum && aktifOturum.tok) {
-        await veriYukle(aktifOturum.id, { tok: aktifOturum.tok }, { sessiz: true, taze: true });
+      if (son) {
+        son.komutBekliyor = false;
+        yayinArayuzGuncelle(son.yayinAcik, false);
       }
       return;
     }
     await veriYukle(aktifOturum.id, { tok: aktifOturum.tok }, { sessiz: true, taze: true });
     if (son && !son.komutBekliyor) {
       clearInterval(komutTakipZamanlayici);
+      yayinArayuzGuncelle(son.yayinAcik, false);
     }
   }, 4000);
 }
@@ -1481,19 +1480,33 @@ async function yayinDegistir() {
   var btn = $('btnYayinToggle');
   if (btn.disabled) { return; }
 
-  var yeniKomut = son.yayinAcik ? 'DURAKLATILDI' : 'ACIK';
-  son.komutBekliyor = true;
-  yayinArayuzGuncelle(son.yayinAcik, true, yeniKomut);
+  var eskiAcik = son.yayinAcik;
+  var yeniAcik = !eskiAcik;
+  var yeniKomut = yeniAcik ? 'ACIK' : 'DURAKLATILDI';
 
-  if (DEMO || !aktifOturum || !aktifOturum.tok) { return; }
+  son.yayinAcik = yeniAcik;
+  son.komutBekliyor = true;
+  yayinArayuzGuncelle(yeniAcik, true);
+  kampanyaListesiCiz(son, donemMetrikleri(son, seciliDonem));
+
+  if (DEMO || !aktifOturum || !aktifOturum.tok) {
+    setTimeout(function () {
+      son.komutBekliyor = false;
+      yayinArayuzGuncelle(son.yayinAcik, false);
+    }, 800);
+    return;
+  }
 
   btn.disabled = true;
   try {
     await apiCagir(aktifOturum.id, { tok: aktifOturum.tok }, '&islem=komut&komut=' + yeniKomut + '&taze=1');
+    onbellekYaz(son);
     canliKomutTakibiBaslat();
   } catch (e) {
+    son.yayinAcik = eskiAcik;
     son.komutBekliyor = false;
-    yayinArayuzGuncelle(son.yayinAcik, false);
+    yayinArayuzGuncelle(eskiAcik, false);
+    kampanyaListesiCiz(son, donemMetrikleri(son, seciliDonem));
   } finally {
     btn.disabled = false;
   }
