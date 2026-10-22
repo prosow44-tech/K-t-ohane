@@ -130,150 +130,163 @@
   }
 
   /* =====================================================================
-     TEK PARÇA ÜST BAR (TELEFON VE PC'DE BÖLÜNMEZ, KAMPANYA TAM ORTADA)
+     YATAY TEK HİZALI KOMPAKT ÜST MENÜ (ALT ALTA BİNME YOK, KISA YÜKSEKLİK)
      ===================================================================== */
   .top-bar{
-    padding:8px 10px 6px; border-radius:14px; border:1px solid var(--line);
+    display:flex; align-items:center; justify-content:space-between; gap:10px; flex-wrap:wrap;
+    padding:7px 11px; border-radius:13px; border:1px solid var(--line);
     background:rgba(11,19,40,.92); -webkit-backdrop-filter:blur(10px); backdrop-filter:blur(10px);
-    margin-bottom:8px;
+    margin-bottom:7px;
   }
-  .top-main{
-    display:grid; grid-template-columns:1fr auto 1fr; align-items:center; gap:6px;
+  .brand-side{
+    display:flex; align-items:center; gap:9px; min-width:0; flex:1 1 auto;
   }
-  /* Sol: Logo + İşletme + Dönem Butonları */
-  .top-left{
-    display:flex; flex-direction:column; gap:5px; min-width:0; justify-self:start;
-  }
-  .brand{display:flex; align-items:center; gap:7px; min-width:0}
   .badge{
-    width:30px; height:30px; flex:none; border-radius:8px; display:grid; place-items:center;
-    font:700 12px 'Space Grotesk',sans-serif; background:linear-gradient(155deg,var(--accent),var(--deep));
+    width:36px; height:36px; flex:none; border-radius:9px; display:grid; place-items:center;
+    font:700 14px 'Space Grotesk',sans-serif; background:linear-gradient(155deg,var(--accent),var(--deep));
     box-shadow:0 3px 10px rgba(26,115,232,.35); color:#fff;
   }
-  .brand-info{min-width:0}
-  .brand b{
-    display:block; font:600 13.5px/1.15 'Space Grotesk',sans-serif;
+  .brand-meta{min-width:0}
+  .brand-line{display:flex; align-items:center; gap:6px; flex-wrap:nowrap}
+  .brand-line b{
+    font:600 15px/1.15 'Space Grotesk',sans-serif; color:#fff;
     white-space:nowrap; overflow:hidden; text-overflow:ellipsis;
   }
   .city-tag{
-    display:block; color:var(--pale); font-size:9.5px; font-weight:600;
+    display:inline-flex; align-items:center; padding:1.5px 7px; border-radius:999px;
+    background:rgba(26,115,232,.2); border:1px solid rgba(26,115,232,.4);
+    color:var(--pale); font-size:10.5px; font-weight:600; white-space:nowrap; flex:none;
+  }
+  .update-inline{
+    display:block; margin-top:2px; color:#93c5fd; font-size:10.5px; font-weight:500;
     white-space:nowrap; overflow:hidden; text-overflow:ellipsis;
   }
 
-  /* Tam Orta: Üstte "Kampanya", Ortada Buton, Altta "Duraklatıldı / Yayında" */
-  .top-center{
-    display:flex; flex-direction:column; align-items:center; justify-content:center;
-    gap:2px; padding:2px 8px; text-align:center; justify-self:center;
+  /* Sağdaki Tek Hizalı Yatay Kontrol Grubu (Şalter + Dönem + İkonlar Yan Yana) */
+  .actions-side{
+    display:flex; align-items:center; gap:8px; flex-wrap: nowrap; flex:none;
   }
-  .cmp-lbl{
-    font-size:10px; font-weight:700; color:var(--pale); letter-spacing:.02em; line-height:1.1;
+  .cmp-inline{
+    display:inline-flex; align-items:center; gap:7px; height:34px; padding:0 10px;
+    border-radius:9px; background:rgba(5,9,20,.72); border:1px solid rgba(120,150,220,.16);
   }
   .ad-toggle{
-    position:relative; width:40px; height:21px; border-radius:999px; border:0; cursor:pointer;
-    background:#64748b; transition:background .25s; padding:0; margin:1px 0;
+    position:relative; width:40px; height:22px; border-radius:999px; border:0; cursor:pointer;
+    background:#64748b; transition:background .2s; padding:0; flex:none;
     box-shadow:inset 0 1px 3px rgba(0,0,0,.4);
   }
   .ad-toggle::after{
-    content:""; position:absolute; top:2.5px; left:2.5px; width:16px; height:16px;
-    border-radius:50%; background:#fff; transition:transform .25s cubic-bezier(.4,0,.2,1);
+    content:""; position:absolute; top:3px; left:3px; width:16px; height:16px;
+    border-radius:50%; background:#fff; transition:transform .2s cubic-bezier(.4,0,.2,1);
     box-shadow:0 2px 4px rgba(0,0,0,.3);
   }
   .ad-toggle.on{background:var(--good)}
-  .ad-toggle.on::after{transform:translateX(19px)}
+  .ad-toggle.on::after{transform:translateX(18px)}
   .ad-toggle.off{background:#64748b}
   .ad-toggle.off::after{transform:translateX(0)}
-  .ad-toggle:disabled{opacity:.45; cursor:not-allowed}
-  .cmp-status{
-    font-size:10px; font-weight:700; line-height:1.1; white-space:nowrap;
-    color:#cbd5e1;
+  .cmp-text{
+    font-size:11.5px; font-weight:600; white-space:nowrap; color:#cbd5e1;
   }
-  .cmp-status.active{color:var(--good)}
-  .cmp-status.paused{color:#fca5a5}
-  .cmp-status.wait{color:#fcd34d}
+  .cmp-text.active{color:var(--good)}
+  .cmp-text.paused{color:#fca5a5}
+  .cmp-text.wait{color:#fcd34d}
 
-  /* Sağ: İkonlar + Dönem Seçici */
-  .top-right{
-    display:flex; flex-direction:column; align-items:flex-end; gap:5px; justify-self:end;
+  .donem-seg{
+    display:inline-flex; align-items:center; gap:2px; height:34px;
+    background:rgba(5,9,20,.78); padding:3px; border-radius:9px; border:1px solid rgba(120,150,220,.16);
   }
-  .top-icons{display:flex; align-items:center; gap:4px}
+  .donem-seg button{
+    height:26px; border:0; background:transparent; color:var(--muted);
+    font-size:11.5px; font-weight:600; padding:0 9px; border-radius:6px; cursor:pointer; transition:.15s;
+    white-space:nowrap;
+  }
+  .donem-seg button.on{background:var(--ads-blue); color:#fff; box-shadow:0 2px 7px rgba(26,115,232,.35)}
+
+  .icon-group{display:inline-flex; align-items:center; gap:5px; flex:none}
   .pill{
-    display:inline-flex; align-items:center; gap:4px; height:28px; padding:0 8px;
+    display:inline-flex; align-items:center; gap:5px; height:34px; padding:0 10px;
     border-radius:999px; border:1px solid rgba(34,197,94,.35); background:rgba(34,197,94,.1);
-    color:#86efac; font-size:10.5px; font-weight:600; white-space:nowrap; cursor:pointer;
+    color:#86efac; font-size:11.5px; font-weight:600; white-space:nowrap; cursor:pointer;
   }
-  .pill svg{width:12px; height:12px; flex:none}
+  .pill svg{width:13px; height:13px; flex:none}
   .pill:active{transform:scale(.95)}
   .mini{
-    width:28px; height:28px; border:1px solid var(--line); background:rgba(16,26,52,.85);
+    width:34px; height:34px; border:1px solid var(--line); background:rgba(16,26,52,.85);
     color:var(--pale); padding:0; border-radius:999px; display:grid; place-items:center; cursor:pointer;
     transition:background .15s, color .15s, transform .12s; flex:none;
   }
   .mini:hover{color:#fff; background:rgba(26,115,232,.28)}
   .mini:active{transform:scale(.94)}
-  .mini:disabled{opacity:.5; cursor:default}
-  .mini svg{width:13px; height:13px}
-  .mini.yukleniyor svg{animation:spin .65s linear infinite}
+  .mini svg{width:15px; height:15px}
+  .mini.yukleniyor svg{animation:spin .6s linear infinite}
 
-  .donem-seg{
-    display:inline-flex; gap:2px; background:rgba(5,9,20,.8); padding:2px;
-    border-radius:7px; border:1px solid rgba(120,150,220,.16);
-  }
-  .donem-seg button{
-    min-height:21px; border:0; background:transparent; color:var(--muted);
-    font-size:10px; font-weight:600; padding:0 6px; border-radius:5px; cursor:pointer; transition:.15s;
-    white-space:nowrap;
-  }
-  .donem-seg button.on{background:var(--ads-blue); color:#fff}
-
-  /* Sadece Uzun Son Güncelleme Yazısı İçin Alt Satır */
-  .update-subline{
-    display:block; margin-top:5px; text-align:center;
-    color:#93c5fd; font-size:10px; font-weight:500;
-    white-space:nowrap; overflow:hidden; text-overflow:ellipsis;
-  }
-
-  @media (max-width:520px){
+  /* Mobil Görünüm: Tek Kutu İçinde Yan Yana Kompakt Satır */
+  @media (max-width:820px){
+    .top-bar{gap:6px; padding:7px 9px}
     .pill span{display:none}
-    .pill{width:28px; padding:0; justify-content:center}
+    .pill{width:32px; height:32px; padding:0; justify-content:center}
+    .mini{width:32px; height:32px}
+    .actions-side{
+      width:100%; justify-content:space-between; gap:5px;
+    }
+    .cmp-inline{height:32px; padding:0 8px; gap:6px}
+    .donem-seg{height:32px}
+    .donem-seg button{height:24px; padding:0 7px; font-size:11px}
   }
 
-  /* 6'lı Google Ads Ana Özet Kartları */
-  .stats-6{
-    display:grid; grid-template-columns:repeat(6,1fr); gap:7px; margin-bottom:8px;
-  }
-  @media (max-width:980px){
-    .stats-6{grid-template-columns:repeat(3,1fr)}
-  }
-  @media (max-width:520px){
-    .stats-6{grid-template-columns:repeat(2,1fr)}
+  /* =====================================================================
+     5'Lİ KUTU DÜZENİ: ÜSTTE 3'LÜ SIKIŞTIRILMIŞ, ALTTA 2'Lİ GENİŞ (TBM & MALİYET)
+     ===================================================================== */
+  .stats-5{
+    display:grid; grid-template-columns:repeat(6, minmax(0, 1fr)); gap:6px; margin-bottom:7px;
   }
   .stat{
     display:flex; flex-direction:column; justify-content:space-between;
-    width:100%; text-align:left; padding:9px 11px; border-radius:12px;
+    width:100%; text-align:left; border-radius:12px;
     border:1px solid var(--line); background:linear-gradient(160deg,rgba(18,30,60,.88),rgba(9,15,32,.88));
     position:relative; overflow:hidden;
+  }
+  /* Üstteki 3 kutu: Her biri 2 birim (3x2 = 6 sütun -> Yan yana 3 kutu) */
+  .stat.top-3{
+    grid-column:span 2; padding:7px 9px;
+  }
+  /* Alttaki 2 kutu (Ort. TBM ve Toplam Maliyet): Her biri 3 birim (2x3 = 6 sütun -> Yan yana 2 geniş kutu) */
+  .stat.bot-2{
+    grid-column:span 3; padding:9px 12px;
   }
   .stat::before{
     content:""; position:absolute; top:0; left:0; right:0; height:3px; background:var(--ads-blue);
   }
   .stat.red-top::before{background:var(--ads-red)}
   .stat.yellow-top::before{background:var(--ads-yellow)}
-  .stat.green-top::before{background:var(--ads-green)}
   .stat.purple-top::before{background:var(--ads-purple)}
   .stat.cyan-top::before{background:var(--ads-cyan)}
-  .stat .lbl{color:var(--muted); font-size:11px; font-weight:600; display:flex; align-items:center; justify-content:space-between; gap:4px}
-  .stat .dot-i{width:7px; height:7px; border-radius:2px; background:var(--ads-blue); flex:none}
+
+  .stat .lbl{
+    color:var(--muted); font-size:10.5px; font-weight:600;
+    display:flex; align-items:center; justify-content:space-between; gap:3px;
+    white-space:nowrap; overflow:hidden; text-overflow:ellipsis;
+  }
+  .stat .dot-i{width:6px; height:6px; border-radius:2px; background:var(--ads-blue); flex:none}
   .stat.red-top .dot-i{background:var(--ads-red)}
   .stat.yellow-top .dot-i{background:var(--ads-yellow)}
-  .stat.green-top .dot-i{background:var(--ads-green)}
   .stat.purple-top .dot-i{background:var(--ads-purple)}
   .stat.cyan-top .dot-i{background:var(--ads-cyan)}
-  .stat .val{
-    display:block; margin-top:3px;
-    font:700 clamp(18px,4.2vw,24px)/1.1 'Space Grotesk',sans-serif;
+
+  .stat.top-3 .val{
+    display:block; margin-top:2px;
+    font:700 clamp(15px, 3.8vw, 21px)/1.1 'Space Grotesk',sans-serif;
     font-variant-numeric:tabular-nums; color:#fff;
   }
-  .stat .ft{display:block; margin-top:3px; color:var(--muted); font-size:10px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis}
+  .stat.bot-2 .val{
+    display:block; margin-top:3px;
+    font:700 clamp(18px, 4.3vw, 24px)/1.1 'Space Grotesk',sans-serif;
+    font-variant-numeric:tabular-nums; color:#fff;
+  }
+  .stat .ft{
+    display:block; margin-top:2px; color:var(--muted); font-size:9.5px;
+    white-space:nowrap; overflow:hidden; text-overflow:ellipsis;
+  }
   button.stat{cursor:pointer; appearance:none; -webkit-appearance:none; transition:transform .12s, box-shadow .2s}
   button.stat.click{border-color:rgba(26,115,232,.55); background:linear-gradient(160deg,rgba(26,115,232,.28),rgba(9,15,32,.9))}
   button.stat.click:hover{box-shadow:0 6px 20px rgba(26,115,232,.25)}
@@ -288,11 +301,11 @@
   }
   .panel-box{
     display:flex; flex-direction:column; justify-content:space-between;
-    padding:13px 14px; border:1px solid var(--line); border-radius:15px;
+    padding:12px 14px; border:1px solid var(--line); border-radius:15px;
     background:linear-gradient(180deg,rgba(16,25,50,.84),rgba(9,15,32,.84));
   }
   .panel-box.wide{grid-column:1 / -1}
-  .pane-head{display:flex; align-items:center; justify-content:space-between; gap:8px; margin-bottom:8px; flex-wrap:wrap}
+  .pane-head{display:flex; align-items:center; justify-content:space-between; gap:8px; margin-bottom:6px; flex-wrap:wrap}
   .pane-head h2{font-size:13.5px; font-weight:600; margin:0; display:flex; align-items:center; gap:6px}
   .pane-head .sub{margin:1px 0 0; color:var(--muted); font-size:11px}
 
@@ -302,10 +315,10 @@
   .ads-pill-line{width:13px; height:4px; border-radius:99px; display:inline-block}
   .ads-pill-line.blue{background:var(--ads-blue)}
   .ads-pill-line.red{background:var(--ads-red)}
-  .chart-box{position:relative; height:210px; width:100%}
+  .chart-box{position:relative; height:205px; width:100%}
   .chart-box canvas{width:100% !important; height:100% !important}
   .ozet-bar{
-    margin:8px 0 0; padding:7px 10px; border-radius:9px;
+    margin:7px 0 0; padding:6px 10px; border-radius:9px;
     background:rgba(26,115,232,.1); border:1px solid rgba(26,115,232,.22);
     color:var(--pale); font-size:11.5px; display:flex; align-items:center; justify-content:space-between; gap:8px; flex-wrap:wrap;
   }
@@ -350,7 +363,7 @@
     color:#fff; font-size:10px; font-family:'Space Grotesk',sans-serif;
   }
 
-  /* 3. Arayüz: Temsili Arama Şablonu (Dürüst İfadeler, Sabit Metin, Kırmızı/Yeşil Arka Plan) */
+  /* 3. Arayüz: Temsili Arama Şablonu (Sabit Metin, Kırmızı/Yeşil Arka Plan) */
   .phone-google{
     width:100%; max-width:350px; min-height:420px; margin:4px auto 0; padding:16px 14px;
     background:#ffffff; color:#202124; border-radius:26px;
@@ -446,7 +459,7 @@
   .dev-fill.pc{background:var(--ads-yellow)}
   .dev-fill.tab{background:var(--ads-red)}
 
-  /* 5. Arayüz: Günün Saat Dilimlerine Göre Gerçek Dağılım (Sahte 7 Günlük Harita Kaldırıldı) */
+  /* 5. Arayüz: Günün Saat Dilimlerine Göre Gerçek Dağılım */
   .hour-grid{display:grid; grid-template-columns:repeat(4,1fr); gap:6px; margin-bottom:12px}
   .hour-box{
     padding:8px 5px; border-radius:10px; border:1px solid rgba(120,150,220,.15);
@@ -455,7 +468,6 @@
   .hour-box.peak{border-color:rgba(34,211,238,.5); background:rgba(34,211,238,.12)}
   .hour-box small{display:block; color:var(--muted); font-size:10px}
   .hour-box b{display:block; margin-top:3px; font:700 15px 'Space Grotesk',sans-serif; color:#fff}
-
   .hour-bars{display:flex; flex-direction:column; gap:9px; margin-top:4px}
 
   /* ---------- YER KAPLAMAYAN, TIKLANAMAYAN, DOĞRUDAN ARAYÜZ ÜSTÜNDE ÇIKAN `yazi.txt` KATMANI ---------- */
@@ -486,7 +498,6 @@
   .modal .card{position:relative; z-index:1; max-width:400px; border-color:rgba(26,115,232,.45)}
   .big{margin:8px 0 2px; font:700 clamp(48px,14vw,68px)/1 'Space Grotesk',sans-serif; font-variant-numeric:tabular-nums; background:linear-gradient(180deg,#fff,#a5c3fb); -webkit-background-clip:text; background-clip:text; color:transparent}
   .modal p{margin:8px 0 0; color:var(--muted); font-size:14px}
-  .modal p.ek{color:var(--pale)}
   .modal .btn{margin-top:16px}
 
   .overlay{position:fixed; inset:0; z-index:80; display:none; align-items:center; justify-content:center; padding:22px; background:rgba(3,6,16,.65); -webkit-backdrop-filter:blur(7px); backdrop-filter:blur(7px)}
@@ -579,101 +590,93 @@
 <!-- ============ ANA KOKPİT PANELİ ============ -->
 <main id="dashScreen" class="screen">
   <div class="wrap">
-    <!-- 1. GRUP: TEK PARÇA ÜST BAR (SOL: İŞLETME | TAM ORTA: KAMPANYA AÇ/KAPAT | SAĞ: İKONLAR & DÖNEM) -->
+    <!-- 1. GRUP: YATAY TEK SATIRLI KOMPAKT ÜST MENÜ (ALT ALTA BİNME YOK) -->
     <header class="top-bar">
-      <div class="top-main">
-        <div class="top-left">
-          <div class="brand">
-            <div class="badge" id="dashBas" aria-hidden="true">R</div>
-            <div class="brand-info">
-              <b id="dashIsletme">Reklam Paneli</b>
-              <span class="city-tag" id="dashSehirEtiket">Türkiye</span>
-            </div>
+      <div class="brand-side">
+        <div class="badge" id="dashBas" aria-hidden="true">R</div>
+        <div class="brand-meta">
+          <div class="brand-line">
+            <b id="dashIsletme">Reklam Paneli</b>
+            <span class="city-tag" id="dashSehirEtiket">Türkiye</span>
           </div>
-        </div>
-
-        <!-- TAM ORTADA KAMPANYA BUTONU: ÜSTÜNDE "Kampanya", ORTADA ŞALTER, ALTINDA "Duraklatıldı / Yayında" -->
-        <div class="top-center">
-          <span class="cmp-lbl">Kampanya</span>
-          <button type="button" id="btnYayinToggle" class="ad-toggle off" role="switch" aria-checked="false" aria-label="Kampanyayı Aç veya Duraklat"></button>
-          <span class="cmp-status paused" id="yayinDurumMetni">Duraklatıldı</span>
-        </div>
-
-        <div class="top-right">
-          <div class="top-icons">
-            <!-- 10 KERE ÜST ÜSTE TIKLANINCA GİZLİ ÇIKIŞ YAPAN GÜVENLİ BAĞLANTI ROZETİ -->
-            <button class="pill" id="btnGuvenli" type="button" title="Güvenli Bağlantı">
-              <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 2l7 3v6c0 5-3.4 8.4-7 10-3.6-1.6-7-5-7-10V5l7-3z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><path d="M9 12l2 2 4-4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
-              <span>Güvenli bağlantı</span>
-            </button>
-            <!-- DOĞRUDAN UYGULAMA İNDİRME BUTONU -->
-            <button class="mini" id="btnKurulum" type="button" aria-label="Uygulamayı İndir" title="Uygulamayı İndir">
-              <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 3v12m0 0l-4-4m4 4l4-4M4 17v2a2 2 0 002 2h12a2 2 0 002-2v-2" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-            </button>
-            <!-- ANLIK SANİYELİK YENİLEME SİMGESİ -->
-            <button class="mini" id="btnYenile" type="button" aria-label="Verileri anlık yenile" title="Verileri Şimdi Yenile">
-              <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M20 12a8 8 0 11-2.6-5.9M20 4v5h-5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-            </button>
-          </div>
-
-          <div class="donem-seg" role="group" aria-label="Rapor dönemi">
-            <button type="button" id="dBtn1">Günlük</button>
-            <button type="button" id="dBtn7">7 Gün</button>
-            <button type="button" id="dBtn30" class="on">30 Gün</button>
-          </div>
+          <small class="update-inline" id="dashGuncellemeUst">Son güncelleme: --:--:-- (Her 1 saatte güncellenir)</small>
         </div>
       </div>
 
-      <!-- Sadece Uzun Son Güncelleme Metni İçin Tek Satır Alt Bilgi -->
-      <small class="update-subline" id="dashGuncellemeUst">Son güncelleme: --:--:-- (Her 1 saatte veriler güncellenir)</small>
+      <div class="actions-side">
+        <!-- YATAY TEK HİZADA KAMPANYA AÇ/KAPAT BUTONU -->
+        <div class="cmp-inline">
+          <button type="button" id="btnYayinToggle" class="ad-toggle off" role="switch" aria-checked="false" aria-label="Kampanyayı Aç veya Duraklat"></button>
+          <span class="cmp-text paused" id="yayinDurumMetni">Duraklatıldı</span>
+        </div>
+
+        <!-- YATAY DÖNEM SEÇİCİ -->
+        <div class="donem-seg" role="group" aria-label="Rapor dönemi">
+          <button type="button" id="dBtn1">Günlük</button>
+          <button type="button" id="dBtn7">7 Gün</button>
+          <button type="button" id="dBtn30" class="on">30 Gün</button>
+        </div>
+
+        <!-- İKONLAR -->
+        <div class="icon-group">
+          <button class="pill" id="btnGuvenli" type="button" title="Güvenli Bağlantı">
+            <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 2l7 3v6c0 5-3.4 8.4-7 10-3.6-1.6-7-5-7-10V5l7-3z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><path d="M9 12l2 2 4-4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            <span>Güvenli bağlantı</span>
+          </button>
+          <button class="mini" id="btnKurulum" type="button" aria-label="Uygulamayı İndir" title="Uygulamayı İndir">
+            <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 3v12m0 0l-4-4m4 4l4-4M4 17v2a2 2 0 002 2h12a2 2 0 002-2v-2" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </button>
+          <button class="mini" id="btnYenile" type="button" aria-label="Verileri anlık yenile" title="Verileri Şimdi Yenile">
+            <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M20 12a8 8 0 11-2.6-5.9M20 4v5h-5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </button>
+        </div>
+      </div>
     </header>
 
     <div class="demo-bant" id="demoBant" role="status" hidden>ÖRNEK VERİLERLE ÖNİZLEME: Bu rakamlar görünümü göstermek içindir.</div>
 
-    <!-- 2. GRUP: 6'lı Google Ads Gerçek Ana Metrikler -->
-    <div class="stats-6">
-      <button class="stat click" id="btnTiklayanlar" type="button" aria-haspopup="dialog">
+    <!-- 2. GRUP: 5'Lİ KUTU DÜZENİ (ÜSTTE 3'LÜ YAN YANA, ALTTA ORT. TBM & TOPLAM MALİYET 2'Lİ GENİŞ) -->
+    <div class="stats-5">
+      <!-- Üst 3'lü -->
+      <button class="stat top-3 click" id="btnTiklayanlar" type="button" aria-haspopup="dialog">
         <span class="lbl"><span>Tıklamalar</span><i class="dot-i"></i></span>
         <span class="val num" id="vTiklanma">0</span>
         <span class="ft" id="ftTiklanma">Detay için dokunun</span>
       </button>
-      <section class="stat red-top" aria-label="Gösterim sayısı">
+      <section class="stat top-3 red-top" aria-label="Gösterim sayısı">
         <span class="lbl"><span>Gösterim Sayısı</span><i class="dot-i"></i></span>
         <span class="val num" id="vGosterim">0</span>
         <span class="ft" id="ftGosterim">Son 30 günde</span>
       </section>
-      <section class="stat yellow-top" aria-label="Tıklama oranı">
+      <section class="stat top-3 yellow-top" aria-label="Tıklama oranı">
         <span class="lbl"><span>Etkileşim (TO %)</span><i class="dot-i"></i></span>
         <span class="val num" id="vTO">%0,00</span>
-        <span class="ft" id="ftTO">Gösterim / tıklama oranı</span>
+        <span class="ft" id="ftTO">Son 30 günde</span>
       </section>
-      <section class="stat cyan-top" aria-label="Tıklama başına maliyet">
+
+      <!-- Alt 2'li (Orijinal Geniş Boyut) -->
+      <section class="stat bot-2 cyan-top" aria-label="Tıklama başına maliyet">
         <span class="lbl"><span>Ort. TBM</span><i class="dot-i"></i></span>
         <span class="val num" id="vTBM">₺0,00</span>
-        <span class="ft" id="ftTBM">Tıklama başına maliyet</span>
+        <span class="ft" id="ftTBM">Tıklama başına ortalama maliyet</span>
       </section>
-      <section class="stat purple-top" aria-label="Toplam maliyet">
+      <section class="stat bot-2 purple-top" aria-label="Toplam maliyet">
         <span class="lbl"><span>Toplam Maliyet</span><i class="dot-i"></i></span>
         <span class="val num" id="vMaliyet">₺0,00</span>
-        <span class="ft" id="ftMaliyet">Harcanan reklam bütçesi</span>
-      </section>
-      <section class="stat green-top" aria-label="Dönüşümler">
-        <span class="lbl"><span>Dönüşümler</span><i class="dot-i"></i></span>
-        <span class="val num" id="vAramalar">0</span>
-        <span class="ft" id="ftAltinciKart">Google Ads dönüşüm kaydı</span>
+        <span class="ft" id="ftMaliyet">Harcanan toplam reklam bütçesi</span>
       </section>
     </div>
 
     <!-- 3. GRUP: TÜM GOOGLE ADS ARAYÜZLERİ -->
     <div class="cockpit-grid">
 
-      <!-- ARAYÜZ 1: GOOGLE ADS ÇİFT ÇİZGİLİ (MAVİ/KIRMIZI) PERFORMANS GRAFİĞİ -->
+      <!-- ARAYÜZ 1: GOOGLE ADS ÇİFT ÇİZGİLİ PERFORMANS GRAFİĞİ (GÜNLÜKTE SAATLER, 7/30 GÜNDE GÜNLER) -->
       <section class="panel-box wide" aria-label="Google Ads Performans Grafiği">
         <div>
           <div class="pane-head">
             <div>
               <h2 id="grafikBaslik">📈 Google Ads Zaman Serisi Grafiği</h2>
-              <p class="sub" id="grafikAltBaslik">Noktalara dokunarak günlük Tıklama ve Gösterim sayısını inceleyin</p>
+              <p class="sub" id="grafikAltBaslik">Noktalara dokunarak Tıklama ve Gösterim sayısını inceleyin</p>
             </div>
             <div class="ads-legend">
               <span class="ads-leg-item"><i class="ads-pill-line blue"></i>Tıklamalar</span>
@@ -721,7 +724,7 @@
         <div class="kw-cloud" id="chipList"></div>
       </section>
 
-      <!-- ARAYÜZ 3: GOOGLE ARAMA TEMSİLİ ŞABLONU (Yanıltıcı İfadeler Kaldırıldı, Sabit Metin, Kırmızı/Yeşil Arka Plan) -->
+      <!-- ARAYÜZ 3: GOOGLE ARAMA TEMSİLİ ŞABLONU (Sabit Metin, Kırmızı/Yeşil Arka Plan) -->
       <section class="panel-box" aria-label="Google Arama Temsili Şablonu">
         <div class="pane-head">
           <div>
@@ -845,7 +848,6 @@
     <h1 id="tebrikBaslik">Tıklama Özeti</h1>
     <div class="big" id="tebrikSayi">0</div>
     <p id="tebrikMetin"></p>
-    <p class="ek" id="tebrikAra" hidden></p>
     <button id="tebrikKapat" class="btn primary" type="button">Kapat</button>
   </div>
 </div>
@@ -873,9 +875,9 @@ setTimeout(function () {
 'use strict';
 
 /* =====================================================================
-   AYARLAR (YENİ DAĞITIM ADRESİN DOĞRUDAN EKLENDİ)
+   AYARLAR
    ===================================================================== */
-var API_URL = 'https://script.google.com/macros/s/AKfycbwDhzIxdOAF446jZM26KaJeL5SvvQp9HPAEErCqAiivl2Sd5uLaHI5YJCyX9u1YFqc9xw/exec';
+var API_URL = 'https://script.google.com/macros/s/AKfycbwtGvOJWO23L0UChf82-b8c1vkyu0PdypgyXayDIYIpBODHEFbNlgB6D-2ab0eoOePYSw/exec';
 var VARSAYILAN_ALT_YAZI = 'SORUNUZ VARSA BANA ULAŞABİLİRSİNİZ 0534 595 74 44';
 
 var PIN_UZUNLUGU     = 8;
@@ -886,9 +888,9 @@ var YENIDEN_DENEME   = 1;
 var YENILEME_ESIGI   = 15 * 60 * 1000;
 var BEKCI_MS         = 26000;
 
-var LS = { oturum: 'pnl_oturum', deneme: 'pnl_deneme', ban: 'pnl_ban', veri: 'pnl_veri_v7' };
+var LS = { oturum: 'pnl_oturum', deneme: 'pnl_deneme', ban: 'pnl_ban', veri: 'pnl_veri_v8' };
 var TOK_DESEN = /^\d{9,14}\.[0-9a-f]{64}$/;
-var VERI_SEMA = 8;
+var VERI_SEMA = 9;
 
 /* =====================================================================
    81 İL PLAKA SÖZLÜĞÜ VE 7 SEKTÖR OTOMASYON MOTORU
@@ -991,9 +993,7 @@ function bas(ad) {
 var AYLAR = ['Oca', 'Şub', 'Mar', 'Nis', 'May', 'Haz', 'Tem', 'Ağu', 'Eyl', 'Eki', 'Kas', 'Ara'];
 function tarihSaniyeliYaz(s) {
   var m = /^(\d{4})-(\d{2})-(\d{2})(?:[ T](\d{2}):(\d{2})(?::(\d{2}))?)?/.exec(String(s || ''));
-  if (!m) {
-    return String(s || '--:--:--');
-  }
+  if (!m) { return String(s || '--:--:--'); }
   var sn = m[6] ? m[6] : '00';
   return parseInt(m[3], 10) + ' ' + AYLAR[parseInt(m[2], 10) - 1] + ' ' + m[1] +
          (m[4] ? ' ' + m[4] + ':' + m[5] + ':' + sn : '');
@@ -1157,7 +1157,7 @@ function parcaciklariBaslat() {
 }
 
 /* =====================================================================
-   `yazi.txt` DOSYASINDAN HABER METNİNİ OKUMA (TIKLANAMAZ OVERLAY)
+   `yazi.txt` DOSYASINDAN HABER METNİNİ OKUMA
    ===================================================================== */
 async function altYaziYukle() {
   var el = $('tickerMetin');
@@ -1175,7 +1175,7 @@ async function altYaziYukle() {
 }
 
 /* =====================================================================
-   API İLETİŞİMİ VE SAF GERÇEK VERİ DÜZENLEME
+   API İLETİŞİMİ VE VERİ DÜZENLEME
    ===================================================================== */
 function apiAyarliMi() { return API_URL && API_URL.indexOf('BURAYA_') === -1 && /^https:\/\//.test(API_URL); }
 
@@ -1215,7 +1215,7 @@ async function apiTekrarli(id, kimlik, ekParam) {
 }
 
 function duzenle(v) {
-  var cz = v.cihaz || {}, dm = v.demografi || {}, g = v.gunluk || {};
+  var cz = v.cihaz || {}, dm = v.demografi || {}, g = v.gunluk || {}, st = v.saatlik || {};
   function dizi(a) { return Array.isArray(a) ? a.map(n) : []; }
   function sifirDizi(uzunluk) { var a = []; for (var i = 0; i < uzunluk; i++) { a.push(0); } return a; }
 
@@ -1227,16 +1227,21 @@ function duzenle(v) {
   var toHesap = gos > 0 ? Number((tik / gos * 100).toFixed(2)) : 0;
 
   var komutMetni = String(v.yayin_komutu || '').trim().toUpperCase();
+  var gercekMetni = String(v.kampanya_durumu || komutMetni || '').trim().toUpperCase();
   var yayinAcik = (komutMetni === 'ACIK');
+  var komutBekliyor = !!v.komut_bekliyor && (komutMetni !== gercekMetni);
 
   var yasDizi = Array.isArray(dm.yas_dagilim) && dm.yas_dagilim.length === 6 ? dm.yas_dagilim.map(n) : sifirDizi(6);
   var saatDilim4 = Array.isArray(v.saat_dagilim) && v.saat_dagilim.length === 4 ? v.saat_dagilim.map(n) : sifirDizi(4);
+  var saatlikTik24 = Array.isArray(st.tiklama) && st.tiklama.length === 24 ? st.tiklama.map(n) : sifirDizi(24);
+  var saatlikGos24 = Array.isArray(st.gosterim) && st.gosterim.length === 24 ? st.gosterim.map(n) : sifirDizi(24);
+  var saatlikMal24 = Array.isArray(st.maliyet) && st.maliyet.length === 24 ? st.maliyet.map(n) : sifirDizi(24);
 
   return {
     id: String(v.id || ''),
     durum: v.durum !== false,
     yayinAcik: yayinAcik,
-    yayinKomutuHam: komutMetni || 'DURAKLATILDI',
+    komutBekliyor: komutBekliyor,
     isletme: String(v.isletme || '').slice(0, 60),
     telefon: String(v.telefon || '').slice(0, 30),
     gosterim: gos,
@@ -1253,6 +1258,11 @@ function duzenle(v) {
       yasDagilim: yasDizi
     },
     saatDagilim: saatDilim4,
+    saatlik: {
+      tiklama: saatlikTik24,
+      gosterim: saatlikGos24,
+      maliyet: saatlikMal24
+    },
     kelimeler: Array.isArray(v.kelimeler) ? v.kelimeler.map(String).filter(Boolean).slice(0, 6) : [],
     gunluk: {
       baslangic: String(g.baslangic || ''),
@@ -1296,8 +1306,8 @@ function denemeSayisi() { return parseInt(depo.al(LS.deneme) || '0', 10) || 0; }
    VERİ YÜKLEME VE GİRİŞ AKIŞI
    ===================================================================== */
 var son = null, sonYukleme = 0, aktifOturum = null, oturumNesil = 0;
-var seciliDonem = 30; // 1 = Günlük, 7 = 7 Gün, 30 = 30 Gün
-var komutBekleniyor = false;
+var seciliDonem = 30; // 1 = Günlük (Saatlik Grafik), 7 = 7 Gün, 30 = 30 Gün
+var komutTakipZamanlayici = null;
 
 function girisMesaji(t, tur) { var m = $('pinMsg'); m.textContent = t || ''; m.className = 'msg' + (tur ? ' ' + tur : ''); }
 
@@ -1419,9 +1429,9 @@ function cikis() {
 }
 
 /* =====================================================================
-   GOOGLE ADS KAMPANYA AÇ / KAPAT (ORTADA BUTON, ALTTA KISA DURUM YAZISI)
+   GOOGLE ADS KAMPANYA AÇ / KAPAT (BEKLEMESİZ ANLIK KOMUT + OTOMATİK TAKİP)
    ===================================================================== */
-function yayinArayuzGuncelle(acik, bekleniyor) {
+function yayinArayuzGuncelle(acik, bekliyor) {
   var btn = $('btnYayinToggle'), txt = $('yayinDurumMetni');
   var box = $('pgTargetBox');
 
@@ -1433,59 +1443,73 @@ function yayinArayuzGuncelle(acik, bekleniyor) {
   box.classList.toggle('active', acik);
   box.classList.toggle('paused', !acik);
 
-  if (bekleniyor) {
-    btn.disabled = true;
-    txt.textContent = '1 dk içinde...';
-    txt.className = 'cmp-status wait';
+  if (bekliyor) {
+    txt.textContent = acik ? 'Başlatılıyor…' : 'Duraklatılıyor…';
+    txt.className = 'cmp-text wait';
+  } else if (acik) {
+    txt.textContent = 'Yayında';
+    txt.className = 'cmp-text active';
   } else {
-    btn.disabled = false;
-    if (acik) {
-      txt.textContent = 'Yayında';
-      txt.className = 'cmp-status active';
-    } else {
-      txt.textContent = 'Duraklatıldı';
-      txt.className = 'cmp-status paused';
-    }
+    txt.textContent = 'Duraklatıldı';
+    txt.className = 'cmp-text paused';
   }
 }
 
+function canliKomutTakibiBaslat() {
+  clearInterval(komutTakipZamanlayici);
+  var sayac = 0;
+  komutTakipZamanlayici = setInterval(async function () {
+    sayac++;
+    if (!aktifOturum || !aktifOturum.tok || sayac > 15) {
+      clearInterval(komutTakipZamanlayici);
+      if (son) { son.komutBekliyor = false; yayinArayuzGuncelle(son.yayinAcik, false); }
+      return;
+    }
+    await veriYukle(aktifOturum.id, { tok: aktifOturum.tok }, { sessiz: true, taze: true });
+    if (son && !son.komutBekliyor) {
+      clearInterval(komutTakipZamanlayici);
+    }
+  }, 4000);
+}
+
 async function yayinDegistir() {
-  if (!son || komutBekleniyor) { return; }
+  if (!son) { return; }
   var btn = $('btnYayinToggle');
   if (btn.disabled) { return; }
 
   var eskiAcik = son.yayinAcik;
   var yeniAcik = !eskiAcik;
   son.yayinAcik = yeniAcik;
-  komutBekleniyor = true;
+  son.komutBekliyor = true;
 
   yayinArayuzGuncelle(yeniAcik, true);
   kampanyaListesiCiz(son, donemMetrikleri(son, seciliDonem));
 
   if (DEMO || !aktifOturum || !aktifOturum.tok) {
     setTimeout(function () {
-      komutBekleniyor = false;
+      son.komutBekliyor = false;
       yayinArayuzGuncelle(son.yayinAcik, false);
-    }, 3000);
+    }, 1000);
     return;
   }
 
+  btn.disabled = true;
   try {
     var komut = yeniAcik ? 'ACIK' : 'DURAKLATILDI';
-    await apiCagir(aktifOturum.id, { tok: aktifOturum.tok }, '&islem=komut&komut=' + komut + '&taze=1');
+    var yanit = await apiCagir(aktifOturum.id, { tok: aktifOturum.tok }, '&islem=komut&komut=' + komut + '&taze=1');
+    son.komutBekliyor = !!(yanit && yanit.komut_bekliyor);
+    yayinArayuzGuncelle(yeniAcik, son.komutBekliyor);
     onbellekYaz(son);
-    setTimeout(async function () {
-      komutBekleniyor = false;
-      if (aktifOturum && aktifOturum.tok) {
-        await veriYukle(aktifOturum.id, { tok: aktifOturum.tok }, { sessiz: true, taze: true });
-      }
-      yayinArayuzGuncelle(son ? son.yayinAcik : yeniAcik, false);
-    }, 60000);
+    if (son.komutBekliyor) {
+      canliKomutTakibiBaslat();
+    }
   } catch (e) {
-    komutBekleniyor = false;
     son.yayinAcik = eskiAcik;
+    son.komutBekliyor = false;
     yayinArayuzGuncelle(eskiAcik, false);
     kampanyaListesiCiz(son, donemMetrikleri(son, seciliDonem));
+  } finally {
+    btn.disabled = false;
   }
 }
 
@@ -1493,9 +1517,12 @@ async function yayinDegistir() {
    DEMO VERİSİ VE BAŞLATMA
    ===================================================================== */
 function demoVeri() {
-  var hamTik = [0,0,4,2,5,0,1,7,8,6,5,9,11,4,0,6,12,18,14,9,11,15,22,19,8,14,10,6,0,0];
-  var hamGos = [0,3,61,28,51,0,3,74,89,62,55,94,112,45,0,68,124,182,141,92,108,149,215,180,79,110,59,30,0,0];
-  var hamMal = hamTik.map(function (t) { return Number((t * 19.42).toFixed(2)); });
+  var hamTik = [0,0,4,2,5,0,1,7,8,6,5,9,11,4,0,6,12,18,14,9,11,15,22,19,8,14,10,6,2,4];
+  var hamGos = [0,3,61,28,51,0,3,74,89,62,55,94,112,45,0,68,124,182,141,92,108,149,215,180,79,110,59,30,15,38];
+  var hamMal = hamTik.map(function (t) { return Number((t * 19.43).toFixed(2)); });
+  var saatTik = [0,0,0,0,0,0,0,0,0,1,0,1,1,0,1,0,0,0,0,0,0,0,0,0];
+  var saatGos = [0,0,0,0,0,0,1,2,4,6,3,7,6,4,5,0,0,0,0,0,0,0,0,0];
+  var saatMal = saatTik.map(function (t) { return Number((t * 19.43).toFixed(2)); });
 
   var bugun = new Date();
   var bs = new Date(bugun.getFullYear(), bugun.getMonth(), bugun.getDate() - 29);
@@ -1503,14 +1530,15 @@ function demoVeri() {
   var simdiIso = bugun.getFullYear() + '-' + ('0' + (bugun.getMonth() + 1)).slice(-2) + '-' + ('0' + bugun.getDate()).slice(-2) +
                  ' ' + ('0' + bugun.getHours()).slice(-2) + ':' + ('0' + bugun.getMinutes()).slice(-2) + ':' + ('0' + bugun.getSeconds()).slice(-2);
   return {
-    ok: true, durum: true, yayin_komutu: 'DURAKLATILDI',
+    ok: true, durum: true, yayin_komutu: 'DURAKLATILDI', kampanya_durumu: 'DURAKLATILDI', komut_bekliyor: false,
     id: URL_ID || 'taksi_44_1', isletme: 'Şahin Taksi', telefon: '0534 595 74 44',
     gosterim: 1979, tiklanma: 210, to: 10.61,
     maliyet: 4080.30, tbm: 19.43, aramalar: 0,
     cihaz: { mobil: 97, pc: 3, tablet: 0 },
     demografi: { kadin: 51, erkek: 49, yas: '25-34', yas_dagilim: [22, 34, 18, 14, 7, 4] },
     saat_dagilim: [6, 0, 68, 26],
-    kelimeler: ['malatya taksi:31', 'malatya ticari taksi:10', 'fahri kayahan taksi:6', 'maşti taksi:4', 'taksi malatya:4'],
+    saatlik: { tiklama: saatTik, gosterim: saatGos, maliyet: saatMal },
+    kelimeler: ['malatya taksi:31:602.33:12.41', 'malatya ticari taksi:10:194.30:9.41', 'fahri kayahan taksi:6:116.58:12.41', 'maşti taksi:4:77.72:9.41', 'taksi malatya:4:77.72:12.41'],
     gunluk: { baslangic: iso, tiklama: hamTik, gosterim: hamGos, maliyet: hamMal },
     guncelleme: simdiIso
   };
@@ -1550,6 +1578,12 @@ async function yenile() {
   yenileCalisiyor = true;
   var b = $('btnYenile'); b.classList.add('yukleniyor');
   try {
+    if ('caches' in window) {
+      try {
+        var keys = await window.caches.keys();
+        for (var i = 0; i < keys.length; i++) { await window.caches.delete(keys[i]); }
+      } catch (e) {}
+    }
     await altYaziYukle();
     await veriYukle(aktifOturum.id, { tok: aktifOturum.tok }, { sessiz: true, taze: true });
   } finally {
@@ -1583,17 +1617,24 @@ function donemMetrikleri(v, gunSayisi) {
   var gt = (v.gunluk && Array.isArray(v.gunluk.tiklama)) ? v.gunluk.tiklama : [];
   var gg = (v.gunluk && Array.isArray(v.gunluk.gosterim)) ? v.gunluk.gosterim : [];
   var gm = (v.gunluk && Array.isArray(v.gunluk.maliyet)) ? v.gunluk.maliyet : [];
+  var stTik = (v.saatlik && Array.isArray(v.saatlik.tiklama)) ? v.saatlik.tiklama : [];
+  var stGos = (v.saatlik && Array.isArray(v.saatlik.gosterim)) ? v.saatlik.gosterim : [];
+  var stMal = (v.saatlik && Array.isArray(v.saatlik.maliyet)) ? v.saatlik.maliyet : [];
 
   var birimTbm30 = v.tbm > 0 ? v.tbm : ((v.tiklanma > 0 && v.maliyet > 0) ? (v.maliyet / v.tiklanma) : 0);
 
-  // 1 = Günlük (Dizinin son elemanı bugünün verisidir)
+  // 1 = Günlük (Bugünün saatlik toplamı veya günlük dizinin son elemanı)
   if (gunSayisi === 1) {
-    var t1 = gt.length ? n(gt[gt.length - 1]) : 0;
-    var g1 = gg.length ? n(gg[gg.length - 1]) : 0;
-    var m1 = (gm.length && topla(gm) > 0) ? n(gm[gm.length - 1]) : (t1 > 0 ? Number((t1 * birimTbm30).toFixed(2)) : 0);
+    var topSaatTik = topla(stTik);
+    var topSaatGos = topla(stGos);
+    var topSaatMal = topla(stMal);
+
+    var t1 = topSaatTik > 0 ? topSaatTik : (gt.length ? n(gt[gt.length - 1]) : 0);
+    var g1 = topSaatGos > 0 ? topSaatGos : (gg.length ? n(gg[gg.length - 1]) : 0);
+    var m1 = topSaatMal > 0 ? topSaatMal : ((gm.length && topla(gm) > 0) ? n(gm[gm.length - 1]) : (t1 > 0 ? Number((t1 * birimTbm30).toFixed(2)) : 0));
     var to1 = g1 > 0 ? (t1 / g1 * 100) : 0;
     var tbm1 = t1 > 0 ? (m1 / t1) : 0;
-    return { gosterim: g1, tiklanma: t1, to: to1, tbm: tbm1, maliyet: m1, etiket: 'Bugün (Günlük)' };
+    return { gosterim: g1, tiklanma: t1, to: to1, tbm: tbm1, maliyet: m1, etiket: 'Bugün (00:00 - 23:59)' };
   }
 
   // 7 = Son 7 Gün
@@ -1625,8 +1666,8 @@ function donemSec(gun, sessiz) {
   $('ftTO').textContent = m.etiket;
   $('ftTBM').textContent = m.etiket;
 
-  sayarakYukselt($('vGosterim'), m.gosterim, 650, !sessiz);
-  sayarakYukselt($('vTiklanma'), m.tiklanma, 750, !sessiz);
+  sayarakYukselt($('vGosterim'), m.gosterim, 600, !sessiz);
+  sayarakYukselt($('vTiklanma'), m.tiklanma, 700, !sessiz);
   $('vTO').textContent = '%' + m.to.toFixed(2).replace('.', ',');
   $('vTBM').textContent = fmtPara(m.tbm);
   $('vMaliyet').textContent = fmtPara(m.maliyet);
@@ -1644,12 +1685,9 @@ function panoyuCiz(v, sessiz) {
   $('dashIsletme').textContent = ad;
   $('dashBas').textContent = bas(ad);
   $('dashSehirEtiket').textContent = info.plaka + ' ' + info.sehir + ' · ' + info.sektor;
-  $('dashGuncellemeUst').textContent = 'Son güncelleme: ' + tarihSaniyeliYaz(v.guncelleme) + ' (Her 1 saatte veriler güncellenir)';
+  $('dashGuncellemeUst').textContent = 'Son güncelleme: ' + tarihSaniyeliYaz(v.guncelleme) + ' (Her 1 saatte güncellenir)';
 
-  $('vAramalar').textContent = fmt(v.aramalar);
-  $('ftAltinciKart').textContent = 'Son 30 günde toplam';
-
-  yayinArayuzGuncelle(v.yayinAcik, komutBekleniyor);
+  yayinArayuzGuncelle(v.yayinAcik, v.komutBekliyor);
   onizlemeCiz(v, info);
   demografiVeCihazCiz(v);
   saatDilimleriCiz(v);
@@ -1657,13 +1695,12 @@ function panoyuCiz(v, sessiz) {
   kurulumButonDurumu();
 }
 
-/* ---- ARAYÜZ 1: GOOGLE ADS ÇİFT ÇİZGİLİ GRAFİK (CHART.JS DEFER BEKLEME KORUMALI) ---- */
+/* ---- ARAYÜZ 1: GOOGLE ADS ÇİFT ÇİZGİLİ GRAFİK (GÜNLÜKTE 00:00-23:00 SAATLER, 7/30 GÜNDE GÜNLER) ---- */
 var trendGrafik = null, chartYuklemeBekliyor = false;
 function googleAdsGrafikCiz(v, gunSayisi) {
   var canvas = $('trendCanvas');
   if (!v) { return; }
 
-  // Mobil tarayıcıda Chart.js (defer) henüz yüklenmediyse yüklendiği an otomatik çiz
   if (typeof window.Chart === 'undefined') {
     if (!chartYuklemeBekliyor) {
       chartYuklemeBekliyor = true;
@@ -1675,22 +1712,40 @@ function googleAdsGrafikCiz(v, gunSayisi) {
     return;
   }
 
-  var g = v.gunluk || {};
-  var toplam = (g.tiklama && g.tiklama.length) ? g.tiklama.length : 30;
-  // Günlük (1) seçildiğinde tek nokta çizgi oluşturamayacağı için son 7 günün seyrini ve bugünü gösterir
-  var cizimAdet = gunSayisi === 1 ? Math.min(7, toplam) : Math.min(gunSayisi, toplam);
-  var tikDizi = g.tiklama ? g.tiklama.slice(-cizimAdet) : [];
-  var gosDizi = (g.gosterim && g.gosterim.length >= cizimAdet) ? g.gosterim.slice(-cizimAdet) : tikDizi.map(function () { return 0; });
+  var kisaEtiket = [], tamTarih = [], tikDizi = [], gosDizi = [];
 
-  var kisaEtiket = [], tamTarih = [];
-  var m = /^(\d{4})-(\d{2})-(\d{2})$/.exec(g.baslangic || '');
-  var basTarih = m ? new Date(parseInt(m[1], 10), parseInt(m[2], 10) - 1, parseInt(m[3], 10) + (toplam - cizimAdet)) : new Date(Date.now() - (cizimAdet - 1) * 86400000);
+  // GÜNLÜK (1) SEÇİLDİĞİNDE ALT EKSENDE GÜNLER DEĞİL SAATLER (00:00 - 23:00) YAZAR
+  if (gunSayisi === 1) {
+    $('grafikBaslik').textContent = '📈 Google Ads Günlük Saat Serisi Grafiği (00:00 - 23:00)';
+    $('grafikAltBaslik').textContent = 'Noktalara dokunarak bugünün saatlik Tıklama ve Gösterim sayısını inceleyin';
+    var st = v.saatlik || {};
+    tikDizi = (Array.isArray(st.tiklama) && st.tiklama.length === 24) ? st.tiklama.slice(0, 24) : [];
+    gosDizi = (Array.isArray(st.gosterim) && st.gosterim.length === 24) ? st.gosterim.slice(0, 24) : [];
+    for (var s = 0; s < 24; s++) {
+      if (tikDizi.length < 24) { tikDizi.push(0); }
+      if (gosDizi.length < 24) { gosDizi.push(0); }
+      var saatMetin = ('0' + s).slice(-2) + ':00';
+      kisaEtiket.push(saatMetin);
+      tamTarih.push('Bugün Saat ' + saatMetin + ' - ' + ('0' + s).slice(-2) + ':59');
+    }
+  } else {
+    $('grafikBaslik').textContent = '📈 Google Ads Zaman Serisi Grafiği';
+    $('grafikAltBaslik').textContent = 'Noktalara dokunarak günlük Tıklama ve Gösterim sayısını inceleyin';
+    var g = v.gunluk || {};
+    var toplam = (g.tiklama && g.tiklama.length) ? g.tiklama.length : 30;
+    var cizimAdet = Math.min(gunSayisi, toplam);
+    tikDizi = g.tiklama ? g.tiklama.slice(-cizimAdet) : [];
+    gosDizi = (g.gosterim && g.gosterim.length >= cizimAdet) ? g.gosterim.slice(-cizimAdet) : tikDizi.map(function () { return 0; });
 
-  for (var i = 0; i < cizimAdet; i++) {
-    var d = new Date(basTarih.getFullYear(), basTarih.getMonth(), basTarih.getDate() + i);
-    var gunAd = d.toLocaleDateString('tr-TR', { weekday: 'short' });
-    kisaEtiket.push(d.getDate() + ' ' + AYLAR[d.getMonth()]);
-    tamTarih.push(d.getDate() + ' ' + AYLAR[d.getMonth()] + ' ' + d.getFullYear() + ' ' + gunAd);
+    var m = /^(\d{4})-(\d{2})-(\d{2})$/.exec(g.baslangic || '');
+    var basTarih = m ? new Date(parseInt(m[1], 10), parseInt(m[2], 10) - 1, parseInt(m[3], 10) + (toplam - cizimAdet)) : new Date(Date.now() - (cizimAdet - 1) * 86400000);
+
+    for (var i = 0; i < cizimAdet; i++) {
+      var d = new Date(basTarih.getFullYear(), basTarih.getMonth(), basTarih.getDate() + i);
+      var gunAd = d.toLocaleDateString('tr-TR', { weekday: 'short' });
+      kisaEtiket.push(d.getDate() + ' ' + AYLAR[d.getMonth()]);
+      tamTarih.push(d.getDate() + ' ' + AYLAR[d.getMonth()] + ' ' + d.getFullYear() + ' ' + gunAd);
+    }
   }
 
   var enCok = 0, enIndeks = -1;
@@ -1699,11 +1754,8 @@ function googleAdsGrafikCiz(v, gunSayisi) {
   }
 
   if (gunSayisi === 1) {
-    var bugunTik = tikDizi.length ? n(tikDizi[tikDizi.length - 1]) : 0;
-    var bugunGos = gosDizi.length ? n(gosDizi[gosDizi.length - 1]) : 0;
-    var bugunAd = tamTarih.length ? tamTarih[tamTarih.length - 1] : 'Bugün';
-    $('trendOzet').innerHTML = '<span>Bugün (' + bugunAd + '): <b>' + fmt(bugunTik) + ' tıklama</b> · <b>' + fmt(bugunGos) + ' gösterim</b></span>' +
-                               '<span>Son 7 gün toplamı: <b>' + fmt(topla(tikDizi)) + ' tıklama</b></span>';
+    $('trendOzet').innerHTML = '<span>Bugün toplamı: <b>' + fmt(topla(tikDizi)) + ' tıklama</b> · <b>' + fmt(topla(gosDizi)) + ' gösterim</b></span>' +
+                               (enCok > 0 && enIndeks > -1 ? '<span>En yoğun saat: <b>' + kisaEtiket[enIndeks] + ' (' + fmt(enCok) + ' tıklama)</b></span>' : '<span>Bugün (00:00 - 23:00) henüz tıklama kaydı yok</span>');
   } else {
     $('trendOzet').innerHTML = '<span>Dönem toplamı: <b>' + fmt(topla(tikDizi)) + ' tıklama</b> · <b>' + fmt(topla(gosDizi)) + ' gösterim</b></span>' +
                                (enCok > 0 && enIndeks > -1 ? '<span>En yüksek gün: <b>' + (tamTarih[enIndeks] || '') + ' (' + fmt(enCok) + ' tıklama)</b></span>' : '<span>Seçili aralıkta tıklama kaydı yok</span>');
@@ -1780,7 +1832,7 @@ function googleAdsGrafikCiz(v, gunSayisi) {
       scales: {
         x: {
           grid: { display: false },
-          ticks: { color: '#8fa0c4', maxTicksLimit: 7, maxRotation: 0, font: { size: 10.5 } }
+          ticks: { color: '#8fa0c4', maxTicksLimit: 8, maxRotation: 0, font: { size: 10.5 } }
         },
         y: {
           type: 'linear', display: true, position: 'left', beginAtZero: true,
@@ -1797,7 +1849,7 @@ function googleAdsGrafikCiz(v, gunSayisi) {
   });
 }
 
-/* ---- ARAYÜZ 2: KAMPANYALAR VE ARAMA TERİMLERİ LİSTESİ (SAHTE FORMÜL YOK) ---- */
+/* ---- ARAYÜZ 2: KAMPANYALAR VE ARAMA TERİMLERİ LİSTESİ ---- */
 function kampanyaListesiCiz(v, m) {
   var info = kimlikCozumle(v.id || URL_ID);
   var kg = $('kampanyaListeGovde');
@@ -1888,7 +1940,7 @@ function demografiVeCihazCiz(v) {
   $('txtTablet').textContent = '%' + tY; $('barTablet').style.width = tY + '%';
 }
 
-/* ---- ARAYÜZ 5: GÜNÜN SAAT DİLİMLERİNE GÖRE GERÇEK DAĞILIM (SAHTE HARİTA YOK) ---- */
+/* ---- ARAYÜZ 5: GÜNÜN SAAT DİLİMLERİNE GÖRE GERÇEK DAĞILIM ---- */
 function saatDilimleriCiz(v) {
   var saatAdlar = ['00:00 - 06:00 (Gece)', '06:00 - 12:00 (Sabah)', '12:00 - 18:00 (Öğle)', '18:00 - 24:00 (Akşam)'];
   var kisaAdlar = ['00-06 Gece', '06-12 Sabah', '12-18 Öğle', '18-24 Akşam'];
@@ -1926,8 +1978,6 @@ function tebrikAc() {
   $('tebrikBaslik').textContent = 'Tıklama Özeti';
   $('tebrikSayi').textContent = fmt(t);
   $('tebrikMetin').textContent = metrik.etiket + ' içerisinde reklamınıza ' + fmt(t) + ' kez tıklandı ve ' + fmt(metrik.gosterim) + ' kez görüntülendi.';
-  var a = $('tebrikAra'); a.hidden = !(son.aramalar > 0);
-  if (son.aramalar > 0) { a.textContent = 'Google Ads üzerinde ' + fmt(son.aramalar) + ' dönüşüm kaydı bulunuyor.'; }
   m.classList.add('on'); m.setAttribute('aria-hidden', 'false');
 }
 function tebrikKapat() {
@@ -1985,8 +2035,13 @@ pinNoktalari();
 baslat();
 parcaciklariBaslat();
 
+// Eski Service Worker önbelleklerinin yeni kodu engellememesi için güncelleme zorlaması
 if ('serviceWorker' in navigator && location.protocol.indexOf('http') === 0) {
-  window.addEventListener('load', function () { navigator.serviceWorker.register('sw.js').catch(function () {}); });
+  window.addEventListener('load', function () {
+    navigator.serviceWorker.register('sw.js').then(function (reg) {
+      try { reg.update(); } catch (e) {}
+    }).catch(function () {});
+  });
 }
 })();
 </script>
