@@ -79,11 +79,18 @@
   .btn:active{transform:scale(.985)}
   .btn:disabled{opacity:.45; cursor:not-allowed; transform:none}
   .btn.primary{color:#fff; background:linear-gradient(155deg,#1a73e8,#1557b0); box-shadow:0 8px 22px rgba(26,115,232,.35)}
+  .btn.success{color:#fff; background:linear-gradient(155deg,#16a34a,#15803d); box-shadow:0 8px 22px rgba(22,163,74,.35)}
   .btn.ghost{background:transparent; border:1px solid var(--line); color:var(--pale)}
   .btn + .btn{margin-top:8px}
   .msg{min-height:18px; margin:6px 0 10px; font-size:12.5px; color:var(--muted)}
-  .msg.err{color:#fca5a5}
-  .msg.ok{color:#86efac}
+  .msg.err{
+    color:#fecaca; background:rgba(239,68,68,.16); border:1px solid rgba(239,68,68,.45);
+    padding:8px 10px; border-radius:9px; font-weight:500;
+  }
+  .msg.ok{
+    color:#bbf7d0; background:rgba(34,197,94,.15); border:1px solid rgba(34,197,94,.4);
+    padding:8px 10px; border-radius:9px; font-weight:500;
+  }
 
   /* ---------- İskelet Yükleyici ---------- */
   .boot-wrap{width:100%; max-width:500px; padding:14px}
@@ -131,7 +138,7 @@
   }
 
   /* =====================================================================
-     ÜST MENÜ (MEVCUT BAKİYE + 2 AÇILIR PENCERE BUTONU + ŞALTER + DÖNEM)
+     ÜST MENÜ (MEVCUT NET BAKİYE + 2 AÇILIR PENCERE BUTONU + ŞALTER + DÖNEM)
      ===================================================================== */
   .top-bar{
     display:flex; align-items:center; justify-content:space-between; gap:8px; flex-wrap:wrap;
@@ -181,17 +188,18 @@
     border-color:rgba(34,197,94,.42);
   }
   .top-action-btn.bal-btn.bitti{
-    background:linear-gradient(135deg,rgba(239,68,68,.2),rgba(15,25,50,.92));
-    border-color:rgba(239,68,68,.5);
+    background:linear-gradient(135deg,rgba(239,68,68,.24),rgba(15,25,50,.95));
+    border-color:rgba(239,68,68,.6);
   }
   .bal-lbl{color:var(--pale); font-size:10.5px; font-weight:500}
   .bal-val{font:700 13px 'Space Grotesk',sans-serif; color:#fff}
+  .top-action-btn.bal-btn.bitti .bal-val{color:#fca5a5}
   .bal-plus{
     padding:2px 6px; border-radius:5px; background:rgba(34,197,94,.25);
     color:#86efac; font-size:10px; font-weight:700;
   }
   .top-action-btn.bal-btn.bitti .bal-plus{
-    background:rgba(239,68,68,.3); color:#fca5a5;
+    background:rgba(239,68,68,.35); color:#fecaca;
   }
 
   /* 2. AÇILIR BUTON: OTOMATİK AÇ/KAPAT ZAMANLAYICI */
@@ -253,6 +261,18 @@
   .mini:active{transform:scale(.94)}
   .mini svg{width:15px; height:15px}
   .mini.yukleniyor svg{animation:spin .6s linear infinite}
+
+  /* Bakiye Yetersiz / Sistem Uyarı Bandı */
+  .alert-bant{
+    display:flex; align-items:center; justify-content:space-between; gap:10px; flex-wrap:wrap;
+    margin:0 0 7px; padding:8px 12px; border-radius:11px;
+    border:1px solid rgba(239,68,68,.55); background:rgba(239,68,68,.16);
+    color:#fecaca; font-size:12px; font-weight:600;
+  }
+  .alert-bant button{
+    height:28px; padding:0 10px; border-radius:7px; border:0;
+    background:#ef4444; color:#fff; font-size:11.5px; font-weight:700; cursor:pointer;
+  }
 
   @media (max-width:860px){
     .top-bar{gap:6px; padding:7px 9px}
@@ -547,11 +567,27 @@
   /* Bakiye Modal İçeriği */
   .bal-summary-strip{
     display:flex; align-items:center; justify-content:space-between;
-    padding:10px 12px; border-radius:11px; margin-bottom:14px;
+    padding:10px 12px; border-radius:11px; margin-bottom:10px;
     background:rgba(26,115,232,.12); border:1px solid rgba(26,115,232,.3);
+  }
+  .bal-summary-strip.eksi{
+    background:rgba(239,68,68,.16); border-color:rgba(239,68,68,.48);
   }
   .bal-summary-strip span{font-size:12px; color:var(--pale); font-weight:500}
   .bal-summary-strip b{font:700 18px 'Space Grotesk',sans-serif; color:#fff}
+  .bal-summary-strip.eksi b{color:#fca5a5}
+
+  .mahsup-kutusu{
+    margin:0 0 12px; padding:8px 10px; border-radius:9px;
+    background:rgba(245,158,11,.12); border:1px dashed rgba(245,158,11,.45);
+    color:#fde68a; font-size:11.5px; line-height:1.4;
+  }
+  .net-onizleme-kutusu{
+    margin:4px 0 10px; padding:8px 10px; border-radius:9px;
+    background:rgba(34,197,94,.12); border:1px solid rgba(34,197,94,.35);
+    color:#bbf7d0; font-size:12px; font-weight:600; text-align:center;
+  }
+
   .field-title{display:block; font-size:13px; font-weight:600; color:#fff; margin-bottom:8px}
   .quick-3{
     display:grid; grid-template-columns:repeat(3,1fr); gap:8px; margin-bottom:10px;
@@ -721,7 +757,7 @@
       </div>
 
       <div class="actions-side">
-        <!-- BUTON 1: MEVCUT BAKİYE & BAKİYE YÜKLE (AÇILIR PENCERE) -->
+        <!-- BUTON 1: MEVCUT NET BAKİYE & BAKİYE YÜKLE (AÇILIR PENCERE) -->
         <button type="button" class="top-action-btn bal-btn" id="btnBakiyeModalAc" aria-haspopup="dialog">
           <span class="bal-lbl">Mevcut Bakiye:</span>
           <b class="bal-val num" id="ustMevcutBakiye">₺0,00</b>
@@ -760,6 +796,12 @@
         </div>
       </div>
     </header>
+
+    <!-- BAKİYE 0 VEYA EKSİ OLDUĞUNDA ÇIKAN NET UYARI BANDI -->
+    <div class="alert-bant" id="bakiyeUyariBant" role="alert" hidden>
+      <span id="bakiyeUyariMetin">Bakiyeniz ₺0,00 olduğu için reklamınız duraklatılmıştır.</span>
+      <button type="button" id="btnBantBakiyeYukle">+ Bakiye Yükle</button>
+    </div>
 
     <div class="demo-bant" id="demoBant" role="status" hidden>ÖRNEK VERİLERLE ÖNİZLEME: Bu rakamlar görünümü göstermek içindir.</div>
 
@@ -973,10 +1015,13 @@
       <button type="button" class="modal-close" id="btnBakiyeUstKapat" aria-label="Kapat">✕</button>
     </div>
 
-    <div class="bal-summary-strip">
-      <span>Mevcut Bakiyeniz</span>
+    <div class="bal-summary-strip" id="modalBakiyeSerit">
+      <span>Mevcut Net Bakiyeniz</span>
       <b class="num" id="modalMevcutBakiye">₺0,00</b>
     </div>
+
+    <!-- EKSİ BAKİYE VARSA GÖSTERİLEN AÇIKLAMA KUTUSU -->
+    <div class="mahsup-kutusu" id="eksiBakiyeBilgi" hidden></div>
 
     <label class="field-title" for="inpBakiyeTutar">Ne kadar bakiye yüklemek istiyorsunuz?</label>
 
@@ -987,7 +1032,11 @@
     </div>
 
     <input type="number" id="inpBakiyeTutar" class="inp-tutar num" min="50" step="50" placeholder="Tutarı yazın (Örn: 1000)">
-    <p id="bakiyeModalMsg" class="msg" role="status" aria-live="polite"></p>
+
+    <!-- CANLI YÜKLEME SONRASI NET BAKİYE ÖNİZLEMESİ -->
+    <div class="net-onizleme-kutusu" id="netBakiyeOnizleme" hidden></div>
+
+    <p id="bakiyeModalMsg" class="msg" role="status" aria-live="polite" hidden></p>
 
     <button type="button" id="btnBakiyeOnayla" class="btn primary">Bakiyeyi Yükle</button>
     <button type="button" id="btnBakiyeKapat" class="btn ghost">Kapat</button>
@@ -1045,7 +1094,8 @@
     <!-- GÜNE ÖZEL SAAT SEÇİM LİSTESİ (Ortak Saat Kapatılınca Açılır) -->
     <div id="ozelSaatListesi" class="custom-days-list" hidden></div>
 
-    <p id="otoModalMsg" class="msg" role="status" aria-live="polite"></p>
+    <p id="otoModalMsg" class="msg" role="alert" aria-live="assertive" hidden></p>
+    <button type="button" id="btnOtoBakiyeGit" class="btn success" hidden style="margin-bottom:8px">+ Şimdi Bakiye Yükle</button>
 
     <button type="button" id="btnOtoKaydet" class="btn primary">Ayarları Kaydet</button>
     <button type="button" id="btnOtoKapat" class="btn ghost">Kapat</button>
@@ -1087,9 +1137,9 @@ setTimeout(function () {
 'use strict';
 
 /* =====================================================================
-   AYARLAR (v6.0 E-TABLO API KÖPRÜSÜ BAĞLANTISI)
+   AYARLAR (v6.2 E-TABLO API KÖPRÜSÜ BAĞLANTISI)
    ===================================================================== */
-var API_URL = 'https://script.google.com/macros/s/AKfycbxu5pnGsEg29Fghj6WDb_B_IZRsbTmpkWZeOgZ_uolotMh4k1ewGT7aO6PhIx5w-YTjVg/exec';
+var API_URL = 'https://script.google.com/macros/s/AKfycbyvtiULTB-iUe6u2_b8fXZ3LbY3mRAUS0csoHVEFRmpswFaglcqMr1gY2YsxA2FXuuXBw/exec';
 var VARSAYILAN_ALT_YAZI = 'SORUNUZ VARSA BANA ULAŞABİLİRSİNİZ 0534 595 74 44';
 var VARSAYILAN_OTO_PLAN = '1;08:00-21:00;1,2,3,4,5,6,7;1=08:00-21:00,2=08:00-21:00,3=08:00-21:00,4=08:00-21:00,5=08:00-21:00,6=09:00-21:00,7=10:00-21:00';
 
@@ -1101,9 +1151,9 @@ var YENIDEN_DENEME   = 1;
 var YENILEME_ESIGI   = 15 * 60 * 1000;
 var BEKCI_MS         = 26000;
 
-var LS = { oturum: 'pnl_oturum', deneme: 'pnl_deneme', ban: 'pnl_ban', veri: 'pnl_veri_v14' };
+var LS = { oturum: 'pnl_oturum', deneme: 'pnl_deneme', ban: 'pnl_ban', veri: 'pnl_veri_v16' };
 var TOK_DESEN = /^\d{9,14}\.[0-9a-f]{64}$/;
-var VERI_SEMA = 14;
+var VERI_SEMA = 16;
 
 var GUN_ADLARI = {
   '1': 'Pazartesi', '2': 'Salı', '3': 'Çarşamba', '4': 'Perşembe',
@@ -1172,7 +1222,7 @@ function kimlikCozumle(id, apiSektor) {
 }
 
 /* =====================================================================
-   YARDIMCILAR
+   YARDIMCILAR (EKSİ BAKİYEYİ `-₺88,00` OLARAK NET GÖSTERİR)
    ===================================================================== */
 function $(id) { return document.getElementById(id); }
 var QS = new URLSearchParams(location.search);
@@ -1190,7 +1240,9 @@ var depo = {
 function n(x) { var k = Number(x); return isFinite(k) ? k : 0; }
 function fmt(x) { return Math.round(n(x)).toLocaleString('tr-TR'); }
 function fmtPara(x) {
-  return '₺' + n(x).toLocaleString('tr-TR', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+  var deger = n(x);
+  var eksi = deger < 0 ? '-' : '';
+  return eksi + '₺' + Math.abs(deger).toLocaleString('tr-TR', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
 }
 function topla(a) { return Array.isArray(a) ? a.reduce(function (s, x) { return s + n(x); }, 0) : 0; }
 function bekle(ms) { return new Promise(function (r) { setTimeout(r, ms); }); }
@@ -1381,7 +1433,7 @@ async function altYaziYukle() {
 }
 
 /* =====================================================================
-   API İLETİŞİMİ VE VERİ DÜZENLEME
+   API İLETİŞİMİ VE VERİ DÜZENLEME (EKSİ BAKİYEYİ GİZLEMEZ)
    ===================================================================== */
 function apiAyarliMi() { return API_URL && API_URL.indexOf('BURAYA_') === -1 && /^https:\/\//.test(API_URL); }
 
@@ -1433,6 +1485,11 @@ function duzenle(v) {
   if (hamMaliyet <= 0 && hamTbm > 0 && tik > 0) { hamMaliyet = Number((hamTbm * tik).toFixed(2)); }
   var toHesap = gos > 0 ? Number((tik / gos * 100).toFixed(2)) : 0;
 
+  // KRİTİK DÜZELTME: Math.max(0, ...) YOK! Eksi bakiye (-88 TL) neyse kuruşu kuruşuna korunur.
+  var mevcutBakiye = bk.mevcut !== undefined ? Number(n(bk.mevcut).toFixed(2)) : Number(n(bk.kalan_limit).toFixed(2));
+  var paketToplam = bk.paket !== undefined ? Number(n(bk.paket).toFixed(2)) : Number(n(bk.limit).toFixed(2));
+  var bakiyeBitti = (bk.bakiye_bitti !== undefined) ? Boolean(bk.bakiye_bitti) : (mevcutBakiye <= 0);
+
   var komutMetni = String(v.yayin_komutu || '').trim().toUpperCase();
   var gercekMetni = String(v.kampanya_durumu || '').trim().toUpperCase();
 
@@ -1442,12 +1499,8 @@ function duzenle(v) {
                           (komutMetni !== gercekMetni);
 
   var otoMetni = String(v.oto_baslat || '').trim().toUpperCase();
-  var otoAcik = (otoMetni === 'ACIK');
+  var otoAcik = (!bakiyeBitti && otoMetni === 'ACIK');
   var otoPlanMetni = String(v.oto_plan || VARSAYILAN_OTO_PLAN).trim() || VARSAYILAN_OTO_PLAN;
-
-  var mevcutBakiye = bk.mevcut !== undefined ? Math.max(0, n(bk.mevcut)) : Math.max(0, n(bk.kalan_limit));
-  var paketToplam = bk.paket !== undefined ? Math.max(0, n(bk.paket)) : Math.max(0, n(bk.limit));
-  var bakiyeBitti = Boolean(bk.bakiye_bitti) || (paketToplam > 0 && mevcutBakiye <= 0);
 
   var yasDizi = Array.isArray(dm.yas_dagilim) && dm.yas_dagilim.length === 6 ? dm.yas_dagilim.map(n) : sifirDizi(6);
   var saatDilim4 = Array.isArray(v.saat_dagilim) && v.saat_dagilim.length === 4 ? v.saat_dagilim.map(n) : sifirDizi(4);
@@ -1659,7 +1712,7 @@ function cikis() {
 }
 
 /* =====================================================================
-   ÜST BAR BAKİYE, ŞALTER VE 2 AÇILIR PENCERE (MODAL) SİSTEMİ
+   ÜST BAR BAKİYE, UYARI BANDI, ŞALTER VE 2 AÇILIR PENCERE (MODAL) SİSTEMİ
    ===================================================================== */
 function yayinArayuzGuncelle(acik, bekliyor, hedefKomut, siraBekliyor) {
   var btn = $('btnYayinToggle'), txt = $('yayinDurumMetni');
@@ -1690,16 +1743,32 @@ function yayinArayuzGuncelle(acik, bekliyor, hedefKomut, siraBekliyor) {
 }
 
 function ustBarBakiyeVeOtoGuncelle(v) {
-  var bk = v.bakiye || { mevcut: 0, paket: 0, bakiyeBitti: false };
+  var bk = v.bakiye || { mevcut: 0, paket: 0, bakiyeBitti: true };
   var mevcutStr = fmtPara(bk.mevcut);
+  var bittiMi = bk.mevcut <= 0;
 
   $('ustMevcutBakiye').textContent = mevcutStr;
   $('modalMevcutBakiye').textContent = mevcutStr;
-  $('btnBakiyeModalAc').classList.toggle('bitti', bk.mevcut <= 0);
+  $('btnBakiyeModalAc').classList.toggle('bitti', bittiMi);
+  $('modalBakiyeSerit').classList.toggle('eksi', bittiMi);
+
+  // Bakiye 0 veya eksi ise üstte net uyarı bandını göster
+  var uyariBant = $('bakiyeUyariBant'), uyariMetin = $('bakiyeUyariMetin');
+  if (bittiMi) {
+    uyariBant.hidden = false;
+    if (bk.mevcut < 0) {
+      uyariMetin.textContent = '⚠️ Mevcut bakiyeniz ' + mevcutStr + ' (eksiye düştüğü) için reklamınız duraklatılmıştır. Yeni yüklemenizden ' + mevcutStr + ' mahsup edilecektir.';
+    } else {
+      uyariMetin.textContent = '⚠️ Mevcut bakiyeniz ₺0,00 olduğu için reklamınız duraklatılmıştır. Reklamı başlatmak için bakiye yükleyin.';
+    }
+  } else {
+    uyariBant.hidden = true;
+  }
 
   var otoDot = $('ustOtoDot'), otoTxt = $('ustOtoMetin');
-  otoDot.classList.toggle('on', !!v.otoAcik);
-  otoTxt.textContent = v.otoAcik ? 'Oto Aç/Kapat: Aktif' : 'Otomatik Aç/Kapat';
+  var otoAktifGorunum = !bittiMi && !!v.otoAcik;
+  otoDot.classList.toggle('on', otoAktifGorunum);
+  otoTxt.textContent = otoAktifGorunum ? 'Oto Aç/Kapat: Aktif' : 'Otomatik Aç/Kapat';
 }
 
 function canliKomutTakibiBaslat(istenenKomut) {
@@ -1746,15 +1815,18 @@ async function yayinDegistir() {
   var suAnAcikMi = son.komutSiraBekliyor ? (son.hedefKomut === 'ACIK') : son.yayinAcik;
   var yeniKomut = suAnAcikMi ? 'DURAKLATILDI' : 'ACIK';
 
-  if (yeniKomut === 'ACIK' && son.bakiye.paket > 0 && son.bakiye.mevcut <= 0) {
-    bakiyeModalAc();
-    $('bakiyeModalMsg').textContent = 'Mevcut bakiyeniz ₺0,00 olduğu için lütfen önce bakiye yükleyin.';
-    $('bakiyeModalMsg').className = 'msg err';
+  // Bakiye 0 veya eksi ise şalterin bozuk sanılmaması için anında Bakiye penceresini açıp net uyarı göster
+  if (yeniKomut === 'ACIK' && son.bakiye.mevcut <= 0) {
+    bakiyeModalAc('⚠️ Bakiyeniz ' + fmtPara(son.bakiye.mevcut) + ' olduğu için reklam başlatılamaz! Lütfen önce bakiye yükleyin.');
     return;
   }
 
   son.hedefKomut = yeniKomut;
   son.komutBekliyor = true;
+  if (yeniKomut === 'DURAKLATILDI') {
+    son.otoAcik = false;
+    ustBarBakiyeVeOtoGuncelle(son);
+  }
   yayinArayuzGuncelle(son.yayinAcik, true, yeniKomut, false);
 
   if (DEMO || !aktifOturum || !aktifOturum.tok) {
@@ -1774,9 +1846,7 @@ async function yayinDegistir() {
     if (yanit && yanit.kod === 'bakiye_bitti') {
       son.komutBekliyor = false;
       yayinArayuzGuncelle(false, false, 'DURAKLATILDI', false);
-      bakiyeModalAc();
-      $('bakiyeModalMsg').textContent = yanit.mesaj || 'Mevcut bakiyeniz bitti.';
-      $('bakiyeModalMsg').className = 'msg err';
+      bakiyeModalAc(yanit.mesaj || ('⚠️ Bakiyeniz ' + fmtPara(son.bakiye.mevcut) + ' olduğu için reklam başlatılamaz!'));
       return;
     }
     canliKomutTakibiBaslat(yeniKomut);
@@ -1788,12 +1858,53 @@ async function yayinDegistir() {
   }
 }
 
-/* ---- AÇILIR PENCERE 1: BAKİYE YÜKLEME İŞLEMLERİ (1000 / 2500 / 8000) ---- */
-function bakiyeModalAc() {
+/* ---- AÇILIR PENCERE 1: BAKİYE YÜKLEME İŞLEMLERİ (1000 / 2500 / 8000 + EKSİ MAHSUP) ---- */
+function bakiyeCanliOnizlemeGuncelle() {
   if (!son) { return; }
-  $('modalMevcutBakiye').textContent = fmtPara(son.bakiye.mevcut);
-  $('bakiyeModalMsg').textContent = '';
-  $('bakiyeModalMsg').className = 'msg';
+  var girilen = Math.max(0, n($('inpBakiyeTutar').value));
+  var mevcut = n(son.bakiye.mevcut);
+  var onizlemeEl = $('netBakiyeOnizleme');
+
+  if (girilen <= 0) {
+    onizlemeEl.hidden = true;
+    return;
+  }
+
+  var olusacakNet = Number((mevcut + girilen).toFixed(2));
+  onizlemeEl.hidden = false;
+  if (mevcut < 0) {
+    onizlemeEl.textContent = 'Yüklenecek: ' + fmtPara(girilen) + ' (' + fmtPara(mevcut) + ' eksi bakiye düşülür) → Net Bakiyeniz: ' + fmtPara(olusacakNet);
+  } else {
+    onizlemeEl.textContent = 'Yüklendikten Sonra Toplam Net Bakiyeniz: ' + fmtPara(olusacakNet);
+  }
+}
+
+function bakiyeModalAc(ozelUyariMesaji) {
+  if (!son) { return; }
+  var mevcut = n(son.bakiye.mevcut);
+  $('modalMevcutBakiye').textContent = fmtPara(mevcut);
+  $('modalBakiyeSerit').classList.toggle('eksi', mevcut <= 0);
+
+  var eksiKutu = $('eksiBakiyeBilgi');
+  if (mevcut < 0) {
+    eksiKutu.hidden = false;
+    eksiKutu.textContent = 'Hesabınızda ' + fmtPara(mevcut) + ' eksi bakiye (reklam durana kadar oluşan tıklama aşımı) bulunmaktadır. Yeni yükleyeceğiniz tutardan bu kısım otomatik düşülecektir.';
+  } else {
+    eksiKutu.hidden = true;
+  }
+
+  var msg = $('bakiyeModalMsg');
+  if (ozelUyariMesaji) {
+    msg.hidden = false;
+    msg.textContent = ozelUyariMesaji;
+    msg.className = 'msg err';
+  } else {
+    msg.hidden = true;
+    msg.textContent = '';
+    msg.className = 'msg';
+  }
+
+  bakiyeCanliOnizlemeGuncelle();
   var m = $('bakiyeModal');
   m.classList.add('on');
   m.setAttribute('aria-hidden', 'false');
@@ -1813,52 +1924,65 @@ async function bakiyeYukleOnayla() {
 
   var eklenecek = Math.max(0, n(inp.value));
   if (eklenecek <= 0) {
-    msg.textContent = 'Lütfen yüklenecek tutarı seçin veya yazın (1000, 2500, 8000).';
+    msg.hidden = false;
+    msg.textContent = '⚠️ Lütfen yüklenecek tutarı seçin veya yazın (1000, 2500, 8000).';
     msg.className = 'msg err';
     inp.focus();
     return;
   }
 
-  var yeniMevcut = Number((son.bakiye.mevcut + eklenecek).toFixed(2));
+  var eskiNet = n(son.bakiye.mevcut);
+  var yeniMevcut = Number((eskiNet + eklenecek).toFixed(2));
 
   if (DEMO || !aktifOturum || !aktifOturum.tok) {
     son.bakiye.mevcut = yeniMevcut;
     son.bakiye.paket = yeniMevcut;
-    son.bakiye.bakiyeBitti = false;
-    son.yayinAcik = true;
+    son.bakiye.bakiyeBitti = (yeniMevcut <= 0);
+    son.yayinAcik = (yeniMevcut > 0);
     ustBarBakiyeVeOtoGuncelle(son);
-    yayinArayuzGuncelle(true, false, 'ACIK', false);
+    yayinArayuzGuncelle(son.yayinAcik, false, son.yayinAcik ? 'ACIK' : 'DURAKLATILDI', false);
     kampanyaListesiCiz(son, donemMetrikleri(son, seciliDonem));
     inp.value = '';
-    msg.textContent = fmtPara(eklenecek) + ' eklendi. Mevcut Bakiyeniz: ' + fmtPara(yeniMevcut);
+    bakiyeCanliOnizlemeGuncelle();
+    msg.hidden = false;
+    msg.textContent = eskiNet < 0
+      ? ('✅ ' + fmtPara(eklenecek) + ' yüklendi (' + fmtPara(eskiNet) + ' eksi bakiye düşüldü). Net Bakiyeniz: ' + fmtPara(yeniMevcut))
+      : ('✅ ' + fmtPara(eklenecek) + ' eklendi. Net Bakiyeniz: ' + fmtPara(yeniMevcut));
     msg.className = 'msg ok';
     return;
   }
 
   btn.disabled = true;
   btn.textContent = 'Yükleniyor…';
-  msg.textContent = '';
+  msg.hidden = true;
   try {
     var yanit = await apiCagir(aktifOturum.id, { tok: aktifOturum.tok }, '&islem=bakiye_yukle&ekle=' + encodeURIComponent(eklenecek) + '&taze=1');
     if (yanit && yanit.ok) {
-      son.bakiye.mevcut = yeniMevcut;
-      son.bakiye.paket = yeniMevcut;
-      son.bakiye.bakiyeBitti = false;
-      son.hedefKomut = yanit.yayin_komutu || 'ACIK';
+      var sunucuNet = (yanit.bakiye && yanit.bakiye.mevcut !== undefined) ? n(yanit.bakiye.mevcut) : yeniMevcut;
+      son.bakiye.mevcut = sunucuNet;
+      son.bakiye.paket = sunucuNet;
+      son.bakiye.bakiyeBitti = (sunucuNet <= 0);
+      son.hedefKomut = yanit.yayin_komutu || (sunucuNet > 0 ? 'ACIK' : 'DURAKLATILDI');
       son.komutBekliyor = true;
       onbellekYaz(son);
       ustBarBakiyeVeOtoGuncelle(son);
       yayinArayuzGuncelle(son.yayinAcik, true, son.hedefKomut, false);
       inp.value = '';
-      msg.textContent = fmtPara(eklenecek) + ' yüklendi. Mevcut Bakiyeniz: ' + fmtPara(yeniMevcut);
+      var hizliBtnler = document.querySelectorAll('.q-btn');
+      for (var k = 0; k < hizliBtnler.length; k++) { hizliBtnler[k].classList.remove('secili'); }
+      bakiyeCanliOnizlemeGuncelle();
+      msg.hidden = false;
+      msg.textContent = yanit.mesaj || ('✅ ' + fmtPara(eklenecek) + ' yüklendi. Net Bakiyeniz: ' + fmtPara(sunucuNet));
       msg.className = 'msg ok';
       canliKomutTakibiBaslat(son.hedefKomut);
     } else {
-      msg.textContent = 'Bakiye yüklenemedi, lütfen tekrar deneyin.';
+      msg.hidden = false;
+      msg.textContent = '❌ Bakiye yüklenemedi, lütfen tekrar deneyin.';
       msg.className = 'msg err';
     }
   } catch (e) {
-    msg.textContent = 'Bağlantı hatası: Bakiye yüklenemedi.';
+    msg.hidden = false;
+    msg.textContent = '❌ Bağlantı hatası: Bakiye yüklenemedi.';
     msg.className = 'msg err';
   } finally {
     btn.disabled = false;
@@ -1873,7 +1997,6 @@ var saatSecenekHtml = '';
   for (var s = 0; s < 24; s++) {
     var ss = ('0' + s).slice(-2);
     h += '<option value="' + ss + ':00">' + ss + ':00</option>';
-    h += '<option value="' + ss + ':30">' + ss + ':30</option>';
   }
   saatSecenekHtml = h;
   $('selGenelBas').innerHTML = h;
@@ -1892,6 +2015,12 @@ var duzenlenenPlan = {
   }
 };
 
+function tamSaateYuvarla(saatStr, varsayilan) {
+  var m = /^([01]?\d|2[0-3]):/.exec(String(saatStr || '').trim());
+  if (!m) { return varsayilan || '08:00'; }
+  return ('0' + parseInt(m[1], 10)).slice(-2) + ':00';
+}
+
 function planMetniniAyrstir(planStr, aktifMi) {
   duzenlenenPlan.aktif = !!aktifMi;
   var ham = String(planStr || VARSAYILAN_OTO_PLAN).trim();
@@ -1900,8 +2029,8 @@ function planMetniniAyrstir(planStr, aktifMi) {
   duzenlenenPlan.ortak = String(p[0] || '1').trim() !== '0';
 
   var gParca = String(p[1] || '08:00-21:00').split('-');
-  duzenlenenPlan.genelBas = gParca[0] || '08:00';
-  duzenlenenPlan.genelBit = gParca[1] || '21:00';
+  duzenlenenPlan.genelBas = tamSaateYuvarla(gParca[0], '08:00');
+  duzenlenenPlan.genelBit = tamSaateYuvarla(gParca[1], '21:00');
 
   for (var k = 1; k <= 7; k++) { duzenlenenPlan.gunler[String(k)] = false; }
   var seciliDizi = String(p[2] || '1,2,3,4,5,6,7').split(',');
@@ -1915,7 +2044,9 @@ function planMetniniAyrstir(planStr, aktifMi) {
     var kv = ozelDizi[j].split('=');
     if (kv.length === 2 && duzenlenenPlan.ozel[kv[0]]) {
       var sp = kv[1].split('-');
-      if (sp.length === 2) { duzenlenenPlan.ozel[kv[0]] = [sp[0], sp[1]]; }
+      if (sp.length === 2) {
+        duzenlenenPlan.ozel[kv[0]] = [tamSaateYuvarla(sp[0], '08:00'), tamSaateYuvarla(sp[1], '21:00')];
+      }
     }
   }
 }
@@ -1996,12 +2127,28 @@ function ozelSaatInputlariniOku() {
   }
 }
 
+function otoModalBakiyeUyarisiGoster(mesajMetni) {
+  var msg = $('otoModalMsg'), gitBtn = $('btnOtoBakiyeGit');
+  msg.hidden = false;
+  msg.textContent = mesajMetni || ('⚠️ Mevcut bakiyeniz ' + fmtPara(son ? son.bakiye.mevcut : 0) + ' olduğu için Otomatik Başlatma açılamaz! Lütfen önce bakiye yükleyin.');
+  msg.className = 'msg err';
+  gitBtn.hidden = false;
+}
+
 function otoModalAc() {
   if (!son) { return; }
   planMetniniAyrstir(son.otoPlan, son.otoAcik);
   otoModalArayuzYenile();
-  $('otoModalMsg').textContent = '';
-  $('otoModalMsg').className = 'msg';
+
+  var msg = $('otoModalMsg'), gitBtn = $('btnOtoBakiyeGit');
+  if (son.bakiye.mevcut <= 0) {
+    otoModalBakiyeUyarisiGoster('⚠️ Mevcut bakiyeniz ' + fmtPara(son.bakiye.mevcut) + ' olduğu için Otomatik Başlatma şu an çalışamaz. Gün/saat planınızı kaydedebilirsiniz ancak yayın için bakiye yüklemelisiniz.');
+  } else {
+    msg.hidden = true;
+    msg.textContent = '';
+    gitBtn.hidden = true;
+  }
+
   var m = $('otoModal');
   m.classList.add('on');
   m.setAttribute('aria-hidden', 'false');
@@ -2015,7 +2162,7 @@ function otoModalKapat() {
 
 async function otoPlanKaydet() {
   if (!son) { return; }
-  var btn = $('btnOtoKaydet'), msg = $('otoModalMsg');
+  var btn = $('btnOtoKaydet'), msg = $('otoModalMsg'), gitBtn = $('btnOtoBakiyeGit');
   if (btn.disabled) { return; }
 
   duzenlenenPlan.genelBas = $('selGenelBas').value;
@@ -2027,8 +2174,17 @@ async function otoPlanKaydet() {
     if (duzenlenenPlan.gunler[String(g)]) { seciliSayisi++; }
   }
   if (duzenlenenPlan.aktif && seciliSayisi === 0) {
-    msg.textContent = 'Lütfen otomatik yayın için en az 1 gün seçin.';
+    msg.hidden = false;
+    msg.textContent = '⚠️ Lütfen otomatik yayın için yukarıdan en az 1 gün seçin.';
     msg.className = 'msg err';
+    return;
+  }
+
+  // Bakiye 0 veya eksi iken Otomatik Başlatma AÇIK olarak kaydedilemez; net uyarı göster
+  if (duzenlenenPlan.aktif && son.bakiye.mevcut <= 0) {
+    duzenlenenPlan.aktif = false;
+    otoModalArayuzYenile();
+    otoModalBakiyeUyarisiGoster('⚠️ Bakiyeniz ' + fmtPara(son.bakiye.mevcut) + ' olduğu için Otomatik Başlatma aktif edilemez! Lütfen aşağıdaki butondan bakiye yükleyin.');
     return;
   }
 
@@ -2040,17 +2196,27 @@ async function otoPlanKaydet() {
   ustBarBakiyeVeOtoGuncelle(son);
 
   if (DEMO || !aktifOturum || !aktifOturum.tok) {
-    msg.textContent = 'Otomatik Aç/Kapat planı kaydedildi.';
+    msg.hidden = false;
+    msg.textContent = '✅ Otomatik Aç/Kapat saat planınız kaydedildi.';
     msg.className = 'msg ok';
+    gitBtn.hidden = true;
     return;
   }
 
   btn.disabled = true;
   btn.textContent = 'Kaydediliyor…';
-  msg.textContent = '';
+  msg.hidden = true;
   try {
     var ek = '&islem=oto_plan&durum=' + yeniDurumStr + '&plan=' + encodeURIComponent(yeniPlanStr) + '&taze=1';
     var yanit = await apiCagir(aktifOturum.id, { tok: aktifOturum.tok }, ek);
+    if (yanit && yanit.kod === 'bakiye_bitti') {
+      duzenlenenPlan.aktif = false;
+      son.otoAcik = false;
+      otoModalArayuzYenile();
+      ustBarBakiyeVeOtoGuncelle(son);
+      otoModalBakiyeUyarisiGoster(yanit.mesaj);
+      return;
+    }
     if (yanit && yanit.ok) {
       if (yanit.yayin_komutu) {
         son.hedefKomut = yanit.yayin_komutu;
@@ -2059,14 +2225,18 @@ async function otoPlanKaydet() {
         canliKomutTakibiBaslat(son.hedefKomut);
       }
       onbellekYaz(son);
-      msg.textContent = 'Otomatik Aç/Kapat saat planınız kaydedildi.';
+      msg.hidden = false;
+      msg.textContent = '✅ Otomatik Aç/Kapat saat planınız kaydedildi.';
       msg.className = 'msg ok';
+      gitBtn.hidden = true;
     } else {
-      msg.textContent = 'Plan kaydedilemedi, tekrar deneyin.';
+      msg.hidden = false;
+      msg.textContent = '❌ Plan kaydedilemedi, tekrar deneyin.';
       msg.className = 'msg err';
     }
   } catch (e) {
-    msg.textContent = 'Bağlantı hatası: Plan kaydedilemedi.';
+    msg.hidden = false;
+    msg.textContent = '❌ Bağlantı hatası: Plan kaydedilemedi.';
     msg.className = 'msg err';
   } finally {
     btn.disabled = false;
@@ -2091,9 +2261,9 @@ function demoVeri() {
   var simdiIso = bugun.getFullYear() + '-' + ('0' + (bugun.getMonth() + 1)).slice(-2) + '-' + ('0' + bugun.getDate()).slice(-2) +
                  ' ' + ('0' + bugun.getHours()).slice(-2) + ':' + ('0' + bugun.getMinutes()).slice(-2) + ':' + ('0' + bugun.getSeconds()).slice(-2);
   return {
-    ok: true, durum: true, yayin_komutu: 'ACIK', kampanya_durumu: 'ACIK', komut_bekliyor: false,
-    oto_baslat: 'ACIK', oto_plan: VARSAYILAN_OTO_PLAN, sektor: '',
-    bakiye: { mevcut: 1850.00, paket: 2500.00, harcanan: 650.00, durum: 'AKTIF', bakiye_bitti: false },
+    ok: true, durum: true, yayin_komutu: 'DURAKLATILDI', kampanya_durumu: 'DURAKLATILDI', komut_bekliyor: false,
+    oto_baslat: 'KAPALI', oto_plan: VARSAYILAN_OTO_PLAN, sektor: '',
+    bakiye: { mevcut: -88.00, paket: 1000.00, harcanan: 1088.00, durum: 'BAKIYE_BITTI', bakiye_bitti: true },
     id: URL_ID || 'taksi_44_1', isletme: 'Şahin Taksi', telefon: '0534 595 74 44',
     gosterim: 1979, tiklanma: 210, to: 10.61,
     maliyet: 4080.30, tbm: 19.43, aramalar: 0,
@@ -2567,10 +2737,12 @@ $('btnYenile').addEventListener('click', yenile);
 $('btnYayinToggle').addEventListener('click', yayinDegistir);
 
 /* Modal 1: Bakiye Yükleme Dinleyicileri */
-$('btnBakiyeModalAc').addEventListener('click', bakiyeModalAc);
+$('btnBakiyeModalAc').addEventListener('click', function () { bakiyeModalAc(); });
+$('btnBantBakiyeYukle').addEventListener('click', function () { bakiyeModalAc(); });
 $('btnBakiyeKapat').addEventListener('click', bakiyeModalKapat);
 $('btnBakiyeUstKapat').addEventListener('click', bakiyeModalKapat);
 $('btnBakiyeOnayla').addEventListener('click', bakiyeYukleOnayla);
+$('inpBakiyeTutar').addEventListener('input', bakiyeCanliOnizlemeGuncelle);
 $('bakiyeModal').addEventListener('click', function (e) { if (e.target === $('bakiyeModal')) { bakiyeModalKapat(); } });
 
 var hizliTutarBtnler = document.querySelectorAll('.q-btn');
@@ -2579,6 +2751,7 @@ for (var q = 0; q < hizliTutarBtnler.length; q++) {
     for (var k = 0; k < hizliTutarBtnler.length; k++) { hizliTutarBtnler[k].classList.remove('secili'); }
     this.classList.add('secili');
     $('inpBakiyeTutar').value = this.getAttribute('data-tutar');
+    bakiyeCanliOnizlemeGuncelle();
   });
 }
 
@@ -2589,8 +2762,19 @@ $('btnOtoUstKapat').addEventListener('click', otoModalKapat);
 $('btnOtoKaydet').addEventListener('click', otoPlanKaydet);
 $('otoModal').addEventListener('click', function (e) { if (e.target === $('otoModal')) { otoModalKapat(); } });
 
+$('btnOtoBakiyeGit').addEventListener('click', function () {
+  otoModalKapat();
+  bakiyeModalAc();
+});
+
 $('otoAktifToggle').addEventListener('click', function () {
+  if (!duzenlenenPlan.aktif && son && son.bakiye.mevcut <= 0) {
+    otoModalBakiyeUyarisiGoster('⚠️ Bakiyeniz ' + fmtPara(son.bakiye.mevcut) + ' olduğu için Otomatik Başlatma açılamaz! Lütfen önce bakiye yükleyin.');
+    return;
+  }
   duzenlenenPlan.aktif = !duzenlenenPlan.aktif;
+  $('otoModalMsg').hidden = true;
+  $('btnOtoBakiyeGit').hidden = true;
   otoModalArayuzYenile();
 });
 
@@ -2644,7 +2828,7 @@ parcaciklariBaslat();
 
 if ('serviceWorker' in navigator && location.protocol.indexOf('http') === 0) {
   window.addEventListener('load', function () {
-    navigator.serviceWorker.register('sw.js').then(function (reg) {
+    navigator.serviceWorker.register('sw.js?v=6.2').then(function (reg) {
       try { reg.update(); } catch (e) {}
     }).catch(function () {});
   });
