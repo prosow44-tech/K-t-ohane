@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Reklam Performans Paneli</title>
-<meta name="description" content="Google Ads reklam performansınızı ve bakiyenizi takip edin.">
+<meta name="description" content="Google Ads reklam performansınızı takip edin.">
 <meta name="theme-color" content="#050914">
 <meta name="robots" content="noindex, nofollow">
 <meta name="referrer" content="no-referrer">
@@ -42,7 +42,7 @@
     -webkit-user-select:none; user-select:none; -webkit-touch-callout:none;
     -webkit-tap-highlight-color:transparent;
   }
-  input{-webkit-user-select:text; user-select:text}
+  input,select{-webkit-user-select:text; user-select:text}
   [hidden]{display:none !important}
   h1,h2,h3,.num{font-family:'Space Grotesk','IBM Plex Sans',system-ui,sans-serif}
   .num{font-variant-numeric:tabular-nums}
@@ -58,9 +58,9 @@
   /* ---------- Ortak Kart ve Butonlar ---------- */
   .card{
     width:100%; max-width:390px; text-align:center; padding:26px 22px;
-    background:linear-gradient(180deg,rgba(16,26,52,.92),rgba(8,14,30,.92));
+    background:linear-gradient(180deg,rgba(16,26,52,.95),rgba(8,14,30,.95));
     border:1px solid var(--line); border-radius:var(--r-lg);
-    box-shadow:0 28px 65px rgba(0,0,0,.55);
+    box-shadow:0 28px 65px rgba(0,0,0,.6);
   }
   .card h1{font-size:20px; line-height:1.25; margin:12px 0 6px}
   .card .lead{margin:0 0 16px; color:var(--muted); font-size:14px}
@@ -83,6 +83,7 @@
   .btn + .btn{margin-top:8px}
   .msg{min-height:18px; margin:6px 0 10px; font-size:12.5px; color:var(--muted)}
   .msg.err{color:#fca5a5}
+  .msg.ok{color:#86efac}
 
   /* ---------- İskelet Yükleyici ---------- */
   .boot-wrap{width:100%; max-width:500px; padding:14px}
@@ -130,10 +131,10 @@
   }
 
   /* =====================================================================
-     YATAY TEK HİZALI KOMPAKT ÜST MENÜ + ÜST BAKİYE ROZETİ
+     ÜST MENÜ (MEVCUT BAKİYE + 2 AÇILIR PENCERE BUTONU + ŞALTER + DÖNEM)
      ===================================================================== */
   .top-bar{
-    display:flex; align-items:center; justify-content:space-between; gap:10px; flex-wrap:wrap;
+    display:flex; align-items:center; justify-content:space-between; gap:8px; flex-wrap:wrap;
     padding:7px 11px; border-radius:13px; border:1px solid var(--line);
     background:rgba(11,19,40,.92); -webkit-backdrop-filter:blur(10px); backdrop-filter:blur(10px);
     margin-bottom:7px;
@@ -163,22 +164,41 @@
   }
 
   .actions-side{
-    display:flex; align-items:center; gap:7px; flex-wrap:nowrap; flex:none;
+    display:flex; align-items:center; gap:6px; flex-wrap:wrap; flex:none;
   }
-  .top-bal-pill{
+
+  /* 1. AÇILIR BUTON: MEVCUT BAKİYE & YÜKLE */
+  .top-action-btn{
     display:inline-flex; align-items:center; gap:6px; height:34px; padding:0 10px;
-    border-radius:9px; background:linear-gradient(135deg,rgba(34,197,94,.16),rgba(16,26,52,.9));
-    border:1px solid rgba(34,197,94,.42); color:#fff; cursor:pointer;
-    font-size:11.5px; font-weight:600; white-space:nowrap; transition:transform .12s, border-color .2s;
+    border-radius:9px; border:1px solid rgba(59,130,246,.38);
+    background:rgba(16,28,58,.9); color:#fff; cursor:pointer;
+    font-size:11.5px; font-weight:600; white-space:nowrap; transition:transform .12s, border-color .2s, background .2s;
   }
-  .top-bal-pill:active{transform:scale(.96)}
-  .top-bal-pill small{color:#86efac; font-size:10px; font-weight:600; text-transform:uppercase; letter-spacing:.02em}
-  .top-bal-pill b{font:700 13px 'Space Grotesk',sans-serif; color:#fff}
-  .top-bal-pill.low{
-    background:linear-gradient(135deg,rgba(239,68,68,.2),rgba(16,26,52,.9));
+  .top-action-btn:hover{border-color:var(--accent2); background:rgba(26,115,232,.22)}
+  .top-action-btn:active{transform:scale(.96)}
+  .top-action-btn.bal-btn{
+    background:linear-gradient(135deg,rgba(34,197,94,.16),rgba(15,25,50,.92));
+    border-color:rgba(34,197,94,.42);
+  }
+  .top-action-btn.bal-btn.bitti{
+    background:linear-gradient(135deg,rgba(239,68,68,.2),rgba(15,25,50,.92));
     border-color:rgba(239,68,68,.5);
   }
-  .top-bal-pill.low small{color:#fca5a5}
+  .bal-lbl{color:var(--pale); font-size:10.5px; font-weight:500}
+  .bal-val{font:700 13px 'Space Grotesk',sans-serif; color:#fff}
+  .bal-plus{
+    padding:2px 6px; border-radius:5px; background:rgba(34,197,94,.25);
+    color:#86efac; font-size:10px; font-weight:700;
+  }
+  .top-action-btn.bal-btn.bitti .bal-plus{
+    background:rgba(239,68,68,.3); color:#fca5a5;
+  }
+
+  /* 2. AÇILIR BUTON: OTOMATİK AÇ/KAPAT ZAMANLAYICI */
+  .oto-dot{
+    width:7px; height:7px; border-radius:50%; background:#64748b; flex:none;
+  }
+  .oto-dot.on{background:var(--good); box-shadow:0 0 7px var(--good)}
 
   .cmp-inline{
     display:inline-flex; align-items:center; gap:7px; height:34px; padding:0 10px;
@@ -239,141 +259,13 @@
     .pill span{display:none}
     .pill{width:32px; height:32px; padding:0; justify-content:center}
     .mini{width:32px; height:32px}
-    .top-bal-pill{height:32px; padding:0 8px}
-    .top-bal-pill small{display:none}
     .actions-side{
-      width:100%; justify-content:space-between; gap:5px; overflow-x:auto;
+      width:100%; justify-content:space-between; gap:5px;
     }
+    .top-action-btn{height:32px; padding:0 8px; font-size:11px}
     .cmp-inline{height:32px; padding:0 8px; gap:6px}
     .donem-seg{height:32px}
     .donem-seg button{height:24px; padding:0 7px; font-size:11px}
-  }
-
-  /* =====================================================================
-     EN ÜSTTE: KAYITLI KART BAKİYE YÜKLEME & OTOMATİK REKLAM KOKPİTİ
-     ===================================================================== */
-  .top-balance-cockpit{
-    display:grid; grid-template-columns:1fr; gap:8px; margin-bottom:7px;
-  }
-  @media (min-width:880px){
-    .top-balance-cockpit{grid-template-columns:1.12fr 1.28fr}
-  }
-  .wallet-hero{
-    display:flex; flex-direction:column; justify-content:space-between; gap:8px;
-    padding:12px 14px; border-radius:14px;
-    background:linear-gradient(145deg, rgba(26,115,232,.26), rgba(10,18,38,.95));
-    border:1px solid rgba(59,130,246,.38); position:relative; overflow:hidden;
-  }
-  .wallet-head{display:flex; align-items:flex-start; justify-content:space-between; gap:8px; flex-wrap:wrap}
-  .wallet-label{font-size:11px; font-weight:600; color:var(--pale); display:flex; align-items:center; gap:6px}
-  .wallet-big-bal{
-    margin-top:2px; font:700 clamp(24px, 5vw, 32px)/1.05 'Space Grotesk',sans-serif;
-    color:#ffffff; font-variant-numeric:tabular-nums;
-  }
-  .card-badge-box{
-    display:flex; flex-direction:column; align-items:flex-end; gap:4px;
-  }
-  .saved-card-pill{
-    display:inline-flex; align-items:center; gap:6px; padding:4px 10px;
-    border-radius:8px; background:rgba(5,9,20,.75); border:1px solid rgba(165,195,251,.25);
-    font:600 12px 'Space Grotesk',monospace; color:#fff;
-  }
-  .card-status-badge{
-    display:inline-flex; align-items:center; gap:5px; padding:2.5px 9px; border-radius:999px;
-    font-size:10.5px; font-weight:600; background:rgba(34,197,94,.16); border:1px solid rgba(34,197,94,.42); color:#86efac;
-  }
-  .card-status-badge.limit-hit{
-    background:rgba(239,68,68,.18); border-color:rgba(239,68,68,.48); color:#fca5a5;
-  }
-  .wallet-meter-wrap{display:flex; flex-direction:column; gap:4px}
-  .wallet-meter-labels{display:flex; justify-content:space-between; font-size:11px; font-weight:600; color:var(--text)}
-  .wallet-meter-track{height:8px; border-radius:999px; background:rgba(143,160,196,.18); overflow:hidden}
-  .wallet-meter-fill{
-    height:100%; border-radius:999px; width:0%;
-    background:linear-gradient(90deg, var(--good), var(--accent2));
-    transition:width .4s ease;
-  }
-  .wallet-meter-fill.warn{background:linear-gradient(90deg, #f59e0b, #ef4444)}
-  .wallet-sub-foot{
-    display:flex; align-items:center; justify-content:space-between; gap:8px; flex-wrap:wrap;
-    font-size:10.5px; color:var(--muted);
-  }
-
-  .charge-control-panel{
-    display:flex; flex-direction:column; justify-content:space-between; gap:8px;
-    padding:12px 14px; border-radius:14px;
-    background:linear-gradient(180deg,rgba(16,25,50,.9),rgba(9,15,32,.9));
-    border:1px solid var(--line);
-  }
-  .charge-top-row{
-    display:flex; align-items:center; justify-content:space-between; gap:8px; flex-wrap:wrap;
-  }
-  .charge-title{font:600 13px 'Space Grotesk',sans-serif; color:#fff; display:flex; align-items:center; gap:6px}
-  .quick-chips{display:flex; align-items:center; gap:5px; flex-wrap:wrap}
-  .q-chip{
-    height:25px; padding:0 8px; border-radius:6px; border:1px solid rgba(26,115,232,.42);
-    background:rgba(26,115,232,.14); color:#93c5fd; font:600 11px 'Space Grotesk',sans-serif;
-    cursor:pointer; transition:background .15s, color .15s, transform .1s;
-  }
-  .q-chip:hover{background:var(--ads-blue); color:#fff}
-  .q-chip:active{transform:scale(.95)}
-
-  .charge-action-row{
-    display:grid; grid-template-columns:1fr auto; gap:7px; align-items:end;
-  }
-  @media (max-width:520px){
-    .charge-action-row{grid-template-columns:1fr}
-  }
-  .inp-wrap{display:flex; flex-direction:column; gap:3px}
-  .inp-wrap label{font-size:10px; font-weight:600; color:var(--muted)}
-  .inp-main{
-    width:100%; height:36px; padding:0 10px; border-radius:9px;
-    border:1px solid rgba(59,130,246,.42); background:rgba(5,9,20,.85); color:#fff;
-    font:700 14px 'Space Grotesk',sans-serif; outline:none;
-  }
-  .inp-main:focus{border-color:var(--accent2); box-shadow:0 0 0 2px rgba(34,211,238,.2)}
-  .btn-charge{
-    height:36px; padding:0 15px; border-radius:9px; border:0; cursor:pointer;
-    background:linear-gradient(155deg,#16a34a,#15803d); color:#fff;
-    font:600 12.5px 'IBM Plex Sans',sans-serif; white-space:nowrap;
-    box-shadow:0 6px 18px rgba(22,163,74,.32); transition:transform .12s, opacity .2s;
-  }
-  .btn-charge:active{transform:scale(.97)}
-  .btn-charge:disabled{opacity:.5; cursor:not-allowed}
-
-  .oto-and-settings-row{
-    display:grid; grid-template-columns:1.25fr 1fr 1fr auto; gap:6px; align-items:end;
-    padding-top:6px; border-top:1px solid rgba(120,150,220,.14);
-  }
-  @media (max-width:680px){
-    .oto-and-settings-row{grid-template-columns:1fr 1fr}
-  }
-  .oto-inline-box{
-    display:flex; align-items:center; justify-content:space-between; gap:6px;
-    height:32px; padding:0 9px; border-radius:8px;
-    background:rgba(5,9,20,.7); border:1px solid rgba(120,150,220,.16);
-  }
-  .oto-inline-box span{font-size:11px; font-weight:600; color:#e2e8f0; white-space:nowrap}
-  .inp-mini{
-    width:100%; height:32px; padding:0 8px; border-radius:8px;
-    border:1px solid var(--line); background:rgba(5,9,20,.8); color:#fff;
-    font:600 12px 'Space Grotesk',sans-serif; outline:none;
-  }
-  .inp-mini:focus{border-color:var(--accent)}
-  .btn-mini-save{
-    height:32px; padding:0 11px; border-radius:8px; border:1px solid rgba(26,115,232,.45);
-    background:rgba(26,115,232,.2); color:#fff; cursor:pointer;
-    font-size:11.5px; font-weight:600; white-space:nowrap; transition:background .15s, transform .1s;
-  }
-  .btn-mini-save:hover{background:var(--ads-blue)}
-  .btn-mini-save:active{transform:scale(.96)}
-  .charge-feedback{
-    font-size:11px; color:var(--pale); min-height:15px;
-    display:flex; align-items:center; justify-content:space-between; gap:8px;
-  }
-  .link-reset{
-    background:transparent; border:0; color:#93c5fd; font-size:10.5px; font-weight:600;
-    text-decoration:underline; cursor:pointer; padding:0; white-space:nowrap;
   }
 
   /* =====================================================================
@@ -629,14 +521,101 @@
     23%, 100% { transform:translateX(120%); opacity:0; }
   }
 
-  /* Modallar */
-  .modal{position:fixed; inset:0; z-index:60; display:none; align-items:center; justify-content:center; padding:18px; background:rgba(3,6,16,.76); -webkit-backdrop-filter:blur(8px); backdrop-filter:blur(8px)}
+  /* =====================================================================
+     MODALLAR (1: BAKİYE YÜKLEME PENCERESİ, 2: OTO AÇ/KAPAT PENCERESİ)
+     ===================================================================== */
+  .modal{
+    position:fixed; inset:0; z-index:60; display:none; align-items:center; justify-content:center;
+    padding:14px; background:rgba(3,6,16,.78); -webkit-backdrop-filter:blur(8px); backdrop-filter:blur(8px);
+  }
   .modal.on{display:flex}
-  #confettiCanvas{position:absolute; inset:0; width:100%; height:100%; pointer-events:none}
-  .modal .card{position:relative; z-index:1; max-width:400px; border-color:rgba(26,115,232,.45)}
+  .modal .card{
+    position:relative; z-index:1; max-width:410px; max-height:90dvh; overflow-y:auto;
+    border-color:rgba(26,115,232,.45); text-align:left; padding:20px 18px;
+  }
+  .modal .card.center-card{text-align:center}
+  .modal-hdr{
+    display:flex; align-items:center; justify-content:space-between; gap:8px; margin-bottom:12px;
+  }
+  .modal-hdr h2{margin:0; font-size:17px; color:#fff}
+  .modal-close{
+    width:30px; height:30px; border-radius:8px; border:1px solid var(--line);
+    background:rgba(5,9,20,.65); color:var(--muted); cursor:pointer; display:grid; place-items:center;
+  }
+  .modal-close:hover{color:#fff; border-color:var(--accent)}
+
+  /* Bakiye Modal İçeriği */
+  .bal-summary-strip{
+    display:flex; align-items:center; justify-content:space-between;
+    padding:10px 12px; border-radius:11px; margin-bottom:14px;
+    background:rgba(26,115,232,.12); border:1px solid rgba(26,115,232,.3);
+  }
+  .bal-summary-strip span{font-size:12px; color:var(--pale); font-weight:500}
+  .bal-summary-strip b{font:700 18px 'Space Grotesk',sans-serif; color:#fff}
+  .field-title{display:block; font-size:13px; font-weight:600; color:#fff; margin-bottom:8px}
+  .quick-3{
+    display:grid; grid-template-columns:repeat(3,1fr); gap:8px; margin-bottom:10px;
+  }
+  .q-btn{
+    height:40px; border-radius:10px; border:1px solid rgba(59,130,246,.4);
+    background:rgba(5,9,20,.75); color:#fff; font:700 15px 'Space Grotesk',sans-serif;
+    cursor:pointer; transition:.15s;
+  }
+  .q-btn:hover,.q-btn.secili{
+    background:var(--ads-blue); border-color:#60a5fa; box-shadow:0 4px 14px rgba(26,115,232,.4);
+  }
+  .inp-tutar{
+    width:100%; height:44px; padding:0 12px; border-radius:10px;
+    border:1px solid var(--line); background:rgba(5,9,20,.85); color:#fff;
+    font:700 18px 'Space Grotesk',sans-serif; outline:none; margin-bottom:6px;
+  }
+  .inp-tutar:focus{border-color:var(--accent2)}
+
+  /* Otomatik Aç/Kapat Modal İçeriği */
+  .oto-row-box{
+    display:flex; align-items:center; justify-content:space-between; gap:10px;
+    padding:10px 12px; border-radius:11px; margin-bottom:12px;
+    background:rgba(5,9,20,.65); border:1px solid var(--line);
+  }
+  .oto-row-box b{display:block; font-size:13px; color:#fff}
+  .oto-row-box small{display:block; font-size:11px; color:var(--muted); margin-top:1px}
+
+  .days-7{
+    display:grid; grid-template-columns:repeat(7,1fr); gap:5px; margin-bottom:6px;
+  }
+  .day-btn{
+    height:36px; border-radius:9px; border:1px solid var(--line);
+    background:rgba(5,9,20,.75); color:var(--muted); font:600 11.5px 'Space Grotesk',sans-serif;
+    cursor:pointer; padding:0; transition:.15s;
+  }
+  .day-btn.on{
+    background:var(--ads-blue); border-color:#60a5fa; color:#fff;
+    box-shadow:0 3px 10px rgba(26,115,232,.35);
+  }
+  .day-hint{font-size:11px; color:var(--muted); margin:0 0 12px}
+
+  .time-pair-box{
+    display:grid; grid-template-columns:1fr 1fr; gap:8px;
+    padding:10px 12px; border-radius:11px; background:rgba(26,115,232,.09);
+    border:1px solid rgba(26,115,232,.25); margin-bottom:10px;
+  }
+  .time-col label{display:block; font-size:11px; color:var(--pale); font-weight:600; margin-bottom:4px}
+  .sel-time{
+    width:100%; height:36px; padding:0 8px; border-radius:8px;
+    border:1px solid var(--line); background:#081024; color:#fff;
+    font:600 13px 'Space Grotesk',sans-serif; outline:none;
+  }
+  .custom-days-list{
+    display:flex; flex-direction:column; gap:6px; margin-bottom:10px;
+  }
+  .custom-day-row{
+    display:grid; grid-template-columns:88px 1fr 1fr; gap:6px; align-items:center;
+    padding:7px 10px; border-radius:9px; background:rgba(5,9,20,.65); border:1px solid var(--line);
+  }
+  .custom-day-row b{font-size:12px; color:#fff}
+
   .big{margin:8px 0 2px; font:700 clamp(48px,14vw,68px)/1 'Space Grotesk',sans-serif; font-variant-numeric:tabular-nums; background:linear-gradient(180deg,#fff,#a5c3fb); -webkit-background-clip:text; background-clip:text; color:transparent}
-  .modal p{margin:8px 0 0; color:var(--muted); font-size:14px}
-  .modal .btn{margin-top:16px}
+  .modal p{margin:8px 0 0; color:var(--muted); font-size:13px}
 
   .overlay{position:fixed; inset:0; z-index:80; display:none; align-items:center; justify-content:center; padding:22px; background:rgba(3,6,16,.65); -webkit-backdrop-filter:blur(7px); backdrop-filter:blur(7px)}
   .overlay.on{display:flex}
@@ -696,7 +675,7 @@
   <div class="card danger">
     <div class="icon-box red" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"><rect x="5" y="11" width="14" height="9" rx="2.5" stroke="#ef4444" stroke-width="1.7"/><path d="M8 11V8a4 4 0 018 0v3" stroke="#ef4444" stroke-width="1.7" stroke-linecap="round"/></svg></div>
     <h1 id="banBaslik">Çok Fazla Hatalı Deneme</h1>
-    <p class="lead">Güvenliğiniz adına giriş 15 dakika süreyle duraklatıldı. Lütfen daha sonra tekrar deneyin veya ajansınızla iletişime geçin.</p>
+    <p class="lead">Güvenliğiniz adına giriş 15 dakika süreyle duraklatıldı. Lütfen daha sonra tekrar deneyin.</p>
   </div>
 </section>
 
@@ -728,7 +707,7 @@
 <!-- ============ ANA KOKPİT PANELİ ============ -->
 <main id="dashScreen" class="screen">
   <div class="wrap">
-    <!-- 1. GRUP: YATAY TEK SATIRLI KOMPAKT ÜST MENÜ + ÜST BAKİYE ROZETİ -->
+    <!-- 1. GRUP: YATAY TEK SATIRLI KOMPAKT ÜST MENÜ -->
     <header class="top-bar">
       <div class="brand-side">
         <div class="badge" id="dashBas" aria-hidden="true">R</div>
@@ -742,11 +721,20 @@
       </div>
 
       <div class="actions-side">
-        <button type="button" class="top-bal-pill" id="ustBakiyeRozet" title="Kayıtlı Karttan Bakiye Yükle">
-          <small>Bakiye:</small>
-          <b class="num" id="ustBakiyeDeger">₺0,00</b>
+        <!-- BUTON 1: MEVCUT BAKİYE & BAKİYE YÜKLE (AÇILIR PENCERE) -->
+        <button type="button" class="top-action-btn bal-btn" id="btnBakiyeModalAc" aria-haspopup="dialog">
+          <span class="bal-lbl">Mevcut Bakiye:</span>
+          <b class="bal-val num" id="ustMevcutBakiye">₺0,00</b>
+          <span class="bal-plus">+ Yükle</span>
         </button>
 
+        <!-- BUTON 2: OTOMATİK REKLAM AÇ / KAPAT (AÇILIR PENCERE) -->
+        <button type="button" class="top-action-btn" id="btnOtoModalAc" aria-haspopup="dialog">
+          <i class="oto-dot" id="ustOtoDot"></i>
+          <span id="ustOtoMetin">Otomatik Aç/Kapat</span>
+        </button>
+
+        <!-- MANUEL ANLIK REKLAM ŞALTERİ -->
         <div class="cmp-inline">
           <button type="button" id="btnYayinToggle" class="ad-toggle off" role="switch" aria-checked="false" aria-label="Kampanyayı Aç veya Duraklat"></button>
           <span class="cmp-text paused" id="yayinDurumMetni">Duraklatıldı</span>
@@ -775,81 +763,7 @@
 
     <div class="demo-bant" id="demoBant" role="status" hidden>ÖRNEK VERİLERLE ÖNİZLEME: Bu rakamlar görünümü göstermek içindir.</div>
 
-    <!-- 2. GRUP (EN ÜSTTE): KAYITLI KART BAKİYE YÜKLEME & OTOMATİK REKLAM AÇ/KAPAT KOKPİTİ -->
-    <section class="top-balance-cockpit" aria-label="Kayıtlı Kart Bakiye ve Otomatik Reklam Yönetimi">
-      <div class="wallet-hero">
-        <div class="wallet-head">
-          <div>
-            <span class="wallet-label">💳 Kullanılabilir Reklam Bakiyesi</span>
-            <div class="wallet-big-bal num" id="anaKalanBakiye">₺0,00</div>
-          </div>
-          <div class="card-badge-box">
-            <span class="saved-card-pill" id="kartNoMetin">Kayıtlı Kart •••• —</span>
-            <span class="card-status-badge" id="kartDurumRozet">Otomatik Çekim Aktif</span>
-          </div>
-        </div>
-
-        <div class="wallet-meter-wrap">
-          <div class="wallet-meter-labels">
-            <span id="kartHarcananMetin">Harcanan: ₺0,00</span>
-            <span id="kartKalanMetin">Tanımlı Bakiye: Limitsiz</span>
-          </div>
-          <div class="wallet-meter-track">
-            <div class="wallet-meter-fill" id="kartLimitBar"></div>
-          </div>
-        </div>
-
-        <div class="wallet-sub-foot">
-          <span>Google Ads kayıtlı kartınızdan harcama oldukça otomatik tahsilat yapar.</span>
-          <button type="button" class="link-reset" id="btnSayacSifirla" title="Mevcut bakiyeyi ve harcama sayacını sıfırla">Sayacı Sıfırla</button>
-        </div>
-      </div>
-
-      <div class="charge-control-panel">
-        <div class="charge-top-row">
-          <span class="charge-title">⚡ Kayıtlı Karttan Bakiye Ekle & Otomatik Başlat</span>
-          <div class="quick-chips" role="group" aria-label="Hızlı tutar seçimi">
-            <button type="button" class="q-chip" data-tutar="500">+₺500</button>
-            <button type="button" class="q-chip" data-tutar="1000">+₺1.000</button>
-            <button type="button" class="q-chip" data-tutar="2500">+₺2.500</button>
-            <button type="button" class="q-chip" data-tutar="5000">+₺5.000</button>
-          </div>
-        </div>
-
-        <div class="charge-action-row">
-          <div class="inp-wrap">
-            <label for="inpYuklenecekTutar">Kayıtlı Karttan Çekilecek / Eklenecek Tutar (₺)</label>
-            <input type="number" id="inpYuklenecekTutar" class="inp-main" min="50" step="50" placeholder="Örn: 1000">
-          </div>
-          <button type="button" id="btnBakiyeYukle" class="btn-charge">💳 Kayıtlı Karttan Çek & Yükle</button>
-        </div>
-
-        <div class="oto-and-settings-row">
-          <div class="inp-wrap">
-            <label>Otomatik Reklam Aç / Kapat</label>
-            <div class="oto-inline-box">
-              <span id="otoDurumMetni">Kapalı</span>
-              <button type="button" id="btnOtoToggle" class="ad-toggle off" role="switch" aria-checked="false" aria-label="Bakiye oldukça reklamı otomatik başlat"></button>
-            </div>
-          </div>
-          <div class="inp-wrap">
-            <label for="inpGunlukButce">Günlük Bütçe (₺)</label>
-            <input type="number" id="inpGunlukButce" class="inp-mini" min="0" step="10" placeholder="Örn: 250">
-          </div>
-          <div class="inp-wrap">
-            <label for="inpKartSon4">Kart Son 4 Hane</label>
-            <input type="text" id="inpKartSon4" class="inp-mini" inputmode="numeric" maxlength="4" placeholder="4821">
-          </div>
-          <button type="button" id="btnKartKaydet" class="btn-mini-save">Ayarları Kaydet</button>
-        </div>
-
-        <div class="charge-feedback">
-          <span id="kartKayitMesaj">Tutar girdiğinizde kayıtlı kart limitinize eklenir ve bakiye bitince reklam otomatik durur.</span>
-        </div>
-      </div>
-    </section>
-
-    <!-- 3. GRUP: 5'Lİ KUTU DÜZENİ (ÜSTTE 3'LÜ, ALTTA ORT. TBM & TOPLAM MALİYET 2'Lİ GENİŞ) -->
+    <!-- 2. GRUP: 5'Lİ KUTU DÜZENİ (ÜSTTE 3'LÜ, ALTTA ORT. TBM & TOPLAM MALİYET 2'Lİ GENİŞ) -->
     <div class="stats-5">
       <button class="stat top-3 click" id="btnTiklayanlar" type="button" aria-haspopup="dialog">
         <span class="lbl"><span>Tıklamalar</span><i class="dot-i"></i></span>
@@ -879,7 +793,7 @@
       </section>
     </div>
 
-    <!-- 4. GRUP: TÜM GOOGLE ADS ARAYÜZLERİ -->
+    <!-- 3. GRUP: TÜM GOOGLE ADS ARAYÜZLERİ -->
     <div class="cockpit-grid">
 
       <!-- ARAYÜZ 1: GOOGLE ADS ÇİFT ÇİZGİLİ PERFORMANS GRAFİĞİ -->
@@ -1051,10 +965,97 @@
   </div>
 </main>
 
-<!-- ============ DETAY MODALI ============ -->
+<!-- ============ AÇILIR PENCERE 1: BAKİYE YÜKLEME MODALI ============ -->
+<div id="bakiyeModal" class="modal" role="dialog" aria-modal="true" aria-labelledby="bakiyeModalBaslik" aria-hidden="true">
+  <div class="card">
+    <div class="modal-hdr">
+      <h2 id="bakiyeModalBaslik">Reklam Bakiyesi Yükle</h2>
+      <button type="button" class="modal-close" id="btnBakiyeUstKapat" aria-label="Kapat">✕</button>
+    </div>
+
+    <div class="bal-summary-strip">
+      <span>Mevcut Bakiyeniz</span>
+      <b class="num" id="modalMevcutBakiye">₺0,00</b>
+    </div>
+
+    <label class="field-title" for="inpBakiyeTutar">Ne kadar bakiye yüklemek istiyorsunuz?</label>
+
+    <div class="quick-3" role="group" aria-label="Hızlı bakiye tutarları">
+      <button type="button" class="q-btn" data-tutar="1000">1000</button>
+      <button type="button" class="q-btn" data-tutar="2500">2500</button>
+      <button type="button" class="q-btn" data-tutar="8000">8000</button>
+    </div>
+
+    <input type="number" id="inpBakiyeTutar" class="inp-tutar num" min="50" step="50" placeholder="Tutarı yazın (Örn: 1000)">
+    <p id="bakiyeModalMsg" class="msg" role="status" aria-live="polite"></p>
+
+    <button type="button" id="btnBakiyeOnayla" class="btn primary">Bakiyeyi Yükle</button>
+    <button type="button" id="btnBakiyeKapat" class="btn ghost">Kapat</button>
+  </div>
+</div>
+
+<!-- ============ AÇILIR PENCERE 2: OTOMATİK REKLAM AÇ / KAPAT (7 GÜN VE SAAT) MODALI ============ -->
+<div id="otoModal" class="modal" role="dialog" aria-modal="true" aria-labelledby="otoModalBaslik" aria-hidden="true">
+  <div class="card">
+    <div class="modal-hdr">
+      <h2 id="otoModalBaslik">Otomatik Reklam Aç / Kapat</h2>
+      <button type="button" class="modal-close" id="btnOtoUstKapat" aria-label="Kapat">✕</button>
+    </div>
+
+    <div class="oto-row-box">
+      <div>
+        <b>Otomatik Yayın Zamanlayıcı</b>
+        <small>Seçtiğiniz gün ve saatlerde reklamı otomatik açar ve kapatır</small>
+      </div>
+      <button type="button" id="otoAktifToggle" class="ad-toggle off" role="switch" aria-checked="false"></button>
+    </div>
+
+    <span class="field-title">Yayın Günlerini Seçin (7 Gün)</span>
+    <div class="days-7" id="gunSecimGrubu" role="group" aria-label="Haftanın günleri">
+      <button type="button" class="day-btn on" data-gun="1">Pzt</button>
+      <button type="button" class="day-btn on" data-gun="2">Sal</button>
+      <button type="button" class="day-btn on" data-gun="3">Çar</button>
+      <button type="button" class="day-btn on" data-gun="4">Per</button>
+      <button type="button" class="day-btn on" data-gun="5">Cum</button>
+      <button type="button" class="day-btn on" data-gun="6">Cmt</button>
+      <button type="button" class="day-btn on" data-gun="7">Paz</button>
+    </div>
+    <p class="day-hint">İşaretlenmeyen günlerde reklamınız yayınlanmaz.</p>
+
+    <div class="oto-row-box">
+      <div>
+        <b>Hepsi için geçerli saat seç</b>
+        <small>Kapatırsanız özel günlere ayrı başlangıç ve bitiş saati seçebilirsiniz</small>
+      </div>
+      <button type="button" id="ortakSaatToggle" class="ad-toggle on" role="switch" aria-checked="true"></button>
+    </div>
+
+    <!-- HEPSİ İÇİN GEÇERLİ SAAT KUTUSU -->
+    <div id="ortakSaatKutu" class="time-pair-box">
+      <div class="time-col">
+        <label for="selGenelBas">Başlangıç Saati</label>
+        <select id="selGenelBas" class="sel-time"></select>
+      </div>
+      <div class="time-col">
+        <label for="selGenelBit">Bitiş Saati</label>
+        <select id="selGenelBit" class="sel-time"></select>
+      </div>
+    </div>
+
+    <!-- GÜNE ÖZEL SAAT SEÇİM LİSTESİ (Ortak Saat Kapatılınca Açılır) -->
+    <div id="ozelSaatListesi" class="custom-days-list" hidden></div>
+
+    <p id="otoModalMsg" class="msg" role="status" aria-live="polite"></p>
+
+    <button type="button" id="btnOtoKaydet" class="btn primary">Ayarları Kaydet</button>
+    <button type="button" id="btnOtoKapat" class="btn ghost">Kapat</button>
+  </div>
+</div>
+
+<!-- ============ TIKLAMA DETAY MODALI ============ -->
 <div id="tebrikModal" class="modal" role="dialog" aria-modal="true" aria-labelledby="tebrikBaslik" aria-hidden="true">
   <canvas id="confettiCanvas" aria-hidden="true"></canvas>
-  <div class="card">
+  <div class="card center-card">
     <div class="logo-badge" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"><path d="M4 18V9M10 18V5M16 18v-7M22 18H2" stroke="#fff" stroke-width="2" stroke-linecap="round"/></svg></div>
     <h1 id="tebrikBaslik">Tıklama Özeti</h1>
     <div class="big" id="tebrikSayi">0</div>
@@ -1086,10 +1087,11 @@ setTimeout(function () {
 'use strict';
 
 /* =====================================================================
-   AYARLAR (v5.0 E-TABLO API KÖPRÜSÜ BAĞLANTISI)
+   AYARLAR (v6.0 E-TABLO API KÖPRÜSÜ BAĞLANTISI)
    ===================================================================== */
-var API_URL = 'https://script.google.com/macros/s/AKfycbyFRY9Jkn9q26-Sed_YS0TmKsgb2l2ntYXJP7YFCSM6x7xcBpsB4XGdmtH89qtqopezmg/exec';
+var API_URL = 'https://script.google.com/macros/s/AKfycbxu5pnGsEg29Fghj6WDb_B_IZRsbTmpkWZeOgZ_uolotMh4k1ewGT7aO6PhIx5w-YTjVg/exec';
 var VARSAYILAN_ALT_YAZI = 'SORUNUZ VARSA BANA ULAŞABİLİRSİNİZ 0534 595 74 44';
+var VARSAYILAN_OTO_PLAN = '1;08:00-21:00;1,2,3,4,5,6,7;1=08:00-21:00,2=08:00-21:00,3=08:00-21:00,4=08:00-21:00,5=08:00-21:00,6=09:00-21:00,7=10:00-21:00';
 
 var PIN_UZUNLUGU     = 8;
 var MAX_PIN_DENEME   = 5;
@@ -1099,9 +1101,14 @@ var YENIDEN_DENEME   = 1;
 var YENILEME_ESIGI   = 15 * 60 * 1000;
 var BEKCI_MS         = 26000;
 
-var LS = { oturum: 'pnl_oturum', deneme: 'pnl_deneme', ban: 'pnl_ban', veri: 'pnl_veri_v12' };
+var LS = { oturum: 'pnl_oturum', deneme: 'pnl_deneme', ban: 'pnl_ban', veri: 'pnl_veri_v14' };
 var TOK_DESEN = /^\d{9,14}\.[0-9a-f]{64}$/;
-var VERI_SEMA = 12;
+var VERI_SEMA = 14;
+
+var GUN_ADLARI = {
+  '1': 'Pazartesi', '2': 'Salı', '3': 'Çarşamba', '4': 'Perşembe',
+  '5': 'Cuma', '6': 'Cumartesi', '7': 'Pazar'
+};
 
 /* =====================================================================
    81 İL PLAKA SÖZLÜĞÜ VE 7 İŞLETME OTOMASYON MOTORU
@@ -1210,18 +1217,6 @@ function tarihSaniyeliYaz(s) {
          (m[4] ? ' ' + m[4] + ':' + m[5] + ':' + sn : '');
 }
 
-var dbgSatir = [];
-function log() {
-  var a = Array.prototype.slice.call(arguments).map(String);
-  try { console.info.apply(console, ['[Panel]'].concat(a)); } catch (e) {}
-  if (DEBUG) {
-    dbgSatir.push(a.join(' ')); dbgSatir = dbgSatir.slice(-16);
-    var p = $('dbg');
-    if (!p) { p = document.createElement('pre'); p.id = 'dbg'; document.body.appendChild(p); }
-    p.textContent = dbgSatir.join('\n');
-  }
-}
-
 function PanelHata(kod, mesaj, detay) { this.kod = kod; this.mesaj = mesaj; this.detay = detay || ''; }
 
 /* =====================================================================
@@ -1288,7 +1283,7 @@ if (!DEBUG) {
   document.addEventListener('dragstart', function (e) { e.preventDefault(); });
   document.addEventListener('selectstart', function (e) {
     var t = e.target && e.target.nodeType === 1 ? e.target : (e.target && e.target.parentElement);
-    if (!(t && t.closest && t.closest('input'))) { e.preventDefault(); }
+    if (!(t && t.closest && t.closest('input,select'))) { e.preventDefault(); }
   });
   document.addEventListener('keydown', function (e) {
     var k = String(e.key || '').toUpperCase();
@@ -1426,7 +1421,8 @@ async function apiTekrarli(id, kimlik, ekParam) {
 }
 
 function duzenle(v) {
-  var cz = v.cihaz || {}, dm = v.demografi || {}, g = v.gunluk || {}, st = v.saatlik || {}, kr = v.kart || {};
+  var cz = v.cihaz || {}, dm = v.demografi || {}, g = v.gunluk || {}, st = v.saatlik || {};
+  var bk = v.bakiye || v.kart || {};
   function dizi(a) { return Array.isArray(a) ? a.map(n) : []; }
   function sifirDizi(uzunluk) { var a = []; for (var i = 0; i < uzunluk; i++) { a.push(0); } return a; }
 
@@ -1447,14 +1443,11 @@ function duzenle(v) {
 
   var otoMetni = String(v.oto_baslat || '').trim().toUpperCase();
   var otoAcik = (otoMetni === 'ACIK');
+  var otoPlanMetni = String(v.oto_plan || VARSAYILAN_OTO_PLAN).trim() || VARSAYILAN_OTO_PLAN;
 
-  var kartLimit = n(kr.limit);
-  var gunlukButce = n(kr.gunluk_butce);
-  var kartSon4 = String(kr.son4 || '').replace(/\D/g, '').slice(-4);
-  var sayacHarcanan = kr.harcanan !== undefined ? n(kr.harcanan) : hamMaliyet;
-  var kalanLimit = kr.kalan_limit !== undefined ? n(kr.kalan_limit) : (kartLimit > 0 ? Math.max(0, Number((kartLimit - sayacHarcanan).toFixed(2))) : 0);
-  var kartDurum = (kartLimit > 0 && kalanLimit <= 0) ? 'LIMIT_DOLDU' : String(kr.durum || 'AKTIF').toUpperCase();
-  var kullanimOrani = kr.kullanim_orani !== undefined ? n(kr.kullanim_orani) : (kartLimit > 0 ? Math.min(100, Math.round((sayacHarcanan / kartLimit) * 100)) : 0);
+  var mevcutBakiye = bk.mevcut !== undefined ? Math.max(0, n(bk.mevcut)) : Math.max(0, n(bk.kalan_limit));
+  var paketToplam = bk.paket !== undefined ? Math.max(0, n(bk.paket)) : Math.max(0, n(bk.limit));
+  var bakiyeBitti = Boolean(bk.bakiye_bitti) || (paketToplam > 0 && mevcutBakiye <= 0);
 
   var yasDizi = Array.isArray(dm.yas_dagilim) && dm.yas_dagilim.length === 6 ? dm.yas_dagilim.map(n) : sifirDizi(6);
   var saatDilim4 = Array.isArray(v.saat_dagilim) && v.saat_dagilim.length === 4 ? v.saat_dagilim.map(n) : sifirDizi(4);
@@ -1470,15 +1463,12 @@ function duzenle(v) {
     komutBekliyor: false,
     komutSiraBekliyor: komutSiraBekliyor,
     otoAcik: otoAcik,
+    otoPlan: otoPlanMetni,
     sektor: String(v.sektor || ''),
-    kart: {
-      son4: kartSon4,
-      durum: kartDurum,
-      limit: kartLimit,
-      gunlukButce: gunlukButce,
-      harcanan: sayacHarcanan,
-      kalanLimit: kalanLimit,
-      kullanimOrani: kullanimOrani
+    bakiye: {
+      mevcut: mevcutBakiye,
+      paket: paketToplam,
+      bakiyeBitti: bakiyeBitti
     },
     isletme: String(v.isletme || '').slice(0, 60),
     telefon: String(v.telefon || '').slice(0, 30),
@@ -1661,13 +1651,15 @@ function cikis() {
   if (DEMO) { try { location.href = location.pathname; } catch (e) {} return; }
   oturumuTemizle();
   tebrikKapat();
+  bakiyeModalKapat();
+  otoModalKapat();
   $('pinInput').value = ''; pinNoktalari(); girisMesaji('', '');
   document.title = 'Reklam Performans Paneli';
   goster('loginScreen');
 }
 
 /* =====================================================================
-   GOOGLE ADS KAMPANYA AÇ / KAPAT & KAYITLI KART BAKİYE YÜKLEME SİSTEMİ
+   ÜST BAR BAKİYE, ŞALTER VE 2 AÇILIR PENCERE (MODAL) SİSTEMİ
    ===================================================================== */
 function yayinArayuzGuncelle(acik, bekliyor, hedefKomut, siraBekliyor) {
   var btn = $('btnYayinToggle'), txt = $('yayinDurumMetni');
@@ -1683,8 +1675,7 @@ function yayinArayuzGuncelle(acik, bekliyor, hedefKomut, siraBekliyor) {
   box.classList.toggle('paused', !acik || bekliyor);
 
   if (bekliyor) {
-    var aciliyorMu = (hedefKomut === 'ACIK');
-    txt.textContent = aciliyorMu ? 'Başlatılıyor…' : 'Duraklatılıyor…';
+    txt.textContent = (hedefKomut === 'ACIK') ? 'Başlatılıyor…' : 'Duraklatılıyor…';
     txt.className = 'cmp-text wait';
   } else if (siraBekliyor) {
     txt.textContent = (hedefKomut === 'ACIK') ? 'Komut: Başlatılıyor' : 'Komut: Duraklatılıyor';
@@ -1698,54 +1689,17 @@ function yayinArayuzGuncelle(acik, bekliyor, hedefKomut, siraBekliyor) {
   }
 }
 
-function bakiyeVeKartArayuzCiz(v) {
-  var kr = v.kart || {};
-  var limitVar = kr.limit > 0;
-  var kalan = limitVar ? Math.max(0, kr.kalanLimit) : 0;
-  var harcanan = limitVar ? Math.max(0, kr.harcanan) : v.maliyet;
-  var bakiyeBitti = limitVar && kalan <= 0;
+function ustBarBakiyeVeOtoGuncelle(v) {
+  var bk = v.bakiye || { mevcut: 0, paket: 0, bakiyeBitti: false };
+  var mevcutStr = fmtPara(bk.mevcut);
 
-  // 1) Üst Menüdeki Bakiye Rozeti
-  var ustRozet = $('ustBakiyeRozet'), ustDeger = $('ustBakiyeDeger');
-  ustDeger.textContent = limitVar ? fmtPara(kalan) : 'Limitsiz';
-  ustRozet.classList.toggle('low', bakiyeBitti);
+  $('ustMevcutBakiye').textContent = mevcutStr;
+  $('modalMevcutBakiye').textContent = mevcutStr;
+  $('btnBakiyeModalAc').classList.toggle('bitti', bk.mevcut <= 0);
 
-  // 2) En Üstteki Büyük Bakiye Kartı
-  $('anaKalanBakiye').textContent = limitVar ? fmtPara(kalan) : 'Limitsiz (Otomatik)';
-  $('kartNoMetin').textContent = kr.son4 ? ('Kayıtlı Kart •••• ' + kr.son4) : 'Google Ads Kayıtlı Kart';
-
-  var rozet = $('kartDurumRozet');
-  if (bakiyeBitti || kr.durum === 'LIMIT_DOLDU') {
-    rozet.textContent = 'Bakiye Bitti · Reklam Duraklatıldı';
-    rozet.classList.add('limit-hit');
-  } else {
-    rozet.textContent = 'Kayıtlı Kart Aktif';
-    rozet.classList.remove('limit-hit');
-  }
-
-  $('kartHarcananMetin').textContent = 'Kullanılan: ' + fmtPara(harcanan);
-  $('kartKalanMetin').textContent = limitVar ? ('Tanımlı Paket: ' + fmtPara(kr.limit)) : 'Kart Limiti: Sınırsız';
-
-  // Bar doluluk oranı (Kalan bakiyeyi veya harcama oranını gösterir)
-  var kullanimYuzde = limitVar ? Math.min(100, Math.round((harcanan / kr.limit) * 100)) : (v.maliyet > 0 ? 35 : 0);
-  var bar = $('kartLimitBar');
-  bar.style.width = kullanimYuzde + '%';
-  bar.classList.toggle('warn', limitVar && kullanimYuzde >= 85);
-
-  // 3) Otomatik Reklam Aç/Kapat Şalteri
-  var otoBtn = $('btnOtoToggle'), otoTxt = $('otoDurumMetni');
-  otoBtn.classList.toggle('on', !!v.otoAcik);
-  otoBtn.classList.toggle('off', !v.otoAcik);
-  otoBtn.setAttribute('aria-checked', v.otoAcik ? 'true' : 'false');
-  otoTxt.textContent = v.otoAcik ? 'Açık (Otomatik)' : 'Kapalı';
-  otoTxt.className = 'cmp-text ' + (v.otoAcik ? 'active' : 'paused');
-
-  if (document.activeElement !== $('inpGunlukButce')) {
-    $('inpGunlukButce').value = kr.gunlukButce > 0 ? kr.gunlukButce : '';
-  }
-  if (document.activeElement !== $('inpKartSon4')) {
-    $('inpKartSon4').value = kr.son4 || '';
-  }
+  var otoDot = $('ustOtoDot'), otoTxt = $('ustOtoMetin');
+  otoDot.classList.toggle('on', !!v.otoAcik);
+  otoTxt.textContent = v.otoAcik ? 'Oto Aç/Kapat: Aktif' : 'Otomatik Aç/Kapat';
 }
 
 function canliKomutTakibiBaslat(istenenKomut) {
@@ -1769,7 +1723,6 @@ function canliKomutTakibiBaslat(istenenKomut) {
           panoyuCiz(v, true);
           return;
         }
-        // 8 kontrol (40 sn) sonunda script uyku saatindeyse şalteri eski haline geri atma, sıraya alındığını göster
         if (sayac >= 8) {
           clearInterval(komutTakipZamanlayici);
           v.hedefKomut = istenenKomut;
@@ -1793,19 +1746,16 @@ async function yayinDegistir() {
   var suAnAcikMi = son.komutSiraBekliyor ? (son.hedefKomut === 'ACIK') : son.yayinAcik;
   var yeniKomut = suAnAcikMi ? 'DURAKLATILDI' : 'ACIK';
 
-  if (yeniKomut === 'ACIK' && son.kart.limit > 0 && son.kart.kalanLimit <= 0) {
-    $('kartKayitMesaj').textContent = '⚠️ Bakiyeniz bittiği için reklam başlatılamadı. Lütfen üstten bakiye yükleyin.';
-    $('inpYuklenecekTutar').focus();
+  if (yeniKomut === 'ACIK' && son.bakiye.paket > 0 && son.bakiye.mevcut <= 0) {
+    bakiyeModalAc();
+    $('bakiyeModalMsg').textContent = 'Mevcut bakiyeniz ₺0,00 olduğu için lütfen önce bakiye yükleyin.';
+    $('bakiyeModalMsg').className = 'msg err';
     return;
   }
 
   son.hedefKomut = yeniKomut;
   son.komutBekliyor = true;
-  if (yeniKomut === 'DURAKLATILDI') {
-    son.otoAcik = false;
-  }
   yayinArayuzGuncelle(son.yayinAcik, true, yeniKomut, false);
-  bakiyeVeKartArayuzCiz(son);
 
   if (DEMO || !aktifOturum || !aktifOturum.tok) {
     setTimeout(function () {
@@ -1821,10 +1771,12 @@ async function yayinDegistir() {
   btn.disabled = true;
   try {
     var yanit = await apiCagir(aktifOturum.id, { tok: aktifOturum.tok }, '&islem=komut&komut=' + yeniKomut + '&taze=1');
-    if (yanit && yanit.kod === 'limit_doldu') {
+    if (yanit && yanit.kod === 'bakiye_bitti') {
       son.komutBekliyor = false;
       yayinArayuzGuncelle(false, false, 'DURAKLATILDI', false);
-      $('kartKayitMesaj').textContent = yanit.mesaj || 'Bakiye yetersiz.';
+      bakiyeModalAc();
+      $('bakiyeModalMsg').textContent = yanit.mesaj || 'Mevcut bakiyeniz bitti.';
+      $('bakiyeModalMsg').className = 'msg err';
       return;
     }
     canliKomutTakibiBaslat(yeniKomut);
@@ -1836,179 +1788,286 @@ async function yayinDegistir() {
   }
 }
 
-async function kayitliKarttanBakiyeYukle() {
+/* ---- AÇILIR PENCERE 1: BAKİYE YÜKLEME İŞLEMLERİ (1000 / 2500 / 8000) ---- */
+function bakiyeModalAc() {
   if (!son) { return; }
-  var inp = $('inpYuklenecekTutar'), btn = $('btnBakiyeYukle');
+  $('modalMevcutBakiye').textContent = fmtPara(son.bakiye.mevcut);
+  $('bakiyeModalMsg').textContent = '';
+  $('bakiyeModalMsg').className = 'msg';
+  var m = $('bakiyeModal');
+  m.classList.add('on');
+  m.setAttribute('aria-hidden', 'false');
+  setTimeout(function () { try { $('inpBakiyeTutar').focus(); } catch (e) {} }, 60);
+}
+
+function bakiyeModalKapat() {
+  var m = $('bakiyeModal');
+  m.classList.remove('on');
+  m.setAttribute('aria-hidden', 'true');
+}
+
+async function bakiyeYukleOnayla() {
+  if (!son) { return; }
+  var inp = $('inpBakiyeTutar'), btn = $('btnBakiyeOnayla'), msg = $('bakiyeModalMsg');
   if (btn.disabled) { return; }
 
-  var eklenecekTutar = Math.max(0, n(inp.value));
-  if (eklenecekTutar <= 0) {
-    $('kartKayitMesaj').textContent = '⚠️ Lütfen kayıtlı karttan çekilecek bakiye tutarını girin (Örn: 1000).';
+  var eklenecek = Math.max(0, n(inp.value));
+  if (eklenecek <= 0) {
+    msg.textContent = 'Lütfen yüklenecek tutarı seçin veya yazın (1000, 2500, 8000).';
+    msg.className = 'msg err';
     inp.focus();
     return;
   }
 
-  var mevcutKalan = son.kart.limit > 0 ? Math.max(0, n(son.kart.kalanLimit)) : 0;
-  var yeniToplamPaket = Number((mevcutKalan + eklenecekTutar).toFixed(2));
-  var yeniButce = Math.max(0, n($('inpGunlukButce').value));
-  var yeniSon4 = String($('inpKartSon4').value || '').replace(/\D/g, '').slice(-4);
-
-  son.kart.limit = yeniToplamPaket;
-  son.kart.harcanan = 0;
-  son.kart.kalanLimit = yeniToplamPaket;
-  son.kart.kullanimOrani = 0;
-  son.kart.durum = 'AKTIF';
-  if (yeniButce > 0) { son.kart.gunlukButce = yeniButce; }
-  if (yeniSon4.length === 4) { son.kart.son4 = yeniSon4; }
-
-  // Bakiye yüklendiğinde Otomatik Başlatma ve Kampanya otomatik aktif olur
-  son.otoAcik = true;
-  son.hedefKomut = 'ACIK';
-  son.komutBekliyor = true;
-
-  bakiyeVeKartArayuzCiz(son);
-  yayinArayuzGuncelle(son.yayinAcik, true, 'ACIK', false);
+  var yeniMevcut = Number((son.bakiye.mevcut + eklenecek).toFixed(2));
 
   if (DEMO || !aktifOturum || !aktifOturum.tok) {
+    son.bakiye.mevcut = yeniMevcut;
+    son.bakiye.paket = yeniMevcut;
+    son.bakiye.bakiyeBitti = false;
+    son.yayinAcik = true;
+    ustBarBakiyeVeOtoGuncelle(son);
+    yayinArayuzGuncelle(true, false, 'ACIK', false);
+    kampanyaListesiCiz(son, donemMetrikleri(son, seciliDonem));
     inp.value = '';
-    setTimeout(function () {
-      son.yayinAcik = true;
-      son.komutBekliyor = false;
-      yayinArayuzGuncelle(true, false, 'ACIK', false);
-      kampanyaListesiCiz(son, donemMetrikleri(son, seciliDonem));
-    }, 700);
-    $('kartKayitMesaj').textContent = '✅ ' + fmtPara(eklenecekTutar) + ' bakiye tanımlandı. Toplam kullanılabilir bakiye: ' + fmtPara(yeniToplamPaket);
+    msg.textContent = fmtPara(eklenecek) + ' eklendi. Mevcut Bakiyeniz: ' + fmtPara(yeniMevcut);
+    msg.className = 'msg ok';
     return;
   }
 
   btn.disabled = true;
-  btn.textContent = 'İşleniyor…';
+  btn.textContent = 'Yükleniyor…';
+  msg.textContent = '';
   try {
-    await apiCagir(aktifOturum.id, { tok: aktifOturum.tok }, '&islem=oto_baslat&durum=ACIK' + (yeniButce > 0 ? '&butce=' + encodeURIComponent(yeniButce) : ''));
-    var ek = '&islem=kart_ayar&sifirla=1&limit=' + encodeURIComponent(yeniToplamPaket) +
-             (yeniButce > 0 ? '&butce=' + encodeURIComponent(yeniButce) : '') +
-             (yeniSon4.length === 4 ? '&son4=' + encodeURIComponent(yeniSon4) : '') + '&taze=1';
-    var yanit = await apiCagir(aktifOturum.id, { tok: aktifOturum.tok }, ek);
+    var yanit = await apiCagir(aktifOturum.id, { tok: aktifOturum.tok }, '&islem=bakiye_yukle&ekle=' + encodeURIComponent(eklenecek) + '&taze=1');
     if (yanit && yanit.ok) {
+      son.bakiye.mevcut = yeniMevcut;
+      son.bakiye.paket = yeniMevcut;
+      son.bakiye.bakiyeBitti = false;
+      son.hedefKomut = yanit.yayin_komutu || 'ACIK';
+      son.komutBekliyor = true;
+      onbellekYaz(son);
+      ustBarBakiyeVeOtoGuncelle(son);
+      yayinArayuzGuncelle(son.yayinAcik, true, son.hedefKomut, false);
       inp.value = '';
-      onbellekYaz(son);
-      $('kartKayitMesaj').textContent = '✅ ' + fmtPara(eklenecekTutar) + ' kayıtlı kart limitine eklendi ve reklam başlatma komutu gönderildi.';
-      canliKomutTakibiBaslat('ACIK');
-    }
-  } catch (e) {
-    $('kartKayitMesaj').textContent = '❌ Bağlantı hatası: Bakiye tanımlanamadı, lütfen tekrar deneyin.';
-  } finally {
-    btn.disabled = false;
-    btn.textContent = '💳 Kayıtlı Karttan Çek & Yükle';
-  }
-}
-
-async function bakiyeSayaciSifirla() {
-  if (!son) { return; }
-  var btn = $('btnSayacSifirla');
-  if (btn.disabled) { return; }
-
-  son.kart.limit = 0;
-  son.kart.harcanan = 0;
-  son.kart.kalanLimit = 0;
-  son.kart.kullanimOrani = 0;
-  son.kart.durum = 'AKTIF';
-  bakiyeVeKartArayuzCiz(son);
-
-  if (DEMO || !aktifOturum || !aktifOturum.tok) {
-    $('kartKayitMesaj').textContent = 'Bakiye sayacı sıfırlandı (Limitsiz mod).';
-    return;
-  }
-
-  btn.disabled = true;
-  try {
-    await apiCagir(aktifOturum.id, { tok: aktifOturum.tok }, '&islem=kart_ayar&sifirla=1&limit=0&taze=1');
-    onbellekYaz(son);
-    $('kartKayitMesaj').textContent = 'Bakiye sayacı sıfırlandı. Yeni tutar girerek bakiye tanımlayabilirsiniz.';
-  } catch (e) {
-    $('kartKayitMesaj').textContent = 'Sayaç sıfırlanamadı.';
-  } finally {
-    btn.disabled = false;
-  }
-}
-
-async function otoBaslatDegistir() {
-  if (!son) { return; }
-  var btn = $('btnOtoToggle');
-  if (btn.disabled) { return; }
-
-  var yeniOto = son.otoAcik ? 'KAPALI' : 'ACIK';
-  son.otoAcik = (yeniOto === 'ACIK');
-  var butceVal = n($('inpGunlukButce').value);
-
-  if (son.otoAcik && !(son.kart.limit > 0 && son.kart.kalanLimit <= 0)) {
-    son.hedefKomut = 'ACIK';
-    son.komutBekliyor = true;
-    yayinArayuzGuncelle(son.yayinAcik, true, 'ACIK', false);
-  }
-  bakiyeVeKartArayuzCiz(son);
-
-  if (DEMO || !aktifOturum || !aktifOturum.tok) {
-    if (son.otoAcik) {
-      setTimeout(function () {
-        son.yayinAcik = true;
-        son.komutBekliyor = false;
-        yayinArayuzGuncelle(true, false, 'ACIK', false);
-        kampanyaListesiCiz(son, donemMetrikleri(son, seciliDonem));
-      }, 700);
-    }
-    $('kartKayitMesaj').textContent = 'Otomatik reklam başlatma modu güncellendi.';
-    return;
-  }
-
-  btn.disabled = true;
-  try {
-    var ek = '&islem=oto_baslat&durum=' + yeniOto + (butceVal > 0 ? '&butce=' + encodeURIComponent(butceVal) : '') + '&taze=1';
-    var yanit = await apiCagir(aktifOturum.id, { tok: aktifOturum.tok }, ek);
-    $('kartKayitMesaj').textContent = son.otoAcik ? 'Otomatik başlatma açıldı. Bakiye uygun oldukça reklam yayında kalır.' : 'Otomatik başlatma kapatıldı.';
-    if (son.otoAcik && !(yanit && yanit.limit_doldu)) {
-      canliKomutTakibiBaslat('ACIK');
+      msg.textContent = fmtPara(eklenecek) + ' yüklendi. Mevcut Bakiyeniz: ' + fmtPara(yeniMevcut);
+      msg.className = 'msg ok';
+      canliKomutTakibiBaslat(son.hedefKomut);
     } else {
-      onbellekYaz(son);
+      msg.textContent = 'Bakiye yüklenemedi, lütfen tekrar deneyin.';
+      msg.className = 'msg err';
     }
   } catch (e) {
-    son.otoAcik = !son.otoAcik;
-    bakiyeVeKartArayuzCiz(son);
-    $('kartKayitMesaj').textContent = 'Ayar kaydedilemedi, tekrar deneyin.';
+    msg.textContent = 'Bağlantı hatası: Bakiye yüklenemedi.';
+    msg.className = 'msg err';
   } finally {
     btn.disabled = false;
+    btn.textContent = 'Bakiyeyi Yükle';
   }
 }
 
-async function kartAyarKaydet() {
+/* ---- AÇILIR PENCERE 2: OTOMATİK AÇ/KAPAT (7 GÜN + ORTAK VEYA GÜNE ÖZEL SAAT) ---- */
+var saatSecenekHtml = '';
+(function saatListesiOlustur() {
+  var h = '';
+  for (var s = 0; s < 24; s++) {
+    var ss = ('0' + s).slice(-2);
+    h += '<option value="' + ss + ':00">' + ss + ':00</option>';
+    h += '<option value="' + ss + ':30">' + ss + ':30</option>';
+  }
+  saatSecenekHtml = h;
+  $('selGenelBas').innerHTML = h;
+  $('selGenelBit').innerHTML = h;
+})();
+
+var duzenlenenPlan = {
+  aktif: false,
+  ortak: true,
+  genelBas: '08:00',
+  genelBit: '21:00',
+  gunler: { '1': true, '2': true, '3': true, '4': true, '5': true, '6': true, '7': true },
+  ozel: {
+    '1': ['08:00', '21:00'], '2': ['08:00', '21:00'], '3': ['08:00', '21:00'],
+    '4': ['08:00', '21:00'], '5': ['08:00', '21:00'], '6': ['09:00', '21:00'], '7': ['10:00', '21:00']
+  }
+};
+
+function planMetniniAyrstir(planStr, aktifMi) {
+  duzenlenenPlan.aktif = !!aktifMi;
+  var ham = String(planStr || VARSAYILAN_OTO_PLAN).trim();
+  if (ham.indexOf(';') === -1) { ham = VARSAYILAN_OTO_PLAN; }
+  var p = ham.split(';');
+  duzenlenenPlan.ortak = String(p[0] || '1').trim() !== '0';
+
+  var gParca = String(p[1] || '08:00-21:00').split('-');
+  duzenlenenPlan.genelBas = gParca[0] || '08:00';
+  duzenlenenPlan.genelBit = gParca[1] || '21:00';
+
+  for (var k = 1; k <= 7; k++) { duzenlenenPlan.gunler[String(k)] = false; }
+  var seciliDizi = String(p[2] || '1,2,3,4,5,6,7').split(',');
+  for (var i = 0; i < seciliDizi.length; i++) {
+    var gNo = String(parseInt(seciliDizi[i], 10));
+    if (duzenlenenPlan.gunler[gNo] !== undefined) { duzenlenenPlan.gunler[gNo] = true; }
+  }
+
+  var ozelDizi = String(p[3] || '').split(',');
+  for (var j = 0; j < ozelDizi.length; j++) {
+    var kv = ozelDizi[j].split('=');
+    if (kv.length === 2 && duzenlenenPlan.ozel[kv[0]]) {
+      var sp = kv[1].split('-');
+      if (sp.length === 2) { duzenlenenPlan.ozel[kv[0]] = [sp[0], sp[1]]; }
+    }
+  }
+}
+
+function planMetniBirlestir() {
+  var secili = [];
+  var ozelParcalar = [];
+  for (var g = 1; g <= 7; g++) {
+    var k = String(g);
+    if (duzenlenenPlan.gunler[k]) { secili.push(k); }
+    var bas = duzenlenenPlan.ortak ? duzenlenenPlan.genelBas : (duzenlenenPlan.ozel[k][0] || '08:00');
+    var bit = duzenlenenPlan.ortak ? duzenlenenPlan.genelBit : (duzenlenenPlan.ozel[k][1] || '21:00');
+    ozelParcalar.push(k + '=' + bas + '-' + bit);
+  }
+  return (duzenlenenPlan.ortak ? '1' : '0') + ';' +
+         duzenlenenPlan.genelBas + '-' + duzenlenenPlan.genelBit + ';' +
+         secili.join(',') + ';' +
+         ozelParcalar.join(',');
+}
+
+function otoModalArayuzYenile() {
+  var aBtn = $('otoAktifToggle');
+  aBtn.classList.toggle('on', duzenlenenPlan.aktif);
+  aBtn.classList.toggle('off', !duzenlenenPlan.aktif);
+  aBtn.setAttribute('aria-checked', duzenlenenPlan.aktif ? 'true' : 'false');
+
+  var oBtn = $('ortakSaatToggle');
+  oBtn.classList.toggle('on', duzenlenenPlan.ortak);
+  oBtn.classList.toggle('off', !duzenlenenPlan.ortak);
+  oBtn.setAttribute('aria-checked', duzenlenenPlan.ortak ? 'true' : 'false');
+
+  var gunButonlar = $('gunSecimGrubu').querySelectorAll('.day-btn');
+  for (var i = 0; i < gunButonlar.length; i++) {
+    var g = gunButonlar[i].getAttribute('data-gun');
+    gunButonlar[i].classList.toggle('on', !!duzenlenenPlan.gunler[g]);
+  }
+
+  $('selGenelBas').value = duzenlenenPlan.genelBas;
+  $('selGenelBit').value = duzenlenenPlan.genelBit;
+
+  $('ortakSaatKutu').hidden = !duzenlenenPlan.ortak;
+  var ozelKutu = $('ozelSaatListesi');
+  ozelKutu.hidden = duzenlenenPlan.ortak;
+
+  if (!duzenlenenPlan.ortak) {
+    ozelKutu.innerHTML = '';
+    var enAzBirGun = false;
+    for (var d = 1; d <= 7; d++) {
+      var dk = String(d);
+      if (!duzenlenenPlan.gunler[dk]) { continue; }
+      enAzBirGun = true;
+      var satir = document.createElement('div');
+      satir.className = 'custom-day-row';
+      satir.innerHTML = '<b>' + GUN_ADLARI[dk] + '</b>' +
+        '<select class="sel-time ozel-bas" data-gun="' + dk + '" aria-label="' + GUN_ADLARI[dk] + ' başlangıç saati">' + saatSecenekHtml + '</select>' +
+        '<select class="sel-time ozel-bit" data-gun="' + dk + '" aria-label="' + GUN_ADLARI[dk] + ' bitiş saati">' + saatSecenekHtml + '</select>';
+      ozelKutu.appendChild(satir);
+      satir.querySelector('.ozel-bas').value = duzenlenenPlan.ozel[dk][0] || duzenlenenPlan.genelBas;
+      satir.querySelector('.ozel-bit').value = duzenlenenPlan.ozel[dk][1] || duzenlenenPlan.genelBit;
+    }
+    if (!enAzBirGun) {
+      ozelKutu.innerHTML = '<p class="day-hint">Saat belirlemek için yukarıdan en az 1 gün seçin.</p>';
+    }
+  }
+}
+
+function ozelSaatInputlariniOku() {
+  if (duzenlenenPlan.ortak) { return; }
+  var baslar = $('ozelSaatListesi').querySelectorAll('.ozel-bas');
+  var bitler = $('ozelSaatListesi').querySelectorAll('.ozel-bit');
+  for (var i = 0; i < baslar.length; i++) {
+    var g = baslar[i].getAttribute('data-gun');
+    duzenlenenPlan.ozel[g][0] = baslar[i].value;
+  }
+  for (var j = 0; j < bitler.length; j++) {
+    var g2 = bitler[j].getAttribute('data-gun');
+    duzenlenenPlan.ozel[g2][1] = bitler[j].value;
+  }
+}
+
+function otoModalAc() {
   if (!son) { return; }
-  var btn = $('btnKartKaydet');
+  planMetniniAyrstir(son.otoPlan, son.otoAcik);
+  otoModalArayuzYenile();
+  $('otoModalMsg').textContent = '';
+  $('otoModalMsg').className = 'msg';
+  var m = $('otoModal');
+  m.classList.add('on');
+  m.setAttribute('aria-hidden', 'false');
+}
+
+function otoModalKapat() {
+  var m = $('otoModal');
+  m.classList.remove('on');
+  m.setAttribute('aria-hidden', 'true');
+}
+
+async function otoPlanKaydet() {
+  if (!son) { return; }
+  var btn = $('btnOtoKaydet'), msg = $('otoModalMsg');
   if (btn.disabled) { return; }
 
-  var yeniButce = Math.max(0, n($('inpGunlukButce').value));
-  var yeniSon4 = String($('inpKartSon4').value || '').replace(/\D/g, '').slice(-4);
+  duzenlenenPlan.genelBas = $('selGenelBas').value;
+  duzenlenenPlan.genelBit = $('selGenelBit').value;
+  ozelSaatInputlariniOku();
 
-  son.kart.gunlukButce = yeniButce;
-  if (yeniSon4.length === 4 || yeniSon4.length === 0) { son.kart.son4 = yeniSon4; }
-  bakiyeVeKartArayuzCiz(son);
+  var seciliSayisi = 0;
+  for (var g = 1; g <= 7; g++) {
+    if (duzenlenenPlan.gunler[String(g)]) { seciliSayisi++; }
+  }
+  if (duzenlenenPlan.aktif && seciliSayisi === 0) {
+    msg.textContent = 'Lütfen otomatik yayın için en az 1 gün seçin.';
+    msg.className = 'msg err';
+    return;
+  }
+
+  var yeniPlanStr = planMetniBirlestir();
+  var yeniDurumStr = duzenlenenPlan.aktif ? 'ACIK' : 'KAPALI';
+
+  son.otoAcik = duzenlenenPlan.aktif;
+  son.otoPlan = yeniPlanStr;
+  ustBarBakiyeVeOtoGuncelle(son);
 
   if (DEMO || !aktifOturum || !aktifOturum.tok) {
-    $('kartKayitMesaj').textContent = 'Günlük bütçe ve kart bilgileri kaydedildi (Önizleme).';
+    msg.textContent = 'Otomatik Aç/Kapat planı kaydedildi.';
+    msg.className = 'msg ok';
     return;
   }
 
   btn.disabled = true;
   btn.textContent = 'Kaydediliyor…';
+  msg.textContent = '';
   try {
-    var ek = '&islem=kart_ayar&butce=' + encodeURIComponent(yeniButce) +
-             '&son4=' + encodeURIComponent(yeniSon4) + '&taze=1';
+    var ek = '&islem=oto_plan&durum=' + yeniDurumStr + '&plan=' + encodeURIComponent(yeniPlanStr) + '&taze=1';
     var yanit = await apiCagir(aktifOturum.id, { tok: aktifOturum.tok }, ek);
     if (yanit && yanit.ok) {
+      if (yanit.yayin_komutu) {
+        son.hedefKomut = yanit.yayin_komutu;
+        son.komutBekliyor = true;
+        yayinArayuzGuncelle(son.yayinAcik, true, son.hedefKomut, false);
+        canliKomutTakibiBaslat(son.hedefKomut);
+      }
       onbellekYaz(son);
-      $('kartKayitMesaj').textContent = '✅ Günlük bütçe (₺' + yeniButce + ') ve kayıtlı kart bilgileri güncellendi.';
+      msg.textContent = 'Otomatik Aç/Kapat saat planınız kaydedildi.';
+      msg.className = 'msg ok';
+    } else {
+      msg.textContent = 'Plan kaydedilemedi, tekrar deneyin.';
+      msg.className = 'msg err';
     }
   } catch (e) {
-    $('kartKayitMesaj').textContent = 'Bağlantı hatası: Ayarlar kaydedilemedi.';
+    msg.textContent = 'Bağlantı hatası: Plan kaydedilemedi.';
+    msg.className = 'msg err';
   } finally {
     btn.disabled = false;
     btn.textContent = 'Ayarları Kaydet';
@@ -2033,8 +2092,8 @@ function demoVeri() {
                  ' ' + ('0' + bugun.getHours()).slice(-2) + ':' + ('0' + bugun.getMinutes()).slice(-2) + ':' + ('0' + bugun.getSeconds()).slice(-2);
   return {
     ok: true, durum: true, yayin_komutu: 'ACIK', kampanya_durumu: 'ACIK', komut_bekliyor: false,
-    oto_baslat: 'ACIK', sektor: '',
-    kart: { son4: '4821', durum: 'AKTIF', limit: 2500, gunluk_butce: 300, harcanan: 680.50, kalan_limit: 1819.50, kullanim_orani: 27 },
+    oto_baslat: 'ACIK', oto_plan: VARSAYILAN_OTO_PLAN, sektor: '',
+    bakiye: { mevcut: 1850.00, paket: 2500.00, harcanan: 650.00, durum: 'AKTIF', bakiye_bitti: false },
     id: URL_ID || 'taksi_44_1', isletme: 'Şahin Taksi', telefon: '0534 595 74 44',
     gosterim: 1979, tiklanma: 210, to: 10.61,
     maliyet: 4080.30, tbm: 19.43, aramalar: 0,
@@ -2189,7 +2248,7 @@ function panoyuCiz(v, sessiz) {
   $('dashGuncellemeUst').textContent = 'Son güncelleme: ' + tarihSaniyeliYaz(v.guncelleme) + ' (Her 1 saatte güncellenir)';
 
   yayinArayuzGuncelle(v.yayinAcik, v.komutBekliyor, v.hedefKomut, v.komutSiraBekliyor);
-  bakiyeVeKartArayuzCiz(v);
+  ustBarBakiyeVeOtoGuncelle(v);
   onizlemeCiz(v, info);
   demografiVeCihazCiz(v);
   saatDilimleriCiz(v);
@@ -2506,25 +2565,53 @@ $('pinForm').addEventListener('submit', function (e) { e.preventDefault(); giris
 $('hpAlan').addEventListener('input', botDurdur);
 $('btnYenile').addEventListener('click', yenile);
 $('btnYayinToggle').addEventListener('click', yayinDegistir);
-$('btnOtoToggle').addEventListener('click', otoBaslatDegistir);
-$('btnBakiyeYukle').addEventListener('click', kayitliKarttanBakiyeYukle);
-$('btnSayacSifirla').addEventListener('click', bakiyeSayaciSifirla);
-$('btnKartKaydet').addEventListener('click', kartAyarKaydet);
-$('ustBakiyeRozet').addEventListener('click', function () {
-  try { $('inpYuklenecekTutar').focus(); } catch (e) {}
-});
 
-var hizliChipler = document.querySelectorAll('.q-chip');
-for (var c = 0; c < hizliChipler.length; c++) {
-  hizliChipler[c].addEventListener('click', function () {
-    var eklenecek = n(this.getAttribute('data-tutar'));
-    var mevcutVal = n($('inpYuklenecekTutar').value);
-    $('inpYuklenecekTutar').value = mevcutVal + eklenecek;
-    $('inpYuklenecekTutar').focus();
+/* Modal 1: Bakiye Yükleme Dinleyicileri */
+$('btnBakiyeModalAc').addEventListener('click', bakiyeModalAc);
+$('btnBakiyeKapat').addEventListener('click', bakiyeModalKapat);
+$('btnBakiyeUstKapat').addEventListener('click', bakiyeModalKapat);
+$('btnBakiyeOnayla').addEventListener('click', bakiyeYukleOnayla);
+$('bakiyeModal').addEventListener('click', function (e) { if (e.target === $('bakiyeModal')) { bakiyeModalKapat(); } });
+
+var hizliTutarBtnler = document.querySelectorAll('.q-btn');
+for (var q = 0; q < hizliTutarBtnler.length; q++) {
+  hizliTutarBtnler[q].addEventListener('click', function () {
+    for (var k = 0; k < hizliTutarBtnler.length; k++) { hizliTutarBtnler[k].classList.remove('secili'); }
+    this.classList.add('secili');
+    $('inpBakiyeTutar').value = this.getAttribute('data-tutar');
   });
 }
 
-$('inpKartSon4').addEventListener('input', function (e) { e.target.value = e.target.value.replace(/\D/g, '').slice(0, 4); });
+/* Modal 2: Otomatik Aç/Kapat (7 Gün ve Saat) Dinleyicileri */
+$('btnOtoModalAc').addEventListener('click', otoModalAc);
+$('btnOtoKapat').addEventListener('click', otoModalKapat);
+$('btnOtoUstKapat').addEventListener('click', otoModalKapat);
+$('btnOtoKaydet').addEventListener('click', otoPlanKaydet);
+$('otoModal').addEventListener('click', function (e) { if (e.target === $('otoModal')) { otoModalKapat(); } });
+
+$('otoAktifToggle').addEventListener('click', function () {
+  duzenlenenPlan.aktif = !duzenlenenPlan.aktif;
+  otoModalArayuzYenile();
+});
+
+$('ortakSaatToggle').addEventListener('click', function () {
+  ozelSaatInputlariniOku();
+  duzenlenenPlan.genelBas = $('selGenelBas').value;
+  duzenlenenPlan.genelBit = $('selGenelBit').value;
+  duzenlenenPlan.ortak = !duzenlenenPlan.ortak;
+  otoModalArayuzYenile();
+});
+
+var gunBtnler = $('gunSecimGrubu').querySelectorAll('.day-btn');
+for (var gb = 0; gb < gunBtnler.length; gb++) {
+  gunBtnler[gb].addEventListener('click', function () {
+    ozelSaatInputlariniOku();
+    var g = this.getAttribute('data-gun');
+    duzenlenenPlan.gunler[g] = !duzenlenenPlan.gunler[g];
+    otoModalArayuzYenile();
+  });
+}
+
 $('btnKurulum').addEventListener('click', kurulumTetikle);
 $('errCikis').addEventListener('click', cikis);
 $('lockYenile').addEventListener('click', function () {
@@ -2560,7 +2647,7 @@ if ('serviceWorker' in navigator && location.protocol.indexOf('http') === 0) {
     navigator.serviceWorker.register('sw.js').then(function (reg) {
       try { reg.update(); } catch (e) {}
     }).catch(function () {});
-  } );
+  });
 }
 })();
 </script>
