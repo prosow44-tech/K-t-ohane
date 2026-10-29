@@ -1113,9 +1113,9 @@ var YENIDEN_DENEME   = 1;
 var YENILEME_ESIGI   = 15 * 60 * 1000;
 var BEKCI_MS         = 26000;
 
-var LS = { oturum: 'pnl_oturum', deneme: 'pnl_deneme', ban: 'pnl_ban', veri: 'pnl_veri_v30' };
+var LS = { oturum: 'pnl_oturum', deneme: 'pnl_deneme', ban: 'pnl_ban', veri: 'pnl_veri_v32' };
 var TOK_DESEN = /^\d{9,14}\.[0-9a-f]{64}$/;
-var VERI_SEMA = 30;
+var VERI_SEMA = 32;
 
 var GUN_ADLARI = {
   '1': 'Pazartesi', '2': 'Salı', '3': 'Çarşamba', '4': 'Perşembe',
@@ -1740,7 +1740,7 @@ function canliKomutTakibiBaslat(istenenKomut) {
         }
       }
     } catch (e) {}
-  }, 5000);
+  }, 2000);
 }
 
 async function yayinDegistir() {
@@ -2369,32 +2369,42 @@ function googleAdsGrafikCiz(v, gunSayisi) {
     return;
   }
 
-  var kisaEtiket = [], tamTarih = [], tikDizi = [], gosDizi = [];
+  var kisaEtiket = [], tamTarih = [], tikDizi = [], gosDizi = [], malDizi = [], tbmDizi = [];
 
   if (gunSayisi === 1) {
     $('grafikBaslik').textContent = '📈 Google Ads Günlük Saat Serisi Grafiği (00:00 - 23:00)';
-    $('grafikAltBaslik').textContent = 'Noktalara dokunarak bugünün saatlik Tıklama ve Gösterim sayısını inceleyin';
+    $('grafikAltBaslik').textContent = 'Noktalara dokunarak bugünün saatlik Tıklama, Gösterim, Harcama ve TBM verilerini inceleyin';
     var st = v.saatlik || {};
     tikDizi = (Array.isArray(st.tiklama) && st.tiklama.length === 24) ? st.tiklama.slice(0, 24) : [];
     gosDizi = (Array.isArray(st.gosterim) && st.gosterim.length === 24) ? st.gosterim.slice(0, 24) : [];
+    malDizi = (Array.isArray(st.maliyet) && st.maliyet.length === 24) ? st.maliyet.slice(0, 24) : [];
     for (var s = 0; s < 24; s++) {
       if (tikDizi.length < 24) { tikDizi.push(0); }
       if (gosDizi.length < 24) { gosDizi.push(0); }
+      if (malDizi.length < 24) { malDizi.push(0); }
+      var t = tikDizi[s] || 0, m = malDizi[s] || 0;
+      tbmDizi.push(t > 0 ? Number((m / t).toFixed(2)) : 0);
       var saatMetin = ('0' + s).slice(-2) + ':00';
       kisaEtiket.push(saatMetin);
       tamTarih.push('Bugün Saat ' + saatMetin + ' - ' + ('0' + s).slice(-2) + ':59');
     }
   } else {
     $('grafikBaslik').textContent = '📈 Google Ads Zaman Serisi Grafiği';
-    $('grafikAltBaslik').textContent = 'Noktalara dokunarak günlük Tıklama ve Gösterim sayısını inceleyin';
+    $('grafikAltBaslik').textContent = 'Noktalara dokunarak günlük Tıklama, Gösterim, Harcama ve TBM verilerini inceleyin';
     var g = v.gunluk || {};
     var toplam = (g.tiklama && g.tiklama.length) ? g.tiklama.length : 30;
     var cizimAdet = Math.min(gunSayisi, toplam);
     tikDizi = g.tiklama ? g.tiklama.slice(-cizimAdet) : [];
     gosDizi = (g.gosterim && g.gosterim.length >= cizimAdet) ? g.gosterim.slice(-cizimAdet) : tikDizi.map(function () { return 0; });
+    malDizi = (g.maliyet && g.maliyet.length >= cizimAdet) ? g.maliyet.slice(-cizimAdet) : tikDizi.map(function () { return 0; });
 
-    var m = /^(\d{4})-(\d{2})-(\d{2})$/.exec(g.baslangic || '');
-    var basTarih = m ? new Date(parseInt(m[1], 10), parseInt(m[2], 10) - 1, parseInt(m[3], 10) + (toplam - cizimAdet)) : new Date(Date.now() - (cizimAdet - 1) * 86400000);
+    for (var k = 0; k < tikDizi.length; k++) {
+      var tk = tikDizi[k] || 0, mk = malDizi[k] || 0;
+      tbmDizi.push(tk > 0 ? Number((mk / tk).toFixed(2)) : 0);
+    }
+
+    var m_regex = /^(\d{4})-(\d{2})-(\d{2})$/.exec(g.baslangic || '');
+    var basTarih = m_regex ? new Date(parseInt(m_regex[1], 10), parseInt(m_regex[2], 10) - 1, parseInt(m_regex[3], 10) + (toplam - cizimAdet)) : new Date(Date.now() - (cizimAdet - 1) * 86400000);
 
     for (var i = 0; i < cizimAdet; i++) {
       var d = new Date(basTarih.getFullYear(), basTarih.getMonth(), basTarih.getDate() + i);
@@ -2405,15 +2415,15 @@ function googleAdsGrafikCiz(v, gunSayisi) {
   }
 
   var enCok = 0, enIndeks = -1;
-  for (var k = 0; k < tikDizi.length; k++) {
-    if (tikDizi[k] > enCok) { enCok = tikDizi[k]; enIndeks = k; }
+  for (var k2 = 0; k2 < tikDizi.length; k2++) {
+    if (tikDizi[k2] > enCok) { enCok = tikDizi[k2]; enIndeks = k2; }
   }
 
   if (gunSayisi === 1) {
-    $('trendOzet').innerHTML = '<span>Bugün toplamı: <b>' + fmt(topla(tikDizi)) + ' tıklama</b> · <b>' + fmt(topla(gosDizi)) + ' gösterim</b></span>' +
-                               (enCok > 0 && enIndeks > -1 ? '<span>En yoğun saat: <b>' + kisaEtiket[enIndeks] + ' (' + fmt(enCok) + ' tıklama)</b></span>' : '<span>Bugün (00:00 - 23:00) henüz tıklama kaydı yok</span>');
+    $('trendOzet').innerHTML = '<span>Bugün toplamı: <b>' + fmt(topla(tikDizi)) + ' tıklama</b> · <b>' + fmt(topla(gosDizi)) + ' gösterim</b> · <b>' + fmtPara(topla(malDizi)) + ' harcama</b></span>' +
+                               (enCok > 0 && enIndeks > -1 ? '<span>En yoğun saat: <b>' + kisaEtiket[enIndeks] + ' (' + fmt(enCok) + ' tıklama)</b></span>' : '<span>Bugün henüz tıklama kaydı yok</span>');
   } else {
-    $('trendOzet').innerHTML = '<span>Dönem toplamı: <b>' + fmt(topla(tikDizi)) + ' tıklama</b> · <b>' + fmt(topla(gosDizi)) + ' gösterim</b></span>' +
+    $('trendOzet').innerHTML = '<span>Dönem toplamı: <b>' + fmt(topla(tikDizi)) + ' tıklama</b> · <b>' + fmt(topla(gosDizi)) + ' gösterim</b> · <b>' + fmtPara(topla(malDizi)) + ' harcama</b></span>' +
                                (enCok > 0 && enIndeks > -1 ? '<span>En yüksek gün: <b>' + (tamTarih[enIndeks] || '') + ' (' + fmt(enCok) + ' tıklama)</b></span>' : '<span>Seçili aralıkta tıklama kaydı yok</span>');
   }
 
@@ -2421,6 +2431,8 @@ function googleAdsGrafikCiz(v, gunSayisi) {
     trendGrafik.data.labels = kisaEtiket;
     trendGrafik.data.datasets[0].data = tikDizi;
     trendGrafik.data.datasets[1].data = gosDizi;
+    trendGrafik._gunlukMaliyet = malDizi;
+    trendGrafik._gunlukTbm = tbmDizi;
     trendGrafik.options.plugins.tooltip.callbacks.title = function (items) {
       return tamTarih[items[0].dataIndex] || items[0].label;
     };
@@ -2478,9 +2490,20 @@ function googleAdsGrafikCiz(v, gunSayisi) {
           boxHeight: 5,
           usePointStyle: false,
           titleFont: { size: 12.5, weight: 'bold' },
-          bodyFont: { size: 12.5, weight: '600' },
+          bodyFont: { size: 12, weight: '600' },
           callbacks: {
             title: function (items) { return tamTarih[items[0].dataIndex] || items[0].label; },
+            afterBody: function (items) {
+              var idx = items[0].dataIndex;
+              var gMal = (trendGrafik && trendGrafik._gunlukMaliyet && trendGrafik._gunlukMaliyet[idx] !== undefined)
+                ? trendGrafik._gunlukMaliyet[idx] : (malDizi[idx] || 0);
+              var gTbm = (trendGrafik && trendGrafik._gunlukTbm && trendGrafik._gunlukTbm[idx] !== undefined)
+                ? trendGrafik._gunlukTbm[idx] : (tbmDizi[idx] || 0);
+              return [
+                ' O Günkü Maliyet:   ' + fmtPara(gMal),
+                ' Ort. TBM:   ' + fmtPara(gTbm)
+              ];
+            },
             label: function (c) { return ' ' + c.dataset.label + ':   ' + fmt(c.parsed.y); }
           }
         }
@@ -2503,6 +2526,8 @@ function googleAdsGrafikCiz(v, gunSayisi) {
       }
     }
   });
+  trendGrafik._gunlukMaliyet = malDizi;
+  trendGrafik._gunlukTbm = tbmDizi;
 }
 
 function kampanyaListesiCiz(v, m) {
