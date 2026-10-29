@@ -55,7 +55,6 @@
   .screen.on{display:block}
   .screen.center.on{display:flex; align-items:center; justify-content:center; padding:18px}
 
-  /* ---------- Ortak Kart ve Butonlar ---------- */
   .card{
     width:100%; max-width:390px; text-align:center; padding:26px 22px;
     background:linear-gradient(180deg,rgba(16,26,52,.95),rgba(8,14,30,.95));
@@ -92,7 +91,6 @@
     padding:8px 10px; border-radius:9px; font-weight:500;
   }
 
-  /* ---------- İskelet Yükleyici ---------- */
   .boot-wrap{width:100%; max-width:500px; padding:14px}
   .boot-head{display:flex; align-items:center; gap:10px; margin-bottom:14px}
   .sk-box{
@@ -111,7 +109,6 @@
   .ring-mini{width:16px; height:16px; border-radius:50%; border:2px solid rgba(165,195,251,.25); border-top-color:var(--accent); animation:spin .85s linear infinite}
   @keyframes spin{to{transform:rotate(360deg)}}
 
-  /* ---------- Giriş Ekranı ---------- */
   .pin{
     width:100%; padding:14px 10px 14px 20px; border-radius:12px; border:1px solid var(--line);
     background:rgba(5,9,20,.78); color:var(--text); outline:none; text-align:center; text-indent:.1em;
@@ -131,15 +128,11 @@
   .card.danger{border-color:rgba(239,68,68,.42)}
   .kod{display:inline-block; margin-top:8px; padding:3px 9px; border-radius:7px; background:rgba(143,160,196,.12); color:var(--muted); font-size:11px}
 
-  /* ---------- Ana Kokpit ---------- */
   .wrap{
     max-width:1160px; margin:0 auto;
     padding:max(6px,env(safe-area-inset-top)) 8px max(24px,env(safe-area-inset-bottom));
   }
 
-  /* =====================================================================
-     ÜST MENÜ (MEVCUT NET BAKİYE + 2 AÇILIR PENCERE BUTONU + ŞALTER + DÖNEM)
-     ===================================================================== */
   .top-bar{
     display:flex; align-items:center; justify-content:space-between; gap:8px; flex-wrap:wrap;
     padding:7px 11px; border-radius:13px; border:1px solid var(--line);
@@ -174,7 +167,6 @@
     display:flex; align-items:center; gap:6px; flex-wrap:wrap; flex:none;
   }
 
-  /* 1. AÇILIR BUTON: MEVCUT BAKİYE & YÜKLE */
   .top-action-btn{
     display:inline-flex; align-items:center; gap:6px; height:34px; padding:0 10px;
     border-radius:9px; border:1px solid rgba(59,130,246,.38);
@@ -202,7 +194,15 @@
     background:rgba(239,68,68,.35); color:#fecaca;
   }
 
-  /* 2. AÇILIR BUTON: OTOMATİK AÇ/KAPAT ZAMANLAYICI */
+  .alltime-pill{
+    display:inline-flex; align-items:center; gap:5px; height:34px; padding:0 10px;
+    border-radius:9px; border:1px solid rgba(147,51,234,.4);
+    background:rgba(147,51,234,.14); color:#d8b4fe;
+    font-size:11px; font-weight:600; white-space:nowrap;
+  }
+  .alltime-pill small{color:#c084fc; font-weight:500}
+  .alltime-pill b{font:700 12.5px 'Space Grotesk',sans-serif; color:#fff}
+
   .oto-dot{
     width:7px; height:7px; border-radius:50%; background:#64748b; flex:none;
   }
@@ -262,7 +262,6 @@
   .mini svg{width:15px; height:15px}
   .mini.yukleniyor svg{animation:spin .6s linear infinite}
 
-  /* Bakiye Yetersiz / Sistem Uyarı Bandı */
   .alert-bant{
     display:flex; align-items:center; justify-content:space-between; gap:10px; flex-wrap:wrap;
     margin:0 0 7px; padding:8px 12px; border-radius:11px;
@@ -283,14 +282,12 @@
       width:100%; justify-content:space-between; gap:5px;
     }
     .top-action-btn{height:32px; padding:0 8px; font-size:11px}
+    .alltime-pill{height:32px; padding:0 8px; font-size:10.5px}
     .cmp-inline{height:32px; padding:0 8px; gap:6px}
     .donem-seg{height:32px}
     .donem-seg button{height:24px; padding:0 7px; font-size:11px}
   }
 
-  /* =====================================================================
-     5'Lİ KUTU DÜZENİ: ÜSTTE 3'LÜ SIKIŞTIRILMIŞ, ALTTA 2'Lİ GENİŞ (TBM & MALİYET)
-     ===================================================================== */
   .stats-5{
     display:grid; grid-template-columns:repeat(6, minmax(0, 1fr)); gap:6px; margin-bottom:7px;
   }
@@ -339,12 +336,15 @@
     display:block; margin-top:2px; color:var(--muted); font-size:9.5px;
     white-space:nowrap; overflow:hidden; text-overflow:ellipsis;
   }
+  .stat .ft-extra{
+    display:block; margin-top:3px; color:#c084fc; font-size:10px; font-weight:600;
+    white-space:nowrap; overflow:hidden; text-overflow:ellipsis;
+  }
   button.stat{cursor:pointer; appearance:none; -webkit-appearance:none; transition:transform .12s, box-shadow .2s}
   button.stat.click{border-color:rgba(26,115,232,.55); background:linear-gradient(160deg,rgba(26,115,232,.28),rgba(9,15,32,.9))}
   button.stat.click:hover{box-shadow:0 6px 20px rgba(26,115,232,.25)}
   button.stat.click:active{transform:scale(.98)}
 
-  /* Aşağıya Doğru Akıcı Tüm Google Ads Arayüz Panelleri */
   .cockpit-grid{
     display:grid; grid-template-columns:1fr; gap:9px;
   }
@@ -361,7 +361,6 @@
   .pane-head h2{font-size:13.5px; font-weight:600; margin:0; display:flex; align-items:center; gap:6px}
   .pane-head .sub{margin:1px 0 0; color:var(--muted); font-size:11px}
 
-  /* 1. Arayüz: Google Ads Çift Çizgili Grafik (Mavi + Kırmızı) */
   .ads-legend{display:flex; align-items:center; gap:12px; font-size:11px; font-weight:600}
   .ads-leg-item{display:inline-flex; align-items:center; gap:5px; color:var(--text)}
   .ads-pill-line{width:13px; height:4px; border-radius:99px; display:inline-block}
@@ -375,7 +374,6 @@
     color:var(--pale); font-size:11.5px; display:flex; align-items:center; justify-content:space-between; gap:8px; flex-wrap:wrap;
   }
 
-  /* 2. Arayüz: Kampanyalar & Anahtar Kelimeler Performans Listesi */
   .ads-list-wrap{display:flex; flex-direction:column; gap:4px; margin-top:2px}
   .ads-list-head,.ads-list-row{
     display:grid; grid-template-columns:minmax(0,1.9fr) repeat(4,minmax(0,1fr));
@@ -415,7 +413,6 @@
     color:#fff; font-size:10px; font-family:'Space Grotesk',sans-serif;
   }
 
-  /* 3. Arayüz: Temsili Arama Şablonu */
   .phone-google{
     width:100%; max-width:350px; min-height:420px; margin:4px auto 0; padding:16px 14px;
     background:#ffffff; color:#202124; border-radius:26px;
@@ -479,7 +476,6 @@
     font-size:11px; color:#1a0dab; font-weight:500; background:#fff;
   }
 
-  /* 4. Arayüz: Demografi + Cihazlar */
   .gender-row{display:flex; justify-content:space-between; font-size:12px; font-weight:600; margin-bottom:5px}
   .gender-bar{display:flex; height:10px; border-radius:999px; overflow:hidden; background:rgba(143,160,196,.18)}
   .g-female{background:linear-gradient(90deg,#ec4899,#f472b6); height:100%; transition:width .4s}
@@ -495,8 +491,7 @@
   .age-bar-wrap{width:100%; max-width:24px; flex:1; display:flex; align-items:flex-end; justify-content:center}
   .age-bar{
     width:100%; border-radius:4px 4px 2px 2px;
-    background:linear-gradient(180deg,#3b82f6,#1d4ed8); min-height:3px; transition:height .4s;
-  }
+    background:linear-gradient(180deg,#3b82f6,#1d4ed8); min-height:3px; transition:height .4s}
   .age-col.top-age .age-bar{background:linear-gradient(180deg,#22d3ee,#1a73e8); box-shadow:0 0 8px rgba(34,211,238,.4)}
   .age-lbl{font-size:10px; color:var(--muted); font-weight:500}
 
@@ -509,7 +504,6 @@
   .dev-fill.pc{background:var(--ads-yellow)}
   .dev-fill.tab{background:var(--ads-red)}
 
-  /* 5. Arayüz: Günün Saat Dilimlerine Göre Gerçek Dağılım */
   .hour-grid{display:grid; grid-template-columns:repeat(4,1fr); gap:6px; margin-bottom:12px}
   .hour-box{
     padding:8px 5px; border-radius:10px; border:1px solid rgba(120,150,220,.15);
@@ -520,7 +514,6 @@
   .hour-box b{display:block; margin-top:3px; font:700 15px 'Space Grotesk',sans-serif; color:#fff}
   .hour-bars{display:flex; flex-direction:column; gap:9px; margin-top:4px}
 
-  /* ---------- YER KAPLAMAYAN `yazi.txt` KATMANI ---------- */
   .floating-yazi-layer{
     position:fixed; left:0; right:0; bottom:max(14px,env(safe-area-inset-bottom));
     z-index:55; pointer-events:none; user-select:none; -webkit-user-select:none;
@@ -541,9 +534,6 @@
     23%, 100% { transform:translateX(120%); opacity:0; }
   }
 
-  /* =====================================================================
-     MODALLAR (1: BAKİYE YÜKLEME PENCERESİ, 2: OTO AÇ/KAPAT PENCERESİ)
-     ===================================================================== */
   .modal{
     position:fixed; inset:0; z-index:60; display:none; align-items:center; justify-content:center;
     padding:14px; background:rgba(3,6,16,.78); -webkit-backdrop-filter:blur(8px); backdrop-filter:blur(8px);
@@ -564,7 +554,6 @@
   }
   .modal-close:hover{color:#fff; border-color:var(--accent)}
 
-  /* Bakiye Modal İçeriği */
   .bal-summary-strip{
     display:flex; align-items:center; justify-content:space-between;
     padding:10px 12px; border-radius:11px; margin-bottom:10px;
@@ -607,7 +596,6 @@
   }
   .inp-tutar:focus{border-color:var(--accent2)}
 
-  /* Otomatik Aç/Kapat Modal İçeriği */
   .oto-row-box{
     display:flex; align-items:center; justify-content:space-between; gap:10px;
     padding:10px 12px; border-radius:11px; margin-bottom:12px;
@@ -664,7 +652,6 @@
 
 <canvas id="fx" aria-hidden="true"></canvas>
 
-<!-- ============ AÇILIŞ (İSKELET YÜKLEYİCİ) ============ -->
 <section id="bootScreen" class="screen center on">
   <div class="boot-wrap">
     <div class="boot-head">
@@ -687,7 +674,6 @@
   </div>
 </section>
 
-<!-- ============ GİRİŞ (8 HANELİ ANAHTAR KOD) ============ -->
 <section id="loginScreen" class="screen center" aria-labelledby="loginBaslik">
   <form id="pinForm" class="card" autocomplete="off" novalidate>
     <div class="logo-badge" aria-hidden="true">
@@ -706,7 +692,6 @@
   </form>
 </section>
 
-<!-- ============ ERİŞİM KAPALI ============ -->
 <section id="banScreen" class="screen center" aria-labelledby="banBaslik">
   <div class="card danger">
     <div class="icon-box red" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"><rect x="5" y="11" width="14" height="9" rx="2.5" stroke="#ef4444" stroke-width="1.7"/><path d="M8 11V8a4 4 0 018 0v3" stroke="#ef4444" stroke-width="1.7" stroke-linecap="round"/></svg></div>
@@ -715,7 +700,6 @@
   </div>
 </section>
 
-<!-- ============ ÖDEME KALKANI ============ -->
 <section id="lockScreen" class="screen center" aria-labelledby="lockBaslik">
   <div class="card danger" role="alertdialog" aria-labelledby="lockBaslik" aria-describedby="lockMetin">
     <div class="icon-box red" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"><path d="M12 9v4M12 17h.01M10.3 3.9L2.7 17a2 2 0 001.7 3h15.2a2 2 0 001.7-3L13.7 3.9a2 2 0 00-3.4 0z" stroke="#ef4444" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
@@ -726,7 +710,6 @@
   </div>
 </section>
 
-<!-- ============ HATA EKRANI ============ -->
 <section id="errScreen" class="screen center" aria-labelledby="errBaslik">
   <div class="card">
     <div class="icon-box blue" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"><path d="M3 3l18 18M8.5 8.5a10 10 0 0111.9 3M5.6 11.6a10 10 0 011.5-1.7M12 19h.01" stroke="#a5c3fb" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
@@ -740,10 +723,8 @@
   </div>
 </section>
 
-<!-- ============ ANA KOKPİT PANELİ ============ -->
 <main id="dashScreen" class="screen">
   <div class="wrap">
-    <!-- 1. GRUP: YATAY TEK SATIRLI KOMPAKT ÜST MENÜ -->
     <header class="top-bar">
       <div class="brand-side">
         <div class="badge" id="dashBas" aria-hidden="true">R</div>
@@ -757,20 +738,22 @@
       </div>
 
       <div class="actions-side">
-        <!-- BUTON 1: MEVCUT NET BAKİYE & BAKİYE YÜKLE (AÇILIR PENCERE) -->
-        <button type="button" class="top-action-btn bal-btn" id="btnBakiyeModalAc" aria-haspopup="dialog">
+        <button type="button" class="top-action-btn bal-btn" id="btnBakiyeModalAc" aria-haspopup="dialog" title="Mevcut Kullanılabilir Reklam Bakiyesi">
           <span class="bal-lbl">Mevcut Bakiye:</span>
           <b class="bal-val num" id="ustMevcutBakiye">₺0,00</b>
           <span class="bal-plus">+ Yükle</span>
         </button>
 
-        <!-- BUTON 2: OTOMATİK REKLAM AÇ / KAPAT (AÇILIR PENCERE) -->
+        <div class="alltime-pill" id="ustOmurMaliyetPill" title="Bu hesabın Google Ads kurulduğu günden beri harcadığı tüm zamanlar toplam bütçe">
+          <small>Toplam Harcanan Maliyet:</small>
+          <b class="num" id="ustOmurMaliyet">₺0,00</b>
+        </div>
+
         <button type="button" class="top-action-btn" id="btnOtoModalAc" aria-haspopup="dialog">
           <i class="oto-dot" id="ustOtoDot"></i>
           <span id="ustOtoMetin">Otomatik Aç/Kapat</span>
         </button>
 
-        <!-- MANUEL ANLIK REKLAM ŞALTERİ -->
         <div class="cmp-inline">
           <button type="button" id="btnYayinToggle" class="ad-toggle off" role="switch" aria-checked="false" aria-label="Kampanyayı Aç veya Duraklat"></button>
           <span class="cmp-text paused" id="yayinDurumMetni">Duraklatıldı</span>
@@ -797,7 +780,6 @@
       </div>
     </header>
 
-    <!-- BAKİYE 0 VEYA EKSİ OLDUĞUNDA ÇIKAN NET UYARI BANDI -->
     <div class="alert-bant" id="bakiyeUyariBant" role="alert" hidden>
       <span id="bakiyeUyariMetin">Bakiyeniz ₺0,00 olduğu için reklamınız duraklatılmıştır.</span>
       <button type="button" id="btnBantBakiyeYukle">+ Bakiye Yükle</button>
@@ -805,7 +787,6 @@
 
     <div class="demo-bant" id="demoBant" role="status" hidden>ÖRNEK VERİLERLE ÖNİZLEME: Bu rakamlar görünümü göstermek içindir.</div>
 
-    <!-- 2. GRUP: 5'Lİ KUTU DÜZENİ (ÜSTTE 3'LÜ, ALTTA ORT. TBM & TOPLAM MALİYET 2'Lİ GENİŞ) -->
     <div class="stats-5">
       <button class="stat top-3 click" id="btnTiklayanlar" type="button" aria-haspopup="dialog">
         <span class="lbl"><span>Tıklamalar</span><i class="dot-i"></i></span>
@@ -831,14 +812,12 @@
       <section class="stat bot-2 purple-top" aria-label="Toplam maliyet">
         <span class="lbl"><span>Toplam Maliyet</span><i class="dot-i"></i></span>
         <span class="val num" id="vMaliyet">₺0,00</span>
-        <span class="ft" id="ftMaliyet">Harcanan toplam reklam bütçesi</span>
+        <span class="ft" id="ftMaliyet">Seçili dönemde harcanan reklam bütçesi</span>
+        <span class="ft-extra" id="ftOmurMaliyet">Toplam Harcanan Maliyet: ₺0,00</span>
       </section>
     </div>
 
-    <!-- 3. GRUP: TÜM GOOGLE ADS ARAYÜZLERİ -->
     <div class="cockpit-grid">
-
-      <!-- ARAYÜZ 1: GOOGLE ADS ÇİFT ÇİZGİLİ PERFORMANS GRAFİĞİ -->
       <section class="panel-box wide" aria-label="Google Ads Performans Grafiği">
         <div>
           <div class="pane-head">
@@ -858,7 +837,6 @@
         <div class="ozet-bar" id="trendOzet">Veriler analiz ediliyor…</div>
       </section>
 
-      <!-- ARAYÜZ 2: KAMPANYALAR VE ANAHTAR KELİMELER PERFORMANS ÖZETİ -->
       <section class="panel-box" aria-label="Kampanyalar ve Anahtar Kelimeler">
         <div>
           <div class="pane-head">
@@ -892,7 +870,6 @@
         <div class="kw-cloud" id="chipList"></div>
       </section>
 
-      <!-- ARAYÜZ 3: GOOGLE ARAMA TEMSİLİ ŞABLONU -->
       <section class="panel-box" aria-label="Google Arama Temsili Şablonu">
         <div class="pane-head">
           <div>
@@ -946,7 +923,6 @@
         </div>
       </section>
 
-      <!-- ARAYÜZ 4: DEMOGRAFİ VE CİHAZLAR ARASI PERFORMANS -->
       <section class="panel-box" aria-label="Demografi ve Cihazlar">
         <div>
           <div class="pane-head">
@@ -983,7 +959,6 @@
         </div>
       </section>
 
-      <!-- ARAYÜZ 5: GÜNÜN SAAT DİLİMLERİNE GÖRE GERÇEK TIKLAMA DAĞILIMI -->
       <section class="panel-box" aria-label="Saat Dilimi Performansı">
         <div>
           <div class="pane-head">
@@ -997,17 +972,14 @@
         </div>
         <div class="ozet-bar" id="saatOzet">Saat verisi analiz ediliyor…</div>
       </section>
-
     </div>
   </div>
 
-  <!-- ============ YER KAPLAMAYAN `yazi.txt` KATMANI ============ -->
   <div class="floating-yazi-layer" aria-hidden="true">
     <div class="floating-yazi-pill" id="tickerMetin">SORUNUZ VARSA BANA ULAŞABİLİRSİNİZ 0534 595 74 44</div>
   </div>
 </main>
 
-<!-- ============ AÇILIR PENCERE 1: BAKİYE YÜKLEME MODALI ============ -->
 <div id="bakiyeModal" class="modal" role="dialog" aria-modal="true" aria-labelledby="bakiyeModalBaslik" aria-hidden="true">
   <div class="card">
     <div class="modal-hdr">
@@ -1020,7 +992,6 @@
       <b class="num" id="modalMevcutBakiye">₺0,00</b>
     </div>
 
-    <!-- EKSİ BAKİYE VARSA GÖSTERİLEN AÇIKLAMA KUTUSU -->
     <div class="mahsup-kutusu" id="eksiBakiyeBilgi" hidden></div>
 
     <label class="field-title" for="inpBakiyeTutar">Ne kadar bakiye yüklemek istiyorsunuz?</label>
@@ -1033,7 +1004,6 @@
 
     <input type="number" id="inpBakiyeTutar" class="inp-tutar num" min="50" step="50" placeholder="Tutarı yazın (Örn: 1000)">
 
-    <!-- CANLI YÜKLEME SONRASI NET BAKİYE ÖNİZLEMESİ -->
     <div class="net-onizleme-kutusu" id="netBakiyeOnizleme" hidden></div>
 
     <p id="bakiyeModalMsg" class="msg" role="status" aria-live="polite" hidden></p>
@@ -1043,7 +1013,6 @@
   </div>
 </div>
 
-<!-- ============ AÇILIR PENCERE 2: OTOMATİK REKLAM AÇ / KAPAT (7 GÜN VE SAAT) MODALI ============ -->
 <div id="otoModal" class="modal" role="dialog" aria-modal="true" aria-labelledby="otoModalBaslik" aria-hidden="true">
   <div class="card">
     <div class="modal-hdr">
@@ -1079,7 +1048,6 @@
       <button type="button" id="ortakSaatToggle" class="ad-toggle on" role="switch" aria-checked="true"></button>
     </div>
 
-    <!-- HEPSİ İÇİN GEÇERLİ SAAT KUTUSU -->
     <div id="ortakSaatKutu" class="time-pair-box">
       <div class="time-col">
         <label for="selGenelBas">Başlangıç Saati</label>
@@ -1091,7 +1059,6 @@
       </div>
     </div>
 
-    <!-- GÜNE ÖZEL SAAT SEÇİM LİSTESİ (Ortak Saat Kapatılınca Açılır) -->
     <div id="ozelSaatListesi" class="custom-days-list" hidden></div>
 
     <p id="otoModalMsg" class="msg" role="alert" aria-live="assertive" hidden></p>
@@ -1102,7 +1069,6 @@
   </div>
 </div>
 
-<!-- ============ TIKLAMA DETAY MODALI ============ -->
 <div id="tebrikModal" class="modal" role="dialog" aria-modal="true" aria-labelledby="tebrikBaslik" aria-hidden="true">
   <canvas id="confettiCanvas" aria-hidden="true"></canvas>
   <div class="card center-card">
@@ -1114,7 +1080,6 @@
   </div>
 </div>
 
-<!-- ============ BAĞLANTI YOK ============ -->
 <div id="offlineOverlay" class="overlay" role="alert" aria-live="assertive">
   <div class="card">
     <div class="icon-box blue" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"><path d="M3 3l18 18M8.5 8.5a10 10 0 0111.9 3M5.6 11.6a10 10 0 011.5-1.7M12 19h.01" stroke="#a5c3fb" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
@@ -1136,10 +1101,7 @@ setTimeout(function () {
 (function () {
 'use strict';
 
-/* =====================================================================
-   AYARLAR (v6.2 E-TABLO API KÖPRÜSÜ BAĞLANTISI)
-   ===================================================================== */
-var API_URL = 'https://script.google.com/macros/s/AKfycbyvtiULTB-iUe6u2_b8fXZ3LbY3mRAUS0csoHVEFRmpswFaglcqMr1gY2YsxA2FXuuXBw/exec';
+var API_URL = 'https://script.google.com/macros/s/AKfycby2ZNpeSdhHCYjF22wdiwPY9QrYthSD7hCXDzC1xidRks5DkxbGqnMu-Nqb47KeDbAz0Q/exec';
 var VARSAYILAN_ALT_YAZI = 'SORUNUZ VARSA BANA ULAŞABİLİRSİNİZ 0534 595 74 44';
 var VARSAYILAN_OTO_PLAN = '1;08:00-21:00;1,2,3,4,5,6,7;1=08:00-21:00,2=08:00-21:00,3=08:00-21:00,4=08:00-21:00,5=08:00-21:00,6=09:00-21:00,7=10:00-21:00';
 
@@ -1151,19 +1113,15 @@ var YENIDEN_DENEME   = 1;
 var YENILEME_ESIGI   = 15 * 60 * 1000;
 var BEKCI_MS         = 26000;
 
-var LS = { oturum: 'pnl_oturum', deneme: 'pnl_deneme', ban: 'pnl_ban', veri: 'pnl_veri_v16' };
+var LS = { oturum: 'pnl_oturum', deneme: 'pnl_deneme', ban: 'pnl_ban', veri: 'pnl_veri_v30' };
 var TOK_DESEN = /^\d{9,14}\.[0-9a-f]{64}$/;
-var VERI_SEMA = 16;
+var VERI_SEMA = 30;
 
 var GUN_ADLARI = {
   '1': 'Pazartesi', '2': 'Salı', '3': 'Çarşamba', '4': 'Perşembe',
   '5': 'Cuma', '6': 'Cumartesi', '7': 'Pazar'
 };
 
-/* =====================================================================
-   81 İL PLAKA SÖZLÜĞÜ VE 7 İŞLETME OTOMASYON MOTORU
-   (1: Taksi, 2: Rent a Car, 3: Oto Çekici, 4: Çilingir, 5: Halı, 6: Berber, 7: Dershane)
-   ===================================================================== */
 var PLAKALAR = {
   '01':'Adana','02':'Adıyaman','03':'Afyonkarahisar','04':'Ağrı','05':'Amasya','06':'Ankara','07':'Antalya','08':'Artvin','09':'Aydın','10':'Balıkesir',
   '11':'Bilecik','12':'Bingöl','13':'Bitlis','14':'Bolu','15':'Burdur','16':'Bursa','17':'Çanakkale','18':'Çankırı','19':'Çorum','20':'Denizli',
@@ -1221,9 +1179,6 @@ function kimlikCozumle(id, apiSektor) {
   return { plaka: plaka, sehir: sehir, sektor: sektor, arama: arama };
 }
 
-/* =====================================================================
-   YARDIMCILAR (EKSİ BAKİYEYİ `-₺88,00` OLARAK NET GÖSTERİR)
-   ===================================================================== */
 function $(id) { return document.getElementById(id); }
 var QS = new URLSearchParams(location.search);
 var DEBUG = QS.get('debug') === '1';
@@ -1271,9 +1226,6 @@ function tarihSaniyeliYaz(s) {
 
 function PanelHata(kod, mesaj, detay) { this.kod = kod; this.mesaj = mesaj; this.detay = detay || ''; }
 
-/* =====================================================================
-   DOĞRUDAN UYGULAMA İNDİRME MANTIĞI
-   ===================================================================== */
 var kurulumOlayi = null;
 function standaloneMu() {
   try {
@@ -1303,9 +1255,6 @@ function kurulumTetikle() {
   }
 }
 
-/* =====================================================================
-   EKRAN YÖNETİMİ
-   ===================================================================== */
 var EKRANLAR = ['bootScreen', 'loginScreen', 'banScreen', 'lockScreen', 'errScreen', 'dashScreen'];
 var bekciZamanlayici = null;
 function goster(ad) {
@@ -1321,9 +1270,6 @@ function goster(ad) {
 }
 function bootMetni(t) { $('bootText').textContent = t; }
 
-/* =====================================================================
-   GÜVENLİK
-   ===================================================================== */
 var durduruldu = false;
 function botMu() { var h = $('hpAlan'); return !!(h && h.value); }
 function botDurdur() {
@@ -1346,9 +1292,6 @@ if (!DEBUG) {
   }, true);
 }
 
-/* =====================================================================
-   CANVAS ARKA PLAN AĞAÇ DALLARI
-   ===================================================================== */
 function parcaciklariBaslat() {
   var cv = $('fx'); var ctx = cv && cv.getContext && cv.getContext('2d');
   if (!ctx) { return; }
@@ -1414,9 +1357,6 @@ function parcaciklariBaslat() {
   (function dongu() { if (!document.hidden) { ciz(true); } window.requestAnimationFrame(dongu); })();
 }
 
-/* =====================================================================
-   `yazi.txt` DOSYASINDAN HABER METNİNİ OKUMA
-   ===================================================================== */
 async function altYaziYukle() {
   var el = $('tickerMetin');
   try {
@@ -1432,9 +1372,6 @@ async function altYaziYukle() {
   el.textContent = VARSAYILAN_ALT_YAZI;
 }
 
-/* =====================================================================
-   API İLETİŞİMİ VE VERİ DÜZENLEME (EKSİ BAKİYEYİ GİZLEMEZ)
-   ===================================================================== */
 function apiAyarliMi() { return API_URL && API_URL.indexOf('BURAYA_') === -1 && /^https:\/\//.test(API_URL); }
 
 async function apiCagir(id, kimlik, ekParam) {
@@ -1485,7 +1422,11 @@ function duzenle(v) {
   if (hamMaliyet <= 0 && hamTbm > 0 && tik > 0) { hamMaliyet = Number((hamTbm * tik).toFixed(2)); }
   var toHesap = gos > 0 ? Number((tik / gos * 100).toFixed(2)) : 0;
 
-  // KRİTİK DÜZELTME: Math.max(0, ...) YOK! Eksi bakiye (-88 TL) neyse kuruşu kuruşuna korunur.
+  var omurMaliyetHam = (bk.referans_maliyet !== undefined && n(bk.referans_maliyet) > 0)
+    ? n(bk.referans_maliyet)
+    : (v.omur_maliyet !== undefined ? n(v.omur_maliyet) : hamMaliyet);
+  var omurMaliyet = Number(omurMaliyetHam.toFixed(2));
+
   var mevcutBakiye = bk.mevcut !== undefined ? Number(n(bk.mevcut).toFixed(2)) : Number(n(bk.kalan_limit).toFixed(2));
   var paketToplam = bk.paket !== undefined ? Number(n(bk.paket).toFixed(2)) : Number(n(bk.limit).toFixed(2));
   var bakiyeBitti = (bk.bakiye_bitti !== undefined) ? Boolean(bk.bakiye_bitti) : (mevcutBakiye <= 0);
@@ -1518,6 +1459,7 @@ function duzenle(v) {
     otoAcik: otoAcik,
     otoPlan: otoPlanMetni,
     sektor: String(v.sektor || ''),
+    omurMaliyet: omurMaliyet,
     bakiye: {
       mevcut: mevcutBakiye,
       paket: paketToplam,
@@ -1555,9 +1497,6 @@ function duzenle(v) {
   };
 }
 
-/* =====================================================================
-   OTURUM / ÖNBELLEK / BAN
-   ===================================================================== */
 function oturumuOku() {
   try { var o = JSON.parse(depo.al(LS.oturum) || 'null'); if (o && o.id && TOK_DESEN.test(String(o.tok || ''))) { return { id: String(o.id), tok: String(o.tok) }; } } catch (e) {}
   return null;
@@ -1583,9 +1522,6 @@ function banliMi() {
 }
 function denemeSayisi() { return parseInt(depo.al(LS.deneme) || '0', 10) || 0; }
 
-/* =====================================================================
-   VERİ YÜKLEME VE GİRİŞ AKIŞI
-   ===================================================================== */
 var son = null, sonYukleme = 0, aktifOturum = null, oturumNesil = 0;
 var seciliDonem = 30;
 var komutTakipZamanlayici = null;
@@ -1711,9 +1647,6 @@ function cikis() {
   goster('loginScreen');
 }
 
-/* =====================================================================
-   ÜST BAR BAKİYE, UYARI BANDI, ŞALTER VE 2 AÇILIR PENCERE (MODAL) SİSTEMİ
-   ===================================================================== */
 function yayinArayuzGuncelle(acik, bekliyor, hedefKomut, siraBekliyor) {
   var btn = $('btnYayinToggle'), txt = $('yayinDurumMetni');
   var box = $('pgTargetBox');
@@ -1752,7 +1685,10 @@ function ustBarBakiyeVeOtoGuncelle(v) {
   $('btnBakiyeModalAc').classList.toggle('bitti', bittiMi);
   $('modalBakiyeSerit').classList.toggle('eksi', bittiMi);
 
-  // Bakiye 0 veya eksi ise üstte net uyarı bandını göster
+  var omurMaliyetStr = fmtPara(v.omurMaliyet || 0);
+  $('ustOmurMaliyet').textContent = omurMaliyetStr;
+  $('ftOmurMaliyet').textContent = 'Toplam Harcanan Maliyet: ' + omurMaliyetStr;
+
   var uyariBant = $('bakiyeUyariBant'), uyariMetin = $('bakiyeUyariMetin');
   if (bittiMi) {
     uyariBant.hidden = false;
@@ -1815,7 +1751,6 @@ async function yayinDegistir() {
   var suAnAcikMi = son.komutSiraBekliyor ? (son.hedefKomut === 'ACIK') : son.yayinAcik;
   var yeniKomut = suAnAcikMi ? 'DURAKLATILDI' : 'ACIK';
 
-  // Bakiye 0 veya eksi ise şalterin bozuk sanılmaması için anında Bakiye penceresini açıp net uyarı göster
   if (yeniKomut === 'ACIK' && son.bakiye.mevcut <= 0) {
     bakiyeModalAc('⚠️ Bakiyeniz ' + fmtPara(son.bakiye.mevcut) + ' olduğu için reklam başlatılamaz! Lütfen önce bakiye yükleyin.');
     return;
@@ -1858,7 +1793,6 @@ async function yayinDegistir() {
   }
 }
 
-/* ---- AÇILIR PENCERE 1: BAKİYE YÜKLEME İŞLEMLERİ (1000 / 2500 / 8000 + EKSİ MAHSUP) ---- */
 function bakiyeCanliOnizlemeGuncelle() {
   if (!son) { return; }
   var girilen = Math.max(0, n($('inpBakiyeTutar').value));
@@ -1990,7 +1924,6 @@ async function bakiyeYukleOnayla() {
   }
 }
 
-/* ---- AÇILIR PENCERE 2: OTOMATİK AÇ/KAPAT (7 GÜN + ORTAK VEYA GÜNE ÖZEL SAAT) ---- */
 var saatSecenekHtml = '';
 (function saatListesiOlustur() {
   var h = '';
@@ -2180,7 +2113,6 @@ async function otoPlanKaydet() {
     return;
   }
 
-  // Bakiye 0 veya eksi iken Otomatik Başlatma AÇIK olarak kaydedilemez; net uyarı göster
   if (duzenlenenPlan.aktif && son.bakiye.mevcut <= 0) {
     duzenlenenPlan.aktif = false;
     otoModalArayuzYenile();
@@ -2244,9 +2176,6 @@ async function otoPlanKaydet() {
   }
 }
 
-/* =====================================================================
-   DEMO VERİSİ VE BAŞLATMA
-   ===================================================================== */
 function demoVeri() {
   var hamTik = [0,0,4,2,5,0,1,7,8,6,5,9,11,4,0,6,12,18,14,9,11,15,22,19,8,14,10,6,2,4];
   var hamGos = [0,3,61,28,51,0,3,74,89,62,55,94,112,45,0,68,124,182,141,92,108,149,215,180,79,110,59,30,15,38];
@@ -2263,7 +2192,8 @@ function demoVeri() {
   return {
     ok: true, durum: true, yayin_komutu: 'DURAKLATILDI', kampanya_durumu: 'DURAKLATILDI', komut_bekliyor: false,
     oto_baslat: 'KAPALI', oto_plan: VARSAYILAN_OTO_PLAN, sektor: '',
-    bakiye: { mevcut: -88.00, paket: 1000.00, harcanan: 1088.00, durum: 'BAKIYE_BITTI', bakiye_bitti: true },
+    omur_maliyet: 108420.50,
+    bakiye: { mevcut: -88.00, paket: 1000.00, harcanan: 1088.00, durum: 'BAKIYE_BITTI', bakiye_bitti: true, referans_maliyet: 108420.50 },
     id: URL_ID || 'taksi_44_1', isletme: 'Şahin Taksi', telefon: '0534 595 74 44',
     gosterim: 1979, tiklanma: 210, to: 10.61,
     maliyet: 4080.30, tbm: 19.43, aramalar: 0,
@@ -2331,9 +2261,6 @@ function tazeleGerekirse() {
   }
 }
 
-/* =====================================================================
-   PANEL ÇİZİMİ VE DÖNEM HESAPLAMALARI (GÜNLÜK / 7 GÜN / 30 GÜN)
-   ===================================================================== */
 function sayarakYukselt(el, hedef, sure, animasyon) {
   var jeton = (el._jeton = (el._jeton || 0) + 1);
   if (animasyon === false || hareketAzalt() || hedef <= 0) { el.textContent = fmt(hedef); return; }
@@ -2426,7 +2353,6 @@ function panoyuCiz(v, sessiz) {
   kurulumButonDurumu();
 }
 
-/* ---- ARAYÜZ 1: GOOGLE ADS ÇİFT ÇİZGİLİ GRAFİK ---- */
 var trendGrafik = null, chartYuklemeBekliyor = false;
 function googleAdsGrafikCiz(v, gunSayisi) {
   var canvas = $('trendCanvas');
@@ -2579,7 +2505,6 @@ function googleAdsGrafikCiz(v, gunSayisi) {
   });
 }
 
-/* ---- ARAYÜZ 2: KAMPANYALAR VE ARAMA TERİMLERİ LİSTESİ ---- */
 function kampanyaListesiCiz(v, m) {
   var info = kimlikCozumle(v.id || URL_ID, v.sektor);
   var kg = $('kampanyaListeGovde');
@@ -2628,14 +2553,12 @@ function kampanyaListesiCiz(v, m) {
   });
 }
 
-/* ---- ARAYÜZ 3: GOOGLE ARAMA TEMSİLİ ŞABLONU ---- */
 function onizlemeCiz(v, info) {
   $('onizlemeAltBaslik').textContent = info.sehir + ' (' + info.plaka + ') bölgesinde "' + info.arama + '" araması görünümü';
   var ilkKelime = v.kelimeler.length ? v.kelimeler[0].split(':')[0] : info.arama;
   $('phoneQuery').textContent = ilkKelime;
 }
 
-/* ---- ARAYÜZ 4: DEMOGRAFİ VE CİHAZLAR ---- */
 function demografiVeCihazCiz(v) {
   var kadin = n(v.demografi.kadin), erkek = n(v.demografi.erkek);
   $('txtKadin').textContent = '👩 Kadın %' + kadin;
@@ -2670,7 +2593,6 @@ function demografiVeCihazCiz(v) {
   $('txtTablet').textContent = '%' + tY; $('barTablet').style.width = tY + '%';
 }
 
-/* ---- ARAYÜZ 5: GÜNÜN SAAT DİLİMLERİNE GÖRE GERÇEK DAĞILIM ---- */
 function saatDilimleriCiz(v) {
   var saatAdlar = ['00:00 - 06:00 (Gece)', '06:00 - 12:00 (Sabah)', '12:00 - 18:00 (Öğle)', '18:00 - 24:00 (Akşam)'];
   var kisaAdlar = ['00-06 Gece', '06-12 Sabah', '12-18 Öğle', '18-24 Akşam'];
@@ -2698,9 +2620,6 @@ function saatDilimleriCiz(v) {
   $('saatOzet').innerHTML = '<span>En yoğun saat dilimi: <b>' + enYogunDilim + '</b></span>';
 }
 
-/* =====================================================================
-   DETAY MODALI
-   ===================================================================== */
 var konfetiSurum = 0;
 function tebrikAc() {
   if (!son) { return; }
@@ -2714,7 +2633,6 @@ function tebrikKapat() {
   var m = $('tebrikModal'); m.classList.remove('on'); m.setAttribute('aria-hidden', 'true'); konfetiSurum++;
 }
 
-/* ---- GÜVENLİ BAĞLANTI ROZETİNE 10 KEZ TIKLAYINCA GİZLİ ÇIKIŞ ---- */
 var gizliTikSayisi = 0, gizliTikZamanlayici = null;
 $('btnGuvenli').addEventListener('click', function () {
   gizliTikSayisi++;
@@ -2727,16 +2645,12 @@ $('btnGuvenli').addEventListener('click', function () {
   gizliTikZamanlayici = setTimeout(function () { gizliTikSayisi = 0; }, 1800);
 });
 
-/* =====================================================================
-   OLAY DİNLEYİCİLERİ VE BAŞLATMA
-   ===================================================================== */
 $('pinInput').addEventListener('input', function (e) { e.target.value = e.target.value.replace(/\D/g, '').slice(0, PIN_UZUNLUGU); pinNoktalari(); if (e.target.value.length < PIN_UZUNLUGU) { girisMesaji('', ''); } });
 $('pinForm').addEventListener('submit', function (e) { e.preventDefault(); girisDene(); });
 $('hpAlan').addEventListener('input', botDurdur);
 $('btnYenile').addEventListener('click', yenile);
 $('btnYayinToggle').addEventListener('click', yayinDegistir);
 
-/* Modal 1: Bakiye Yükleme Dinleyicileri */
 $('btnBakiyeModalAc').addEventListener('click', function () { bakiyeModalAc(); });
 $('btnBantBakiyeYukle').addEventListener('click', function () { bakiyeModalAc(); });
 $('btnBakiyeKapat').addEventListener('click', bakiyeModalKapat);
@@ -2755,7 +2669,6 @@ for (var q = 0; q < hizliTutarBtnler.length; q++) {
   });
 }
 
-/* Modal 2: Otomatik Aç/Kapat (7 Gün ve Saat) Dinleyicileri */
 $('btnOtoModalAc').addEventListener('click', otoModalAc);
 $('btnOtoKapat').addEventListener('click', otoModalKapat);
 $('btnOtoUstKapat').addEventListener('click', otoModalKapat);
@@ -2828,7 +2741,7 @@ parcaciklariBaslat();
 
 if ('serviceWorker' in navigator && location.protocol.indexOf('http') === 0) {
   window.addEventListener('load', function () {
-    navigator.serviceWorker.register('sw.js?v=6.2').then(function (reg) {
+    navigator.serviceWorker.register('sw.js?v=6.3').then(function (reg) {
       try { reg.update(); } catch (e) {}
     }).catch(function () {});
   });
