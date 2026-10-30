@@ -413,7 +413,6 @@
     color:#fff; font-size:10px; font-family:'Space Grotesk',sans-serif;
   }
 
-  /* KUSURSUZ GERÇEK REKLAM KUTUSU */
   .real-ad-box {
     background: #ffffff;
     border-radius: 14px;
@@ -473,11 +472,6 @@
     border: 1px solid #e8eaed;
   }
   .real-ad-loc svg { width: 16px; height: 16px; fill: currentColor; }
-  .real-ad-empty {
-    font-size: 13px;
-    color: #ef4444;
-    font-style: italic;
-  }
 
   .gender-row{display:flex; justify-content:space-between; font-size:12px; font-weight:600; margin-bottom:5px}
   .gender-bar{display:flex; height:10px; border-radius:999px; overflow:hidden; background:rgba(143,160,196,.18)}
@@ -885,8 +879,8 @@
           <div class="real-ad-sponsor">
             <strong>Sponsorlu</strong>
           </div>
-          <div class="real-ad-title" id="gercekAdBaslik">Reklam Başlığı Yükleniyor...</div>
-          <div class="real-ad-desc" id="gercekAdAciklama">Reklam açıklaması Google Ads API üzerinden çekiliyor...</div>
+          <div class="real-ad-title" id="gercekAdBaslik">Reklam Başlığı Bekleniyor</div>
+          <div class="real-ad-desc" id="gercekAdAciklama">Açıklama Google Ads üzerinden çekiliyor...</div>
           <div class="real-ad-loc">
             <svg viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
             <span id="gercekAdLokasyon">Türkiye</span>
@@ -1582,7 +1576,7 @@ function yayinArayuzGuncelle(acik, bekliyor, hedefKomut, siraBekliyor) {
     txt.textContent = (hedefKomut === 'ACIK') ? 'Başlatılıyor…' : 'Duraklatılıyor…';
     txt.className = 'cmp-text wait';
   } else if (siraBekliyor) {
-    txt.textContent = (hedefKomut === 'ACIK') ? 'Komut: Başlatılıyor' : 'Komut: Duraklatılıyor';
+    txt.textContent = (hedefKomut === 'ACIK') ? 'Başlatılıyor…' : 'Duraklatılıyor…';
     txt.className = 'cmp-text wait';
   } else if (acik) {
     txt.textContent = 'Yayında';
@@ -1680,6 +1674,7 @@ async function yayinDegistir() {
     son.otoAcik = false;
     ustBarBakiyeVeOtoGuncelle(son);
   }
+
   yayinArayuzGuncelle(son.yayinAcik, true, yeniKomut, false);
 
   if (DEMO || !aktifOturum || !aktifOturum.tok) {
@@ -2071,7 +2066,9 @@ async function otoPlanKaydet() {
       if (yanit.yayin_komutu) {
         son.hedefKomut = yanit.yayin_komutu;
         son.komutBekliyor = true;
+        
         yayinArayuzGuncelle(son.yayinAcik, true, son.hedefKomut, false);
+        
         canliKomutTakibiBaslat(son.hedefKomut);
       }
       onbellekYaz(son);
@@ -2266,6 +2263,7 @@ function panoyuCiz(v, sessiz) {
   var lokasyon = v.gercek_lokasyon || 'Türkiye';
   var kampanyaKisa = v.gercek_kampanya_adi || 'Reklam Kampanyası';
   $('dashSehirEtiket').textContent = lokasyon + ' · ' + kampanyaKisa;
+  
   $('dashGuncellemeUst').textContent = 'Son güncelleme: ' + tarihSaniyeliYaz(v.guncelleme);
 
   yayinArayuzGuncelle(v.yayinAcik, v.komutBekliyor, v.hedefKomut, v.komutSiraBekliyor);
