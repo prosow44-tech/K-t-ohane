@@ -332,7 +332,6 @@
     color: #fff; font-size: 10px; font-family: 'Space Grotesk', sans-serif;
   }
 
-  /* YENİ: Uydurma Olmayan Tam Gerçek Google Arama Kartı */
   .real-ad-box {
     background: #ffffff; border-radius: 14px; padding: 16px 18px; text-align: left;
     color: #202124; font-family: Arial, sans-serif; border: 1px solid #dadce0;
@@ -498,7 +497,7 @@
     <div class="logo-badge" aria-hidden="true">
       <svg viewBox="0 0 24 24" fill="none"><path d="M4 18V9M10 18V5M16 18v-7M22 18H2" stroke="#fff" stroke-width="2" stroke-linecap="round"/></svg>
     </div>
-    <h1>Reklam Paneline Hoş Geldiniz</h1>
+    <h1 id="loginMusteriAd">Reklam Paneline Hoş Geldiniz</h1>
     <p class="lead">Size verilen <b>8 haneli anahtar kodu</b> girin.</p>
     <input id="pinInput" class="pin" type="text" inputmode="numeric" pattern="[0-9]*" maxlength="8" autocomplete="off" placeholder="8 haneli kod">
     <div class="dots" id="pinDots"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
@@ -782,18 +781,13 @@
 (function () {
 'use strict';
 
-// ------------------------------------------------------------------
-// URL AYARI: Code.gs YENİ DAĞITIM URL'nizi Buraya Yapıştırın:
+// ====================================================================
+// YENİ KURULUM URL'NİZİ BURAYA YAPIŞTIRIN
 var API_URL = 'https://script.google.com/macros/s/AKfycbwWAfM1I06F79Z3aUXxg-lU7Q28VSgpOW9h0f_VB01wNYihGCzIuiqygXpTXx6a0nFy/exec';
-// ------------------------------------------------------------------
+// ====================================================================
 
-var PIN_UZUNLUGU = 8;
-var YENILEME_ESIGI = 15 * 60 * 1000;
-var LS = { oturum: 'pnl_oturum_v8', deneme: 'pnl_den_v8', veri: 'pnl_veri_v8' };
-
+var LS = { oturum: 'pnl_oturum_v8', deneme: 'pnl_den_v8' };
 function $(id) { return document.getElementById(id); }
-var QS = new URLSearchParams(location.search);
-var URL_ID = String(QS.get('id') || '').trim();
 
 var depo = {
   al: function (k) { try { return localStorage.getItem(k); } catch (e) { return null; } },
@@ -836,8 +830,12 @@ async function apiCagir(id, kimlik, ekParam) {
   var url = API_URL + '?id=' + encodeURIComponent(id || '') +
             (kimlik.tok ? '&tok=' + encodeURIComponent(kimlik.tok) : '&pin=' + encodeURIComponent(kimlik.pin)) +
             (ekParam ? ekParam : '') + '&_t=' + Date.now();
-  var yanit = await fetch(url, { cache: 'no-store' });
-  return await yanit.json();
+  try {
+    var yanit = await fetch(url, { cache: 'no-store' });
+    return await yanit.json();
+  } catch(e) {
+    return { ok: false, mesaj: "Bağlantı hatası oluştu." };
+  }
 }
 
 function duzenle(v) {
@@ -863,27 +861,40 @@ function duzenle(v) {
   };
 }
 
-async function veriYukle(id, kimlik) {
-  var ham = await apiCagir(id, kimlik, '');
+function inputPinGuncelle() {
+  var l = $('pinInput').value.replace(/\D/g, '').length;
+  var d = $('pinDots').children;
+  for (var i = 0; i < d.length; i++) d[i].classList.toggle('on', i < l);
+  $('pinBtn').disabled = l !== 8;
+}
+$('pinInput').addEventListener('input', function (e) {
+  e.target.value = e.target.value.replace(/\D/g, '').slice(0, 8);
+  inputPinGuncelle();
+});
+
+$('pinForm').addEventListener('submit', async function (e) {
+  e.preventDefault();
+  var pin = $('pinInput').value.replace(/\D/g, '');
+  if (pin.length !== 8) return;
+  
+  $('pinBtn').textContent = 'Kontrol ediliyor...';
+  $('pinBtn').disabled = true;
+  
+  var ham = await apiCagir("", { pin: pin }, "");
+  
+  $('pinBtn').textContent = 'Giriş Yap';
+  $('pinBtn').disabled = false;
+
   if (ham.ok) {
     sonVeri = duzenle(ham);
-    aktifOturum = { id: sonVeri.id, tok: ham.tok || kimlik.tok };
+    aktifOturum = { id: sonVeri.id, tok: ham.tok };
     depo.yaz(LS.oturum, JSON.stringify(aktifOturum));
+    $('pinInput').value = ""; inputPinGuncelle();
     panoyuCiz(sonVeri);
     goster('dashScreen');
   } else {
-    goster('loginScreen');
-    $('pinMsg').textContent = ham.mesaj || 'Hata oluştu.';
+    $('pinMsg').textContent = ham.mesaj || 'Anahtar kod hatalı.';
     $('pinMsg').className = 'msg err';
-  }
-}
-
-$('pinForm').addEventListener('submit', function (e) {
-  e.preventDefault();
-  var pin = $('pinInput').value.replace(/\D/g, '');
-  if (pin.length === 8) {
-    $('pinBtn').textContent = 'Kontrol ediliyor...';
-    veriYukle(URL_ID, { pin: pin });
   }
 });
 
@@ -891,18 +902,14 @@ function yayinArayuzGuncelle(v) {
   var btn = $('btnYayinToggle'), txt = $('yayinDurumMetni'), adBox = $('gercekReklamKutusu');
   var acik = v.hedefKomut === 'ACIK';
   var siraBekliyor = (v.hedefKomut !== v.kampanyaDurumu);
-  var koptuMu = gecikmeHesapla(v.guncelleme) > 35; // 35 Dk kuralı
+  var koptuMu = gecikmeHesapla(v.guncelleme) > 35;
 
   btn.classList.toggle('on', acik);
   btn.classList.toggle('off', !acik);
   if (adBox) adBox.classList.toggle('paused', !acik);
 
   if (siraBekliyor) {
-    if (koptuMu) {
-      txt.textContent = 'Komut Sıraya Alındı (Ads Bekleniyor)';
-    } else {
-      txt.textContent = acik ? 'Başlatılıyor…' : 'Duraklatılıyor…';
-    }
+    txt.textContent = koptuMu ? 'Komut Sıraya Alındı (Ads Bekleniyor)' : (acik ? 'Başlatılıyor…' : 'Duraklatılıyor…');
     txt.className = 'cmp-text wait';
   } else if (acik) {
     txt.textContent = 'Yayında'; txt.className = 'cmp-text active';
@@ -957,8 +964,10 @@ function canliKomutTakibiBaslat(istenenKomut) {
 }
 
 function panoyuCiz(v) {
-  $('dashIsletme').textContent = v.gercekAd;
-  $('dashBas').textContent = v.gercekAd.slice(0,2).toUpperCase();
+  // Sektör uydurma bitti. Gerçek Adı Kullan:
+  $('loginMusteriAd').textContent = v.isletme;
+  $('dashIsletme').textContent = v.isletme;
+  $('dashBas').textContent = v.isletme.slice(0,2).toUpperCase();
   $('dashSehirEtiket').textContent = v.gercekLokasyon;
   $('dashGuncellemeUst').textContent = 'Son güncelleme: ' + tarihSaniyeliYaz(v.guncelleme);
 
@@ -1010,7 +1019,10 @@ function donemSec(gun) {
 }
 
 $('btnYayinToggle').addEventListener('click', yayinDegistir);
-$('btnYenile').addEventListener('click', function() { veriYukle(URL_ID, { tok: aktifOturum.tok }); });
+$('btnYenile').addEventListener('click', async function() { 
+  var ham = await apiCagir(aktifOturum.id, { tok: aktifOturum.tok }, "");
+  if(ham.ok) panoyuCiz(duzenle(ham));
+});
 
 $('dBtn1').addEventListener('click', function() { donemSec(1); });
 $('dBtn7').addEventListener('click', function() { donemSec(7); });
@@ -1018,6 +1030,14 @@ $('dBtn30').addEventListener('click', function() { donemSec(30); });
 
 $('btnBakiyeModalAc').addEventListener('click', function() { 
   $('modalMevcutBakiye').textContent = fmtPara(sonVeri.bakiye.mevcut);
+  
+  if (sonVeri.bakiye.mevcut < 0) {
+    $('eksiBakiyeBilgi').hidden = false;
+    $('eksiBakiyeBilgi').textContent = "Eksi bakiyeniz ("+fmtPara(sonVeri.bakiye.mevcut)+") yeni yüklemenizden düşülecektir.";
+  } else {
+    $('eksiBakiyeBilgi').hidden = true;
+  }
+  
   $('bakiyeModal').classList.add('on'); 
 });
 $('btnBantBakiyeYukle').addEventListener('click', function() { $('btnBakiyeModalAc').click(); });
@@ -1044,8 +1064,17 @@ hizliBtnler.forEach(btn => btn.addEventListener('click', function() {
 }));
 
 var o = JSON.parse(depo.al(LS.oturum) || 'null');
-if (o && URL_ID && o.id === URL_ID && o.tok) {
-  veriYukle(o.id, { tok: o.tok });
+if (o && o.tok) {
+  goster('bootScreen');
+  apiCagir(o.id, { tok: o.tok }, "").then(ham => {
+    if(ham.ok) {
+      sonVeri = duzenle(ham);
+      panoyuCiz(sonVeri);
+      goster('dashScreen');
+    } else {
+      goster('loginScreen');
+    }
+  });
 } else {
   goster('loginScreen');
 }
