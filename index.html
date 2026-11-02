@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Reklam Performans Paneli</title>
-<meta name="description" content="Google Ads reklam performansınızı takip edin.">
+<meta name="description" content="Google Ads reklam performansınızı canlı takip edin.">
 <meta name="theme-color" content="#050914">
 <meta name="robots" content="noindex, nofollow">
 <meta name="referrer" content="no-referrer">
@@ -27,7 +27,7 @@
     --accent:#1a73e8; --accent2:#22d3ee; --pale:#a5c3fb; --deep:#1e3a8a;
     --ads-blue:#1a73e8; --ads-red:#d93025; --ads-yellow:#fbbc04; --ads-green:#1e8e3e;
     --ads-purple:#9334e6; --ads-cyan:#12b5cb;
-    --good:#22c55e; --bad:#ef4444;
+    --good:#22c55e; --bad:#ef4444; --warn:#f59e0b;
     --r-lg:16px; --r-md:12px;
   }
   *{box-sizing:border-box}
@@ -81,14 +81,18 @@
   .btn.success{color:#fff; background:linear-gradient(155deg,#16a34a,#15803d); box-shadow:0 8px 22px rgba(22,163,74,.35)}
   .btn.ghost{background:transparent; border:1px solid var(--line); color:var(--pale)}
   .btn + .btn{margin-top:8px}
-  .msg{min-height:18px; margin:6px 0 10px; font-size:12.5px; color:var(--muted)}
+  .msg{min-height:18px; margin:6px 0 10px; font-size:12.5px; color:var(--muted); line-height:1.45}
   .msg.err{
     color:#fecaca; background:rgba(239,68,68,.16); border:1px solid rgba(239,68,68,.45);
-    padding:8px 10px; border-radius:9px; font-weight:500;
+    padding:9px 11px; border-radius:9px; font-weight:500;
   }
   .msg.ok{
     color:#bbf7d0; background:rgba(34,197,94,.15); border:1px solid rgba(34,197,94,.4);
-    padding:8px 10px; border-radius:9px; font-weight:500;
+    padding:9px 11px; border-radius:9px; font-weight:500;
+  }
+  .msg.warn{
+    color:#fde68a; background:rgba(245,158,11,.16); border:1px solid rgba(245,158,11,.45);
+    padding:9px 11px; border-radius:9px; font-weight:500;
   }
 
   .boot-wrap{width:100%; max-width:500px; padding:14px}
@@ -139,9 +143,7 @@
     background:rgba(11,19,40,.92); -webkit-backdrop-filter:blur(10px); backdrop-filter:blur(10px);
     margin-bottom:7px;
   }
-  .brand-side{
-    display:flex; align-items:center; gap:9px; min-width:0; flex:1 1 auto;
-  }
+  .brand-side{display:flex; align-items:center; gap:9px; min-width:0; flex:1 1 auto}
   .badge{
     width:36px; height:36px; flex:none; border-radius:9px; display:grid; place-items:center;
     font:700 14px 'Space Grotesk',sans-serif; background:linear-gradient(155deg,var(--accent),var(--deep));
@@ -163,9 +165,7 @@
     white-space:nowrap; overflow:hidden; text-overflow:ellipsis;
   }
 
-  .actions-side{
-    display:flex; align-items:center; gap:6px; flex-wrap:wrap; flex:none;
-  }
+  .actions-side{display:flex; align-items:center; gap:6px; flex-wrap:wrap; flex:none}
 
   .top-action-btn{
     display:inline-flex; align-items:center; gap:6px; height:34px; padding:0 10px;
@@ -190,8 +190,10 @@
     padding:2px 6px; border-radius:5px; background:rgba(34,197,94,.25);
     color:#86efac; font-size:10px; font-weight:700;
   }
-  .top-action-btn.bal-btn.bitti .bal-plus{
-    background:rgba(239,68,68,.35); color:#fecaca;
+  .top-action-btn.bal-btn.bitti .bal-plus{background:rgba(239,68,68,.35); color:#fecaca}
+  .bal-wait-tag{
+    padding:2px 6px; border-radius:5px; background:rgba(245,158,11,.28);
+    color:#fde68a; font-size:10px; font-weight:700;
   }
 
   .alltime-pill{
@@ -203,9 +205,7 @@
   .alltime-pill small{color:#c084fc; font-weight:500}
   .alltime-pill b{font:700 12.5px 'Space Grotesk',sans-serif; color:#fff}
 
-  .oto-dot{
-    width:7px; height:7px; border-radius:50%; background:#64748b; flex:none;
-  }
+  .oto-dot{width:7px; height:7px; border-radius:50%; background:#64748b; flex:none}
   .oto-dot.on{background:var(--good); box-shadow:0 0 7px var(--good)}
 
   .cmp-inline{
@@ -224,11 +224,10 @@
   }
   .ad-toggle.on{background:var(--good)}
   .ad-toggle.on::after{transform:translateX(18px)}
+  .ad-toggle.wait{background:var(--warn)}
   .ad-toggle.off{background:#64748b}
   .ad-toggle.off::after{transform:translateX(0)}
-  .cmp-text{
-    font-size:11.5px; font-weight:600; white-space:nowrap; color:#cbd5e1;
-  }
+  .cmp-text{font-size:11.5px; font-weight:600; white-space:nowrap; color:#cbd5e1}
   .cmp-text.active{color:var(--good)}
   .cmp-text.paused{color:#fca5a5}
   .cmp-text.wait{color:#fcd34d}
@@ -264,7 +263,7 @@
 
   .alert-bant{
     display:flex; align-items:center; justify-content:space-between; gap:10px; flex-wrap:wrap;
-    margin:0 0 7px; padding:8px 12px; border-radius:11px;
+    margin:0 0 7px; padding:9px 12px; border-radius:11px;
     border:1px solid rgba(239,68,68,.55); background:rgba(239,68,68,.16);
     color:#fecaca; font-size:12px; font-weight:600;
   }
@@ -272,15 +271,19 @@
     height:28px; padding:0 10px; border-radius:7px; border:0;
     background:#ef4444; color:#fff; font-size:11.5px; font-weight:700; cursor:pointer;
   }
+  .bekleyen-bant{
+    display:flex; align-items:center; gap:9px;
+    margin:0 0 7px; padding:9px 12px; border-radius:11px;
+    border:1px solid rgba(245,158,11,.55); background:rgba(245,158,11,.15);
+    color:#fde68a; font-size:12px; font-weight:600; line-height:1.4;
+  }
 
   @media (max-width:860px){
     .top-bar{gap:6px; padding:7px 9px}
     .pill span{display:none}
     .pill{width:32px; height:32px; padding:0; justify-content:center}
     .mini{width:32px; height:32px}
-    .actions-side{
-      width:100%; justify-content:space-between; gap:5px;
-    }
+    .actions-side{width:100%; justify-content:space-between; gap:5px}
     .top-action-btn{height:32px; padding:0 8px; font-size:11px}
     .alltime-pill{height:32px; padding:0 8px; font-size:10.5px}
     .cmp-inline{height:32px; padding:0 8px; gap:6px}
@@ -297,12 +300,8 @@
     border:1px solid var(--line); background:linear-gradient(160deg,rgba(18,30,60,.88),rgba(9,15,32,.88));
     position:relative; overflow:hidden;
   }
-  .stat.top-3{
-    grid-column:span 2; padding:7px 9px;
-  }
-  .stat.bot-2{
-    grid-column:span 3; padding:9px 12px;
-  }
+  .stat.top-3{grid-column:span 2; padding:7px 9px}
+  .stat.bot-2{grid-column:span 3; padding:9px 12px}
   .stat::before{
     content:""; position:absolute; top:0; left:0; right:0; height:3px; background:var(--ads-blue);
   }
@@ -340,14 +339,8 @@
     display:block; margin-top:3px; color:#c084fc; font-size:10px; font-weight:600;
     white-space:nowrap; overflow:hidden; text-overflow:ellipsis;
   }
-  button.stat{cursor:pointer; appearance:none; -webkit-appearance:none; transition:transform .12s, box-shadow .2s}
-  button.stat.click{border-color:rgba(26,115,232,.55); background:linear-gradient(160deg,rgba(26,115,232,.28),rgba(9,15,32,.9))}
-  button.stat.click:hover{box-shadow:0 6px 20px rgba(26,115,232,.25)}
-  button.stat.click:active{transform:scale(.98)}
 
-  .cockpit-grid{
-    display:grid; grid-template-columns:1fr; gap:9px;
-  }
+  .cockpit-grid{display:grid; grid-template-columns:1fr; gap:9px}
   @media (min-width:920px){
     .cockpit-grid{grid-template-columns:repeat(2,minmax(0,1fr)); align-items:stretch}
   }
@@ -393,9 +386,7 @@
   .term-title{
     display:flex; align-items:center; gap:8px; min-width:0; padding-left:4px; overflow:visible;
   }
-  .term-text{
-    white-space:nowrap; overflow:hidden; text-overflow:ellipsis; display:block;
-  }
+  .term-text{white-space:nowrap; overflow:hidden; text-overflow:ellipsis; display:block}
   .status-dot{
     display:inline-block; width:9px; height:9px; border-radius:50%;
     background:var(--good); box-shadow:0 0 6px var(--good); flex:0 0 9px;
@@ -412,66 +403,6 @@
     padding:1px 5px; border-radius:999px; background:rgba(26,115,232,.32);
     color:#fff; font-size:10px; font-family:'Space Grotesk',sans-serif;
   }
-
-  .real-ad-box {
-    background: #ffffff;
-    border-radius: 14px;
-    padding: 16px 18px;
-    text-align: left;
-    color: #202124;
-    font-family: Arial, sans-serif;
-    border: 1px solid #dadce0;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-    margin-top: 8px;
-    position: relative;
-    overflow: hidden;
-  }
-  .real-ad-box::before {
-    content: "";
-    position: absolute;
-    top: 0; left: 0; right: 0; height: 3px;
-    background: #1a73e8;
-  }
-  .real-ad-box.paused::before {
-    background: #ef4444;
-  }
-  .real-ad-sponsor {
-    font-size: 13px;
-    font-weight: 700;
-    color: #202124;
-    margin-bottom: 6px;
-    display: flex;
-    align-items: center;
-    gap: 6px;
-  }
-  .real-ad-title {
-    font-size: 20px;
-    color: #1a0dab;
-    line-height: 1.25;
-    margin-bottom: 6px;
-    cursor: pointer;
-  }
-  .real-ad-title:hover {
-    text-decoration: underline;
-  }
-  .real-ad-desc {
-    font-size: 14px;
-    color: #4d5156;
-    line-height: 1.5;
-    margin-bottom: 12px;
-  }
-  .real-ad-loc {
-    font-size: 13px;
-    color: #70757a;
-    display: flex;
-    align-items: center;
-    gap: 6px;
-    background: #f8f9fa;
-    padding: 6px 10px;
-    border-radius: 6px;
-    border: 1px solid #e8eaed;
-  }
-  .real-ad-loc svg { width: 16px; height: 16px; fill: currentColor; }
 
   .gender-row{display:flex; justify-content:space-between; font-size:12px; font-weight:600; margin-bottom:5px}
   .gender-bar{display:flex; height:10px; border-radius:999px; overflow:hidden; background:rgba(143,160,196,.18)}
@@ -540,10 +471,7 @@
     position:relative; z-index:1; max-width:410px; max-height:90dvh; overflow-y:auto;
     border-color:rgba(26,115,232,.45); text-align:left; padding:20px 18px;
   }
-  .modal .card.center-card{text-align:center}
-  .modal-hdr{
-    display:flex; align-items:center; justify-content:space-between; gap:8px; margin-bottom:12px;
-  }
+  .modal-hdr{display:flex; align-items:center; justify-content:space-between; gap:8px; margin-bottom:12px}
   .modal-hdr h2{margin:0; font-size:17px; color:#fff}
   .modal-close{
     width:30px; height:30px; border-radius:8px; border:1px solid var(--line);
@@ -556,9 +484,7 @@
     padding:10px 12px; border-radius:11px; margin-bottom:10px;
     background:rgba(26,115,232,.12); border:1px solid rgba(26,115,232,.3);
   }
-  .bal-summary-strip.eksi{
-    background:rgba(239,68,68,.16); border-color:rgba(239,68,68,.48);
-  }
+  .bal-summary-strip.eksi{background:rgba(239,68,68,.16); border-color:rgba(239,68,68,.48)}
   .bal-summary-strip span{font-size:12px; color:var(--pale); font-weight:500}
   .bal-summary-strip b{font:700 18px 'Space Grotesk',sans-serif; color:#fff}
   .bal-summary-strip.eksi b{color:#fca5a5}
@@ -575,9 +501,7 @@
   }
 
   .field-title{display:block; font-size:13px; font-weight:600; color:#fff; margin-bottom:8px}
-  .quick-3{
-    display:grid; grid-template-columns:repeat(3,1fr); gap:8px; margin-bottom:10px;
-  }
+  .quick-3{display:grid; grid-template-columns:repeat(3,1fr); gap:8px; margin-bottom:10px}
   .q-btn{
     height:40px; border-radius:10px; border:1px solid rgba(59,130,246,.4);
     background:rgba(5,9,20,.75); color:#fff; font:700 15px 'Space Grotesk',sans-serif;
@@ -601,9 +525,7 @@
   .oto-row-box b{display:block; font-size:13px; color:#fff}
   .oto-row-box small{display:block; font-size:11px; color:var(--muted); margin-top:1px}
 
-  .days-7{
-    display:grid; grid-template-columns:repeat(7,1fr); gap:5px; margin-bottom:6px;
-  }
+  .days-7{display:grid; grid-template-columns:repeat(7,1fr); gap:5px; margin-bottom:6px}
   .day-btn{
     height:36px; border-radius:9px; border:1px solid var(--line);
     background:rgba(5,9,20,.75); color:var(--muted); font:600 11.5px 'Space Grotesk',sans-serif;
@@ -626,23 +548,15 @@
     border:1px solid var(--line); background:#081024; color:#fff;
     font:600 13px 'Space Grotesk',sans-serif; outline:none;
   }
-  .custom-days-list{
-    display:flex; flex-direction:column; gap:6px; margin-bottom:10px;
-  }
+  .custom-days-list{display:flex; flex-direction:column; gap:6px; margin-bottom:10px}
   .custom-day-row{
     display:grid; grid-template-columns:88px 1fr 1fr; gap:6px; align-items:center;
     padding:7px 10px; border-radius:9px; background:rgba(5,9,20,.65); border:1px solid var(--line);
   }
   .custom-day-row b{font-size:12px; color:#fff}
 
-  .big{margin:8px 0 2px; font:700 clamp(48px,14vw,68px)/1 'Space Grotesk',sans-serif; font-variant-numeric:tabular-nums; background:linear-gradient(180deg,#fff,#a5c3fb); -webkit-background-clip:text; background-clip:text; color:transparent}
-  .modal p{margin:8px 0 0; color:var(--muted); font-size:13px}
-
   .overlay{position:fixed; inset:0; z-index:80; display:none; align-items:center; justify-content:center; padding:22px; background:rgba(3,6,16,.65); -webkit-backdrop-filter:blur(7px); backdrop-filter:blur(7px)}
   .overlay.on{display:flex}
-  a.btn{display:flex; align-items:center; justify-content:center; text-decoration:none}
-  .demo-bant{margin:0 0 8px; padding:6px 10px; border-radius:9px; border:1px dashed rgba(245,158,11,.6); background:rgba(245,158,11,.1); color:#fcd34d; font-size:11.5px; font-weight:500}
-  #dbg{position:fixed; left:0; right:0; bottom:0; z-index:99; margin:0; padding:6px 10px; max-height:25vh; overflow:auto; background:rgba(0,0,0,.85); color:#9be59b; font:11px/1.35 ui-monospace,Consolas,monospace; white-space:pre-wrap; pointer-events:none}
 </style>
 </head>
 <body>
@@ -714,7 +628,6 @@
     <p class="lead" id="errMesaj">Lütfen tekrar deneyin.</p>
     <button id="errTekrar" class="btn primary" type="button">Tekrar Dene</button>
     <button id="errCikis" class="btn ghost" type="button">Anahtar Kodu Yeniden Gir</button>
-    <a id="errDemo" class="btn ghost" href="?demo=1" hidden>Örnek Paneli Göster</a>
     <span class="kod" id="errKod"></span>
     <p class="foot" id="errDetay" hidden></p>
   </div>
@@ -735,14 +648,15 @@
       </div>
 
       <div class="actions-side">
-        <button type="button" class="top-action-btn bal-btn" id="btnBakiyeModalAc" aria-haspopup="dialog" title="Mevcut Kullanılabilir Reklam Bakiyesi">
+        <button type="button" class="top-action-btn bal-btn" id="btnBakiyeModalAc" aria-haspopup="dialog" title="Google Ads Onaylı Mevcut Reklam Bakiyesi">
           <span class="bal-lbl">Mevcut Bakiye:</span>
           <b class="bal-val num" id="ustMevcutBakiye">₺0,00</b>
+          <span class="bal-wait-tag" id="ustBekleyenBakiyeEtiket" hidden>⏳ Onayda</span>
           <span class="bal-plus">+ Yükle</span>
         </button>
 
-        <div class="alltime-pill" id="ustOmurMaliyetPill" title="Bu hesabın Google Ads kurulduğu günden beri harcadığı tüm zamanlar toplam bütçe">
-          <small>Toplam Harcanan Maliyet:</small>
+        <div class="alltime-pill" id="ustOmurMaliyetPill" title="Bu hesabın kurulduğu günden beri harcadığı toplam reklam tutarı">
+          <small>Bugüne Kadar Toplam Harcanan:</small>
           <b class="num" id="ustOmurMaliyet">₺0,00</b>
         </div>
 
@@ -752,7 +666,7 @@
         </button>
 
         <div class="cmp-inline">
-          <button type="button" id="btnYayinToggle" class="ad-toggle off" role="switch" aria-checked="false" aria-label="Kampanyayı Aç veya Duraklat"></button>
+          <button type="button" id="btnYayinToggle" class="ad-toggle off" role="switch" aria-checked="false" aria-label="Reklamı Aç veya Kapat"></button>
           <span class="cmp-text paused" id="yayinDurumMetni">Duraklatıldı</span>
         </div>
 
@@ -777,50 +691,53 @@
       </div>
     </header>
 
+    <div class="bekleyen-bant" id="bekleyenIslemBant" role="status" aria-live="polite" hidden>
+      <div class="ring-mini" aria-hidden="true"></div>
+      <span id="bekleyenIslemMetin">İşleminiz Google Ads hesabınıza uygulanıyor, yaklaşık 1 dakika içinde yansıyacaktır…</span>
+    </div>
+
     <div class="alert-bant" id="bakiyeUyariBant" role="alert" hidden>
       <span id="bakiyeUyariMetin">Bakiyeniz ₺0,00 olduğu için reklamınız duraklatılmıştır.</span>
       <button type="button" id="btnBantBakiyeYukle">+ Bakiye Yükle</button>
     </div>
 
-    <div class="demo-bant" id="demoBant" role="status" hidden>ÖRNEK VERİLERLE ÖNİZLEME: Bu rakamlar görünümü göstermek içindir.</div>
-
     <div class="stats-5">
-      <button class="stat top-3 click" id="btnTiklayanlar" type="button" aria-haspopup="dialog">
+      <section class="stat top-3" aria-label="Tıklamalar">
         <span class="lbl"><span>Tıklamalar</span><i class="dot-i"></i></span>
         <span class="val num" id="vTiklanma">0</span>
-        <span class="ft" id="ftTiklanma">Detay için dokunun</span>
-      </button>
+        <span class="ft" id="ftTiklanma">Son 30 günde</span>
+      </section>
       <section class="stat top-3 red-top" aria-label="Gösterim sayısı">
         <span class="lbl"><span>Gösterim Sayısı</span><i class="dot-i"></i></span>
         <span class="val num" id="vGosterim">0</span>
         <span class="ft" id="ftGosterim">Son 30 günde</span>
       </section>
-      <section class="stat top-3 yellow-top" aria-label="Tıklama oranı">
-        <span class="lbl"><span>Etkileşim (TO %)</span><i class="dot-i"></i></span>
+      <section class="stat top-3 yellow-top" aria-label="Tıklanma oranı">
+        <span class="lbl"><span>Tıklanma Oranı (%)</span><i class="dot-i"></i></span>
         <span class="val num" id="vTO">%0,00</span>
-        <span class="ft" id="ftTO">Son 30 günde</span>
+        <span class="ft" id="ftTO">Görenlerin yüzde kaçı tıkladı</span>
       </section>
 
-      <section class="stat bot-2 cyan-top" aria-label="Tıklama başına maliyet">
-        <span class="lbl"><span>Ort. TBM</span><i class="dot-i"></i></span>
+      <section class="stat bot-2 cyan-top" aria-label="1 tıklama ücreti">
+        <span class="lbl"><span>1 Tıklama Ücreti</span><i class="dot-i"></i></span>
         <span class="val num" id="vTBM">₺0,00</span>
-        <span class="ft" id="ftTBM">Tıklama başına ortalama maliyet</span>
+        <span class="ft" id="ftTBM">Tıklama başına ortalama ücret</span>
       </section>
-      <section class="stat bot-2 purple-top" aria-label="Toplam maliyet">
-        <span class="lbl"><span>Toplam Maliyet</span><i class="dot-i"></i></span>
+      <section class="stat bot-2 purple-top" aria-label="Harcanan tutar">
+        <span class="lbl"><span>Harcanan Tutar</span><i class="dot-i"></i></span>
         <span class="val num" id="vMaliyet">₺0,00</span>
-        <span class="ft" id="ftMaliyet">Seçili dönemde harcanan reklam bütçesi</span>
-        <span class="ft-extra" id="ftOmurMaliyet">Toplam Harcanan Maliyet: ₺0,00</span>
+        <span class="ft" id="ftMaliyet">Seçili dönemde harcanan reklam parası</span>
+        <span class="ft-extra" id="ftOmurMaliyet">Bugüne Kadar Toplam Harcanan: ₺0,00</span>
       </section>
     </div>
 
     <div class="cockpit-grid">
-      <section class="panel-box wide" aria-label="Google Ads Performans Grafiği">
+      <section class="panel-box wide" aria-label="Tıklama ve Gösterim Grafiği">
         <div>
           <div class="pane-head">
             <div>
-              <h2 id="grafikBaslik">📈 Google Ads Zaman Serisi Grafiği</h2>
-              <p class="sub" id="grafikAltBaslik">Noktalara dokunarak Tıklama ve Gösterim sayısını inceleyin</p>
+              <h2 id="grafikBaslik">📈 Günlük Tıklama ve Gösterim Grafiği</h2>
+              <p class="sub" id="grafikAltBaslik">Noktalara dokunarak o günün tıklama, gösterim ve harcama tutarını görün</p>
             </div>
             <div class="ads-legend">
               <span class="ads-leg-item"><i class="ads-pill-line blue"></i>Tıklamalar</span>
@@ -831,69 +748,15 @@
             <canvas id="trendCanvas" aria-label="Tıklama ve gösterim grafiği" role="img"></canvas>
           </div>
         </div>
-        <div class="ozet-bar" id="trendOzet">Veriler analiz ediliyor…</div>
+        <div class="ozet-bar" id="trendOzet">Veriler yükleniyor…</div>
       </section>
 
-      <section class="panel-box" aria-label="Kampanyalar ve Anahtar Kelimeler">
+      <section class="panel-box" aria-label="Reklama Tıklayanlar ve Cihazlar">
         <div>
           <div class="pane-head">
             <div>
-              <h2>📊 Kampanyalar ve Arama Terimleri</h2>
-              <p class="sub" id="kampanyaAltBaslik">Google Ads kampanya özeti ve tıklama alan arama kelimeleri</p>
-            </div>
-          </div>
-          <div class="ads-list-wrap" aria-label="Kampanya özeti">
-            <div class="ads-list-head">
-              <span>Kampanya Adı</span>
-              <span class="r-align">Maliyet</span>
-              <span class="r-align">Tıklama</span>
-              <span class="r-align">Ort. TBM</span>
-              <span class="r-align">TO</span>
-            </div>
-            <div id="kampanyaListeGovde"></div>
-          </div>
-
-          <h2 style="font-size:13px; margin:12px 0 4px">🔑 Tıklama Alan Arama Kelimeleri (Son 30 Gün)</h2>
-          <div class="ads-list-wrap" aria-label="Anahtar kelime performansı">
-            <div class="ads-list-head kw-cols">
-              <span>Arama Terimi / Kelime</span>
-              <span class="r-align">Maliyet</span>
-              <span class="r-align">Tıklamalar</span>
-              <span class="r-align">TO</span>
-            </div>
-            <div id="kelimeListeGovde"></div>
-          </div>
-        </div>
-        <div class="kw-cloud" id="chipList"></div>
-      </section>
-
-      <section class="panel-box" aria-label="Google Arama Temsili Şablonu">
-        <div class="pane-head">
-          <div>
-            <h2>🔍 Google Arama Ağı Yayını</h2>
-            <p class="sub" id="onizlemeAltBaslik">Gerçek zamanlı reklam metni ve lokasyon önizlemesi</p>
-          </div>
-        </div>
-        
-        <div class="real-ad-box" id="gercekReklamKutusu">
-          <div class="real-ad-sponsor">
-            <strong>Sponsorlu</strong>
-          </div>
-          <div class="real-ad-title" id="gercekAdBaslik">Reklam Başlığı Bekleniyor</div>
-          <div class="real-ad-desc" id="gercekAdAciklama">Açıklama Google Ads üzerinden çekiliyor...</div>
-          <div class="real-ad-loc">
-            <svg viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
-            <span id="gercekAdLokasyon">Türkiye</span>
-          </div>
-        </div>
-      </section>
-
-      <section class="panel-box" aria-label="Demografi ve Cihazlar">
-        <div>
-          <div class="pane-head">
-            <div>
-              <h2>👥 Demografi: Yaş ve Cinsiyet</h2>
-              <p class="sub" id="yasBaskinMetin">En yoğun ilgi gösteren yaş grubu: —</p>
+              <h2>👥 Reklama Tıklayanlar (Kadın / Erkek ve Yaş)</h2>
+              <p class="sub" id="yasBaskinMetin">En çok tıklayan yaş aralığı: —</p>
             </div>
           </div>
           <div class="gender-row">
@@ -908,7 +771,7 @@
         </div>
 
         <div class="dev-rows">
-          <h2 style="font-size:13px; margin:2px 0">📱 Cihazlar Arası Performans (Telefon / PC / Tablet)</h2>
+          <h2 style="font-size:13px; margin:2px 0">📱 Hangi Cihazdan Tıkladılar? (Telefon / Bilgisayar)</h2>
           <div class="dev-item">
             <div class="dev-hdr"><span>Cep Telefonları</span><b id="txtMobil">%0</b></div>
             <div class="dev-track"><div class="dev-fill mob" id="barMobil" style="width:0%"></div></div>
@@ -924,18 +787,51 @@
         </div>
       </section>
 
-      <section class="panel-box" aria-label="Saat Dilimi Performansı">
+      <section class="panel-box" aria-label="Hangi Saatlerde Tıkladılar">
         <div>
           <div class="pane-head">
             <div>
-              <h2>🕒 Günün Saat Dilimlerine Göre Dağılım</h2>
-              <p class="sub">Google Ads son 30 günlük tıklamaların saat dilimi oranları</p>
+              <h2>🕒 Hangi Saatlerde Tıkladılar?</h2>
+              <p class="sub" id="saatAltBaslik">Reklama gelen tıklamaların günün saatlerine göre dağılımı</p>
             </div>
           </div>
           <div class="hour-grid" id="hourGrid"></div>
           <div class="hour-bars" id="hourBars"></div>
         </div>
-        <div class="ozet-bar" id="saatOzet">Saat verisi analiz ediliyor…</div>
+        <div class="ozet-bar" id="saatOzet">Saat verisi yükleniyor…</div>
+      </section>
+
+      <section class="panel-box wide" aria-label="Reklam Özeti ve Google'da Aranan Kelimeler">
+        <div>
+          <div class="pane-head">
+            <div>
+              <h2>📊 Reklam Özeti ve Müşterilerin Google'da Aradığı Kelimeler</h2>
+              <p class="sub" id="kampanyaAltBaslik">Seçili dönemde reklamınızın özeti ve müşterilerin Google'a yazarak size ulaştığı kelimeler</p>
+            </div>
+          </div>
+          <div class="ads-list-wrap" aria-label="Kampanya özeti">
+            <div class="ads-list-head">
+              <span>Reklam Kampanyası</span>
+              <span class="r-align">Harcanan</span>
+              <span class="r-align">Tıklama</span>
+              <span class="r-align">1 Tık Ücreti</span>
+              <span class="r-align">Tıklanma %</span>
+            </div>
+            <div id="kampanyaListeGovde"></div>
+          </div>
+
+          <h2 style="font-size:13px; margin:14px 0 4px" id="kelimeBaslikMetin">🔑 Müşterilerin Google'da Aradığı Kelimeler</h2>
+          <div class="ads-list-wrap" aria-label="Aranan kelimeler">
+            <div class="ads-list-head kw-cols">
+              <span>Google'da Aranan Kelime</span>
+              <span class="r-align">Harcanan</span>
+              <span class="r-align">Tıklamalar</span>
+              <span class="r-align">Tıklanma %</span>
+            </div>
+            <div id="kelimeListeGovde"></div>
+          </div>
+        </div>
+        <div class="kw-cloud" id="chipList"></div>
       </section>
     </div>
   </div>
@@ -953,10 +849,11 @@
     </div>
 
     <div class="bal-summary-strip" id="modalBakiyeSerit">
-      <span>Mevcut Net Bakiyeniz</span>
+      <span>Google Ads Onaylı Mevcut Bakiyeniz</span>
       <b class="num" id="modalMevcutBakiye">₺0,00</b>
     </div>
 
+    <div class="mahsup-kutusu" id="bekleyenBakiyeKutusu" hidden></div>
     <div class="mahsup-kutusu" id="eksiBakiyeBilgi" hidden></div>
 
     <label class="field-title" for="inpBakiyeTutar">Ne kadar bakiye yüklemek istiyorsunuz?</label>
@@ -1008,7 +905,7 @@
     <div class="oto-row-box">
       <div>
         <b>Hepsi için geçerli saat seç</b>
-        <small>Kapatırsanız özel günlere ayrı başlangıç ve bitiş saati seçebilirsiniz</small>
+        <small>Kapatırsanız her güne ayrı başlangıç ve bitiş saati seçebilirsiniz</small>
       </div>
       <button type="button" id="ortakSaatToggle" class="ad-toggle on" role="switch" aria-checked="true"></button>
     </div>
@@ -1034,17 +931,6 @@
   </div>
 </div>
 
-<div id="tebrikModal" class="modal" role="dialog" aria-modal="true" aria-labelledby="tebrikBaslik" aria-hidden="true">
-  <canvas id="confettiCanvas" aria-hidden="true"></canvas>
-  <div class="card center-card">
-    <div class="logo-badge" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"><path d="M4 18V9M10 18V5M16 18v-7M22 18H2" stroke="#fff" stroke-width="2" stroke-linecap="round"/></svg></div>
-    <h1 id="tebrikBaslik">Tıklama Özeti</h1>
-    <div class="big" id="tebrikSayi">0</div>
-    <p id="tebrikMetin"></p>
-    <button id="tebrikKapat" class="btn primary" type="button">Kapat</button>
-  </div>
-</div>
-
 <div id="offlineOverlay" class="overlay" role="alert" aria-live="assertive">
   <div class="card">
     <div class="icon-box blue" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"><path d="M3 3l18 18M8.5 8.5a10 10 0 0111.9 3M5.6 11.6a10 10 0 011.5-1.7M12 19h.01" stroke="#a5c3fb" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
@@ -1066,7 +952,7 @@ setTimeout(function () {
 (function () {
 'use strict';
 
-var API_URL = 'https://script.google.com/macros/s/AKfycbxNxiVCw6JeHj-a3KKCugvb4OvQ5dxQV9tOnXW-NZiGwdPUACb32FSB-82kfhythicVuA/exec';
+var API_URL = 'https://script.google.com/macros/s/AKfycbzyyODoQv1kp_8OuZFPO2yEIjFY8SZeXgUGbQze4Zfg6ZVnuEm1Qadgu796iNY24Fp50Q/exec';
 var VARSAYILAN_ALT_YAZI = 'SORUNUZ VARSA BANA ULAŞABİLİRSİNİZ 0534 595 74 44';
 var VARSAYILAN_OTO_PLAN = '1;08:00-21:00;1,2,3,4,5,6,7;1=08:00-21:00,2=08:00-21:00,3=08:00-21:00,4=08:00-21:00,5=08:00-21:00,6=09:00-21:00,7=10:00-21:00';
 
@@ -1075,12 +961,12 @@ var MAX_PIN_DENEME   = 5;
 var BAN_SURESI_SAAT  = 0.25;
 var ZAMAN_ASIMI_MS   = 9000;
 var YENIDEN_DENEME   = 1;
-var YENILEME_ESIGI   = 15 * 60 * 1000;
+var YENILEME_ESIGI   = 60 * 1000;
 var BEKCI_MS         = 26000;
 
-var LS = { oturum: 'pnl_oturum', deneme: 'pnl_deneme', ban: 'pnl_ban', veri: 'pnl_veri_v33' };
+var LS = { oturum: 'pnl_oturum', deneme: 'pnl_deneme', ban: 'pnl_ban', veri: 'pnl_veri_v70' };
 var TOK_DESEN = /^\d{9,14}\.[0-9a-f]{64}$/;
-var VERI_SEMA = 33;
+var VERI_SEMA = 70;
 
 var GUN_ADLARI = {
   '1': 'Pazartesi', '2': 'Salı', '3': 'Çarşamba', '4': 'Perşembe',
@@ -1090,7 +976,6 @@ var GUN_ADLARI = {
 function $(id) { return document.getElementById(id); }
 var QS = new URLSearchParams(location.search);
 var DEBUG = QS.get('debug') === '1';
-var DEMO = QS.get('demo') === '1';
 var URL_ID = String(QS.get('id') || '').replace(/[^\w\-. çğıöşüÇĞİÖŞÜ]/g, '').trim().slice(0, 64);
 
 var mem = {};
@@ -1319,7 +1204,7 @@ async function apiTekrarli(id, kimlik, ekParam) {
 
 function duzenle(v) {
   var cz = v.cihaz || {}, dm = v.demografi || {}, g = v.gunluk || {}, st = v.saatlik || {};
-  var bk = v.bakiye || v.kart || {};
+  var bk = v.bakiye || {};
   function dizi(a) { return Array.isArray(a) ? a.map(n) : []; }
   function sifirDizi(uzunluk) { var a = []; for (var i = 0; i < uzunluk; i++) { a.push(0); } return a; }
 
@@ -1335,20 +1220,19 @@ function duzenle(v) {
     : (v.omur_maliyet !== undefined ? n(v.omur_maliyet) : hamMaliyet);
   var omurMaliyet = Number(omurMaliyetHam.toFixed(2));
 
-  var mevcutBakiye = bk.mevcut !== undefined ? Number(n(bk.mevcut).toFixed(2)) : Number(n(bk.kalan_limit).toFixed(2));
-  var paketToplam = bk.paket !== undefined ? Number(n(bk.paket).toFixed(2)) : Number(n(bk.limit).toFixed(2));
+  var mevcutBakiye = bk.mevcut !== undefined ? Number(n(bk.mevcut).toFixed(2)) : 0;
+  var paketToplam = bk.paket !== undefined ? Number(n(bk.paket).toFixed(2)) : 0;
+  var bekleyenBakiye = bk.bekleyen !== undefined ? Math.max(0, Number(n(bk.bekleyen).toFixed(2))) : 0;
   var bakiyeBitti = (bk.bakiye_bitti !== undefined) ? Boolean(bk.bakiye_bitti) : (mevcutBakiye <= 0);
 
-  var komutMetni = String(v.yayin_komutu || '').trim().toUpperCase();
-  var gercekMetni = String(v.kampanya_durumu || '').trim().toUpperCase();
+  var komutMetni = String(v.yayin_komutu || 'DURAKLATILDI').trim().toUpperCase();
+  var gercekMetni = String(v.kampanya_durumu || 'DURAKLATILDI').trim().toUpperCase();
 
-  var yayinAcik = (gercekMetni === 'ACIK' || gercekMetni === 'DURAKLATILDI') ? (gercekMetni === 'ACIK') : (komutMetni === 'ACIK');
-  var komutSiraBekliyor = (komutMetni === 'ACIK' || komutMetni === 'DURAKLATILDI') &&
-                          (gercekMetni === 'ACIK' || gercekMetni === 'DURAKLATILDI') &&
-                          (komutMetni !== gercekMetni);
+  var yayinAcik = (gercekMetni === 'ACIK');
+  var komutSiraBekliyor = (komutMetni !== gercekMetni);
 
   var otoMetni = String(v.oto_baslat || '').trim().toUpperCase();
-  var otoAcik = (!bakiyeBitti && otoMetni === 'ACIK');
+  var otoAcik = ((!bakiyeBitti || bekleyenBakiye > 0) && otoMetni === 'ACIK');
   var otoPlanMetni = String(v.oto_plan || VARSAYILAN_OTO_PLAN).trim() || VARSAYILAN_OTO_PLAN;
 
   var yasDizi = Array.isArray(dm.yas_dagilim) && dm.yas_dagilim.length === 6 ? dm.yas_dagilim.map(n) : sifirDizi(6);
@@ -1361,19 +1245,19 @@ function duzenle(v) {
     id: String(v.id || ''),
     durum: v.durum !== false,
     yayinAcik: yayinAcik,
+    gercekDurum: gercekMetni,
     hedefKomut: komutMetni,
-    komutBekliyor: false,
     komutSiraBekliyor: komutSiraBekliyor,
     otoAcik: otoAcik,
     otoPlan: otoPlanMetni,
     gercek_kampanya_adi: String(v.gercek_kampanya_adi || ''),
     gercek_lokasyon: String(v.gercek_lokasyon || ''),
-    reklam_baslik: String(v.reklam_baslik || ''),
-    reklam_aciklama: String(v.reklam_aciklama || ''),
     omurMaliyet: omurMaliyet,
     bakiye: {
       mevcut: mevcutBakiye,
       paket: paketToplam,
+      bekleyen: bekleyenBakiye,
+      onayBekliyor: bekleyenBakiye > 0,
       bakiyeBitti: bakiyeBitti
     },
     isletme: String(v.isletme || '').slice(0, 60),
@@ -1398,6 +1282,7 @@ function duzenle(v) {
       maliyet: saatlikMal24
     },
     kelimeler: Array.isArray(v.kelimeler) ? v.kelimeler.map(String).filter(Boolean).slice(0, 6) : [],
+    donemDetay: (v.donem_detay && typeof v.donem_detay === 'object') ? v.donem_detay : null,
     gunluk: {
       baslangic: String(g.baslangic || ''),
       tiklama: dizi(g.tiklama),
@@ -1435,7 +1320,7 @@ function denemeSayisi() { return parseInt(depo.al(LS.deneme) || '0', 10) || 0; }
 
 var son = null, sonYukleme = 0, aktifOturum = null, oturumNesil = 0;
 var seciliDonem = 30;
-var komutTakipZamanlayici = null;
+var onayTakipZamanlayici = null;
 
 function girisMesaji(t, tur) { var m = $('pinMsg'); m.textContent = t || ''; m.className = 'msg' + (tur ? ' ' + tur : ''); }
 
@@ -1457,7 +1342,6 @@ function hataEkrani(h) {
   var d = $('errDetay'); d.hidden = !(DEBUG && h && h.detay); d.textContent = DEBUG && h ? ('Ayrıntı: ' + h.detay) : '';
   $('errCikis').hidden = (!oturumuOku() && !aktifOturum) || kod === 'AG-05';
   $('errTekrar').hidden = kod === 'AG-05';
-  $('errDemo').hidden = kod !== 'AG-05';
   goster('errScreen');
 }
 
@@ -1494,7 +1378,11 @@ async function veriYukle(id, kimlik, sec) {
       goster('lockScreen'); return 'kilit';
     }
     try { onbellekYaz(v); } catch (e) {}
-    panoyuCiz(v, !!sec.sessiz); goster('dashScreen'); return 'tamam';
+    panoyuCiz(v, !!sec.sessiz); goster('dashScreen');
+    if (v.komutSiraBekliyor || v.bakiye.onayBekliyor) {
+      canliOnayTakibiBaslat();
+    }
+    return 'tamam';
   }
   if (ham.kod === 'kimlik_hatali') {
     if (sec.giris) { return 'kimlik'; }
@@ -1548,9 +1436,8 @@ function pinNoktalari() {
 }
 
 function cikis() {
-  if (DEMO) { try { location.href = location.pathname; } catch (e) {} return; }
+  clearInterval(onayTakipZamanlayici);
   oturumuTemizle();
-  tebrikKapat();
   bakiyeModalKapat();
   otoModalKapat();
   $('pinInput').value = ''; pinNoktalari(); girisMesaji('', '');
@@ -1558,37 +1445,28 @@ function cikis() {
   goster('loginScreen');
 }
 
-function yayinArayuzGuncelle(acik, bekliyor, hedefKomut, siraBekliyor) {
+function yayinVeBakiyeDurumBantlariniGuncelle(v) {
   var btn = $('btnYayinToggle'), txt = $('yayinDurumMetni');
-  var realAdBox = $('gercekReklamKutusu');
+  var bk = v.bakiye || { mevcut: 0, paket: 0, bekleyen: 0, onayBekliyor: false, bakiyeBitti: true };
 
-  var gorunenAcik = bekliyor ? (hedefKomut === 'ACIK') : (siraBekliyor ? (hedefKomut === 'ACIK') : acik);
+  // Şalter sadece Google Ads'de gerçek durum neyse onu gösterir, bekleyen işlem varsa sarı uyarı verir
+  btn.classList.toggle('on', v.yayinAcik && !v.komutSiraBekliyor);
+  btn.classList.toggle('off', !v.yayinAcik && !v.komutSiraBekliyor);
+  btn.classList.toggle('wait', v.komutSiraBekliyor);
+  btn.setAttribute('aria-checked', v.yayinAcik ? 'true' : 'false');
 
-  btn.classList.toggle('on', gorunenAcik);
-  btn.classList.toggle('off', !gorunenAcik);
-  btn.setAttribute('aria-checked', gorunenAcik ? 'true' : 'false');
-
-  if (realAdBox) {
-    realAdBox.classList.toggle('paused', !gorunenAcik);
-  }
-
-  if (bekliyor) {
-    txt.textContent = (hedefKomut === 'ACIK') ? 'Başlatılıyor…' : 'Duraklatılıyor…';
+  if (v.komutSiraBekliyor) {
+    txt.textContent = (v.hedefKomut === 'ACIK') ? '⏳ Açılıyor (1 dk)' : '⏳ Kapanıyor (1 dk)';
     txt.className = 'cmp-text wait';
-  } else if (siraBekliyor) {
-    txt.textContent = (hedefKomut === 'ACIK') ? 'Başlatılıyor…' : 'Duraklatılıyor…';
-    txt.className = 'cmp-text wait';
-  } else if (acik) {
+  } else if (v.yayinAcik) {
     txt.textContent = 'Yayında';
     txt.className = 'cmp-text active';
   } else {
     txt.textContent = 'Duraklatıldı';
     txt.className = 'cmp-text paused';
   }
-}
 
-function ustBarBakiyeVeOtoGuncelle(v) {
-  var bk = v.bakiye || { mevcut: 0, paket: 0, bakiyeBitti: true };
+  // Mevcut Bakiye (Sadece Google Ads tarafından onaylanmış gerçek bakiye)
   var mevcutStr = fmtPara(bk.mevcut);
   var bittiMi = bk.mevcut <= 0;
 
@@ -1597,15 +1475,43 @@ function ustBarBakiyeVeOtoGuncelle(v) {
   $('btnBakiyeModalAc').classList.toggle('bitti', bittiMi);
   $('modalBakiyeSerit').classList.toggle('eksi', bittiMi);
 
+  var bekleyenEtiket = $('ustBekleyenBakiyeEtiket');
+  if (bk.bekleyen > 0) {
+    bekleyenEtiket.hidden = false;
+    bekleyenEtiket.textContent = '⏳ +' + fmtPara(bk.bekleyen) + ' Onayda';
+  } else {
+    bekleyenEtiket.hidden = true;
+  }
+
   var omurMaliyetStr = fmtPara(v.omurMaliyet || 0);
   $('ustOmurMaliyet').textContent = omurMaliyetStr;
-  $('ftOmurMaliyet').textContent = 'Toplam Harcanan Maliyet: ' + omurMaliyetStr;
+  $('ftOmurMaliyet').textContent = 'Bugüne Kadar Toplam Harcanan: ' + omurMaliyetStr;
+
+  // Bekleyen İşlem Bandı (Bakiye veya Şalter Google Ads Onayı Bekliyorsa)
+  var bekleyenBant = $('bekleyenIslemBant');
+  var bekleyenMetin = $('bekleyenIslemMetin');
+  var mesajlar = [];
+
+  if (bk.bekleyen > 0) {
+    mesajlar.push('Yüklediğiniz ' + fmtPara(bk.bekleyen) + ' bakiye Google Ads hesabınıza işleniyor (yaklaşık 1 dakika içinde mevcut bakiyenize eklenecektir).');
+  }
+  if (v.komutSiraBekliyor) {
+    var eylemAdi = (v.hedefKomut === 'ACIK') ? 'Reklam başlatma' : 'Reklam duraklatma';
+    mesajlar.push(eylemAdi + ' komutunuz Google Ads\'e iletildi (yaklaşık 1 dakika içinde hesabınıza yansıyacaktır).');
+  }
+
+  if (mesajlar.length > 0) {
+    bekleyenBant.hidden = false;
+    bekleyenMetin.textContent = mesajlar.join(' · ');
+  } else {
+    bekleyenBant.hidden = true;
+  }
 
   var uyariBant = $('bakiyeUyariBant'), uyariMetin = $('bakiyeUyariMetin');
-  if (bittiMi) {
+  if (bittiMi && bk.bekleyen <= 0) {
     uyariBant.hidden = false;
     if (bk.mevcut < 0) {
-      uyariMetin.textContent = '⚠️ Mevcut bakiyeniz ' + mevcutStr + ' (eksiye düştüğü) için reklamınız duraklatılmıştır. Yeni yüklemenizden ' + mevcutStr + ' mahsup edilecektir.';
+      uyariMetin.textContent = '⚠️ Mevcut bakiyeniz ' + mevcutStr + ' (eksiye düştüğü) için reklamınız duraklatılmıştır. Yeni yüklemenizden ' + mevcutStr + ' düşülecektir.';
     } else {
       uyariMetin.textContent = '⚠️ Mevcut bakiyeniz ₺0,00 olduğu için reklamınız duraklatılmıştır. Reklamı başlatmak için bakiye yükleyin.';
     }
@@ -1614,77 +1520,46 @@ function ustBarBakiyeVeOtoGuncelle(v) {
   }
 
   var otoDot = $('ustOtoDot'), otoTxt = $('ustOtoMetin');
-  var otoAktifGorunum = !bittiMi && !!v.otoAcik;
+  var otoAktifGorunum = (!bittiMi || bk.bekleyen > 0) && !!v.otoAcik;
   otoDot.classList.toggle('on', otoAktifGorunum);
   otoTxt.textContent = otoAktifGorunum ? 'Oto Aç/Kapat: Aktif' : 'Otomatik Aç/Kapat';
 }
 
-function canliKomutTakibiBaslat(istenenKomut) {
-  clearInterval(komutTakipZamanlayici);
+function canliOnayTakibiBaslat() {
+  clearInterval(onayTakipZamanlayici);
   var sayac = 0;
-  komutTakipZamanlayici = setInterval(async function () {
+  onayTakipZamanlayici = setInterval(async function () {
     sayac++;
-    if (!aktifOturum || !aktifOturum.tok) {
-      clearInterval(komutTakipZamanlayici);
+    if (!aktifOturum || !aktifOturum.tok || sayac > 35) {
+      clearInterval(onayTakipZamanlayici);
       return;
     }
     try {
       var ham = await apiTekrarli(aktifOturum.id, { tok: aktifOturum.tok }, '&taze=1');
       if (ham && ham.ok === true) {
-        var gercek = String(ham.kampanya_durumu || '').trim().toUpperCase();
         var v = duzenle(ham);
-        if (gercek === istenenKomut) {
-          clearInterval(komutTakipZamanlayici);
-          son = v;
-          onbellekYaz(v);
-          panoyuCiz(v, true);
-          return;
-        }
-        if (sayac >= 8) {
-          clearInterval(komutTakipZamanlayici);
-          v.hedefKomut = istenenKomut;
-          v.komutBekliyor = false;
-          v.komutSiraBekliyor = true;
-          son = v;
-          onbellekYaz(v);
-          panoyuCiz(v, true);
-          return;
+        son = v;
+        sonYukleme = Date.now();
+        onbellekYaz(v);
+        panoyuCiz(v, true);
+        if (!v.komutSiraBekliyor && !v.bakiye.onayBekliyor) {
+          clearInterval(onayTakipZamanlayici);
         }
       }
     } catch (e) {}
-  }, 2000);
+  }, 4000);
 }
 
 async function yayinDegistir() {
-  if (!son) { return; }
+  if (!son || !aktifOturum || !aktifOturum.tok) { return; }
   var btn = $('btnYayinToggle');
   if (btn.disabled) { return; }
 
-  var suAnAcikMi = son.komutSiraBekliyor ? (son.hedefKomut === 'ACIK') : son.yayinAcik;
-  var yeniKomut = suAnAcikMi ? 'DURAKLATILDI' : 'ACIK';
+  var bazDurum = son.komutSiraBekliyor ? (son.hedefKomut === 'ACIK') : son.yayinAcik;
+  var yeniKomut = bazDurum ? 'DURAKLATILDI' : 'ACIK';
 
-  if (yeniKomut === 'ACIK' && son.bakiye.mevcut <= 0) {
-    bakiyeModalAc('⚠️ Bakiyeniz ' + fmtPara(son.bakiye.mevcut) + ' olduğu için reklam başlatılamaz! Lütfen önce bakiye yükleyin.');
-    return;
-  }
-
-  son.hedefKomut = yeniKomut;
-  son.komutBekliyor = true;
-  if (yeniKomut === 'DURAKLATILDI') {
-    son.otoAcik = false;
-    ustBarBakiyeVeOtoGuncelle(son);
-  }
-
-  yayinArayuzGuncelle(son.yayinAcik, true, yeniKomut, false);
-
-  if (DEMO || !aktifOturum || !aktifOturum.tok) {
-    setTimeout(function () {
-      son.yayinAcik = (yeniKomut === 'ACIK');
-      son.komutBekliyor = false;
-      son.komutSiraBekliyor = false;
-      yayinArayuzGuncelle(son.yayinAcik, false, yeniKomut, false);
-      kampanyaListesiCiz(son, donemMetrikleri(son, seciliDonem));
-    }, 800);
+  if (yeniKomut === 'ACIK' && son.bakiye.mevcut <= 0 && son.bakiye.bekleyen <= 0) {
+    bakiyeModalAc('⚠️ Mevcut bakiyeniz ' + fmtPara(son.bakiye.mevcut) + ' olduğu için reklam başlatılamaz! Lütfen önce bakiye yükleyin.');
     return;
   }
 
@@ -1692,16 +1567,21 @@ async function yayinDegistir() {
   try {
     var yanit = await apiCagir(aktifOturum.id, { tok: aktifOturum.tok }, '&islem=komut&komut=' + yeniKomut + '&taze=1');
     if (yanit && yanit.kod === 'bakiye_bitti') {
-      son.komutBekliyor = false;
-      yayinArayuzGuncelle(false, false, 'DURAKLATILDI', false);
       bakiyeModalAc(yanit.mesaj || ('⚠️ Bakiyeniz ' + fmtPara(son.bakiye.mevcut) + ' olduğu için reklam başlatılamaz!'));
       return;
     }
-    canliKomutTakibiBaslat(yeniKomut);
-  } catch (e) {
-    son.komutBekliyor = false;
-    yayinArayuzGuncelle(son.yayinAcik, false, son.hedefKomut, son.komutSiraBekliyor);
-  } finally {
+    if (yanit && yanit.ok) {
+      son.hedefKomut = yanit.yayin_komutu || yeniKomut;
+      son.gercekDurum = yanit.kampanya_durumu || son.gercekDurum;
+      son.yayinAcik = (son.gercekDurum === 'ACIK');
+      son.komutSiraBekliyor = (son.hedefKomut !== son.gercekDurum);
+      if (yeniKomut === 'DURAKLATILDI') { son.otoAcik = false; }
+      onbellekYaz(son);
+      yayinVeBakiyeDurumBantlariniGuncelle(son);
+      canliOnayTakibiBaslat();
+    }
+  } catch (e) {}
+  finally {
     btn.disabled = false;
   }
 }
@@ -1710,6 +1590,7 @@ function bakiyeCanliOnizlemeGuncelle() {
   if (!son) { return; }
   var girilen = Math.max(0, n($('inpBakiyeTutar').value));
   var mevcut = n(son.bakiye.mevcut);
+  var bekleyen = n(son.bakiye.bekleyen);
   var onizlemeEl = $('netBakiyeOnizleme');
 
   if (girilen <= 0) {
@@ -1717,20 +1598,29 @@ function bakiyeCanliOnizlemeGuncelle() {
     return;
   }
 
-  var olusacakNet = Number((mevcut + girilen).toFixed(2));
+  var olusacakNet = Number((mevcut + bekleyen + girilen).toFixed(2));
   onizlemeEl.hidden = false;
   if (mevcut < 0) {
-    onizlemeEl.textContent = 'Yüklenecek: ' + fmtPara(girilen) + ' (' + fmtPara(mevcut) + ' eksi bakiye düşülür) → Net Bakiyeniz: ' + fmtPara(olusacakNet);
+    onizlemeEl.textContent = 'Yüklenecek: ' + fmtPara(girilen) + ' (' + fmtPara(mevcut) + ' eksi bakiye düşülür) → Google Ads Onayından Sonra Net Bakiyeniz: ' + fmtPara(olusacakNet);
   } else {
-    onizlemeEl.textContent = 'Yüklendikten Sonra Toplam Net Bakiyeniz: ' + fmtPara(olusacakNet);
+    onizlemeEl.textContent = 'Google Ads Onayından Sonra Olacak Toplam Bakiyeniz: ' + fmtPara(olusacakNet);
   }
 }
 
 function bakiyeModalAc(ozelUyariMesaji) {
   if (!son) { return; }
   var mevcut = n(son.bakiye.mevcut);
+  var bekleyen = n(son.bakiye.bekleyen);
   $('modalMevcutBakiye').textContent = fmtPara(mevcut);
   $('modalBakiyeSerit').classList.toggle('eksi', mevcut <= 0);
+
+  var bekKutu = $('bekleyenBakiyeKutusu');
+  if (bekleyen > 0) {
+    bekKutu.hidden = false;
+    bekKutu.textContent = '⏳ Şu an Google Ads onayı bekleyen ' + fmtPara(bekleyen) + ' yükleme talebiniz bulunuyor. Yaklaşık 1 dakika içinde mevcut bakiyenize yansıyacaktır.';
+  } else {
+    bekKutu.hidden = true;
+  }
 
   var eksiKutu = $('eksiBakiyeBilgi');
   if (mevcut < 0) {
@@ -1744,956 +1634,3 @@ function bakiyeModalAc(ozelUyariMesaji) {
   if (ozelUyariMesaji) {
     msg.hidden = false;
     msg.textContent = ozelUyariMesaji;
-    msg.className = 'msg err';
-  } else {
-    msg.hidden = true;
-    msg.textContent = '';
-    msg.className = 'msg';
-  }
-
-  bakiyeCanliOnizlemeGuncelle();
-  var m = $('bakiyeModal');
-  m.classList.add('on');
-  m.setAttribute('aria-hidden', 'false');
-  setTimeout(function () { try { $('inpBakiyeTutar').focus(); } catch (e) {} }, 60);
-}
-
-function bakiyeModalKapat() {
-  var m = $('bakiyeModal');
-  m.classList.remove('on');
-  m.setAttribute('aria-hidden', 'true');
-}
-
-async function bakiyeYukleOnayla() {
-  if (!son) { return; }
-  var inp = $('inpBakiyeTutar'), btn = $('btnBakiyeOnayla'), msg = $('bakiyeModalMsg');
-  if (btn.disabled) { return; }
-
-  var eklenecek = Math.max(0, n(inp.value));
-  if (eklenecek <= 0) {
-    msg.hidden = false;
-    msg.textContent = '⚠️ Lütfen yüklenecek tutarı seçin veya yazın (1000, 2500, 8000).';
-    msg.className = 'msg err';
-    inp.focus();
-    return;
-  }
-
-  var eskiNet = n(son.bakiye.mevcut);
-  var yeniMevcut = Number((eskiNet + eklenecek).toFixed(2));
-
-  if (DEMO || !aktifOturum || !aktifOturum.tok) {
-    son.bakiye.mevcut = yeniMevcut;
-    son.bakiye.paket = yeniMevcut;
-    son.bakiye.bakiyeBitti = (yeniMevcut <= 0);
-    son.yayinAcik = (yeniMevcut > 0);
-    ustBarBakiyeVeOtoGuncelle(son);
-    yayinArayuzGuncelle(son.yayinAcik, false, son.yayinAcik ? 'ACIK' : 'DURAKLATILDI', false);
-    kampanyaListesiCiz(son, donemMetrikleri(son, seciliDonem));
-    inp.value = '';
-    bakiyeCanliOnizlemeGuncelle();
-    msg.hidden = false;
-    msg.textContent = eskiNet < 0
-      ? ('✅ ' + fmtPara(eklenecek) + ' yüklendi (' + fmtPara(eskiNet) + ' eksi bakiye düşüldü). Net Bakiyeniz: ' + fmtPara(yeniMevcut))
-      : ('✅ ' + fmtPara(eklenecek) + ' eklendi. Net Bakiyeniz: ' + fmtPara(yeniMevcut));
-    msg.className = 'msg ok';
-    return;
-  }
-
-  btn.disabled = true;
-  btn.textContent = 'Yükleniyor…';
-  msg.hidden = true;
-  try {
-    var yanit = await apiCagir(aktifOturum.id, { tok: aktifOturum.tok }, '&islem=bakiye_yukle&ekle=' + encodeURIComponent(eklenecek) + '&taze=1');
-    if (yanit && yanit.ok) {
-      var sunucuNet = (yanit.bakiye && yanit.bakiye.mevcut !== undefined) ? n(yanit.bakiye.mevcut) : yeniMevcut;
-      son.bakiye.mevcut = sunucuNet;
-      son.bakiye.paket = sunucuNet;
-      son.bakiye.bakiyeBitti = (sunucuNet <= 0);
-      son.hedefKomut = yanit.yayin_komutu || (sunucuNet > 0 ? 'ACIK' : 'DURAKLATILDI');
-      son.komutBekliyor = true;
-      onbellekYaz(son);
-      ustBarBakiyeVeOtoGuncelle(son);
-      yayinArayuzGuncelle(son.yayinAcik, true, son.hedefKomut, false);
-      inp.value = '';
-      var hizliBtnler = document.querySelectorAll('.q-btn');
-      for (var k = 0; k < hizliBtnler.length; k++) { hizliBtnler[k].classList.remove('secili'); }
-      bakiyeCanliOnizlemeGuncelle();
-      msg.hidden = false;
-      msg.textContent = yanit.mesaj || ('✅ ' + fmtPara(eklenecek) + ' yüklendi. Net Bakiyeniz: ' + fmtPara(sunucuNet));
-      msg.className = 'msg ok';
-      canliKomutTakibiBaslat(son.hedefKomut);
-    } else {
-      msg.hidden = false;
-      msg.textContent = '❌ Bakiye yüklenemedi, lütfen tekrar deneyin.';
-      msg.className = 'msg err';
-    }
-  } catch (e) {
-    msg.hidden = false;
-    msg.textContent = '❌ Bağlantı hatası: Bakiye yüklenemedi.';
-    msg.className = 'msg err';
-  } finally {
-    btn.disabled = false;
-    btn.textContent = 'Bakiyeyi Yükle';
-  }
-}
-
-var saatSecenekHtml = '';
-(function saatListesiOlustur() {
-  var h = '';
-  for (var s = 0; s < 24; s++) {
-    var ss = ('0' + s).slice(-2);
-    h += '<option value="' + ss + ':00">' + ss + ':00</option>';
-  }
-  saatSecenekHtml = h;
-  $('selGenelBas').innerHTML = h;
-  $('selGenelBit').innerHTML = h;
-})();
-
-var duzenlenenPlan = {
-  aktif: false,
-  ortak: true,
-  genelBas: '08:00',
-  genelBit: '21:00',
-  gunler: { '1': true, '2': true, '3': true, '4': true, '5': true, '6': true, '7': true },
-  ozel: {
-    '1': ['08:00', '21:00'], '2': ['08:00', '21:00'], '3': ['08:00', '21:00'],
-    '4': ['08:00', '21:00'], '5': ['08:00', '21:00'], '6': ['09:00', '21:00'], '7': ['10:00', '21:00']
-  }
-};
-
-function tamSaateYuvarla(saatStr, varsayilan) {
-  var m = /^([01]?\d|2[0-3]):/.exec(String(saatStr || '').trim());
-  if (!m) { return varsayilan || '08:00'; }
-  return ('0' + parseInt(m[1], 10)).slice(-2) + ':00';
-}
-
-function planMetniniAyrstir(planStr, aktifMi) {
-  duzenlenenPlan.aktif = !!aktifMi;
-  var ham = String(planStr || VARSAYILAN_OTO_PLAN).trim();
-  if (ham.indexOf(';') === -1) { ham = VARSAYILAN_OTO_PLAN; }
-  var p = ham.split(';');
-  duzenlenenPlan.ortak = String(p[0] || '1').trim() !== '0';
-
-  var gParca = String(p[1] || '08:00-21:00').split('-');
-  duzenlenenPlan.genelBas = tamSaateYuvarla(gParca[0], '08:00');
-  duzenlenenPlan.genelBit = tamSaateYuvarla(gParca[1], '21:00');
-
-  for (var k = 1; k <= 7; k++) { duzenlenenPlan.gunler[String(k)] = false; }
-  var seciliDizi = String(p[2] || '1,2,3,4,5,6,7').split(',');
-  for (var i = 0; i < seciliDizi.length; i++) {
-    var gNo = String(parseInt(seciliDizi[i], 10));
-    if (duzenlenenPlan.gunler[gNo] !== undefined) { duzenlenenPlan.gunler[gNo] = true; }
-  }
-
-  var ozelDizi = String(p[3] || '').split(',');
-  for (var j = 0; j < ozelDizi.length; j++) {
-    var kv = ozelDizi[j].split('=');
-    if (kv.length === 2 && duzenlenenPlan.ozel[kv[0]]) {
-      var sp = kv[1].split('-');
-      if (sp.length === 2) {
-        duzenlenenPlan.ozel[kv[0]] = [tamSaateYuvarla(sp[0], '08:00'), tamSaateYuvarla(sp[1], '21:00')];
-      }
-    }
-  }
-}
-
-function planMetniBirlestir() {
-  var secili = [];
-  var ozelParcalar = [];
-  for (var g = 1; g <= 7; g++) {
-    var k = String(g);
-    if (duzenlenenPlan.gunler[k]) { secili.push(k); }
-    var bas = duzenlenenPlan.ortak ? duzenlenenPlan.genelBas : (duzenlenenPlan.ozel[k][0] || '08:00');
-    var bit = duzenlenenPlan.ortak ? duzenlenenPlan.genelBit : (duzenlenenPlan.ozel[k][1] || '21:00');
-    ozelParcalar.push(k + '=' + bas + '-' + bit);
-  }
-  return (duzenlenenPlan.ortak ? '1' : '0') + ';' +
-         duzenlenenPlan.genelBas + '-' + duzenlenenPlan.genelBit + ';' +
-         secili.join(',') + ';' +
-         ozelParcalar.join(',');
-}
-
-function otoModalArayuzYenile() {
-  var aBtn = $('otoAktifToggle');
-  aBtn.classList.toggle('on', duzenlenenPlan.aktif);
-  aBtn.classList.toggle('off', !duzenlenenPlan.aktif);
-  aBtn.setAttribute('aria-checked', duzenlenenPlan.aktif ? 'true' : 'false');
-
-  var oBtn = $('ortakSaatToggle');
-  oBtn.classList.toggle('on', duzenlenenPlan.ortak);
-  oBtn.classList.toggle('off', !duzenlenenPlan.ortak);
-  oBtn.setAttribute('aria-checked', duzenlenenPlan.ortak ? 'true' : 'false');
-
-  var gunButonlar = $('gunSecimGrubu').querySelectorAll('.day-btn');
-  for (var i = 0; i < gunButonlar.length; i++) {
-    var g = gunButonlar[i].getAttribute('data-gun');
-    gunButonlar[i].classList.toggle('on', !!duzenlenenPlan.gunler[g]);
-  }
-
-  $('selGenelBas').value = duzenlenenPlan.genelBas;
-  $('selGenelBit').value = duzenlenenPlan.genelBit;
-
-  $('ortakSaatKutu').hidden = !duzenlenenPlan.ortak;
-  var ozelKutu = $('ozelSaatListesi');
-  ozelKutu.hidden = duzenlenenPlan.ortak;
-
-  if (!duzenlenenPlan.ortak) {
-    ozelKutu.innerHTML = '';
-    var enAzBirGun = false;
-    for (var d = 1; d <= 7; d++) {
-      var dk = String(d);
-      if (!duzenlenenPlan.gunler[dk]) { continue; }
-      enAzBirGun = true;
-      var satir = document.createElement('div');
-      satir.className = 'custom-day-row';
-      satir.innerHTML = '<b>' + GUN_ADLARI[dk] + '</b>' +
-        '<select class="sel-time ozel-bas" data-gun="' + dk + '" aria-label="' + GUN_ADLARI[dk] + ' başlangıç saati">' + saatSecenekHtml + '</select>' +
-        '<select class="sel-time ozel-bit" data-gun="' + dk + '" aria-label="' + GUN_ADLARI[dk] + ' bitiş saati">' + saatSecenekHtml + '</select>';
-      ozelKutu.appendChild(satir);
-      satir.querySelector('.ozel-bas').value = duzenlenenPlan.ozel[dk][0] || duzenlenenPlan.genelBas;
-      satir.querySelector('.ozel-bit').value = duzenlenenPlan.ozel[dk][1] || duzenlenenPlan.genelBit;
-    }
-    if (!enAzBirGun) {
-      ozelKutu.innerHTML = '<p class="day-hint">Saat belirlemek için yukarıdan en az 1 gün seçin.</p>';
-    }
-  }
-}
-
-function ozelSaatInputlariniOku() {
-  if (duzenlenenPlan.ortak) { return; }
-  var baslar = $('ozelSaatListesi').querySelectorAll('.ozel-bas');
-  var bitler = $('ozelSaatListesi').querySelectorAll('.ozel-bit');
-  for (var i = 0; i < baslar.length; i++) {
-    var g = baslar[i].getAttribute('data-gun');
-    duzenlenenPlan.ozel[g][0] = baslar[i].value;
-  }
-  for (var j = 0; j < bitler.length; j++) {
-    var g2 = bitler[j].getAttribute('data-gun');
-    duzenlenenPlan.ozel[g2][1] = bitler[j].value;
-  }
-}
-
-function otoModalBakiyeUyarisiGoster(mesajMetni) {
-  var msg = $('otoModalMsg'), gitBtn = $('btnOtoBakiyeGit');
-  msg.hidden = false;
-  msg.textContent = mesajMetni || ('⚠️ Mevcut bakiyeniz ' + fmtPara(son ? son.bakiye.mevcut : 0) + ' olduğu için Otomatik Başlatma açılamaz! Lütfen önce bakiye yükleyin.');
-  msg.className = 'msg err';
-  gitBtn.hidden = false;
-}
-
-function otoModalAc() {
-  if (!son) { return; }
-  planMetniniAyrstir(son.otoPlan, son.otoAcik);
-  otoModalArayuzYenile();
-
-  var msg = $('otoModalMsg'), gitBtn = $('btnOtoBakiyeGit');
-  if (son.bakiye.mevcut <= 0) {
-    otoModalBakiyeUyarisiGoster('⚠️ Mevcut bakiyeniz ' + fmtPara(son.bakiye.mevcut) + ' olduğu için Otomatik Başlatma şu an çalışamaz. Gün/saat planınızı kaydedebilirsiniz ancak yayın için bakiye yüklemelisiniz.');
-  } else {
-    msg.hidden = true;
-    msg.textContent = '';
-    gitBtn.hidden = true;
-  }
-
-  var m = $('otoModal');
-  m.classList.add('on');
-  m.setAttribute('aria-hidden', 'false');
-}
-
-function otoModalKapat() {
-  var m = $('otoModal');
-  m.classList.remove('on');
-  m.setAttribute('aria-hidden', 'true');
-}
-
-async function otoPlanKaydet() {
-  if (!son) { return; }
-  var btn = $('btnOtoKaydet'), msg = $('otoModalMsg'), gitBtn = $('btnOtoBakiyeGit');
-  if (btn.disabled) { return; }
-
-  duzenlenenPlan.genelBas = $('selGenelBas').value;
-  duzenlenenPlan.genelBit = $('selGenelBit').value;
-  ozelSaatInputlariniOku();
-
-  var seciliSayisi = 0;
-  for (var g = 1; g <= 7; g++) {
-    if (duzenlenenPlan.gunler[String(g)]) { seciliSayisi++; }
-  }
-  if (duzenlenenPlan.aktif && seciliSayisi === 0) {
-    msg.hidden = false;
-    msg.textContent = '⚠️ Lütfen otomatik yayın için yukarıdan en az 1 gün seçin.';
-    msg.className = 'msg err';
-    return;
-  }
-
-  if (duzenlenenPlan.aktif && son.bakiye.mevcut <= 0) {
-    duzenlenenPlan.aktif = false;
-    otoModalArayuzYenile();
-    otoModalBakiyeUyarisiGoster('⚠️ Bakiyeniz ' + fmtPara(son.bakiye.mevcut) + ' olduğu için Otomatik Başlatma aktif edilemez! Lütfen aşağıdaki butondan bakiye yükleyin.');
-    return;
-  }
-
-  var yeniPlanStr = planMetniBirlestir();
-  var yeniDurumStr = duzenlenenPlan.aktif ? 'ACIK' : 'KAPALI';
-
-  son.otoAcik = duzenlenenPlan.aktif;
-  son.otoPlan = yeniPlanStr;
-  ustBarBakiyeVeOtoGuncelle(son);
-
-  if (DEMO || !aktifOturum || !aktifOturum.tok) {
-    msg.hidden = false;
-    msg.textContent = '✅ Otomatik Aç/Kapat saat planınız kaydedildi.';
-    msg.className = 'msg ok';
-    gitBtn.hidden = true;
-    return;
-  }
-
-  btn.disabled = true;
-  btn.textContent = 'Kaydediliyor…';
-  msg.hidden = true;
-  try {
-    var ek = '&islem=oto_plan&durum=' + yeniDurumStr + '&plan=' + encodeURIComponent(yeniPlanStr) + '&taze=1';
-    var yanit = await apiCagir(aktifOturum.id, { tok: aktifOturum.tok }, ek);
-    if (yanit && yanit.kod === 'bakiye_bitti') {
-      duzenlenenPlan.aktif = false;
-      son.otoAcik = false;
-      otoModalArayuzYenile();
-      ustBarBakiyeVeOtoGuncelle(son);
-      otoModalBakiyeUyarisiGoster(yanit.mesaj);
-      return;
-    }
-    if (yanit && yanit.ok) {
-      if (yanit.yayin_komutu) {
-        son.hedefKomut = yanit.yayin_komutu;
-        son.komutBekliyor = true;
-        
-        yayinArayuzGuncelle(son.yayinAcik, true, son.hedefKomut, false);
-        
-        canliKomutTakibiBaslat(son.hedefKomut);
-      }
-      onbellekYaz(son);
-      msg.hidden = false;
-      msg.textContent = '✅ Otomatik Aç/Kapat saat planınız kaydedildi.';
-      msg.className = 'msg ok';
-      gitBtn.hidden = true;
-    } else {
-      msg.hidden = false;
-      msg.textContent = '❌ Plan kaydedilemedi, tekrar deneyin.';
-      msg.className = 'msg err';
-    }
-  } catch (e) {
-    msg.hidden = false;
-    msg.textContent = '❌ Bağlantı hatası: Plan kaydedilemedi.';
-    msg.className = 'msg err';
-  } finally {
-    btn.disabled = false;
-    btn.textContent = 'Ayarları Kaydet';
-  }
-}
-
-function demoVeri() {
-  var hamTik = [0,0,4,2,5,0,1,7,8,6,5,9,11,4,0,6,12,18,14,9,11,15,22,19,8,14,10,6,2,4];
-  var hamGos = [0,3,61,28,51,0,3,74,89,62,55,94,112,45,0,68,124,182,141,92,108,149,215,180,79,110,59,30,15,38];
-  var hamMal = hamTik.map(function (t) { return Number((t * 19.43).toFixed(2)); });
-  var saatTik = [0,0,0,0,0,0,0,0,0,1,0,1,1,0,1,0,0,0,0,0,0,0,0,0];
-  var saatGos = [0,0,0,0,0,0,1,2,4,6,3,7,6,4,5,0,0,0,0,0,0,0,0,0];
-  var saatMal = saatTik.map(function (t) { return Number((t * 19.43).toFixed(2)); });
-
-  var bugun = new Date();
-  var bs = new Date(bugun.getFullYear(), bugun.getMonth(), bugun.getDate() - 29);
-  var iso = bs.getFullYear() + '-' + ('0' + (bs.getMonth() + 1)).slice(-2) + '-' + ('0' + bs.getDate()).slice(-2);
-  var simdiIso = bugun.getFullYear() + '-' + ('0' + (bugun.getMonth() + 1)).slice(-2) + '-' + ('0' + bugun.getDate()).slice(-2) +
-                 ' ' + ('0' + bugun.getHours()).slice(-2) + ':' + ('0' + bugun.getMinutes()).slice(-2) + ':' + ('0' + bugun.getSeconds()).slice(-2);
-  return {
-    ok: true, durum: true, yayin_komutu: 'DURAKLATILDI', kampanya_durumu: 'DURAKLATILDI', komut_bekliyor: false,
-    oto_baslat: 'KAPALI', oto_plan: VARSAYILAN_OTO_PLAN, sektor: '',
-    omur_maliyet: 108420.50,
-    bakiye: { mevcut: -88.00, paket: 1000.00, harcanan: 1088.00, durum: 'BAKIYE_BITTI', bakiye_bitti: true, referans_maliyet: 108420.50 },
-    id: URL_ID || 'taksi_44_1', isletme: 'Şahin Taksi', telefon: '0534 595 74 44',
-    gosterim: 1979, tiklanma: 210, to: 10.61,
-    maliyet: 4080.30, tbm: 19.43, aramalar: 0,
-    gercek_kampanya_adi: 'Malatya Taksi Kampanyası',
-    gercek_lokasyon: 'Malatya Province, Turkey',
-    reklam_baslik: 'Malatya Taksi | 7/24 Hızlı ve Güvenli',
-    reklam_aciklama: 'Malatya içinde güvenilir ve hızlı taksi hizmeti. Hemen arayın, kapınıza kadar gelelim. Konforlu yolculuğun adresi Şahin Taksi.',
-    cihaz: { mobil: 97, pc: 3, tablet: 0 },
-    demografi: { kadin: 51, erkek: 49, yas: '25-34', yas_dagilim: [22, 34, 18, 14, 7, 4] },
-    saat_dagilim: [6, 0, 68, 26],
-    saatlik: { tiklama: saatTik, gosterim: saatGos, maliyet: saatMal },
-    kelimeler: ['malatya taksi:31:602.33:12.41', 'malatya ticari taksi:10:194.30:9.41', 'fahri kayahan taksi:6:116.58:12.41', 'maşti taksi:4:77.72:9.41', 'taksi malatya:4:77.72:12.41'],
-    gunluk: { baslangic: iso, tiklama: hamTik, gosterim: hamGos, maliyet: hamMal },
-    guncelleme: simdiIso
-  };
-}
-
-async function baslat() {
-  altYaziYukle();
-  kurulumButonDurumu();
-  if (durduruldu) { return; }
-  if (DEMO) {
-    var v = duzenle(demoVeri());
-    son = v; sonYukleme = Date.now();
-    $('demoBant').hidden = false;
-    panoyuCiz(v, false); goster('dashScreen');
-    return;
-  }
-  if (!apiAyarliMi()) { hataEkrani(new PanelHata('AG-05', 'Panel henüz yapılandırılmamış.', 'API_URL eksik')); return; }
-  if (banliMi()) { goster('banScreen'); return; }
-  var o = oturumuOku();
-  if (o && URL_ID && trNorm(URL_ID) !== trNorm(o.id)) { o = null; }
-  if (!o) { goster('loginScreen'); return; }
-
-  var kayit = onbellekOku(o.id);
-  if (kayit) {
-    try {
-      son = kayit.v; sonYukleme = kayit.t; aktifOturum = { id: o.id, tok: o.tok };
-      panoyuCiz(kayit.v, false); goster('dashScreen');
-    } catch (e) { depo.sil(LS.veri); kayit = null; }
-  }
-  if (kayit) { await veriYukle(o.id, { tok: o.tok }, { sessiz: true, taze: true }); }
-  else { await veriYukle(o.id, { tok: o.tok }, { taze: true }); }
-}
-
-var yenileCalisiyor = false;
-async function yenile() {
-  if (yenileCalisiyor || !aktifOturum || durduruldu) { return; }
-  yenileCalisiyor = true;
-  var b = $('btnYenile'); b.classList.add('yukleniyor');
-  try {
-    if ('caches' in window) {
-      try {
-        var keys = await window.caches.keys();
-        for (var i = 0; i < keys.length; i++) { await window.caches.delete(keys[i]); }
-      } catch (e) {}
-    }
-    await altYaziYukle();
-    await veriYukle(aktifOturum.id, { tok: aktifOturum.tok }, { sessiz: true, taze: true });
-  } finally {
-    b.classList.remove('yukleniyor');
-    yenileCalisiyor = false;
-  }
-}
-
-function tazeleGerekirse() {
-  if (aktifOturum && aktifOturum.tok && !durduruldu && $('dashScreen').classList.contains('on') && Date.now() - sonYukleme > YENILEME_ESIGI) {
-    veriYukle(aktifOturum.id, { tok: aktifOturum.tok }, { sessiz: true, taze: true });
-  }
-}
-
-function sayarakYukselt(el, hedef, sure, animasyon) {
-  var jeton = (el._jeton = (el._jeton || 0) + 1);
-  if (animasyon === false || hareketAzalt() || hedef <= 0) { el.textContent = fmt(hedef); return; }
-  var t0 = performance.now();
-  (function adim(t) {
-    if (jeton !== el._jeton) { return; }
-    var o = Math.min(1, (t - t0) / sure), k = 1 - Math.pow(1 - o, 3);
-    el.textContent = fmt(hedef * k);
-    if (o < 1) { window.requestAnimationFrame(adim); } else { el.textContent = fmt(hedef); }
-  })(t0);
-}
-
-function donemMetrikleri(v, gunSayisi) {
-  var gt = (v.gunluk && Array.isArray(v.gunluk.tiklama)) ? v.gunluk.tiklama : [];
-  var gg = (v.gunluk && Array.isArray(v.gunluk.gosterim)) ? v.gunluk.gosterim : [];
-  var gm = (v.gunluk && Array.isArray(v.gunluk.maliyet)) ? v.gunluk.maliyet : [];
-  var stTik = (v.saatlik && Array.isArray(v.saatlik.tiklama)) ? v.saatlik.tiklama : [];
-  var stGos = (v.saatlik && Array.isArray(v.saatlik.gosterim)) ? v.saatlik.gosterim : [];
-  var stMal = (v.saatlik && Array.isArray(v.saatlik.maliyet)) ? v.saatlik.maliyet : [];
-
-  var birimTbm30 = v.tbm > 0 ? v.tbm : ((v.tiklanma > 0 && v.maliyet > 0) ? (v.maliyet / v.tiklanma) : 0);
-
-  if (gunSayisi === 1) {
-    var topSaatTik = topla(stTik);
-    var topSaatGos = topla(stGos);
-    var topSaatMal = topla(stMal);
-
-    var t1 = topSaatTik > 0 ? topSaatTik : (gt.length ? n(gt[gt.length - 1]) : 0);
-    var g1 = topSaatGos > 0 ? topSaatGos : (gg.length ? n(gg[gg.length - 1]) : 0);
-    var m1 = topSaatMal > 0 ? topSaatMal : ((gm.length && topla(gm) > 0) ? n(gm[gm.length - 1]) : (t1 > 0 ? Number((t1 * birimTbm30).toFixed(2)) : 0));
-    var to1 = g1 > 0 ? (t1 / g1 * 100) : 0;
-    var tbm1 = t1 > 0 ? (m1 / t1) : 0;
-    return { gosterim: g1, tiklanma: t1, to: to1, tbm: tbm1, maliyet: m1, etiket: 'Bugün (00:00 - 23:59)' };
-  }
-
-  if (gunSayisi === 7) {
-    var t7 = gt.length >= 7 ? topla(gt.slice(-7)) : topla(gt);
-    var g7 = gg.length >= 7 ? topla(gg.slice(-7)) : topla(gg);
-    var m7 = (gm.length >= 7 && topla(gm) > 0) ? topla(gm.slice(-7)) : (t7 > 0 ? Number((t7 * birimTbm30).toFixed(2)) : 0);
-    var to7 = g7 > 0 ? (t7 / g7 * 100) : 0;
-    var tbm7 = t7 > 0 ? (m7 / t7) : 0;
-    return { gosterim: g7, tiklanma: t7, to: to7, tbm: tbm7, maliyet: m7, etiket: 'Son 7 günde (Haftalık)' };
-  }
-
-  var to30 = v.gosterim > 0 ? (v.tiklanma / v.gosterim * 100) : 0;
-  var tbm30 = v.tbm > 0 ? v.tbm : (v.tiklanma > 0 ? (v.maliyet / v.tiklanma) : 0);
-  var mal30 = v.maliyet > 0 ? v.maliyet : (v.tiklanma > 0 && tbm30 > 0 ? Number((v.tiklanma * tbm30).toFixed(2)) : 0);
-  return { gosterim: v.gosterim, tiklanma: v.tiklanma, to: to30, tbm: tbm30, maliyet: mal30, etiket: 'Son 30 günde (Aylık)' };
-}
-
-function donemSec(gun, sessiz) {
-  seciliDonem = gun;
-  $('dBtn1').classList.toggle('on', gun === 1);
-  $('dBtn7').classList.toggle('on', gun === 7);
-  $('dBtn30').classList.toggle('on', gun === 30);
-  if (!son) { return; }
-  var m = donemMetrikleri(son, gun);
-  $('ftGosterim').textContent = m.etiket;
-  $('ftMaliyet').textContent = m.etiket;
-  $('ftTO').textContent = m.etiket;
-  $('ftTBM').textContent = m.etiket;
-
-  sayarakYukselt($('vGosterim'), m.gosterim, 600, !sessiz);
-  sayarakYukselt($('vTiklanma'), m.tiklanma, 700, !sessiz);
-  $('vTO').textContent = '%' + m.to.toFixed(2).replace('.', ',');
-  $('vTBM').textContent = fmtPara(m.tbm);
-  $('vMaliyet').textContent = fmtPara(m.maliyet);
-
-  googleAdsGrafikCiz(son, gun);
-  kampanyaListesiCiz(son, m);
-}
-
-function panoyuCiz(v, sessiz) {
-  var temizIsletme = guzelAd(v.isletme);
-  var kampanyaVeyaIsletme = temizIsletme || v.gercek_kampanya_adi || 'Arama Ağı Kampanyası';
-
-  document.title = kampanyaVeyaIsletme + ' · Reklam Paneli';
-  $('dashIsletme').textContent = kampanyaVeyaIsletme;
-  $('dashBas').textContent = bas(kampanyaVeyaIsletme);
-  
-  var lokasyon = v.gercek_lokasyon || 'Türkiye';
-  var kampanyaKisa = v.gercek_kampanya_adi || 'Reklam Kampanyası';
-  $('dashSehirEtiket').textContent = lokasyon + ' · ' + kampanyaKisa;
-  
-  $('dashGuncellemeUst').textContent = 'Son güncelleme: ' + tarihSaniyeliYaz(v.guncelleme);
-
-  yayinArayuzGuncelle(v.yayinAcik, v.komutBekliyor, v.hedefKomut, v.komutSiraBekliyor);
-  ustBarBakiyeVeOtoGuncelle(v);
-  onizlemeCiz(v);
-  demografiVeCihazCiz(v);
-  saatDilimleriCiz(v);
-  donemSec(seciliDonem, sessiz);
-  kurulumButonDurumu();
-}
-
-var trendGrafik = null, chartYuklemeBekliyor = false;
-function googleAdsGrafikCiz(v, gunSayisi) {
-  var canvas = $('trendCanvas');
-  if (!v) { return; }
-
-  if (typeof window.Chart === 'undefined') {
-    if (!chartYuklemeBekliyor) {
-      chartYuklemeBekliyor = true;
-      window.addEventListener('load', function () {
-        chartYuklemeBekliyor = false;
-        if (son) { googleAdsGrafikCiz(son, seciliDonem); }
-      });
-    }
-    return;
-  }
-
-  var kisaEtiket = [], tamTarih = [], tikDizi = [], gosDizi = [], malDizi = [], tbmDizi = [];
-
-  if (gunSayisi === 1) {
-    $('grafikBaslik').textContent = '📈 Google Ads Günlük Saat Serisi Grafiği (00:00 - 23:00)';
-    $('grafikAltBaslik').textContent = 'Noktalara dokunarak bugünün saatlik Tıklama, Gösterim, Harcama ve TBM verilerini inceleyin';
-    var st = v.saatlik || {};
-    tikDizi = (Array.isArray(st.tiklama) && st.tiklama.length === 24) ? st.tiklama.slice(0, 24) : [];
-    gosDizi = (Array.isArray(st.gosterim) && st.gosterim.length === 24) ? st.gosterim.slice(0, 24) : [];
-    malDizi = (Array.isArray(st.maliyet) && st.maliyet.length === 24) ? st.maliyet.slice(0, 24) : [];
-    for (var s = 0; s < 24; s++) {
-      if (tikDizi.length < 24) { tikDizi.push(0); }
-      if (gosDizi.length < 24) { gosDizi.push(0); }
-      if (malDizi.length < 24) { malDizi.push(0); }
-      var t = tikDizi[s] || 0, m = malDizi[s] || 0;
-      tbmDizi.push(t > 0 ? Number((m / t).toFixed(2)) : 0);
-      var saatMetin = ('0' + s).slice(-2) + ':00';
-      kisaEtiket.push(saatMetin);
-      tamTarih.push('Bugün Saat ' + saatMetin + ' - ' + ('0' + s).slice(-2) + ':59');
-    }
-  } else {
-    $('grafikBaslik').textContent = '📈 Google Ads Zaman Serisi Grafiği';
-    $('grafikAltBaslik').textContent = 'Noktalara dokunarak günlük Tıklama, Gösterim, Harcama ve TBM verilerini inceleyin';
-    var g = v.gunluk || {};
-    var toplam = (g.tiklama && g.tiklama.length) ? g.tiklama.length : 30;
-    var cizimAdet = Math.min(gunSayisi, toplam);
-    tikDizi = g.tiklama ? g.tiklama.slice(-cizimAdet) : [];
-    gosDizi = (g.gosterim && g.gosterim.length >= cizimAdet) ? g.gosterim.slice(-cizimAdet) : tikDizi.map(function () { return 0; });
-    malDizi = (g.maliyet && g.maliyet.length >= cizimAdet) ? g.maliyet.slice(-cizimAdet) : tikDizi.map(function () { return 0; });
-
-    for (var k = 0; k < tikDizi.length; k++) {
-      var tk = tikDizi[k] || 0, mk = malDizi[k] || 0;
-      tbmDizi.push(tk > 0 ? Number((mk / tk).toFixed(2)) : 0);
-    }
-
-    var m_regex = /^(\d{4})-(\d{2})-(\d{2})$/.exec(g.baslangic || '');
-    var basTarih = m_regex ? new Date(parseInt(m_regex[1], 10), parseInt(m_regex[2], 10) - 1, parseInt(m_regex[3], 10) + (toplam - cizimAdet)) : new Date(Date.now() - (cizimAdet - 1) * 86400000);
-
-    for (var i = 0; i < cizimAdet; i++) {
-      var d = new Date(basTarih.getFullYear(), basTarih.getMonth(), basTarih.getDate() + i);
-      var gunAd = d.toLocaleDateString('tr-TR', { weekday: 'short' });
-      kisaEtiket.push(d.getDate() + ' ' + AYLAR[d.getMonth()]);
-      tamTarih.push(d.getDate() + ' ' + AYLAR[d.getMonth()] + ' ' + d.getFullYear() + ' ' + gunAd);
-    }
-  }
-
-  var enCok = 0, enIndeks = -1;
-  for (var k2 = 0; k2 < tikDizi.length; k2++) {
-    if (tikDizi[k2] > enCok) { enCok = tikDizi[k2]; enIndeks = k2; }
-  }
-
-  if (gunSayisi === 1) {
-    $('trendOzet').innerHTML = '<span>Bugün toplamı: <b>' + fmt(topla(tikDizi)) + ' tıklama</b> · <b>' + fmt(topla(gosDizi)) + ' gösterim</b> · <b>' + fmtPara(topla(malDizi)) + ' harcama</b></span>' +
-                               (enCok > 0 && enIndeks > -1 ? '<span>En yoğun saat: <b>' + kisaEtiket[enIndeks] + ' (' + fmt(enCok) + ' tıklama)</b></span>' : '<span>Bugün henüz tıklama kaydı yok</span>');
-  } else {
-    $('trendOzet').innerHTML = '<span>Dönem toplamı: <b>' + fmt(topla(tikDizi)) + ' tıklama</b> · <b>' + fmt(topla(gosDizi)) + ' gösterim</b> · <b>' + fmtPara(topla(malDizi)) + ' harcama</b></span>' +
-                               (enCok > 0 && enIndeks > -1 ? '<span>En yüksek gün: <b>' + (tamTarih[enIndeks] || '') + ' (' + fmt(enCok) + ' tıklama)</b></span>' : '<span>Seçili aralıkta tıklama kaydı yok</span>');
-  }
-
-  if (trendGrafik) {
-    trendGrafik.data.labels = kisaEtiket;
-    trendGrafik.data.datasets[0].data = tikDizi;
-    trendGrafik.data.datasets[1].data = gosDizi;
-    trendGrafik._gunlukMaliyet = malDizi;
-    trendGrafik._gunlukTbm = tbmDizi;
-    trendGrafik.options.plugins.tooltip.callbacks.title = function (items) {
-      return tamTarih[items[0].dataIndex] || items[0].label;
-    };
-    trendGrafik.update();
-    return;
-  }
-
-  trendGrafik = new window.Chart(canvas, {
-    type: 'line',
-    data: {
-      labels: kisaEtiket,
-      datasets: [
-        {
-          label: 'Tıklamalar',
-          data: tikDizi,
-          borderColor: '#1a73e8',
-          backgroundColor: 'rgba(26,115,232,0.12)',
-          borderWidth: 2.6,
-          pointRadius: 2.5,
-          pointHoverRadius: 6,
-          pointBackgroundColor: '#1a73e8',
-          tension: 0.25,
-          fill: true,
-          yAxisID: 'y'
-        },
-        {
-          label: 'Gösterim sayısı',
-          data: gosDizi,
-          borderColor: '#d93025',
-          backgroundColor: 'rgba(217,48,37,0.05)',
-          borderWidth: 2.2,
-          pointRadius: 2,
-          pointHoverRadius: 6,
-          pointBackgroundColor: '#d93025',
-          tension: 0.25,
-          fill: false,
-          yAxisID: 'y1'
-        }
-      ]
-    },
-    options: {
-      responsive: true,
-      maintainAspectRatio: false,
-      interaction: { intersect: false, mode: 'index' },
-      plugins: {
-        legend: { display: false },
-        tooltip: {
-          backgroundColor: '#ffffff',
-          titleColor: '#202124',
-          bodyColor: '#3c4043',
-          borderColor: '#dadce0',
-          borderWidth: 1,
-          padding: 11,
-          boxWidth: 12,
-          boxHeight: 5,
-          usePointStyle: false,
-          titleFont: { size: 12.5, weight: 'bold' },
-          bodyFont: { size: 12, weight: '600' },
-          callbacks: {
-            title: function (items) { return tamTarih[items[0].dataIndex] || items[0].label; },
-            afterBody: function (items) {
-              var idx = items[0].dataIndex;
-              var gMal = (trendGrafik && trendGrafik._gunlukMaliyet && trendGrafik._gunlukMaliyet[idx] !== undefined)
-                ? trendGrafik._gunlukMaliyet[idx] : (malDizi[idx] || 0);
-              var gTbm = (trendGrafik && trendGrafik._gunlukTbm && trendGrafik._gunlukTbm[idx] !== undefined)
-                ? trendGrafik._gunlukTbm[idx] : (tbmDizi[idx] || 0);
-              return [
-                ' O Günkü Maliyet:   ' + fmtPara(gMal),
-                ' Ort. TBM:   ' + fmtPara(gTbm)
-              ];
-            },
-            label: function (c) { return ' ' + c.dataset.label + ':   ' + fmt(c.parsed.y); }
-          }
-        }
-      },
-      scales: {
-        x: {
-          grid: { display: false },
-          ticks: { color: '#8fa0c4', maxTicksLimit: 8, maxRotation: 0, font: { size: 10.5 } }
-        },
-        y: {
-          type: 'linear', display: true, position: 'left', beginAtZero: true,
-          grid: { color: 'rgba(120,150,220,0.12)' },
-          ticks: { color: '#60a5fa', maxTicksLimit: 4, font: { size: 10.5 } }
-        },
-        y1: {
-          type: 'linear', display: true, position: 'right', beginAtZero: true,
-          grid: { drawOnChartArea: false },
-          ticks: { color: '#f87171', maxTicksLimit: 4, font: { size: 10.5 } }
-        }
-      }
-    }
-  });
-  trendGrafik._gunlukMaliyet = malDizi;
-  trendGrafik._gunlukTbm = tbmDizi;
-}
-
-function kampanyaListesiCiz(v, m) {
-  var kampanyaAdi = v.gercek_kampanya_adi || 'Arama Ağı Kampanyası';
-  var kg = $('kampanyaListeGovde');
-  kg.innerHTML = '<div class="ads-list-row">' +
-    '<span class="term-title"><span class="status-dot' + (v.yayinAcik ? '' : ' off') + '"></span><b class="term-text">' + kampanyaAdi + '</b></span>' +
-    '<span class="cost-badge">' + fmtPara(m.maliyet) + '</span>' +
-    '<span class="r-align num"><b>' + fmt(m.tiklanma) + '</b></span>' +
-    '<span class="r-align num">' + fmtPara(m.tbm) + '</span>' +
-    '<span class="r-align num">%' + m.to.toFixed(2).replace('.', ',') + '</span>' +
-  '</div>';
-
-  var kwGovde = $('kelimeListeGovde');
-  var cl = $('chipList');
-  kwGovde.innerHTML = '';
-  cl.innerHTML = '';
-
-  if (!v.kelimeler || v.kelimeler.length === 0) {
-    kwGovde.innerHTML = '<div class="ads-list-row kw-cols"><span class="term-title" style="color:var(--muted)">Henüz arama terimi verisi oluşmadı</span><span class="r-align">—</span><span class="r-align">0</span><span class="r-align">—</span></div>';
-    return;
-  }
-
-  v.kelimeler.forEach(function (item) {
-    var parca = String(item).split(':');
-    var adK = (parca[0] || '').trim();
-    var tikSayi = parca[1] !== undefined ? n(parca[1]) : 0;
-    var gercekMal = (parca[2] !== undefined && n(parca[2]) > 0) ? fmtPara(n(parca[2])) : '—';
-    var gercekTo = (parca[3] !== undefined && n(parca[3]) > 0) ? ('%' + n(parca[3]).toFixed(2).replace('.', ',')) : '—';
-
-    var row = document.createElement('div');
-    row.className = 'ads-list-row kw-cols';
-    row.innerHTML = '<span class="term-title"><span class="status-dot' + (v.yayinAcik ? '' : ' off') + '"></span><span class="term-text">"' + adK + '"</span></span>' +
-                    '<span class="cost-badge">' + gercekMal + '</span>' +
-                    '<span class="r-align num"><b>' + fmt(tikSayi) + '</b></span>' +
-                    '<span class="r-align num">' + gercekTo + '</span>';
-    kwGovde.appendChild(row);
-
-    var chip = document.createElement('span');
-    chip.className = 'kw-chip';
-    chip.textContent = adK + ' ';
-    if (tikSayi > 0) {
-      var b = document.createElement('b');
-      b.textContent = fmt(tikSayi);
-      chip.appendChild(b);
-    }
-    cl.appendChild(chip);
-  });
-}
-
-function onizlemeCiz(v) {
-  $('gercekAdBaslik').textContent = v.reklam_baslik || 'Reklam Başlığı Bekleniyor';
-  $('gercekAdAciklama').textContent = v.reklam_aciklama || 'Açıklama Google Ads üzerinden çekiliyor...';
-  $('gercekAdLokasyon').textContent = v.gercek_lokasyon || 'Türkiye';
-}
-
-function demografiVeCihazCiz(v) {
-  var kadin = n(v.demografi.kadin), erkek = n(v.demografi.erkek);
-  $('txtKadin').textContent = '👩 Kadın %' + kadin;
-  $('txtErkek').textContent = '👨 Erkek %' + erkek;
-  $('barKadin').style.width = kadin + '%';
-  $('barErkek').style.width = erkek + '%';
-  var baskinYas = (v.demografi.yasBaskin && v.demografi.yasBaskin !== '0') ? v.demografi.yasBaskin : '—';
-  $('yasBaskinMetin').textContent = 'En yoğun ilgi gösteren yaş grubu: ' + baskinYas;
-
-  var yasEtiketler = ['18-24', '25-34', '35-44', '45-54', '55-64', '65+'];
-  var yasDegerler = v.demografi.yasDagilim;
-  var maksYas = Math.max.apply(null, yasDegerler.concat([1]));
-  var ag = $('ageGrid'); ag.innerHTML = '';
-  for (var i = 0; i < yasEtiketler.length; i++) {
-    var oran = n(yasDegerler[i]);
-    var yukseklik = oran > 0 ? Math.max(8, Math.round((oran / maksYas) * 60)) : 3;
-    var col = document.createElement('div');
-    col.className = 'age-col' + (oran === maksYas && oran > 0 ? ' top-age' : '');
-    col.innerHTML = '<span class="age-val">%' + oran + '</span>' +
-                    '<div class="age-bar-wrap"><div class="age-bar" style="height:' + yukseklik + 'px"></div></div>' +
-                    '<span class="age-lbl">' + yasEtiketler[i] + '</span>';
-    ag.appendChild(col);
-  }
-
-  var m = n(v.cihaz.mobil), p = n(v.cihaz.pc), t = n(v.cihaz.tablet);
-  var top = m + p + t;
-  var mY = top > 0 ? Math.round(m / top * 100) : 0;
-  var pY = top > 0 ? Math.round(p / top * 100) : 0;
-  var tY = top > 0 ? Math.max(0, 100 - mY - pY) : 0;
-  $('txtMobil').textContent = '%' + mY; $('barMobil').style.width = mY + '%';
-  $('txtPc').textContent = '%' + pY; $('barPc').style.width = pY + '%';
-  $('txtTablet').textContent = '%' + tY; $('barTablet').style.width = tY + '%';
-}
-
-function saatDilimleriCiz(v) {
-  var saatAdlar = ['00:00 - 06:00 (Gece)', '06:00 - 12:00 (Sabah)', '12:00 - 18:00 (Öğle)', '18:00 - 24:00 (Akşam)'];
-  var kisaAdlar = ['00-06 Gece', '06-12 Sabah', '12-18 Öğle', '18-24 Akşam'];
-  var saatOranlar = v.saatDagilim;
-  var maksSaat = Math.max.apply(null, saatOranlar);
-  var enYogunDilim = 'Henüz saat verisi yok';
-  var hg = $('hourGrid'); hg.innerHTML = '';
-  var hb = $('hourBars'); hb.innerHTML = '';
-
-  for (var i = 0; i < 4; i++) {
-    var sDeger = n(saatOranlar[i]);
-    if (sDeger === maksSaat && maksSaat > 0) { enYogunDilim = saatAdlar[i] + ' (%' + sDeger + ')'; }
-
-    var kutu = document.createElement('div');
-    kutu.className = 'hour-box' + (sDeger === maksSaat && sDeger > 0 ? ' peak' : '');
-    kutu.innerHTML = '<small>' + kisaAdlar[i] + '</small><b>%' + sDeger + '</b>';
-    hg.appendChild(kutu);
-
-    var barItem = document.createElement('div');
-    barItem.className = 'dev-item';
-    barItem.innerHTML = '<div class="dev-hdr"><span>' + saatAdlar[i] + '</span><b>%' + sDeger + '</b></div>' +
-                        '<div class="dev-track"><div class="dev-fill mob" style="width:' + Math.min(100, sDeger) + '%"></div></div>';
-    hb.appendChild(barItem);
-  }
-  $('saatOzet').innerHTML = '<span>En yoğun saat dilimi: <b>' + enYogunDilim + '</b></span>';
-}
-
-var konfetiSurum = 0;
-function tebrikAc() {
-  if (!son) { return; }
-  var m = $('tebrikModal'), metrik = donemMetrikleri(son, seciliDonem), t = metrik.tiklanma;
-  $('tebrikBaslik').textContent = 'Tıklama Özeti';
-  $('tebrikSayi').textContent = fmt(t);
-  $('tebrikMetin').textContent = metrik.etiket + ' içerisinde reklamınıza ' + fmt(t) + ' kez tıklandı ve ' + fmt(metrik.gosterim) + ' kez görüntülendi.';
-  m.classList.add('on'); m.setAttribute('aria-hidden', 'false');
-}
-function tebrikKapat() {
-  var m = $('tebrikModal'); m.classList.remove('on'); m.setAttribute('aria-hidden', 'true'); konfetiSurum++;
-}
-
-var gizliTikSayisi = 0, gizliTikZamanlayici = null;
-$('btnGuvenli').addEventListener('click', function () {
-  gizliTikSayisi++;
-  clearTimeout(gizliTikZamanlayici);
-  if (gizliTikSayisi >= 10) {
-    gizliTikSayisi = 0;
-    cikis();
-    return;
-  }
-  gizliTikZamanlayici = setTimeout(function () { gizliTikSayisi = 0; }, 1800);
-});
-
-$('pinInput').addEventListener('input', function (e) { e.target.value = e.target.value.replace(/\D/g, '').slice(0, PIN_UZUNLUGU); pinNoktalari(); if (e.target.value.length < PIN_UZUNLUGU) { girisMesaji('', ''); } });
-$('pinForm').addEventListener('submit', function (e) { e.preventDefault(); girisDene(); });
-$('hpAlan').addEventListener('input', botDurdur);
-$('btnYenile').addEventListener('click', yenile);
-$('btnYayinToggle').addEventListener('click', yayinDegistir);
-
-$('btnBakiyeModalAc').addEventListener('click', function () { bakiyeModalAc(); });
-$('btnBantBakiyeYukle').addEventListener('click', function () { bakiyeModalAc(); });
-$('btnBakiyeKapat').addEventListener('click', bakiyeModalKapat);
-$('btnBakiyeUstKapat').addEventListener('click', bakiyeModalKapat);
-$('btnBakiyeOnayla').addEventListener('click', bakiyeYukleOnayla);
-$('inpBakiyeTutar').addEventListener('input', bakiyeCanliOnizlemeGuncelle);
-$('bakiyeModal').addEventListener('click', function (e) { if (e.target === $('bakiyeModal')) { bakiyeModalKapat(); } });
-
-var hizliTutarBtnler = document.querySelectorAll('.q-btn');
-for (var q = 0; q < hizliTutarBtnler.length; q++) {
-  hizliTutarBtnler[q].addEventListener('click', function () {
-    for (var k = 0; k < hizliTutarBtnler.length; k++) { hizliTutarBtnler[k].classList.remove('secili'); }
-    this.classList.add('secili');
-    $('inpBakiyeTutar').value = this.getAttribute('data-tutar');
-    bakiyeCanliOnizlemeGuncelle();
-  });
-}
-
-$('btnOtoModalAc').addEventListener('click', otoModalAc);
-$('btnOtoKapat').addEventListener('click', otoModalKapat);
-$('btnOtoUstKapat').addEventListener('click', otoModalKapat);
-$('btnOtoKaydet').addEventListener('click', otoPlanKaydet);
-$('otoModal').addEventListener('click', function (e) { if (e.target === $('otoModal')) { otoModalKapat(); } });
-
-$('btnOtoBakiyeGit').addEventListener('click', function () {
-  otoModalKapat();
-  bakiyeModalAc();
-});
-
-$('otoAktifToggle').addEventListener('click', function () {
-  if (!duzenlenenPlan.aktif && son && son.bakiye.mevcut <= 0) {
-    otoModalBakiyeUyarisiGoster('⚠️ Bakiyeniz ' + fmtPara(son.bakiye.mevcut) + ' olduğu için Otomatik Başlatma açılamaz! Lütfen önce bakiye yükleyin.');
-    return;
-  }
-  duzenlenenPlan.aktif = !duzenlenenPlan.aktif;
-  $('otoModalMsg').hidden = true;
-  $('btnOtoBakiyeGit').hidden = true;
-  otoModalArayuzYenile();
-});
-
-$('ortakSaatToggle').addEventListener('click', function () {
-  ozelSaatInputlariniOku();
-  duzenlenenPlan.genelBas = $('selGenelBas').value;
-  duzenlenenPlan.genelBit = $('selGenelBit').value;
-  duzenlenenPlan.ortak = !duzenlenenPlan.ortak;
-  otoModalArayuzYenile();
-});
-
-var gunBtnler = $('gunSecimGrubu').querySelectorAll('.day-btn');
-for (var gb = 0; gb < gunBtnler.length; gb++) {
-  gunBtnler[gb].addEventListener('click', function () {
-    ozelSaatInputlariniOku();
-    var g = this.getAttribute('data-gun');
-    duzenlenenPlan.gunler[g] = !duzenlenenPlan.gunler[g];
-    otoModalArayuzYenile();
-  });
-}
-
-$('btnKurulum').addEventListener('click', kurulumTetikle);
-$('errCikis').addEventListener('click', cikis);
-$('lockYenile').addEventListener('click', function () {
-  var o = aktifOturum && aktifOturum.tok ? aktifOturum : oturumuOku();
-  if (o && o.tok) { veriYukle(o.id, { tok: o.tok }, { taze: true }); } else { goster('loginScreen'); }
-});
-$('errTekrar').addEventListener('click', function () { baslat(); });
-$('btnTiklayanlar').addEventListener('click', tebrikAc);
-$('tebrikKapat').addEventListener('click', tebrikKapat);
-$('tebrikModal').addEventListener('click', function (e) { if (e.target === $('tebrikModal')) { tebrikKapat(); } });
-
-$('dBtn1').addEventListener('click', function () { donemSec(1, false); });
-$('dBtn7').addEventListener('click', function () { donemSec(7, false); });
-$('dBtn30').addEventListener('click', function () { donemSec(30, false); });
-
-window.addEventListener('offline', function () { $('offlineOverlay').classList.add('on'); });
-window.addEventListener('online', function () { $('offlineOverlay').classList.remove('on'); tazeleGerekirse(); });
-document.addEventListener('visibilitychange', function () { if (!document.hidden) { tazeleGerekirse(); } });
-window.addEventListener('pageshow', function (e) { if (e.persisted) { tazeleGerekirse(); } });
-setInterval(tazeleGerekirse, 60000);
-
-window.__panelHazir = true;
-if (QS.get('sifirla') === '1') {
-  depo.sil(LS.ban); depo.sil(LS.deneme); depo.sil(LS.oturum); depo.sil(LS.veri);
-  try { var u = new URL(location.href); u.searchParams.delete('sifirla'); history.replaceState(null, '', u.pathname + u.search + u.hash); } catch (e) {}
-}
-pinNoktalari();
-baslat();
-parcaciklariBaslat();
-
-if ('serviceWorker' in navigator && location.protocol.indexOf('http') === 0) {
-  window.addEventListener('load', function () {
-    navigator.serviceWorker.register('sw.js?v=6.4').then(function (reg) {
-      try { reg.update(); } catch (e) {}
-    }).catch(function () {});
-  });
-}
-})();
-</script>
-</body>
-</html>
