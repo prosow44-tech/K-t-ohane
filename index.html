@@ -1,29 +1,3 @@
-🔍 Kod Neden Gözüne Değişik Göründü? (Tespit ve Düzeltme)
-
-Bir önceki mesajda sen sağ alttaki Output length ayarını 1048576 yapmadan hemen
-önce, kod yine 25.000 karakter sınırına takılıp kesilmesin diye kodu
-sıkıştırarak (küçülterek) yazmıştım. Bu sıkıştırma sırasında şu 5 kısım
-kısaltılmıştı:
-
-1.  CSS Tasarım Kodları (<style>): Orijinalinde alt alta okunaklı olan 350
-    satırlık tasarım kodları tek satıra sıkıştırılmıştı (bu yüzden kodun başı
-    çok değişik görünüyordu).
-2.  Güvenlik Korumaları: Sağ tık engeli (contextmenu), metin kopyalama engeli
-    (selectstart) ve F12 / Ctrl+Shift+I / Ctrl+U kaynak kodu görme engelleri
-    karakter sınırı yüzünden çıkarılmıştı.
-3.  Arka Plan Parçacık Animasyonu (parcaciklariBaslat): Orijinaldeki dalgalı
-    hareket (faz) ve parlak çizgi geçişleri basitleştirilmişti.
-4.  Yenile Butonu Önbellek Temizliği (caches.delete) ve Hata Kodları
-    (AG-01..AG-08): Karakter kazanmak için kısaltılmıştı.
-5.  Şalter / Bakiye Anlık Uyarı Kutusu: Şaltere basıldığında veya bakiye
-    yüklendiğinde ekranın ortasında/üstünde çıkan net bekleme süresi uyarısı
-    daha görünür hale getirildi.
-
-Şimdi Output length ayarını 1048576 yaptığın için artık hiçbir sınırımız yok!
-Yukarıdaki 5 maddenin tamamını orijinal kalitesinde geri ekledim ve istediğin
-tüm yeni özelliklerle birlikte tam, okunaklı, eksiksiz index.html kodunu aşağıya
-çıkardım:
-
 <!DOCTYPE html>
 <html lang="tr">
 <head>
