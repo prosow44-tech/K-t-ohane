@@ -79,6 +79,7 @@
   .btn:disabled{opacity:.45; cursor:not-allowed; transform:none}
   .btn.primary{color:#fff; background:linear-gradient(155deg,#1a73e8,#1557b0); box-shadow:0 8px 22px rgba(26,115,232,.35)}
   .btn.success{color:#fff; background:linear-gradient(155deg,#16a34a,#15803d); box-shadow:0 8px 22px rgba(22,163,74,.35)}
+  .btn.danger-btn{color:#fff; background:linear-gradient(155deg,#d93025,#b91c1c); box-shadow:0 8px 22px rgba(217,48,37,.35)}
   .btn.ghost{background:transparent; border:1px solid var(--line); color:var(--pale)}
   .btn + .btn{margin-top:8px}
   .msg{min-height:18px; margin:6px 0 10px; font-size:12.5px; color:var(--muted); line-height:1.45}
@@ -166,6 +167,7 @@
     display:block; margin-top:2px; color:#93c5fd; font-size:10.5px; font-weight:500;
     white-space:nowrap; overflow:hidden; text-overflow:ellipsis;
   }
+  .update-inline b{color:#bae6fd; font-weight:600}
 
   .actions-side{
     display:flex; align-items:center; gap:6px; flex-wrap:wrap; flex:none;
@@ -182,6 +184,10 @@
   .top-action-btn.bal-btn{
     background:linear-gradient(135deg,rgba(34,197,94,.16),rgba(15,25,50,.92));
     border-color:rgba(34,197,94,.42);
+  }
+  .top-action-btn.bal-btn.azaldi{
+    background:linear-gradient(135deg,rgba(245,158,11,.22),rgba(15,25,50,.95));
+    border-color:rgba(245,158,11,.55);
   }
   .top-action-btn.bal-btn.bitti{
     background:linear-gradient(135deg,rgba(239,68,68,.24),rgba(15,25,50,.95));
@@ -488,34 +494,104 @@
 
   .modal{
     position:fixed; inset:0; z-index:60; display:none; align-items:center; justify-content:center;
-    padding:14px; background:rgba(3,6,16,.78); -webkit-backdrop-filter:blur(8px); backdrop-filter:blur(8px);
+    padding:12px; background:rgba(3,6,16,.82); -webkit-backdrop-filter:blur(8px); backdrop-filter:blur(8px);
   }
   .modal.on{display:flex}
   .modal .card{
-    position:relative; z-index:1; max-width:440px; max-height:90dvh; overflow-y:auto;
+    position:relative; z-index:1; max-width:440px; max-height:92dvh; overflow-y:auto;
     border-color:rgba(26,115,232,.45); text-align:left; padding:20px 18px;
   }
+  .modal .card.fatura-modal-card{
+    max-width:780px; width:100%; padding:20px;
+  }
   .modal-hdr{
-    display:flex; align-items:center; justify-content:space-between; gap:8px; margin-bottom:12px;
+    display:flex; align-items:center; justify-content:space-between; gap:8px; margin-bottom:14px;
   }
   .modal-hdr h2{margin:0; font-size:17px; color:#fff}
   .modal-close{
-    width:30px; height:30px; border-radius:8px; border:1px solid var(--line);
+    width:32px; height:32px; border-radius:8px; border:1px solid var(--line);
     background:rgba(5,9,20,.65); color:var(--muted); cursor:pointer; display:grid; place-items:center;
   }
   .modal-close:hover{color:#fff; border-color:var(--accent)}
 
-  .bal-summary-strip{
-    display:flex; align-items:center; justify-content:space-between;
-    padding:10px 12px; border-radius:11px; margin-bottom:10px;
-    background:rgba(26,115,232,.12); border:1px solid rgba(26,115,232,.3);
+  /* 3. Görseldeki Google Ads Faturalandırma Özeti Tasarımı */
+  .fatura-top-3{
+    display:grid; grid-template-columns:repeat(3,1fr); gap:10px; margin-bottom:14px;
   }
-  .bal-summary-strip.eksi{
-    background:rgba(239,68,68,.16); border-color:rgba(239,68,68,.48);
+  @media (max-width:680px){
+    .fatura-top-3{grid-template-columns:1fr}
   }
-  .bal-summary-strip span{font-size:12px; color:var(--pale); font-weight:500}
-  .bal-summary-strip b{font:700 18px 'Space Grotesk',sans-serif; color:#fff}
-  .bal-summary-strip.eksi b{color:#fca5a5}
+  .fatura-kutu{
+    padding:14px 15px; border-radius:12px; border:1px solid var(--line);
+    background:rgba(7,13,28,.85); display:flex; flex-direction:column; justify-content:space-between; gap:8px;
+  }
+  .fatura-kutu-ust{
+    font-size:12.5px; color:var(--pale); font-weight:600; display:flex; align-items:center; justify-content:space-between;
+  }
+  .fatura-dev-rakam{
+    font:700 28px/1.1 'Space Grotesk',sans-serif; color:#fff; margin:2px 0;
+  }
+  .fatura-azaliyor{
+    display:inline-flex; align-items:center; gap:5px; color:#f87171; font-size:12px; font-weight:600;
+  }
+  .fatura-para-ekle-btn{
+    display:inline-flex; align-items:center; justify-content:center;
+    height:34px; padding:0 16px; border-radius:7px; border:0;
+    background:#b91c1c; color:#fff; font-size:12.5px; font-weight:700; cursor:pointer;
+    align-self:flex-start; transition:background .15s;
+  }
+  .fatura-para-ekle-btn:hover{background:#dc2626}
+  .fatura-son-odeme-satir{
+    display:flex; align-items:baseline; gap:10px; flex-wrap:wrap;
+  }
+  .fatura-son-tarih{font:700 26px/1.1 'Space Grotesk',sans-serif; color:#fff}
+  .fatura-son-tutar{font-size:12.5px; color:var(--pale); font-weight:600}
+  .fatura-kart-etiket{
+    display:inline-flex; align-items:center; gap:6px; font-size:11.5px; color:var(--muted);
+  }
+  .visa-pill{
+    padding:1px 5px; border-radius:4px; border:1px solid rgba(165,195,251,.3);
+    background:rgba(26,115,232,.2); color:#fff; font:700 9.5px 'Space Grotesk',sans-serif;
+  }
+
+  .yukleme-panel-acilir{
+    padding:14px; border-radius:12px; margin-bottom:14px;
+    background:linear-gradient(180deg,rgba(26,115,232,.14),rgba(8,14,30,.92));
+    border:1px solid rgba(59,130,246,.45);
+  }
+
+  .aylik-gecmis-baslik-bar{
+    display:flex; align-items:center; justify-content:space-between; margin:12px 0 8px;
+  }
+  .yil-secici-kutu{
+    padding:5px 12px; border-radius:7px; border:1px solid var(--line);
+    background:rgba(5,9,20,.8); color:#fff; font:600 12.5px 'Space Grotesk',sans-serif;
+  }
+  .aylik-liste{display:flex; flex-direction:column; gap:7px}
+  .ay-satir-kapsul{
+    border-radius:10px; border:1px solid var(--line); background:rgba(7,13,28,.78); overflow:hidden;
+  }
+  .ay-satir-kapsul.gecerli-ay{
+    border-color:rgba(59,130,246,.45); background:rgba(16,28,58,.75); margin-bottom:4px;
+  }
+  .ay-satir-ust{
+    width:100%; border:0; background:transparent; color:inherit; cursor:pointer;
+    display:grid; grid-template-columns:minmax(0,1.4fr) minmax(0,1fr) minmax(0,1fr) 24px;
+    gap:8px; align-items:center; padding:11px 14px; text-align:left;
+  }
+  .ay-satir-ust:hover{background:rgba(26,115,232,.1)}
+  .ay-adi{font-size:13.5px; font-weight:600; color:#fff}
+  .ay-kolon{text-align:right}
+  .ay-kolon small{display:block; font-size:10.5px; color:var(--muted); font-weight:500}
+  .ay-kolon b{display:block; margin-top:1px; font:600 13.5px 'Space Grotesk',sans-serif; color:#fff}
+  .ay-ok{color:var(--muted); font-size:12px; text-align:right; transition:transform .2s}
+  .ay-satir-kapsul.acik .ay-ok{transform:rotate(180deg); color:#fff}
+  .ay-detay-ic{
+    display:none; padding:10px 14px 12px; border-top:1px solid var(--line);
+    background:rgba(4,8,18,.75); font-size:12px; color:var(--pale);
+  }
+  .ay-satir-kapsul.acik .ay-detay-ic{display:block}
+  .ay-detay-satir{display:flex; justify-content:space-between; padding:4px 0}
 
   .mahsup-kutusu{
     margin:0 0 12px; padding:9px 11px; border-radius:9px;
@@ -684,12 +760,12 @@
             <b id="dashIsletme">Reklam Paneli</b>
             <span class="city-tag" id="dashSehirEtiket">Türkiye</span>
           </div>
-          <small class="update-inline" id="dashGuncellemeUst">Son güncelleme: --:--:--</small>
+          <small class="update-inline" id="dashGuncellemeUst">Son güncelleme: --:--:-- <b>(Sonraki güncelleme: 45 dk sonra)</b></small>
         </div>
       </div>
 
       <div class="actions-side">
-        <button type="button" class="top-action-btn bal-btn" id="btnBakiyeModalAc" aria-haspopup="dialog" title="Google Ads Onaylı Mevcut Reklam Bakiyesi">
+        <button type="button" class="top-action-btn bal-btn" id="btnBakiyeModalAc" aria-haspopup="dialog" title="Mevcut Fonlar ve Ödeme Geçmişi">
           <span class="bal-lbl">Mevcut Bakiye:</span>
           <b class="bal-val num" id="ustMevcutBakiye">₺0,00</b>
           <span class="bal-wait-tag" id="ustBekleyenBakiyeEtiket" hidden>⏳ Onayda</span>
@@ -919,37 +995,81 @@
   </div>
 </div>
 
+<!-- 3. GÖRSELDEKİ GOOGLE ADS FATURALANDIRMA ÖZETİ VE PARA YÜKLEME EKRANI -->
 <div id="bakiyeModal" class="modal" role="dialog" aria-modal="true" aria-labelledby="bakiyeModalBaslik" aria-hidden="true">
-  <div class="card">
+  <div class="card fatura-modal-card">
     <div class="modal-hdr">
-      <h2 id="bakiyeModalBaslik">Reklam Bakiyesi Yükle</h2>
+      <h2 id="bakiyeModalBaslik">Bakiye Özeti ve Ödeme Geçmişi</h2>
       <button type="button" class="modal-close" id="btnBakiyeUstKapat" aria-label="Kapat">✕</button>
     </div>
 
-    <div class="bal-summary-strip" id="modalBakiyeSerit">
-      <span>Google Ads Onaylı Mevcut Bakiyeniz</span>
-      <b class="num" id="modalMevcutBakiye">₺0,00</b>
+    <div class="fatura-top-3">
+      <!-- 1. Kutu: Mevcut Fonlar -->
+      <div class="fatura-kutu">
+        <div>
+          <div class="fatura-kutu-ust"><span>Mevcut fonlar</span></div>
+          <div class="fatura-dev-rakam num" id="modalMevcutBakiye">₺0,00</div>
+          <div class="fatura-azaliyor" id="modalBakiyeAzaliyorUyari" hidden>⚠️ Bakiye azalıyor</div>
+        </div>
+        <button type="button" class="fatura-para-ekle-btn" id="btnParaEkleAc">Para ekle</button>
+      </div>
+
+      <!-- 2. Kutu: Otomatik Yayın / Yükleme Durumu -->
+      <div class="fatura-kutu">
+        <div>
+          <div class="fatura-kutu-ust"><span>Otomatik yayın zamanlayıcı</span></div>
+          <div style="display:flex;align-items:center;gap:10px;margin-top:4px">
+            <b style="font:700 22px 'Space Grotesk',sans-serif;color:#fff" id="faturaOtoDurumBaslik">Kapalı</b>
+            <span style="font-size:11.5px;color:var(--muted);line-height:1.35">Seçtiğiniz gün ve saatlerde reklamı otomatik açıp kapatır.</span>
+          </div>
+        </div>
+        <button type="button" class="btn ghost" id="btnFaturaOtoAyarla" style="min-height:32px;padding:4px 10px;font-size:12px">Otomatik saatleri ayarla</button>
+      </div>
+
+      <!-- 3. Kutu: Son Ödeme -->
+      <div class="fatura-kutu">
+        <div>
+          <div class="fatura-kutu-ust"><span>Son ödeme</span></div>
+          <div class="fatura-son-odeme-satir" style="margin-top:4px">
+            <span class="fatura-son-tarih" id="faturaSonOdemeTarih">3 Kas</span>
+            <span class="fatura-son-tutar" id="faturaSonOdemeTutar">₺500,00 · Manuel ödeme</span>
+          </div>
+        </div>
+        <div class="fatura-kart-etiket">
+          <span class="visa-pill">VISA</span>
+          <span id="faturaSonOdemeYontem">Manuel ödeme</span>
+        </div>
+      </div>
     </div>
 
     <div class="mahsup-kutusu" id="bekleyenBakiyeKutusu" hidden></div>
     <div class="mahsup-kutusu" id="eksiBakiyeBilgi" hidden></div>
 
-    <label class="field-title" for="inpBakiyeTutar">Ne kadar bakiye yüklemek istiyorsunuz?</label>
-
-    <div class="quick-3" role="group" aria-label="Hızlı bakiye tutarları">
-      <button type="button" class="q-btn" data-tutar="1000">1000</button>
-      <button type="button" class="q-btn" data-tutar="2500">2500</button>
-      <button type="button" class="q-btn" data-tutar="8000">8000</button>
+    <!-- Para Ekleme Formu -->
+    <div class="yukleme-panel-acilir" id="paraEkleBolumu">
+      <label class="field-title" for="inpBakiyeTutar">Ne kadar bakiye yüklemek istiyorsunuz?</label>
+      <div class="quick-3" role="group" aria-label="Hızlı bakiye tutarları">
+        <button type="button" class="q-btn" data-tutar="1000">₺1.000</button>
+        <button type="button" class="q-btn" data-tutar="2500">₺2.500</button>
+        <button type="button" class="q-btn" data-tutar="8000">₺8.000</button>
+      </div>
+      <input type="number" id="inpBakiyeTutar" class="inp-tutar num" min="50" step="50" placeholder="Tutarı yazın (Örn: 1000)">
+      <div class="net-onizleme-kutusu" id="netBakiyeOnizleme" hidden></div>
+      <p id="bakiyeModalMsg" class="msg" role="status" aria-live="polite" hidden></p>
+      <button type="button" id="btnBakiyeOnayla" class="btn danger-btn">Bakiyeyi Yükle</button>
     </div>
 
-    <input type="number" id="inpBakiyeTutar" class="inp-tutar num" min="50" step="50" placeholder="Tutarı yazın (Örn: 1000)">
+    <!-- Aylık Harcama ve Ödemeler Geçmişi (2026) -->
+    <div id="gecerliAyKapsul"></div>
 
-    <div class="net-onizleme-kutusu" id="netBakiyeOnizleme" hidden></div>
+    <div class="aylik-gecmis-baslik-bar">
+      <span class="yil-secici-kutu">2026 Yılı Aylık Döküm</span>
+      <small style="color:var(--muted);font-size:11.5px">Detay için ayın üzerine dokunun</small>
+    </div>
 
-    <p id="bakiyeModalMsg" class="msg" role="status" aria-live="polite" hidden></p>
+    <div class="aylik-liste" id="gecmisAylarListesi"></div>
 
-    <button type="button" id="btnBakiyeOnayla" class="btn primary">Bakiyeyi Yükle</button>
-    <button type="button" id="btnBakiyeKapat" class="btn ghost">Kapat</button>
+    <button type="button" id="btnBakiyeKapat" class="btn ghost" style="margin-top:14px">Kapat</button>
   </div>
 </div>
 
@@ -1030,7 +1150,7 @@ setTimeout(function () {
 (function () {
 'use strict';
 
-var API_URL = 'https://script.google.com/macros/s/AKfycbzyyODoQv1kp_8OuZFPO2yEIjFY8SZeXgUGbQze4Zfg6ZVnuEm1Qadgu796iNY24Fp50Q/exec';
+var API_URL = 'https://script.google.com/macros/s/AKfycbx191eAdz8dOT_wXndP8N8aE2l0iVqwwMG_Nb4yrQW6LLzvrnBRyga02HbPiQnZ11Bxuw/exec';
 var VARSAYILAN_ALT_YAZI = 'SORUNUZ VARSA BANA ULAŞABİLİRSİNİZ 0534 595 74 44';
 var VARSAYILAN_OTO_PLAN = '1;08:00-21:00;1,2,3,4,5,6,7;1=08:00-21:00,2=08:00-21:00,3=08:00-21:00,4=08:00-21:00,5=08:00-21:00,6=09:00-21:00,7=10:00-21:00';
 
@@ -1039,17 +1159,20 @@ var MAX_PIN_DENEME   = 5;
 var BAN_SURESI_SAAT  = 0.25;
 var ZAMAN_ASIMI_MS   = 9000;
 var YENIDEN_DENEME   = 1;
-var YENILEME_ESIGI   = 60 * 1000;
+var YENILEME_DAKIKA  = 45;
+var YENILEME_ESIGI   = YENILEME_DAKIKA * 60 * 1000;
 var BEKCI_MS         = 26000;
 
-var LS = { oturum: 'pnl_oturum', deneme: 'pnl_deneme', ban: 'pnl_ban', veri: 'pnl_veri_v76' };
+var LS = { oturum: 'pnl_oturum', deneme: 'pnl_deneme', ban: 'pnl_ban', veri: 'pnl_veri_v80' };
 var TOK_DESEN = /^\d{9,14}\.[0-9a-f]{64}$/;
-var VERI_SEMA = 76;
+var VERI_SEMA = 80;
 
 var GUN_ADLARI = {
   '1': 'Pazartesi', '2': 'Salı', '3': 'Çarşamba', '4': 'Perşembe',
   '5': 'Cuma', '6': 'Cumartesi', '7': 'Pazar'
 };
+var AYLAR = ['Oca', 'Şub', 'Mar', 'Nis', 'May', 'Haz', 'Tem', 'Ağu', 'Eyl', 'Eki', 'Kas', 'Ara'];
+var AY_TAM_ADLAR = ['Ocak', 'Şubat', 'Mart', 'Nisan', 'Mayıs', 'Haziran', 'Temmuz', 'Ağustos', 'Eylül', 'Ekim', 'Kasım', 'Aralık'];
 
 function $(id) { return document.getElementById(id); }
 var QS = new URLSearchParams(location.search);
@@ -1086,7 +1209,6 @@ function bas(ad) {
   var b = String(ad || '').trim().split(/\s+/).slice(0, 2).map(function (w) { return w.charAt(0); }).join('');
   return (b || 'R').toLocaleUpperCase('tr-TR');
 }
-var AYLAR = ['Oca', 'Şub', 'Mar', 'Nis', 'May', 'Haz', 'Tem', 'Ağu', 'Eyl', 'Eki', 'Kas', 'Ara'];
 function tarihSaniyeliYaz(s) {
   var m = /^(\d{4})-(\d{2})-(\d{2})(?:[ T](\d{2}):(\d{2})(?::(\d{2}))?)?/.exec(String(s || ''));
   if (!m) { return String(s || '--:--:--'); }
@@ -1286,11 +1408,20 @@ function duzenle(v) {
   function dizi(a) { return Array.isArray(a) ? a.map(n) : []; }
   function sifirDizi(uzunluk) { var a = []; for (var i = 0; i < uzunluk; i++) { a.push(0); } return a; }
 
-  var gos = n(v.gosterim), tik = n(v.tiklanma);
+  var gunlukTikDizi = dizi(g.tiklama);
+  var gunlukGosDizi = dizi(g.gosterim);
+  var gunlukMalDizi = dizi(g.maliyet);
+
+  var gos = n(v.gosterim);
+  if (gos <= 0 && gunlukGosDizi.length > 0) { gos = topla(gunlukGosDizi); }
+
+  var tik = n(v.tiklanma);
+  if (tik <= 0 && gunlukTikDizi.length > 0) { tik = topla(gunlukTikDizi); }
+
   var hamMaliyet = n(v.maliyet);
-  var hamTbm = n(v.tbm);
-  if (hamTbm <= 0 && hamMaliyet > 0 && tik > 0) { hamTbm = Number((hamMaliyet / tik).toFixed(2)); }
-  if (hamMaliyet <= 0 && hamTbm > 0 && tik > 0) { hamMaliyet = Number((hamTbm * tik).toFixed(2)); }
+  if (hamMaliyet <= 0 && gunlukMalDizi.length > 0) { hamMaliyet = Number(topla(gunlukMalDizi).toFixed(2)); }
+
+  var hamTbm = tik > 0 && hamMaliyet > 0 ? Number((hamMaliyet / tik).toFixed(2)) : n(v.tbm);
   var toHesap = gos > 0 ? Number((tik / gos * 100).toFixed(2)) : 0;
 
   var omurMaliyetHam = (bk.referans_maliyet !== undefined && n(bk.referans_maliyet) > 0)
@@ -1338,6 +1469,7 @@ function duzenle(v) {
       onayBekliyor: bekleyenBakiye > 0,
       bakiyeBitti: bakiyeBitti
     },
+    faturaGecmis: (v.fatura_gecmis && typeof v.fatura_gecmis === 'object') ? v.fatura_gecmis : null,
     isletme: String(v.isletme || '').slice(0, 60),
     telefon: String(v.telefon || '').slice(0, 30),
     gosterim: gos,
@@ -1363,9 +1495,9 @@ function duzenle(v) {
     donemDetay: (v.donem_detay && typeof v.donem_detay === 'object') ? v.donem_detay : null,
     gunluk: {
       baslangic: String(g.baslangic || ''),
-      tiklama: dizi(g.tiklama),
-      gosterim: dizi(g.gosterim),
-      maliyet: dizi(g.maliyet)
+      tiklama: gunlukTikDizi,
+      gosterim: gunlukGosDizi,
+      maliyet: gunlukMalDizi
     },
     guncelleme: String(v.guncelleme || '')
   };
@@ -1423,6 +1555,14 @@ function hataEkrani(h) {
   goster('errScreen');
 }
 
+function geriSayimMetniGuncelle() {
+  if (!son) { return; }
+  var gecenMs = Math.max(0, Date.now() - sonYukleme);
+  var kalanDk = Math.max(1, Math.ceil((YENILEME_ESIGI - gecenMs) / 60000));
+  if (kalanDk > YENILEME_DAKIKA) { kalanDk = YENILEME_DAKIKA; }
+  $('dashGuncellemeUst').innerHTML = 'Son güncelleme: ' + tarihSaniyeliYaz(son.guncelleme) + ' <b>(Sonraki güncelleme: ' + kalanDk + ' dk sonra)</b>';
+}
+
 async function veriYukle(id, kimlik, sec) {
   sec = sec || {};
   if (durduruldu) { return 'hata'; }
@@ -1449,7 +1589,8 @@ async function veriYukle(id, kimlik, sec) {
     aktifOturum = { id: v.id || id, tok: TOK_DESEN.test(tok) ? tok : '' };
     if (aktifOturum.tok) { oturumuKaydet(aktifOturum.id, aktifOturum.tok); }
     depo.sil(LS.deneme);
-    son = v; sonYukleme = Date.now();
+    son = v;
+    sonYukleme = Date.now();
     if (!v.durum) {
       depo.sil(LS.veri);
       $('lockIsletme').textContent = guzelAd(v.isletme) || '';
@@ -1528,7 +1669,6 @@ function yayinVeBakiyeDurumBantlariniGuncelle(v) {
   var btn = $('btnYayinToggle'), txt = $('yayinDurumMetni');
   var bk = v.bakiye || { mevcut: 0, paket: 0, bekleyen: 0, onayBekliyor: false, bakiyeBitti: true };
 
-  // Google Ads gerçek durumu onaylamadan şalter olmuş gibi gösterilmez
   btn.classList.toggle('on', v.yayinAcik && !v.komutSiraBekliyor);
   btn.classList.toggle('off', !v.yayinAcik && !v.komutSiraBekliyor);
   btn.classList.toggle('wait', v.komutSiraBekliyor);
@@ -1547,11 +1687,23 @@ function yayinVeBakiyeDurumBantlariniGuncelle(v) {
 
   var mevcutStr = fmtPara(bk.mevcut);
   var bittiMi = bk.mevcut <= 0;
+  var azaldiMi = bk.mevcut > 0 && bk.mevcut <= 350;
 
   $('ustMevcutBakiye').textContent = mevcutStr;
   $('modalMevcutBakiye').textContent = mevcutStr;
   $('btnBakiyeModalAc').classList.toggle('bitti', bittiMi);
-  $('modalBakiyeSerit').classList.toggle('eksi', bittiMi);
+  $('btnBakiyeModalAc').classList.toggle('azaldi', azaldiMi);
+
+  var azaliyorUyari = $('modalBakiyeAzaliyorUyari');
+  if (bittiMi) {
+    azaliyorUyari.hidden = false;
+    azaliyorUyari.textContent = '⚠️ Bakiyeniz bitti, reklam duraklatıldı';
+  } else if (azaldiMi) {
+    azaliyorUyari.hidden = false;
+    azaliyorUyari.textContent = '⚠️ Bakiye azalıyor';
+  } else {
+    azaliyorUyari.hidden = true;
+  }
 
   var bekleyenEtiket = $('ustBekleyenBakiyeEtiket');
   if (bk.bekleyen > 0) {
@@ -1597,6 +1749,7 @@ function yayinVeBakiyeDurumBantlariniGuncelle(v) {
   var otoAktifGorunum = (!bittiMi || bk.bekleyen > 0) && !!v.otoAcik;
   otoDot.classList.toggle('on', otoAktifGorunum);
   otoTxt.textContent = otoAktifGorunum ? 'Oto Aç/Kapat: Aktif' : 'Otomatik Aç/Kapat';
+  $('faturaOtoDurumBaslik').textContent = otoAktifGorunum ? 'Açık' : 'Kapalı';
 }
 
 function canliOnayTakibiBaslat() {
@@ -1616,12 +1769,15 @@ function canliOnayTakibiBaslat() {
         sonYukleme = Date.now();
         onbellekYaz(v);
         panoyuCiz(v, true);
+        if ($('bakiyeModal').classList.contains('on')) {
+          faturaGecmisiTablosuCiz(v);
+        }
         if (!v.komutSiraBekliyor && !v.bakiye.onayBekliyor) {
           clearInterval(onayTakipZamanlayici);
         }
       }
     } catch (e) {}
-  }, 4000);
+  }, 5000);
 }
 
 async function yayinDegistir() {
@@ -1676,7 +1832,68 @@ function bakiyeCanliOnizlemeGuncelle() {
   if (mevcut < 0) {
     onizlemeEl.textContent = 'Yüklenecek: ' + fmtPara(girilen) + ' (' + fmtPara(mevcut) + ' eksi bakiye düşülür) → Google Ads Onayından Sonra Bakiyeniz: ' + fmtPara(olusacakNet);
   } else {
-    onizlemeEl.textContent = 'Google Ads Onayından Sonra Olacak Toplam Bakiyeniz: ' + fmtPara(olusacakNet);
+    onizlemeEl.textContent = 'Google Ads Onayından Sonra Olacak Toplam Mevcut Fonunuz: ' + fmtPara(olusacakNet);
+  }
+}
+
+function faturaGecmisiTablosuCiz(v) {
+  var fg = v.faturaGecmis || {};
+  var sonOdeme = fg.sonOdeme || { tarih: '3 Kas', tutar: 500, yontem: 'Manuel ödeme · Visa •••• 2143' };
+
+  $('faturaSonOdemeTarih').textContent = sonOdeme.tarih || '—';
+  $('faturaSonOdemeTutar').textContent = fmtPara(sonOdeme.tutar || 0) + ' · Manuel ödeme';
+  $('faturaSonOdemeYontem').textContent = sonOdeme.yontem || 'Manuel ödeme';
+
+  var aylikMal = fg.aylikMaliyetler || {};
+  var aylikOde = fg.aylikOdemeler || {};
+
+  // 2026 yılı aylarını Kasım'dan Ocak'a doğru (3. görseldeki sırayla) oluştur
+  var gecerliAyKod = '2026-11';
+  var simdiAyNo = new Date().getMonth() + 1;
+  var simdiYil = new Date().getFullYear();
+  if (simdiYil === 2026 && simdiAyNo >= 1 && simdiAyNo <= 12) {
+    gecerliAyKod = '2026-' + ('0' + simdiAyNo).slice(-2);
+  }
+
+  function aySatiriOlustur(ayKod, gecerliMi) {
+    var parca = ayKod.split('-');
+    var ayIndeks = parseInt(parca[1], 10) - 1;
+    var ayIsim = AY_TAM_ADLAR[ayIndeks] + (gecerliMi ? ' (geçerli ay)' : '');
+    var netMaliyet = n(aylikMal[ayKod]);
+    var odemeTutar = n(aylikOde[ayKod]);
+
+    var kapsul = document.createElement('div');
+    kapsul.className = 'ay-satir-kapsul' + (gecerliMi ? ' gecerli-ay' : '');
+    kapsul.innerHTML =
+      '<button type="button" class="ay-satir-ust">' +
+        '<span class="ay-adi">' + ayIsim + '</span>' +
+        '<span class="ay-kolon"><small>Net maliyet</small><b class="num">' + fmtPara(netMaliyet) + '</b></span>' +
+        '<span class="ay-kolon"><small>Ödemeler</small><b class="num">' + fmtPara(odemeTutar) + '</b></span>' +
+        '<span class="ay-ok">▼</span>' +
+      '</button>' +
+      '<div class="ay-detay-ic">' +
+        '<div class="ay-detay-satir"><span>' + AY_TAM_ADLAR[ayIndeks] + ' Ayı Toplam Reklam Harcaması (Net Maliyet):</span><b class="num">' + fmtPara(netMaliyet) + '</b></div>' +
+        '<div class="ay-detay-satir"><span>' + AY_TAM_ADLAR[ayIndeks] + ' Ayı Yapılan Toplam Ödeme (Yüklenen Bakiye):</span><b class="num" style="color:#86efac">' + fmtPara(odemeTutar) + '</b></div>' +
+      '</div>';
+
+    kapsul.querySelector('.ay-satir-ust').addEventListener('click', function () {
+      kapsul.classList.toggle('acik');
+    });
+    return kapsul;
+  }
+
+  var gecerliKutu = $('gecerliAyKapsul');
+  gecerliKutu.innerHTML = '';
+  gecerliKutu.appendChild(aySatiriOlustur(gecerliAyKod, true));
+
+  var gecmisListe = $('gecmisAylarListesi');
+  gecmisListe.innerHTML = '';
+  var baslangicAy = parseInt(gecerliAyKod.split('-')[1], 10) - 1;
+  for (var m = baslangicAy; m >= 1; m--) {
+    var kod = '2026-' + ('0' + m).slice(-2);
+    if (aylikMal[kod] !== undefined || aylikOde[kod] !== undefined) {
+      gecmisListe.appendChild(aySatiriOlustur(kod, false));
+    }
   }
 }
 
@@ -1684,12 +1901,11 @@ function bakiyeModalAc(ozelUyariMesaji) {
   if (!son) { return; }
   var mevcut = n(son.bakiye.mevcut), bekleyen = n(son.bakiye.bekleyen);
   $('modalMevcutBakiye').textContent = fmtPara(mevcut);
-  $('modalBakiyeSerit').classList.toggle('eksi', mevcut <= 0);
 
   var bekKutu = $('bekleyenBakiyeKutusu');
   if (bekleyen > 0) {
     bekKutu.hidden = false;
-    bekKutu.textContent = '⏳ Şu an Google Ads onayı bekleyen ' + fmtPara(bekleyen) + ' bakiye yüklemeniz var. Yaklaşık 1-2 dakika içinde üstteki mevcut bakiyenize eklenecektir.';
+    bekKutu.textContent = '⏳ Şu an Google Ads onayı bekleyen ' + fmtPara(bekleyen) + ' bakiye yüklemeniz var. Yaklaşık 1-2 dakika içinde mevcut fonlarınıza eklenecektir.';
   } else {
     bekKutu.hidden = true;
   }
@@ -1713,11 +1929,11 @@ function bakiyeModalAc(ozelUyariMesaji) {
     msg.className = 'msg';
   }
 
+  faturaGecmisiTablosuCiz(son);
   bakiyeCanliOnizlemeGuncelle();
   var m = $('bakiyeModal');
   m.classList.add('on');
   m.setAttribute('aria-hidden', 'false');
-  setTimeout(function () { try { $('inpBakiyeTutar').focus(); } catch (e) {} }, 60);
 }
 
 function bakiyeModalKapat() {
@@ -2038,6 +2254,7 @@ async function baslat() {
       panoyuCiz(kayit.v, false); goster('dashScreen');
     } catch (e) { depo.sil(LS.veri); kayit = null; }
   }
+  // Uygulama veya site her açıldığında en taze veriyi çek ve 45 dk sayacını başlat
   if (kayit) { await veriYukle(o.id, { tok: o.tok }, { sessiz: true, taze: true }); }
   else { await veriYukle(o.id, { tok: o.tok }, { taze: true }); }
 }
@@ -2062,9 +2279,12 @@ async function yenile() {
   }
 }
 
-function tazeleGerekirse() {
-  if (aktifOturum && aktifOturum.tok && !durduruldu && $('dashScreen').classList.contains('on') && Date.now() - sonYukleme > YENILEME_ESIGI) {
+function periyodikKontrolVeGeriSayim() {
+  if (!aktifOturum || !aktifOturum.tok || durduruldu || !$('dashScreen').classList.contains('on')) { return; }
+  if (Date.now() - sonYukleme >= YENILEME_ESIGI) {
     veriYukle(aktifOturum.id, { tok: aktifOturum.tok }, { sessiz: true, taze: true });
+  } else {
+    geriSayimMetniGuncelle();
   }
 }
 
@@ -2088,7 +2308,14 @@ function donemMetrikleri(v, gunSayisi) {
   var stGos = (v.saatlik && Array.isArray(v.saatlik.gosterim)) ? v.saatlik.gosterim : [];
   var stMal = (v.saatlik && Array.isArray(v.saatlik.maliyet)) ? v.saatlik.maliyet : [];
 
-  var birimTbm30 = v.tbm > 0 ? v.tbm : ((v.tiklanma > 0 && v.maliyet > 0) ? (v.maliyet / v.tiklanma) : 0);
+  var topGunTik30 = topla(gt);
+  var topGunGos30 = topla(gg);
+  var topGunMal30 = topla(gm);
+
+  var gercekTik30 = v.tiklanma > 0 ? v.tiklanma : topGunTik30;
+  var gercekGos30 = v.gosterim > 0 ? v.gosterim : topGunGos30;
+  var gercekMal30 = v.maliyet > 0 ? v.maliyet : topGunMal30;
+  var birimTbm30 = gercekTik30 > 0 && gercekMal30 > 0 ? (gercekMal30 / gercekTik30) : (v.tbm > 0 ? v.tbm : 0);
 
   if (gunSayisi === 1) {
     var topSaatTik = topla(stTik);
@@ -2097,25 +2324,24 @@ function donemMetrikleri(v, gunSayisi) {
 
     var t1 = Math.max(topSaatTik, gt.length ? n(gt[gt.length - 1]) : 0);
     var g1 = Math.max(topSaatGos, gg.length ? n(gg[gg.length - 1]) : 0);
-    var m1 = Math.max(topSaatMal, (gm.length && topla(gm) > 0) ? n(gm[gm.length - 1]) : (t1 > 0 ? Number((t1 * birimTbm30).toFixed(2)) : 0));
+    var m1 = Math.max(topSaatMal, (gm.length && topGunMal30 > 0) ? n(gm[gm.length - 1]) : (t1 > 0 ? Number((t1 * birimTbm30).toFixed(2)) : 0));
     var to1 = g1 > 0 ? (t1 / g1 * 100) : 0;
     var tbm1 = t1 > 0 ? (m1 / t1) : 0;
     return { gosterim: g1, tiklanma: t1, to: to1, tbm: tbm1, maliyet: m1, etiket: 'Bugün (00:00 - 23:59)' };
   }
 
   if (gunSayisi === 7) {
-    var t7 = gt.length >= 7 ? topla(gt.slice(-7)) : topla(gt);
-    var g7 = gg.length >= 7 ? topla(gg.slice(-7)) : topla(gg);
-    var m7 = (gm.length >= 7 && topla(gm) > 0) ? topla(gm.slice(-7)) : (t7 > 0 ? Number((t7 * birimTbm30).toFixed(2)) : 0);
+    var t7 = gt.length >= 7 ? topla(gt.slice(-7)) : topGunTik30;
+    var g7 = gg.length >= 7 ? topla(gg.slice(-7)) : topGunGos30;
+    var m7 = (gm.length >= 7 && topGunMal30 > 0) ? topla(gm.slice(-7)) : (t7 > 0 ? Number((t7 * birimTbm30).toFixed(2)) : 0);
     var to7 = g7 > 0 ? (t7 / g7 * 100) : 0;
     var tbm7 = t7 > 0 ? (m7 / t7) : 0;
     return { gosterim: g7, tiklanma: t7, to: to7, tbm: tbm7, maliyet: m7, etiket: 'Son 7 günde (Haftalık)' };
   }
 
-  var to30 = v.gosterim > 0 ? (v.tiklanma / v.gosterim * 100) : 0;
-  var tbm30 = v.tbm > 0 ? v.tbm : (v.tiklanma > 0 ? (v.maliyet / v.tiklanma) : 0);
-  var mal30 = v.maliyet > 0 ? v.maliyet : (v.tiklanma > 0 && tbm30 > 0 ? Number((v.tiklanma * tbm30).toFixed(2)) : 0);
-  return { gosterim: v.gosterim, tiklanma: v.tiklanma, to: to30, tbm: tbm30, maliyet: mal30, etiket: 'Son 30 günde (Aylık)' };
+  var to30 = gercekGos30 > 0 ? (gercekTik30 / gercekGos30 * 100) : 0;
+  var tbm30 = gercekTik30 > 0 ? (gercekMal30 / gercekTik30) : birimTbm30;
+  return { gosterim: gercekGos30, tiklanma: gercekTik30, to: to30, tbm: tbm30, maliyet: gercekMal30, etiket: 'Son 30 günde (Aylık)' };
 }
 
 function donemDetayAl(v, gunSayisi) {
@@ -2182,8 +2408,7 @@ function panoyuCiz(v, sessiz) {
   var kampanyaKisa = v.gercek_kampanya_adi || 'Reklam Kampanyası';
   $('dashSehirEtiket').textContent = lokasyon + ' · ' + kampanyaKisa;
 
-  $('dashGuncellemeUst').textContent = 'Son güncelleme: ' + tarihSaniyeliYaz(v.guncelleme);
-
+  geriSayimMetniGuncelle();
   yayinVeBakiyeDurumBantlariniGuncelle(v);
   donemSec(seciliDonem, sessiz);
   kurulumButonDurumu();
@@ -2394,7 +2619,8 @@ function kampanyaListesiCiz(v, m, detay) {
     var adK = (parca[0] || '').trim();
     var tikSayi = parca[1] !== undefined ? n(parca[1]) : 0;
     var gercekMal = (parca[2] !== undefined && n(parca[2]) > 0) ? fmtPara(n(parca[2])) : '—';
-    var gercekTo = (parca[3] !== undefined && n(parca[3]) > 0) ? ('%' + n(parca[3]).toFixed(2).replace('.', ',')) : '—';
+    var oranSayi = parca[3] !== undefined ? Math.min(100, n(parca[3])) : 0;
+    var gercekTo = oranSayi > 0 ? ('%' + oranSayi.toFixed(2).replace('.', ',')) : '—';
 
     var row = document.createElement('div');
     row.className = 'ads-list-row kw-cols';
@@ -2570,6 +2796,13 @@ $('btnYayinToggle').addEventListener('click', yayinDegistir);
 
 $('btnBakiyeModalAc').addEventListener('click', function () { bakiyeModalAc(); });
 $('btnBantBakiyeYukle').addEventListener('click', function () { bakiyeModalAc(); });
+$('btnParaEkleAc').addEventListener('click', function () {
+  try { $('inpBakiyeTutar').focus(); } catch (e) {}
+});
+$('btnFaturaOtoAyarla').addEventListener('click', function () {
+  bakiyeModalKapat();
+  otoModalAc();
+});
 $('btnBakiyeKapat').addEventListener('click', bakiyeModalKapat);
 $('btnBakiyeUstKapat').addEventListener('click', bakiyeModalKapat);
 $('btnBakiyeOnayla').addEventListener('click', bakiyeYukleOnayla);
@@ -2644,10 +2877,10 @@ $('dBtn7').addEventListener('click', function () { donemSec(7, false); });
 $('dBtn30').addEventListener('click', function () { donemSec(30, false); });
 
 window.addEventListener('offline', function () { $('offlineOverlay').classList.add('on'); });
-window.addEventListener('online', function () { $('offlineOverlay').classList.remove('on'); tazeleGerekirse(); });
-document.addEventListener('visibilitychange', function () { if (!document.hidden) { tazeleGerekirse(); } });
-window.addEventListener('pageshow', function (e) { if (e.persisted) { tazeleGerekirse(); } });
-setInterval(tazeleGerekirse, 60000);
+window.addEventListener('online', function () { $('offlineOverlay').classList.remove('on'); periyodikKontrolVeGeriSayim(); });
+document.addEventListener('visibilitychange', function () { if (!document.hidden) { periyodikKontrolVeGeriSayim(); } });
+window.addEventListener('pageshow', function (e) { if (e.persisted) { yenile(); } });
+setInterval(periyodikKontrolVeGeriSayim, 15000);
 
 window.__panelHazir = true;
 if (QS.get('sifirla') === '1') {
@@ -2660,7 +2893,7 @@ parcaciklariBaslat();
 
 if ('serviceWorker' in navigator && location.protocol.indexOf('http') === 0) {
   window.addEventListener('load', function () {
-    navigator.serviceWorker.register('sw.js?v=7.6').then(function (reg) {
+    navigator.serviceWorker.register('sw.js?v=8.0').then(function (reg) {
       try { reg.update(); } catch (e) {}
     }).catch(function () {});
   });
