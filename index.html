@@ -293,6 +293,18 @@
     border:1px solid rgba(245,158,11,.6); background:rgba(245,158,11,.16);
     color:#fde68a; font-size:12.5px; font-weight:600; line-height:1.45;
   }
+  /* 10 Dakikalık Kırmızı Çarpılı Yatay Hata Bandı */
+  .yuklenemedi-hata-bant{
+    display:flex; align-items:center; gap:10px;
+    margin:0 0 7px; padding:10px 14px; border-radius:11px;
+    border:1px solid rgba(239,68,68,.75); background:linear-gradient(90deg,rgba(220,38,38,.28),rgba(127,29,29,.25));
+    color:#fecaca; font-size:12.5px; font-weight:600; line-height:1.45;
+  }
+  .kirmizi-carpi-ikon{
+    width:22px; height:22px; border-radius:50%; background:#ef4444; color:#fff;
+    display:grid; place-items:center; font-size:12px; font-weight:700; flex:none;
+    box-shadow:0 0 10px rgba(239,68,68,.6);
+  }
 
   @media (max-width:860px){
     .top-bar{gap:6px; padding:7px 9px}
@@ -514,7 +526,6 @@
   }
   .modal-close:hover{color:#fff; border-color:var(--accent)}
 
-  /* 3. Görseldeki Google Ads Faturalandırma Özeti Tasarımı */
   .fatura-top-3{
     display:grid; grid-template-columns:repeat(3,1fr); gap:10px; margin-bottom:14px;
   }
@@ -808,9 +819,16 @@
       </div>
     </header>
 
+    <!-- 2 Dakikalık Canlı Onay Bekleme Bandı -->
     <div class="bekleyen-bant" id="bekleyenIslemBant" role="status" aria-live="polite" hidden>
       <div class="ring-mini" aria-hidden="true"></div>
-      <span id="bekleyenIslemMetin">İşleminiz Google Ads hesabınıza iletildi. Yaklaşık 1-2 dakika içinde hesabınıza yansıyacaktır, lütfen bekleyin…</span>
+      <span id="bekleyenIslemMetin">İşleminiz Google Ads hesabınıza iletildi…</span>
+    </div>
+
+    <!-- 2 Dakika İçinde Onaylanmazsa 10 Dakika Boyunca Görünecek Kırmızı Çarpılı Yatay Bant -->
+    <div class="yuklenemedi-hata-bant" id="yuklenemediHataBant" role="alert" hidden>
+      <span class="kirmizi-carpi-ikon" aria-hidden="true">✕</span>
+      <span id="yuklenemediHataMetin">Bakiye yüklenmemiştir.</span>
     </div>
 
     <div class="alert-bant" id="bakiyeUyariBant" role="alert" hidden>
@@ -1014,7 +1032,7 @@
         <button type="button" class="fatura-para-ekle-btn" id="btnParaEkleAc">Para ekle</button>
       </div>
 
-      <!-- 2. Kutu: Otomatik Yayın / Yükleme Durumu -->
+      <!-- 2. Kutu: Otomatik Yayın Durumu -->
       <div class="fatura-kutu">
         <div>
           <div class="fatura-kutu-ust"><span>Otomatik yayın zamanlayıcı</span></div>
@@ -1026,18 +1044,18 @@
         <button type="button" class="btn ghost" id="btnFaturaOtoAyarla" style="min-height:32px;padding:4px 10px;font-size:12px">Otomatik saatleri ayarla</button>
       </div>
 
-      <!-- 3. Kutu: Son Ödeme -->
+      <!-- 3. Kutu: Son Ödeme (Banka Kartı · Visa •••• 2143) -->
       <div class="fatura-kutu">
         <div>
           <div class="fatura-kutu-ust"><span>Son ödeme</span></div>
           <div class="fatura-son-odeme-satir" style="margin-top:4px">
             <span class="fatura-son-tarih" id="faturaSonOdemeTarih">3 Kas</span>
-            <span class="fatura-son-tutar" id="faturaSonOdemeTutar">₺500,00 · Manuel ödeme</span>
+            <span class="fatura-son-tutar" id="faturaSonOdemeTutar">₺500,00 · Banka Kartı</span>
           </div>
         </div>
         <div class="fatura-kart-etiket">
           <span class="visa-pill">VISA</span>
-          <span id="faturaSonOdemeYontem">Manuel ödeme</span>
+          <span id="faturaSonOdemeYontem">Banka Kartı · Visa •••• 2143</span>
         </div>
       </div>
     </div>
@@ -1161,11 +1179,13 @@ var ZAMAN_ASIMI_MS   = 9000;
 var YENIDEN_DENEME   = 1;
 var YENILEME_DAKIKA  = 45;
 var YENILEME_ESIGI   = YENILEME_DAKIKA * 60 * 1000;
+var ONAY_SURESI_SN   = 120; // 2 Dakika (120 Saniye)
+var HATA_BANDI_MS    = 10 * 60 * 1000; // 10 Dakika
 var BEKCI_MS         = 26000;
 
-var LS = { oturum: 'pnl_oturum', deneme: 'pnl_deneme', ban: 'pnl_ban', veri: 'pnl_veri_v80' };
+var LS = { oturum: 'pnl_oturum', deneme: 'pnl_deneme', ban: 'pnl_ban', veri: 'pnl_veri_v81', hataBakiye: 'pnl_red_bakiye' };
 var TOK_DESEN = /^\d{9,14}\.[0-9a-f]{64}$/;
-var VERI_SEMA = 80;
+var VERI_SEMA = 81;
 
 var GUN_ADLARI = {
   '1': 'Pazartesi', '2': 'Salı', '3': 'Çarşamba', '4': 'Perşembe',
@@ -1402,6 +1422,20 @@ async function apiTekrarli(id, kimlik, ekParam) {
   }
 }
 
+function yuklenemediHatasiKaydet(tutar) {
+  var bitis = Date.now() + HATA_BANDI_MS;
+  depo.yaz(LS.hataBakiye, JSON.stringify({ tutar: n(tutar), bitis: bitis }));
+}
+
+function yuklenemediHatasiOku() {
+  try {
+    var o = JSON.parse(depo.al(LS.hataBakiye) || 'null');
+    if (o && o.bitis > Date.now()) { return o; }
+    depo.sil(LS.hataBakiye);
+  } catch (e) {}
+  return null;
+}
+
 function duzenle(v) {
   var cz = v.cihaz || {}, dm = v.demografi || {}, g = v.gunluk || {}, st = v.saatlik || {};
   var bk = v.bakiye || {};
@@ -1432,7 +1466,12 @@ function duzenle(v) {
   var mevcutBakiye = bk.mevcut !== undefined ? Number(n(bk.mevcut).toFixed(2)) : 0;
   var paketToplam = bk.paket !== undefined ? Number(n(bk.paket).toFixed(2)) : 0;
   var bekleyenBakiye = bk.bekleyen !== undefined ? Math.max(0, Number(n(bk.bekleyen).toFixed(2))) : 0;
+  var kalanSn = bk.kalan_sn !== undefined ? n(bk.kalan_sn) : (bekleyenBakiye > 0 ? ONAY_SURESI_SN : 0);
   var bakiyeBitti = (bk.bakiye_bitti !== undefined) ? Boolean(bk.bakiye_bitti) : (mevcutBakiye <= 0);
+
+  if (bk.yuklenemedi_uyari && bk.yuklenemedi_bitis > Date.now()) {
+    depo.yaz(LS.hataBakiye, JSON.stringify({ tutar: n(bk.yuklenemedi_tutar), bitis: n(bk.yuklenemedi_bitis) }));
+  }
 
   var komutMetni = String(v.yayin_komutu || 'DURAKLATILDI').trim().toUpperCase();
   var gercekMetni = String(v.kampanya_durumu || 'DURAKLATILDI').trim().toUpperCase();
@@ -1467,6 +1506,7 @@ function duzenle(v) {
       paket: paketToplam,
       bekleyen: bekleyenBakiye,
       onayBekliyor: bekleyenBakiye > 0,
+      kalanSn: kalanSn,
       bakiyeBitti: bakiyeBitti
     },
     faturaGecmis: (v.fatura_gecmis && typeof v.fatura_gecmis === 'object') ? v.fatura_gecmis : null,
@@ -1531,6 +1571,9 @@ function denemeSayisi() { return parseInt(depo.al(LS.deneme) || '0', 10) || 0; }
 var son = null, sonYukleme = 0, aktifOturum = null, oturumNesil = 0;
 var seciliDonem = 30;
 var onayTakipZamanlayici = null;
+var yerelOnaySaniyeZamanlayici = null;
+var yerelOnayBitisMs = 0;
+var yerelBekleyenTutar = 0;
 
 function girisMesaji(t, tur) { var m = $('pinMsg'); m.textContent = t || ''; m.className = 'msg' + (tur ? ' ' + tur : ''); }
 
@@ -1599,7 +1642,7 @@ async function veriYukle(id, kimlik, sec) {
     try { onbellekYaz(v); } catch (e) {}
     panoyuCiz(v, !!sec.sessiz); goster('dashScreen');
     if (v.komutSiraBekliyor || v.bakiye.onayBekliyor) {
-      canliOnayTakibiBaslat();
+      canliOnayTakibiBaslat(v.bakiye.kalanSn || ONAY_SURESI_SN, v.bakiye.bekleyen);
     }
     return 'tamam';
   }
@@ -1656,6 +1699,7 @@ function pinNoktalari() {
 
 function cikis() {
   clearInterval(onayTakipZamanlayici);
+  clearInterval(yerelOnaySaniyeZamanlayici);
   oturumuTemizle();
   tiklamaDetayKapat();
   bakiyeModalKapat();
@@ -1667,7 +1711,7 @@ function cikis() {
 
 function yayinVeBakiyeDurumBantlariniGuncelle(v) {
   var btn = $('btnYayinToggle'), txt = $('yayinDurumMetni');
-  var bk = v.bakiye || { mevcut: 0, paket: 0, bekleyen: 0, onayBekliyor: false, bakiyeBitti: true };
+  var bk = v.bakiye || { mevcut: 0, paket: 0, bekleyen: 0, onayBekliyor: false, kalanSn: 0, bakiyeBitti: true };
 
   btn.classList.toggle('on', v.yayinAcik && !v.komutSiraBekliyor);
   btn.classList.toggle('off', !v.yayinAcik && !v.komutSiraBekliyor);
@@ -1675,7 +1719,7 @@ function yayinVeBakiyeDurumBantlariniGuncelle(v) {
   btn.setAttribute('aria-checked', v.yayinAcik ? 'true' : 'false');
 
   if (v.komutSiraBekliyor) {
-    txt.textContent = (v.hedefKomut === 'ACIK') ? '⏳ Açılıyor (1-2 dk)' : '⏳ Kapanıyor (1-2 dk)';
+    txt.textContent = (v.hedefKomut === 'ACIK') ? '⏳ Açılıyor (2 dk)' : '⏳ Kapanıyor (2 dk)';
     txt.className = 'cmp-text wait';
   } else if (v.yayinAcik) {
     txt.textContent = 'Açık (Yayında)';
@@ -1717,20 +1761,37 @@ function yayinVeBakiyeDurumBantlariniGuncelle(v) {
   $('ustOmurMaliyet').textContent = omurMaliyetStr;
   $('ftOmurMaliyet').textContent = 'Bugüne Kadar Toplam Harcanan: ' + omurMaliyetStr;
 
+  // 1) 2 Dakikalık Bekleyen İşlem Bandı
   var bekleyenBant = $('bekleyenIslemBant'), bekleyenMetin = $('bekleyenIslemMetin');
+  var kalanSnGosterim = yerelOnayBitisMs > Date.now()
+    ? Math.max(1, Math.ceil((yerelOnayBitisMs - Date.now()) / 1000))
+    : (bk.kalanSn || ONAY_SURESI_SN);
+
   var mesajlar = [];
   if (bk.bekleyen > 0) {
-    mesajlar.push('Yüklediğiniz ' + fmtPara(bk.bekleyen) + ' bakiye Google Ads hesabınıza iletildi. Yaklaşık 1-2 dakika içinde hesabınıza yansıyacak ve üstteki Mevcut Bakiyeniz güncellenecektir.');
+    mesajlar.push('Yüklediğiniz ' + fmtPara(bk.bekleyen) + ' bakiye Google Ads hesabınıza iletildi. Onay bekleniyor (' + kalanSnGosterim + ' sn içinde yanıt alınmazsa otomatik iptal edilir).');
   }
   if (v.komutSiraBekliyor) {
     var eylem = (v.hedefKomut === 'ACIK') ? 'Reklamı açma' : 'Reklamı kapatma';
-    mesajlar.push(eylem + ' işleminiz Google Ads\'e iletildi. Yaklaşık 1-2 dakika içinde hesabınıza yansıyacaktır, lütfen bekleyin.');
+    mesajlar.push(eylem + ' işleminiz Google Ads\'e iletildi (' + kalanSnGosterim + ' sn içinde hesabınıza yansıyacaktır).');
   }
   if (mesajlar.length > 0) {
     bekleyenBant.hidden = false;
     bekleyenMetin.textContent = mesajlar.join(' ');
   } else {
     bekleyenBant.hidden = true;
+  }
+
+  // 2) 10 Dakikalık Kırmızı Çarpılı "Bakiye Yüklenmemiştir" Yatay Hata Bandı
+  var hataBant = $('yuklenemediHataBant'), hataMetin = $('yuklenemediHataMetin');
+  var aktifHata = yuklenemediHatasiOku();
+  if (aktifHata && bk.bekleyen <= 0) {
+    var kalanHataDk = Math.max(1, Math.ceil((aktifHata.bitis - Date.now()) / 60000));
+    hataBant.hidden = false;
+    var tutarYaz = aktifHata.tutar > 0 ? (fmtPara(aktifHata.tutar) + ' tutarındaki ') : '';
+    hataMetin.textContent = 'Bakiye yüklenmemiştir! ' + tutarYaz + 'bakiye yükleme işleminiz Google Ads hesabınızdan 2 dakika içinde onay alamadığı için gerçekleşmedi. (' + kalanHataDk + ' dk sonra bu uyarı kapanır)';
+  } else {
+    hataBant.hidden = true;
   }
 
   var uyariBant = $('bakiyeUyariBant'), uyariMetin = $('bakiyeUyariMetin');
@@ -1752,12 +1813,44 @@ function yayinVeBakiyeDurumBantlariniGuncelle(v) {
   $('faturaOtoDurumBaslik').textContent = otoAktifGorunum ? 'Açık' : 'Kapalı';
 }
 
-function canliOnayTakibiBaslat() {
+function canliOnayTakibiBaslat(baslangicSaniye, bekleyenTutar) {
   clearInterval(onayTakipZamanlayici);
-  var sayac = 0;
+  clearInterval(yerelOnaySaniyeZamanlayici);
+
+  var sureSn = Math.min(ONAY_SURESI_SN, Math.max(5, n(baslangicSaniye) || ONAY_SURESI_SN));
+  yerelOnayBitisMs = Date.now() + (sureSn * 1000);
+  if (n(bekleyenTutar) > 0) { yerelBekleyenTutar = n(bekleyenTutar); }
+
+  // Her saniye 120 saniyelik geri sayımı güncelle, 0 olunca kırmızı çarpılı hata bandını yak!
+  yerelOnaySaniyeZamanlayici = setInterval(function () {
+    if (!son) { clearInterval(yerelOnaySaniyeZamanlayici); return; }
+    if (!son.komutSiraBekliyor && !son.bakiye.onayBekliyor) {
+      clearInterval(yerelOnaySaniyeZamanlayici);
+      return;
+    }
+    if (Date.now() >= yerelOnayBitisMs) {
+      clearInterval(yerelOnaySaniyeZamanlayici);
+      clearInterval(onayTakipZamanlayici);
+      var iptalTutar = son.bakiye.bekleyen || yerelBekleyenTutar;
+      son.bakiye.bekleyen = 0;
+      son.bakiye.onayBekliyor = false;
+      son.komutSiraBekliyor = false;
+      son.hedefKomut = son.gercekDurum;
+      if (iptalTutar > 0) {
+        yuklenemediHatasiKaydet(iptalTutar);
+      }
+      onbellekYaz(son);
+      yayinVeBakiyeDurumBantlariniGuncelle(son);
+      if (aktifOturum && aktifOturum.tok) {
+        veriYukle(aktifOturum.id, { tok: aktifOturum.tok }, { sessiz: true, taze: true });
+      }
+      return;
+    }
+    yayinVeBakiyeDurumBantlariniGuncelle(son);
+  }, 1000);
+
   onayTakipZamanlayici = setInterval(async function () {
-    sayac++;
-    if (!aktifOturum || !aktifOturum.tok || sayac > 40) {
+    if (!aktifOturum || !aktifOturum.tok || Date.now() >= yerelOnayBitisMs) {
       clearInterval(onayTakipZamanlayici);
       return;
     }
@@ -1774,6 +1867,8 @@ function canliOnayTakibiBaslat() {
         }
         if (!v.komutSiraBekliyor && !v.bakiye.onayBekliyor) {
           clearInterval(onayTakipZamanlayici);
+          clearInterval(yerelOnaySaniyeZamanlayici);
+          yerelOnayBitisMs = 0;
         }
       }
     } catch (e) {}
@@ -1807,8 +1902,8 @@ async function yayinDegistir() {
       son.komutSiraBekliyor = (son.hedefKomut !== son.gercekDurum);
       if (yeniKomut === 'DURAKLATILDI') { son.otoAcik = false; }
       onbellekYaz(son);
+      canliOnayTakibiBaslat(ONAY_SURESI_SN, son.bakiye.bekleyen);
       yayinVeBakiyeDurumBantlariniGuncelle(son);
-      canliOnayTakibiBaslat();
     }
   } catch (e) {}
   finally {
@@ -1838,16 +1933,15 @@ function bakiyeCanliOnizlemeGuncelle() {
 
 function faturaGecmisiTablosuCiz(v) {
   var fg = v.faturaGecmis || {};
-  var sonOdeme = fg.sonOdeme || { tarih: '3 Kas', tutar: 500, yontem: 'Manuel ödeme · Visa •••• 2143' };
+  var sonOdeme = fg.sonOdeme || { tarih: '3 Kas', tutar: 500, yontem: 'Banka Kartı · Visa •••• 2143' };
 
   $('faturaSonOdemeTarih').textContent = sonOdeme.tarih || '—';
-  $('faturaSonOdemeTutar').textContent = fmtPara(sonOdeme.tutar || 0) + ' · Manuel ödeme';
-  $('faturaSonOdemeYontem').textContent = sonOdeme.yontem || 'Manuel ödeme';
+  $('faturaSonOdemeTutar').textContent = fmtPara(sonOdeme.tutar || 0) + ' · Banka Kartı';
+  $('faturaSonOdemeYontem').textContent = sonOdeme.yontem || 'Banka Kartı · Visa •••• 2143';
 
   var aylikMal = fg.aylikMaliyetler || {};
   var aylikOde = fg.aylikOdemeler || {};
 
-  // 2026 yılı aylarını Kasım'dan Ocak'a doğru (3. görseldeki sırayla) oluştur
   var gecerliAyKod = '2026-11';
   var simdiAyNo = new Date().getMonth() + 1;
   var simdiYil = new Date().getFullYear();
@@ -1873,7 +1967,7 @@ function faturaGecmisiTablosuCiz(v) {
       '</button>' +
       '<div class="ay-detay-ic">' +
         '<div class="ay-detay-satir"><span>' + AY_TAM_ADLAR[ayIndeks] + ' Ayı Toplam Reklam Harcaması (Net Maliyet):</span><b class="num">' + fmtPara(netMaliyet) + '</b></div>' +
-        '<div class="ay-detay-satir"><span>' + AY_TAM_ADLAR[ayIndeks] + ' Ayı Yapılan Toplam Ödeme (Yüklenen Bakiye):</span><b class="num" style="color:#86efac">' + fmtPara(odemeTutar) + '</b></div>' +
+        '<div class="ay-detay-satir"><span>' + AY_TAM_ADLAR[ayIndeks] + ' Ayı Yapılan Toplam Ödeme (Banka Kartı · Visa •••• 2143):</span><b class="num" style="color:#86efac">' + fmtPara(odemeTutar) + '</b></div>' +
       '</div>';
 
     kapsul.querySelector('.ay-satir-ust').addEventListener('click', function () {
@@ -1905,7 +1999,7 @@ function bakiyeModalAc(ozelUyariMesaji) {
   var bekKutu = $('bekleyenBakiyeKutusu');
   if (bekleyen > 0) {
     bekKutu.hidden = false;
-    bekKutu.textContent = '⏳ Şu an Google Ads onayı bekleyen ' + fmtPara(bekleyen) + ' bakiye yüklemeniz var. Yaklaşık 1-2 dakika içinde mevcut fonlarınıza eklenecektir.';
+    bekKutu.textContent = '⏳ Şu an Google Ads onayı bekleyen ' + fmtPara(bekleyen) + ' bakiye yüklemeniz var (Maksimum 2 dakika içinde onaylanmazsa otomatik iptal olur).';
   } else {
     bekKutu.hidden = true;
   }
@@ -1962,10 +2056,13 @@ async function bakiyeYukleOnayla() {
   try {
     var yanit = await apiCagir(aktifOturum.id, { tok: aktifOturum.tok }, '&islem=bakiye_yukle&ekle=' + encodeURIComponent(eklenecek) + '&taze=1');
     if (yanit && yanit.ok) {
+      depo.sil(LS.hataBakiye);
       var bekleyenTop = (yanit.bakiye && yanit.bakiye.bekleyen !== undefined) ? n(yanit.bakiye.bekleyen) : Number((son.bakiye.bekleyen + eklenecek).toFixed(2));
       son.bakiye.bekleyen = bekleyenTop;
       son.bakiye.onayBekliyor = true;
+      son.bakiye.kalanSn = ONAY_SURESI_SN;
       onbellekYaz(son);
+      canliOnayTakibiBaslat(ONAY_SURESI_SN, bekleyenTop);
       yayinVeBakiyeDurumBantlariniGuncelle(son);
       inp.value = '';
       var hizliBtnler = document.querySelectorAll('.q-btn');
@@ -1974,12 +2071,11 @@ async function bakiyeYukleOnayla() {
 
       var bekKutu = $('bekleyenBakiyeKutusu');
       bekKutu.hidden = false;
-      bekKutu.textContent = '⏳ Toplam ' + fmtPara(bekleyenTop) + ' bakiye yüklemeniz Google Ads onayı bekliyor.';
+      bekKutu.textContent = '⏳ Toplam ' + fmtPara(bekleyenTop) + ' bakiye yüklemeniz Google Ads onayı bekliyor (2 dakika içinde onaylanmazsa iptal edilir).';
 
       msg.hidden = false;
-      msg.textContent = yanit.mesaj || ('⏳ ' + fmtPara(eklenecek) + ' yükleme talebiniz Google Ads\'e iletildi. Yaklaşık 1-2 dakika içinde hesabınıza yansıyacak ve üstteki bakiyeniz güncellenecektir.');
+      msg.textContent = yanit.mesaj || ('⏳ ' + fmtPara(eklenecek) + ' yükleme talebiniz Google Ads\'e iletildi. Maksimum 2 dakika içinde onaylandığında üstteki bakiyeniz güncellenecektir.');
       msg.className = 'msg warn';
-      canliOnayTakibiBaslat();
     } else {
       msg.hidden = false;
       msg.textContent = (yanit && yanit.mesaj) || '❌ Bakiye talebi iletilemedi, lütfen tekrar deneyin.';
@@ -2216,12 +2312,12 @@ async function otoPlanKaydet() {
         son.komutSiraBekliyor = (son.hedefKomut !== son.gercekDurum);
       }
       onbellekYaz(son);
+      canliOnayTakibiBaslat(ONAY_SURESI_SN, son.bakiye.bekleyen);
       yayinVeBakiyeDurumBantlariniGuncelle(son);
       msg.hidden = false;
-      msg.textContent = yanit.mesaj || '✅ Otomatik Aç/Kapat saat planınız kaydedildi. Yaklaşık 1-2 dakika içinde Google Ads hesabınıza yansıyacaktır.';
+      msg.textContent = yanit.mesaj || '✅ Otomatik Aç/Kapat saat planınız kaydedildi. Maksimum 2 dakika içinde Google Ads hesabınıza yansıyacaktır.';
       msg.className = 'msg ok';
       gitBtn.hidden = true;
-      canliOnayTakibiBaslat();
     } else {
       msg.hidden = false;
       msg.textContent = '❌ Plan kaydedilemedi, tekrar deneyin.';
@@ -2254,7 +2350,6 @@ async function baslat() {
       panoyuCiz(kayit.v, false); goster('dashScreen');
     } catch (e) { depo.sil(LS.veri); kayit = null; }
   }
-  // Uygulama veya site her açıldığında en taze veriyi çek ve 45 dk sayacını başlat
   if (kayit) { await veriYukle(o.id, { tok: o.tok }, { sessiz: true, taze: true }); }
   else { await veriYukle(o.id, { tok: o.tok }, { taze: true }); }
 }
@@ -2285,6 +2380,7 @@ function periyodikKontrolVeGeriSayim() {
     veriYukle(aktifOturum.id, { tok: aktifOturum.tok }, { sessiz: true, taze: true });
   } else {
     geriSayimMetniGuncelle();
+    if (son) { yayinVeBakiyeDurumBantlariniGuncelle(son); }
   }
 }
 
@@ -2884,7 +2980,7 @@ setInterval(periyodikKontrolVeGeriSayim, 15000);
 
 window.__panelHazir = true;
 if (QS.get('sifirla') === '1') {
-  depo.sil(LS.ban); depo.sil(LS.deneme); depo.sil(LS.oturum); depo.sil(LS.veri);
+  depo.sil(LS.ban); depo.sil(LS.deneme); depo.sil(LS.oturum); depo.sil(LS.veri); depo.sil(LS.hataBakiye);
   try { var u = new URL(location.href); u.searchParams.delete('sifirla'); history.replaceState(null, '', u.pathname + u.search + u.hash); } catch (e) {}
 }
 pinNoktalari();
@@ -2893,7 +2989,7 @@ parcaciklariBaslat();
 
 if ('serviceWorker' in navigator && location.protocol.indexOf('http') === 0) {
   window.addEventListener('load', function () {
-    navigator.serviceWorker.register('sw.js?v=8.0').then(function (reg) {
+    navigator.serviceWorker.register('sw.js?v=8.1').then(function (reg) {
       try { reg.update(); } catch (e) {}
     }).catch(function () {});
   });
